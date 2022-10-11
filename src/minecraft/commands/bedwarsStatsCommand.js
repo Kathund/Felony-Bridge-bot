@@ -49,9 +49,12 @@ class PingCommand extends MinecraftCommand {
           // this.send(`/gc Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins} - ${makeid(10)}`)
         }
         else {
-          console.log(data.stats.bedwars)
           this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio} - ${makeid(10)}`)
         }
+    }).catch((err) => {
+      this.send(`/gc ${player} dose not exist! - ${makeid(10)}`)
+      console.log(`error was caused by ${username}`)
+      console.log(err)
     })
   }
 }
