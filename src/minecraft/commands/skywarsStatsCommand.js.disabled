@@ -1,0 +1,61 @@
+const MinecraftCommand = require('../../contracts/MinecraftCommand')
+const HypixelAPIReborn = require('hypixel-api-reborn')
+const HypAPI = new HypixelAPIReborn.Client('cc4cde34-734e-4b33-9bc6-51c65006ccff')
+
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+}
+
+class PingCommand extends MinecraftCommand {
+  constructor(minecraft) {
+    super(minecraft)
+
+    this.name = 'sw'
+    this.aliases = ['skywars']
+    this.description = 'Look up your skywars stats'
+  }
+
+ 
+  onCommand(username, message) {
+    // get the player name in the second word of the message
+    const player = message.split(' ')[1]
+    // get the player's stats
+    HypAPI.getPlayer(player).then((data) => {
+        // check the ammount of splits in the message
+        if(message.split(' ').length != 2) {
+          const mode = message.split(' ')[2]
+          if(mode == 'solo') {
+            const type = message.split(' ')[3]
+            if(type == 'overall' ||
+              type == 'normal' ||
+              type == 'insane') {
+                this.send(`/gc Info for ${player} in mode ${mode} and type ${type} - FKDR: ${data.stats.skywars[type][mode].finalKDRatio}, Winstreak: ${data.stats.skywars[type][mode].winstreak}, Wins: ${data.stats.skywars[type][mode].wins} - ${makeid(10)}`)
+            }
+          }
+          else if (mode = 'men') {
+            console.log(data.stats.skywars)
+          }
+          else {
+            this.send(`/gc aaaaaaaaa - ${makeid(10)}`)
+          }
+          // console.log(data.stats.bedwars)
+          // this.send(`/gc Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins} - ${makeid(10)}`)
+        }
+        else {
+          console.log(data.stats.bedwars)
+          this.send(`/gc bbbbbbbbbb - ${makeid(10)}`)
+        }
+    })
+  }
+}
+
+module.exports = PingCommand
+
+
