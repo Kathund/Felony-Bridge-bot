@@ -32,14 +32,9 @@ class PingCommand extends MinecraftCommand {
         if(message.split(' ').length == 2) {
           this.send(`/gc Info for ${player} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills}, Wins: ${data.stats.skywars.wins}, KD: ${data.stats.skywars.KDRatio}, WLR: ${data.stats.skywars.WLRatio},- ${makeid(10)}`)
         }
-        else if (message.split(' ').length == 3) {
-          const mode = message.split(' ')[2]
-          if (mode == 'solo') {
-            if (type == 'overall' || type == 'insane' || type == 'normal' ) {
-              this.send(`/gc Info for ${player} in mode ${mode} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills}, Wins: ${data.stats.skywars.wins}, KD: ${data.stats.skywars.KDRatio}, WLR: ${data.stats.skywars.WLRatio},- ${makeid(10)}`)
-            }
-          }
-        }
+    }).catch((error) => {
+      this.send(`/gc ${player} is not a valid player!`)
+      console.log(error)
     })
   }
 }
