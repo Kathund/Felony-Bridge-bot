@@ -1,6 +1,7 @@
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = new HypixelAPIReborn.Client('cc4cde34-734e-4b33-9bc6-51c65006ccff')
+const check = 'enabled'
 
 function makeid(length) {
     var result           = '';
@@ -13,7 +14,7 @@ function makeid(length) {
    return result;
 }
 
-class PingCommand extends MinecraftCommand {
+class SkywarsCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
@@ -23,13 +24,18 @@ class PingCommand extends MinecraftCommand {
   }
 
  
-  onCommand(username, message) {
+onCommand(username, message) {
+  if (check != 'disabled') {
     // get the player name in the second word of the message
     const player = message.split(' ')[1]
     // get the player's stats
     HypAPI.getPlayer(player).then((data) => {
         // check the ammount of splits in the message
-        if(message.split(' ').length == 2) {
+        if(message.split(' ').length == 3) {
+          // get the mode from the third word of the message
+          const mode = message.split(' ')[2]
+          // check if the mode is solo
+          if(mode == 'solo' || mode == 'a') {}
           this.send(`/gc Info for ${player} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills}, Wins: ${data.stats.skywars.wins}, KD: ${data.stats.skywars.KDRatio}, WLR: ${data.stats.skywars.WLRatio},- ${makeid(10)}`)
         }
     }).catch((error) => {
@@ -37,8 +43,11 @@ class PingCommand extends MinecraftCommand {
       console.log(error)
     })
   }
-}
+  else {
+    this.send(`/gc This command is disabled! - ${makeid(10)}`)
+  }
+}}
 
-module.exports = PingCommand
+module.exports = SkywarsCommand
 
 
