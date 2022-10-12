@@ -31,12 +31,32 @@ onCommand(username, message) {
     // get the player's stats
     HypAPI.getPlayer(player).then((data) => {
         // check the ammount of splits in the message
-        if(message.split(' ').length == 3) {
+        if(message.split(' ').length == 4) {
           // get the mode from the third word of the message
           const mode = message.split(' ')[2]
           // check if the mode is solo
-          if(mode == 'solo' || mode == 'a') {}
-          this.send(`/gc Info for ${player} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills}, Wins: ${data.stats.skywars.wins}, KD: ${data.stats.skywars.KDRatio}, WLR: ${data.stats.skywars.WLRatio},- ${makeid(10)}`)
+          if (mode == 'solo' || mode == 'team') {
+            const type = message.split(' ')[3]
+            if (type == 'overall' || type == 'normal' || type == 'insane') {
+              this.send(`/gc info for ${player} in ${mode} ${type} - Kills: ${data.stats.skywars[mode][type].kills} Wins: ${data.stats.skywars[mode][type].wins} KD: ${data.stats.skywars[mode][type].KDRatio} WLR: ${data.stats.skywars[mode][type].WLRatio} - ${makeid(10)}`)
+            }
+            else {
+              this.send(`/gc Invalid type! Valid Modes: [overall, normal, insane] - ${makeid(10)}`)
+            }
+          }
+          else if (mode == 'ranked') {
+            this.send(`/gc Ranked is no longer supported - ${makeid(10)}`)
+          }
+          else if (mode == 'mega') {
+            this.send(`/gc info for ${player} in ${mode} ${type} - Kills: ${data.stats.skywars[mode].overall.kills} Wins: ${data.stats.skywars[mode].overall.wins} KD: ${data.stats.skywars[mode].overall.KDRatio} WLR: ${data.stats.skywars[mode].overall.WLRatio} - ${makeid(10)}`)
+          }
+          else {
+            this.send(`/gc Invalid mode! Valid Modes: [solo, team, ranked, mega] - ${makeid(10)}`)
+          }
+        }
+        else if (message.split(' ').length == 2) {
+          // send the stats
+          this.send(`/gc Info for ${player} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills} Wins: ${data.stats.skywars.wins} KD: ${data.stats.skywars.KDRatio} WLR: ${data.stats.skywars.WLRatio} - ${makeid(10)}`)
         }
     }).catch((error) => {
       this.send(`/gc ${player} is not a valid player!`)
