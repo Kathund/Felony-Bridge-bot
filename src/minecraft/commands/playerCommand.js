@@ -35,16 +35,16 @@ onCommand(username, message) {
                 HypAPI.getPlayer(player).then((data) => {
                     // console log the data
                     console.log(data)
-                    this.send(`/gc Info for ${player} - Rank: ${data.stats.player.rank}`)
+                    this.send(`/gc Info for ${player} - Rank: ${data.rank} Karma: ${data.karma} Network Level: ${data.level} Achievement Points: ${data.achievementPoints} - ${makeid(10)}`)
                 }).catch((error) => {
                   this.send(`/gc ${player} is not a valid player!`)
                   console.log(error)
                 })
             }
-        }
-    }
-    else {
-        this.send(`/gc This command is disabled! - ${makeid(10)}`)
+        } 
+        else {
+          this.send(`/gc This command is disabled! - ${makeid(10)}`)
+      }
     }
 }}
 
