@@ -50,7 +50,3 @@ class sbCommand extends MinecraftCommand {
 module.exports = sbCommand
 
 
-
-          // else if (mode == 'men') {
-          //   console.log(data.stats.skywars)
-          // }
