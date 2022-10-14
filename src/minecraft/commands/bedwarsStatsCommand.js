@@ -48,10 +48,10 @@ class BedwarsCommand extends MinecraftCommand {
           else {
             this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
           }
-      }).catch((err) => {
-        this.send(`/gc ${player} dose not exist! - ${makeid(10)}`)
+      }).catch((error) => {
+        this.send(`/gc ${player} does not exist! - ${makeid(10)}`)
         console.log(`error was caused by ${username}`)
-        console.log(err)
+        console.log(error)
       })
     }
     else {
