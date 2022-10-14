@@ -66,7 +66,8 @@ onCommand(username, message) {
           this.send(`/gc Info for ${player} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills} Wins: ${data.stats.skywars.wins} KD: ${data.stats.skywars.KDRatio} WLR: ${data.stats.skywars.WLRatio} - ${makeid(10)}`)
         }
     }).catch((error) => {
-      this.send(`/gc ${player} is not a valid player!`)
+      this.send(`/gc ${player} does not exist! - ${makeid(10)}`)
+      console.log(`error was caused by ${username}`)
       console.log(error)
     })
   }
