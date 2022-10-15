@@ -26,9 +26,9 @@ class men extends MinecraftCommand {
  
 onCommand(username, message) {
   if (check != 'disabled') {
-    if (username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'Udderly_Cool' || username == 'hitlast' || username == 'SpookyHitlast') {
-      HypAPI.getGuild('name', 'felony').then((data) => {
-        console.log(data.achievements)
+    if (username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'Udderly_Cool' || username == 'SpookyBurger' || username == 'SpookyHitlast') {
+      HypAPI.getPlayer('SpookyKath').then((data) => {
+        console.log(data.stats.bedwars.dream)
       })
     }
     else { 
