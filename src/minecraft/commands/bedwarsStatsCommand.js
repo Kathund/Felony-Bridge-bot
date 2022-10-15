@@ -69,6 +69,9 @@ class BedwarsCommand extends MinecraftCommand {
               this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
             }
           }
+          else if (message.split(' ').length == 4) {
+            this.send(`/gc Invalid gamemode! Valid Gamemodes: [doubles, fours] - ${makeid(10)}`)
+          }
           else {
             this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
           }
