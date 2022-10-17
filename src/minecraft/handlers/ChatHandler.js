@@ -228,6 +228,10 @@ class StateHandler extends EventHandler {
     return message.startsWith('Guild >') && message.includes(':')
   }
 
+  isOfficerMessage(message) {
+    return message.startsWith('Officer >') && message.includes(':')
+  }
+
   isLoginMessage(message) {
     return message.startsWith('Guild >') && message.endsWith('joined.') && !message.includes(':')
   }
