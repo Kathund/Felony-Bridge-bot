@@ -31,14 +31,26 @@ onCommand(username, message) {
         // get the player name in the second word of the message
         const guild = message.split(' ')[1]
         // get the player's stats
-        HypAPI.getGuild('name', guild).then((data) => {
-            // console.log(data)
-            this.send(`/gc Guild info for ${data.name} - Tag: ${data.tag} Members: ${data.members.length} Level: ${data.level} Achievements: Online Players: ${data.achievements.onlinePlayers} Winners: ${data.achievements.winners} - ${makeid(10)}`)
-        }).catch((error) => {
-          this.send(`/gc ${guild} does not exist! - ${makeid(10)}`)
-          console.log(`error was caused by ${username}`)
-          console.log(error)
-        })
+        if(message.split(' ').length == 3) {
+          const player = message.split(' ')[2]
+          if (player == 'player') {
+            HypAPI.getGuild('player', guild).then((data) => {
+              this.send(`/gc Guild info for ${data.name} - Tag: ${data.tag} Members: ${data.members.length} Level: ${data.level} Achievements: Online Players: ${data.achievements.onlinePlayers} Winners: ${data.achievements.winners} - ${makeid(10)}`)
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
+        }
+        else {
+          HypAPI.getGuild('name', guild).then((data) => {
+              // console.log(data)
+              this.send(`/gc Guild info for ${data.name} - Tag: ${data.tag} Members: ${data.members.length} Level: ${data.level} Achievements: Online Players: ${data.achievements.onlinePlayers} Winners: ${data.achievements.winners} - ${makeid(10)}`)
+          }).catch((error) => {
+            this.send(`/gc ${guild} does not exist! - ${makeid(10)}`)
+            console.log(`error was caused by ${username}`)
+            console.log(error)
+          })
+        }
   } else {
     this.send(`/gc This command is disabled! - ${makeid(10)}`)
   }
