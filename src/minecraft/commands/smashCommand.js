@@ -1,8 +1,7 @@
 
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
-const HypAPI = require('../../Hypixel')
-// const HypAPI = new HypixelAPIReborn.Client('cc4cde34-734e-4b33-9bc6-51c65006ccff')
+const HypAPI = require('../../Hypixel.js')
 const check = 'enabled'
 
 function makeid(length) {
