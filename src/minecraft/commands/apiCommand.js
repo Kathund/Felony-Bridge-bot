@@ -27,9 +27,16 @@ class apiCommand extends MinecraftCommand {
  
 onCommand(username, message) {
   if (check != 'disabled') {
-    HypAPI.getKeyInfo().then((data) => {
-      this.send(`/gc The amount of times the api key has been used: ${data.totalRequests} - ${makeid(10)}`)
-    })
+    // get the player name in the second word of the message
+    const player = message.split(' ')[1]
+    if (player == 'help') {
+        this.send(`/gc Usage: !api - ${makeid(10)}`)
+    }
+    else {
+      HypAPI.getKeyInfo().then((data) => {
+        this.send(`/gc The amount of times the api key has been used: ${data.totalRequests} - ${makeid(10)}`)
+      })
+    }
   }
   else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
