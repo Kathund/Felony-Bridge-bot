@@ -30,6 +30,9 @@ onCommand(username, message) {
   if (check != 'disabled') {
     // get the player name in the second word of the message
     const player = message.split(' ')[1]
+    if (player == 'help') {
+        this.send(`/gc Usage: !duels <player> [mode] - Modes: [parkour, bowspleef, arena, megawalls, sumo, classic, combo, blitz, nodebuff, bow, boxing, uhc, op, skywars, bridge] - ${makeid(10)}`)
+    }
     // get the player's stats
     HypAPI.getPlayer(player).then((data) => {
       // check the ammount of splits in the message
@@ -47,7 +50,7 @@ onCommand(username, message) {
           this.send(`/gc info for ${player} in ${mode}: Division: ${data.stats.duels[mode].division} Kills: ${data.stats.duels[mode].kills} Wins: ${data.stats.duels[mode].wins} - ${makeid(10)}`)
         }
         else {
-          this.send(`/gc Invalid mode! Valid Modes: [parkour, bowspleef,  arena,  megawalls,  sumo,  classic,  combo,  blitz,  nodebuff,  bow, boxing, uhc, op, skywars, bridge] - ${makeid(10)}`)
+          this.send(`/gc Invalid mode! Valid Modes: [parkour, bowspleef, arena, megawalls, sumo, classic, combo, blitz, nodebuff, bow, boxing, uhc, op, skywars, bridge] - ${makeid(10)}`)
         }
       }
       else {
