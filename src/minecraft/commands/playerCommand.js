@@ -30,6 +30,9 @@ onCommand(username, message) {
     // get the player name in the second word of the message
     const player = message.split(' ')[1]
     // get the player's stats
+    if (player == 'help') {
+      
+    }
     HypAPI.getPlayer(player).then((data) => {
         // console log the data
         console.log(data)
