@@ -54,14 +54,13 @@ class DenickCommand extends MinecraftCommand {
             const a = (aaa.player.ign)
             HypAPI.getPlayer(a).then((data) => {
               this.send(`/gc Denicked - ${player} is ${a} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
-          })
-          }).catch((err) => {
+          }).catch(err => {
+            console.log(`error was caused by ${username}`)
             console.log(err)
+            this.send(`/gc ${player} is not in the database! - ${makeid(10)}`)
           })
-        }).catch((err) => {
-          this.send(`/gc Error - ${makeid(10)}`)
-          console.log(err)
-        }) 
+          }).catch(err => console.log(err));
+        }).catch(err => console.log(err));
       } else {
         this.send(`/gc This command is disabled! - ${makeid(10)}`)
       }
