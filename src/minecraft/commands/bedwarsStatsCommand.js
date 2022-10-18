@@ -45,6 +45,9 @@ class BedwarsCommand extends MinecraftCommand {
           this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
         })
       }
+      else if (player == 'help') {
+        this.send(`/gc Usage: !bw <player> [mode] - Modes: solo, doubles, threes, fours, 4v4, castle, overall - DREAM MODES ARE COMMING - ${makeid(10)}`)
+      }
       else {
         HypAPI.getPlayer(player).then((data) => {
             // check the ammount of splits in the message
@@ -67,27 +70,6 @@ class BedwarsCommand extends MinecraftCommand {
               else {
                 this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
               }
-            }
-            else if (message.split(' ').length == 5) {
-              const mode = message.split(' ')[2]
-              const type = message.split(' ')[3]
-              const gamemode = message.split(' ')[4]
-              if (mode == 'dream') {
-                if (type == 'voidless' || type == 'lucky' || type == 'armed' || type == 'rush' || type == 'ultimate') {
-                  if (gamemode == 'doubles' || gamemode == 'fours') {
-                    this.send(`/gc Info for ${player} in mode ${mode} ${type} ${gamemode} - FKDR: ${data.stats.bedwars.dream[type][gamemode].finalKDRatio}, Winstreak: ${data.stats.bedwars.dream[type][gamemode].winstreak}, Wins: ${data.stats.bedwars.dream[type][gamemode].wins}, WLR ${data.stats.bedwars.dream[type][gamemode].WLRatio}, BLR ${data.stats.bedwars.dream[type][gamemode].beds.BLRatio}, Finals: ${data.stats.bedwars.dream[type][gamemode].finalKills}, Beds: ${data.stats.bedwars.dream[type][gamemode].beds.broken} - ${makeid(10)}`)
-                  } else {
-                    this.send(`/gc Invalid gamemode! Valid Gamemodes: [doubles, fours] - ${makeid(10)}`)
-                  }
-                } else {
-                  this.send(`/gc Invalid type! Valid Types: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
-                }
-              } else {
-                this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
-              }
-            }
-            else if (message.split(' ').length == 4) {
-              this.send(`/gc Invalid gamemode! Valid Gamemodes: [doubles, fours] - ${makeid(10)}`)
             }
             else {
               this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
