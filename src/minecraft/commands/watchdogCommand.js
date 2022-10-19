@@ -27,6 +27,7 @@ class watchdogCommand extends MinecraftCommand {
  
 onCommand(username, message) {
     if (check != 'disabled') {
+        // get the watchdog stats
         HypAPI.getWatchdogStats().then((data) => {
             this.send(`/gc Watchdog Stats: ${data.byWatchdogTotal} Staff Stats: ${data.byStaffTotal} - ${makeid(10)}`)
         }).catch((error) => {
