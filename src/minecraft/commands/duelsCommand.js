@@ -53,7 +53,7 @@ onCommand(username, message) {
         }
       }
       else {
-        this.send(`/gc info for ${player} - division: ${data.stats.duels.division} Kills: ${data.stats.duels.kills} Wins: ${data.stats.duels.wins} KD: ${data.stats.duels.KDRatio} WLR: ${data.stats.duels.WLRatio} - ${makeid(10)}`)
+        this.send(`/gc info for ${player} - Division: ${data.stats.duels.division} Kills: ${data.stats.duels.kills} Wins: ${data.stats.duels.wins} KD: ${data.stats.duels.KDRatio} WLR: ${data.stats.duels.WLRatio} - ${makeid(10)}`)
       }
     }).catch((error) => {
       this.send(`/gc ${player} does not exist! - ${makeid(10)}`)
