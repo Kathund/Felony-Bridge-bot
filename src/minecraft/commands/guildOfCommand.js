@@ -19,8 +19,8 @@ class guildOfCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
-    this.name = 'guild_of'
-    this.aliases = ['go']
+    this.name = 'go'
+    this.aliases = ['guild_of']
     this.description = 'Look up a guild based of a player'
   }
 
@@ -30,14 +30,19 @@ onCommand(username, message) {
         // get the guild name in the second word of the message
         const guild = message.split(' ')[1]
         // get the guild's stats
-        HypAPI.getGuild('player', guild).then((data) => {
-            // console.log(data)
-            this.send(`/gc Guild info for ${data.name} - Tag: ${data.tag} Members: ${data.members.length} Level: ${data.level} Achievements: Online Players: ${data.achievements.onlinePlayers} Winners: ${data.achievements.winners} - ${makeid(10)}`)
-        }).catch((error) => {
-          this.send(`/gc ${guild} is not in a guild! - ${makeid(10)}`)
-          console.log(`error was caused by ${username}`)
-          console.log(error)
-        })
+        if (guild == 'help') {
+            this.send(`/gc Usage: !go <player in guild> - ${makeid(10)}`)
+        }
+        else {
+          HypAPI.getGuild('player', guild).then((data) => {
+              // console.log(data)
+              this.send(`/gc Guild info for ${data.name} - Tag: ${data.tag} Members: ${data.members.length} Level: ${data.level} Achievements: Online Players: ${data.achievements.onlinePlayers} Winners: ${data.achievements.winners} - ${makeid(10)}`)
+          }).catch((error) => {
+            this.send(`/gc ${guild} is not in a guild! - ${makeid(10)}`)
+            console.log(`error was caused by ${username}`)
+            console.log(error)
+          })
+        }
   } else {
     this.send(`/gc This command is disabled! - ${makeid(10)}`)
   }
