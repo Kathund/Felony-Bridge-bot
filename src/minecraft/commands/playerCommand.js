@@ -28,18 +28,20 @@ onCommand(username, message) {
   if (check != 'disabled') {
     // get the player name in the second word of the message
     const player = message.split(' ')[1]
-    // get the player's stats
     if (player == 'help') {
-      
+      this.send(`/gc Usage: - !player <player> - look up a player - ${makeid(10)}`)
     }
-    HypAPI.getPlayer(player).then((data) => {
-        // console log the data
-        console.log(data)
-        this.send(`/gc Info for ${player} - Rank: ${data.rank} Karma: ${data.karma} Network Level: ${data.level} Achievement Points: ${data.achievementPoints} - ${makeid(10)}`)
-    }).catch((error) => {
-      this.send(`/gc ${player} is not a valid player!`)
-      console.log(error)
-    })
+    // get the player's stats
+    else {
+      HypAPI.getPlayer(player).then((data) => {
+          // console log the data
+          console.log(data)
+          this.send(`/gc Info for ${player} - Rank: ${data.rank} Karma: ${data.karma} Network Level: ${data.level} Achievement Points: ${data.achievementPoints} - ${makeid(10)}`)
+      }).catch((error) => {
+        this.send(`/gc ${player} is not a valid player!`)
+        console.log(error)
+      })
+    }
   }
   else {
     this.send(`/gc This command is disabled! - ${makeid(10)}`)
