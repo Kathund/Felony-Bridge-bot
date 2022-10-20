@@ -5,6 +5,9 @@ const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
 const check = 'test'
+const fetch = (...args) => import('node-fetch').then(({
+	default: fetch
+}) => fetch(...args)).catch(err => console.log(err));
 
 function makeid(length) {
     var result           = '';
@@ -31,16 +34,16 @@ onCommand(username, message) {
   if (username == 'SpookyZom' || username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'SpookyBurger' || username == 'SpookyHitlast') {    // get the player name in the second word of the message
     const player = message.split(' ')[1]
     const profile = message.split(' ')[2]
-    // get the player's stats
-    HypAPI.getSkyblockMember(player).then((data) => {
-        // console log the data
-        console.log(data)
-        this.send(`/gc ${data.fairySouls}`)
-    }).catch((err) => {
-      this.send(`/gc ${player} dose not exist! - ${makeid(10)}`)
-      console.log(`error was caused by ${username}`)
-      console.log(err)
-    })
+    const subcommand = message.split(' ')[3]
+    if (subcommand == 'slayer') {
+      fetch(`https://sky.shiiyu.moe/api/v2/slayers/${player}/${profile}`).then((res) => {
+        res.json().then((data) => {
+          console.log(data)
+          this.send(`/gc Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
+        })
+      })
+    }
+    // else if (subcommand ==) {}
   }
   else {
     this.send(`/gc This command is disabled! - ${makeid(10)}`)
