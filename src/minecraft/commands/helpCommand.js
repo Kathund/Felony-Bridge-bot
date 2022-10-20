@@ -37,6 +37,9 @@ class HelpCommand extends MinecraftCommand {
       else if (subcommand == 'duels') {
         this.send(`/gc Usage: !duels <player> [mode] - will show the player's duels stats - ${makeid(10)}`)
       }
+      else if (subcommand == 'findnick') {
+        this.send(`/gc Usage: !findnick <player> - will find the nick of a player - ${makeid(10)}`)
+      }
       else if (subcommand == 'guild') {
         this.send(`/gc Usage: !guild <guild> - will show the guild's stats - ${makeid(10)}`)
       }
@@ -56,7 +59,7 @@ class HelpCommand extends MinecraftCommand {
         this.send(`/gc Usage: !watchdog - will show the watchdog info - ${makeid(10)}`)
       }
       else {
-        this.send(`/gc Current Commands: !api, !bedwars, !denick, !duels, !guild, !go, !help, !player, !skywars, !watchdog - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
+        this.send(`/gc Current Commands: !api, !bedwars, !denick, !duels, !findnick, !guild, !go, !help, !player, !skywars, !watchdog - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
       }
     } else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
