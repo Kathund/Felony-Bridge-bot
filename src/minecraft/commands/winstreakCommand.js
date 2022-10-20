@@ -39,7 +39,12 @@ class winstreakCommand extends MinecraftCommand {
         else {
           fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${player}`).then((res) => {
             res.json().then((data) => {
-                this.send(`/gc Winstreak info for ${data.player.ign}: Api on: ${data.player.accurate} Overall: ${data.player.data.overall_winstreak} Solo: ${data.player.data.eight_one_winstreak} Doubles: ${data.player.data.eight_two_winstreak} Threes: ${data.player.data.four_three_winstreak} Fours: ${data.player.data.four_four_winstreak} 4v4: ${data.player.data.two_four_winstreak} - ${makeid(10)}`)
+              if (data.player.accurate == false) {
+                this.send(`/gc Winstreak info for ${data.player.ign}: Api: OFF - Overall: ${data.player.data.overall_winstreak} Solo: ${data.player.data.eight_one_winstreak} Doubles: ${data.player.data.eight_two_winstreak} Threes: ${data.player.data.four_three_winstreak} Fours: ${data.player.data.four_four_winstreak} 4v4: ${data.player.data.two_four_winstreak} - ${makeid(10)}`)
+              }
+              else {
+                this.send(`/gc Winstreak info for ${data.player.ign}: Api: ON - Overall: ${data.player.data.overall_winstreak} Solo: ${data.player.data.eight_one_winstreak} Doubles: ${data.player.data.eight_two_winstreak} Threes: ${data.player.data.four_three_winstreak} Fours: ${data.player.data.four_four_winstreak} 4v4: ${data.player.data.two_four_winstreak} - ${makeid(10)}`)
+              }
             }).catch(err => {
                 console.log(err)
                 this.send(`/gc ${player} is not a valid player - ${makeid(10)}`)
