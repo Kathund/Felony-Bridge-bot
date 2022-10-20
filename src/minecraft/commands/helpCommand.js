@@ -58,8 +58,11 @@ class HelpCommand extends MinecraftCommand {
       else if (subcommand == 'watchdog') {
         this.send(`/gc Usage: !watchdog - will show the watchdog info - ${makeid(10)}`)
       }
+      else if (subcommand == 'winstreak') {
+        this.send(`/gc Usage: !winstreak <player> - will show the player's winstreak and if there api is off there ESTIMATED wisstreak - ${makeid(10)}`)
+      }
       else {
-        this.send(`/gc Current Commands: !api, !bedwars, !denick, !duels, !findnick, !guild, !go, !help, !player, !skywars, !watchdog - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
+        this.send(`/gc Current Commands: !api, !bedwars, !denick, !duels, !findnick, !guild, !go, !help, !player, !skywars, !watchdog !winstreak - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
       }
     } else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
