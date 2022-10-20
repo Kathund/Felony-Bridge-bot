@@ -1,7 +1,10 @@
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
-const check = 'test'
+const check = 'enabled'
+const fetch = (...args) => import('node-fetch').then(({
+	default: fetch
+}) => fetch(...args)).catch(err => console.log(err));
 
 function makeid(length) {
     var result           = '';
@@ -27,8 +30,13 @@ class men extends MinecraftCommand {
 onCommand(username, message) {
   if (check != 'disabled') {
     if (username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'Udderly_Cool' || username == 'SpookyBurger' || username == 'SpookyHitlast') {
-      HypAPI.getPlayer('SpookyKath').then((data) => {
-        console.log(data.stats.bedwars.dream)
+      const player = message.split(' ')[1]
+      const profile = message.split(' ')[2]
+      fetch(`https://sky.shiiyu.moe/api/v2/slayers/${player}/${profile}`).then((res) => {
+        res.json().then((data) => {
+          console.log(data)
+          this.send(`/gc Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
+        })
       })
     }
     else { 
