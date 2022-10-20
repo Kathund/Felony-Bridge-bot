@@ -18,7 +18,7 @@ function makeid(length) {
    return result;
 }
 
-class DenickCommand extends MinecraftCommand {
+class findNickCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
@@ -53,6 +53,6 @@ class DenickCommand extends MinecraftCommand {
   }
 }
 
-module.exports = DenickCommand
+module.exports = findNickCommand
 
 
