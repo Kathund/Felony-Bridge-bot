@@ -28,7 +28,11 @@ class guildCommand extends MinecraftCommand {
 onCommand(username, message) {
     if (check != 'disabled') {
         // get the guild name in the second word of the message
-        const guild = message.split(' ')[1]
+        const args = message.split(' ')
+        let guild = '';
+        for (let i = 1; i < args.length; i++) {
+            guild = guild + args[i] + " "
+        }
         // get the guild's stats
         if (guild == 'help') {
           this.send(`/gc Usage: !guild <guild name> - ${makeid(10)}`)
