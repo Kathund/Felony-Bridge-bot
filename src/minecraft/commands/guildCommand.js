@@ -33,6 +33,7 @@ onCommand(username, message) {
         for (let i = 1; i < args.length; i++) {
             guild = guild + args[i] + " "
         }
+        guild = guild.trim()
         // get the guild's stats
         if (guild == 'help') {
           this.send(`/gc Usage: !guild <guild name> - ${makeid(10)}`)
