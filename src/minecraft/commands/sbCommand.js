@@ -31,7 +31,7 @@ class sbCommand extends MinecraftCommand {
 
  
 onCommand(username, message) {
-  if (username == 'SpookyZom' || username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'SpookyBurger' || username == 'SpookyHitlast') {    // get the player name in the second word of the message
+  if (username == 'SpookyZom' || username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'SpookyHitlast') {    // get the player name in the second word of the message
     const player = message.split(' ')[1]
     const profile = message.split(' ')[2]
     const subcommand = message.split(' ')[3]
@@ -39,11 +39,20 @@ onCommand(username, message) {
       fetch(`https://sky.shiiyu.moe/api/v2/slayers/${player}/${profile}`).then((res) => {
         res.json().then((data) => {
           console.log(data)
-          this.send(`/gc Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
+          this.send(`/gc Slayer info for ${player} - Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
         })
       })
     }
-    // else if (subcommand ==) {}
+    else if (subcommand == 'dungeons') {
+      fetch(`https://sky.shiiyu.moe/api/v2/dungeons/${player}/${profile}`).then((res) => {
+        res.json().then((data) => {
+          this.send(`/gc Dungeons info for ${player} - Level: ${data.dungeons.catacombs.level.level} Selected Class: ${data.dungeons.selected_class} Secrets: ${data.dungeons.secrets_found} F5/6/7 completions: ${data.dungeons.boss_collections.catacombs_5.killed}/${data.dungeons.boss_collections.catacombs_6.killed}/${data.dungeons.boss_collections.catacombs_7.killed} - ${makeid(10)}`)
+        })
+      })
+    }
+    else {
+      this.send(`/gc overall is work in progress - ${makeid(10)}`) 
+    }
   }
   else {
     this.send(`/gc This command is disabled! - ${makeid(10)}`)
