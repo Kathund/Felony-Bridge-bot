@@ -29,13 +29,16 @@ class men extends MinecraftCommand {
  
 onCommand(username, message) {
   if (check != 'disabled') {
-    if (username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'Udderly_Cool' || username == 'SpookyBurger' || username == 'SpookyHitlast') {
+    if (username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'SpookyZom' || username == 'SpookyHitlast') {
       const player = message.split(' ')[1]
       const profile = message.split(' ')[2]
-      fetch(`https://sky.shiiyu.moe/api/v2/slayers/${player}/${profile}`).then((res) => {
-        res.json().then((data) => {
-          console.log(data)
-          this.send(`/gc Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
+      fetch(`https://api.mojang.com/users/profiles/minecraft/${player}?at=0`).then((res) => {
+        res.json().then((player) => {
+          fetch(`https://api.pixelic.de/v1/player/daily?uuid=${player.id}`).then((res) => {
+            res.json().then((data) => {
+              console.log(data)
+            })
+          })
         })
       })
     }
