@@ -32,6 +32,8 @@ onCommand(username, message) {
     if (username == 'Axth' || username == 'oTod' || username == 'SpookyKath' || username == 'SpookyZom' || username == 'SpookyHitlast') {
       const player = message.split(' ')[1]
       const profile = message.split(' ')[2]
+      // api docs
+      // https://app.swaggerhub.com/apis-docs/Pixelicc/Pixelic-API/0.0.2#/
       fetch(`https://api.mojang.com/users/profiles/minecraft/${player}?at=0`).then((res) => {
         res.json().then((player) => {
           fetch(`https://api.pixelic.de/v1/player/daily?uuid=${player.id}`).then((res) => {
@@ -41,6 +43,7 @@ onCommand(username, message) {
           })
         })
       })
+
     }
     else { 
       this.send(`/gc You do not have access to this command! - ${makeid(10)}`)
