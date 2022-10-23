@@ -68,7 +68,6 @@ onCommand(username, message) {
       })
     }
     else if (subcommand == 'wealth') {
-      
       fetch(`https://sky.shiiyu.moe/api/v2/coins/${player}/${profile}`).then((res) => {
         res.json().then((data) => {
           const n = data.purse
@@ -82,6 +81,23 @@ onCommand(username, message) {
         })
       })
     }
+    else if (subcommand == 'test') {
+      const plr = player
+      HypAPI.getSkyblockProfiles(plr).then((profiles) => {
+        profiles.sort((a, b) => b.me.lastSaveTimestamp - a.me.lastSaveTimestamp)[0];
+        HypAPI.getSkyblockMember(plr).then(member => {
+          const sbstat = member.get(profiles[0].profileName)
+          console.log(profiles)
+          // console.log(sbstat)
+        })
+      })
+    //   fetch(`https://sky.shiiyu.moe/api/v2/profile/${player}`).then((res) => {
+    //     res.json().then((data) => {
+    //       const a = '4c4cc2c333114046808399edf39e9923'
+    //       console.log(data.profiles[a])
+    //     })
+    //   })
+    }
     else {
       this.send(`/gc overall is work in progress - ${makeid(10)}`) 
     }
@@ -92,5 +108,4 @@ onCommand(username, message) {
 }}
 
 module.exports = sbCommand
-
-
+
