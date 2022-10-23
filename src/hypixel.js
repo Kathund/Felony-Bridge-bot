@@ -1,3 +1,3 @@
 const Hypixel = require('hypixel-api-reborn');
-const HypAPI = new Hypixel.Client('cc4cde34-734e-4b33-9bc6-51c65006ccff', { cache: true });
+const HypAPI = new Hypixel.Client('52fda931-396a-407a-bcb8-958f93e8449a', { cache: true });
 module.exports = HypAPI;
