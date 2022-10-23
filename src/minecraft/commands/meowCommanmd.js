@@ -30,6 +30,9 @@ onCommand(username, message) {
     if (subcommand == 'help') {
         this.send(`/gc Usage: !uwu - ${makeid(10)}`)
     }
+    else if (username == 'SpookyKath' || username == 'SpookyCGTV') {
+      this.send(`/gc Meow! - ${makeid(10)}`)
+    }
     else {
         this.send(`/gc Meow! - ${makeid(10)}`)
         setTimeout(() => {
