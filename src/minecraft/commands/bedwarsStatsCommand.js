@@ -26,6 +26,7 @@ class BedwarsCommand extends MinecraftCommand {
  
   onCommand(username, message) {
     if (check != 'disabled') {
+      if (username != 'SpookyBurger') {
       // get the player name in the second word of the message
       const player = message.split(' ')[1]
       // get the player's stats
@@ -79,6 +80,9 @@ class BedwarsCommand extends MinecraftCommand {
           console.log(error)
         })
       }
+    } else {
+      this.send(`/gc You are Blacklisted! - ${makeid(10)}`)
+    }
     }
     else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
