@@ -55,8 +55,8 @@ onCommand(username, message) {
           var ap = data.achievementPoints
           var karma = karma.toFixed(0);
           var ap = ap.toFixed(0);
-          const karma = Formatter(karma,2)
-          const ap = Formatter(ap,2)
+          var karma = Formatter(karma,2)
+          var ap = Formatter(ap,2)
           this.send(`/gc Info for ${player} - Rank: ${data.rank} Karma: ${karma} Network Level: ${data.level} Achievement Points: ${ap} - ${makeid(10)}`)
       }).catch((error) => {
         this.send(`/gc ${player} is not a valid player!`)
