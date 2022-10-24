@@ -75,12 +75,12 @@ onCommand(username, message) {
       
       fetch(`https://sky.shiiyu.moe/api/v2/coins/${player}/${profile}`).then((res) => {
         res.json().then((data) => {
-          const n = data.purse
-          const b = data.bank
-          const s = n.toFixed(0);
-          const ba = b.toFixed(0);
-          const purse = Formatter(s,2)
-          const bank = Formatter(ba,2)
+         var purse = data.purse
+         var bank = data.bank
+         var purse = purse.toFixed(0);
+         var bank = bank.toFixed(0);
+         var purse = Formatter(purse,2)
+         var bank = Formatter(bank,2)
           console.log(`Purse : ${purse} Bank : ${bank}`)
           this.send(`/gc Wealth info for ${player} - Purse: ${purse} Bank: ${bank} - ${makeid(10)}`)
         })
