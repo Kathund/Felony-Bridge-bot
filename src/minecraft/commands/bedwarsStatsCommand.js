@@ -14,6 +14,21 @@ function makeid(length) {
    return result;
 }
 
+function Formatter(num, digits) {
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "k" },
+    { value: 1e6, symbol: "m" },
+    { value: 1e9, symbol: "b" },
+    { value: 1e12, symbol: "t" }
+  ];
+  const rx = /.0+$|(.[0-9]*[1-9])0+$/;
+  var item = lookup.slice().reverse().find(function(item) {
+    return num >= item.value;
+  });
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
+
 class BedwarsCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
@@ -31,17 +46,35 @@ class BedwarsCommand extends MinecraftCommand {
       // get the player's stats
       if (player == 'solo' || player == 'doubles' || player == 'threes' || player == 'fours' || player == '4v4') {
         HypAPI.getPlayer(username).then((data) => {
-          this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, Winstreak: ${data.stats.bedwars[player].winstreak}, Wins: ${data.stats.bedwars[player].wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${data.stats.bedwars[player].finalKills}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+          var finals = data.stats.bedwars[player].finalKills
+          var finals = finals.toFixed(0);
+          const finals = Formatter(finals,2)
+          var wins = data.stats.bedwars[player].wins
+          var wins = wins.toFixed(0);
+          const wins = Formatter(wins,2)
+          this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, Winstreak: ${data.stats.bedwars[player].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
         })
       }
       else if (player == 'overall') {
         HypAPI.getPlayer(username).then((data) => {
-          this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
+          var finals = data.stats.bedwars.finalKills
+          var finals = finals.toFixed(0);
+          const finals = Formatter(finals,2)
+          var wins = data.stats.bedwars.wins
+          var wins = wins.toFixed(0);
+          const wins = Formatter(wins,2)
+          this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
         })
       }
       else if (player == undefined) {
         HypAPI.getPlayer(username).then((data) => {
-          this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
+          var finals = data.stats.bedwars.finalKills
+          var finals = finals.toFixed(0);
+          const finals = Formatter(finals,2)
+          var wins = data.stats.bedwars.wins
+          var wins = wins.toFixed(0);
+          const wins = Formatter(wins,2)
+          this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
         })
       }
       else if (player == 'help') {
@@ -58,10 +91,22 @@ class BedwarsCommand extends MinecraftCommand {
                 mode == 'fours' ||
                 mode == '4v4' ||
                 mode == 'castle') {
-                  this.send(`/gc Info for ${player} in mode ${mode} - FKDR: ${data.stats.bedwars[mode].finalKDRatio}, Winstreak: ${data.stats.bedwars[mode].winstreak}, Wins: ${data.stats.bedwars[mode].wins}, WLR ${data.stats.bedwars[mode].WLRatio}, BLR ${data.stats.bedwars[mode].beds.BLRatio}, Finals: ${data.stats.bedwars[mode].finalKills}, Beds: ${data.stats.bedwars[mode].beds.broken} - ${makeid(10)}`)
+                  var finals = data.stats.bedwars[mode].finalKills
+                  var finals = finals.toFixed(0);
+                  const finals = Formatter(finals,2)
+                  var wins = data.stats.bedwars[mode].wins
+                  var wins = wins.toFixed(0);
+                  const wins = Formatter(wins,2)
+                  this.send(`/gc Info for ${player} in mode ${mode} - FKDR: ${data.stats.bedwars[mode].finalKDRatio}, Winstreak: ${data.stats.bedwars[mode].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[mode].WLRatio}, BLR ${data.stats.bedwars[mode].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[mode].beds.broken} - ${makeid(10)}`)
               }
               else if (mode == 'overall') {
-                this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
+                var finals = data.stats.bedwars.finalKills
+                var finals = finals.toFixed(0);
+                const finals = Formatter(finals,2)
+                var wins = data.stats.bedwars.wins
+                var wins = wins.toFixed(0);
+                const wins = Formatter(wins,2)
+              this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
               }
               else if (mode == 'dream') {
                 this.send(`/gc Invalid type! Valid Types: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
