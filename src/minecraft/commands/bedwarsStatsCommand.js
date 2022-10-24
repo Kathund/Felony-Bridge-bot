@@ -43,8 +43,7 @@ class BedwarsCommand extends MinecraftCommand {
 
  
   onCommand(username, message) {
-    if (check != 'disabled') {
-      if (username != 'SpookyBurger') {
+    if (check != 'disabled') { 
       // get the player name in the second word of the message
       const player = message.split(' ')[1]
       // get the player's stats
@@ -52,31 +51,31 @@ class BedwarsCommand extends MinecraftCommand {
         HypAPI.getPlayer(username).then((data) => {
           var finals = data.stats.bedwars[player].finalKills
           var finals = finals.toFixed(0);
-          const finals = Formatter(finals,2)
+          var finals = Formatter(finals,2)
           var wins = data.stats.bedwars[player].wins
           var wins = wins.toFixed(0);
-          const wins = Formatter(wins,2)
+          var wins = Formatter(wins,2)
           if (data.stats.bedwars[player].winstreak == 0) {
             fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${username}`).then((res) => {
-              res.json().then((data) => {
+              res.json().then((a) => {
                 if (player == 'solo') {
-                  const winstreak = data.player.data.eight_one_winstreak
+                  const winstreak = a.player.data.eight_one_winstreak
                   this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == 'doubles') {
-                  const winstreak = data.player.data.eight_two_winstreak
+                  const winstreak = a.player.data.eight_two_winstreak
                   this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == 'threes') {
-                  const winstreak = data.player.data.four_three_winstreak
+                  const winstreak = a.player.data.four_three_winstreak
                   this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == 'fours') {
-                  const winstreak = data.player.data.four_four_winstreak
+                  const winstreak = a.player.data.four_four_winstreak
                   this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == '4v4') {
-                  const winstreak = data.player.data.four_two_winstreak
+                  const winstreak = a.player.data.four_two_winstreak
                   this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
               })
@@ -90,14 +89,14 @@ class BedwarsCommand extends MinecraftCommand {
         HypAPI.getPlayer(username).then((data) => {
           var finals = data.stats.bedwars.finalKills
           var finals = finals.toFixed(0);
-          const finals = Formatter(finals,2)
+          var finals = Formatter(finals,2)
           var wins = data.stats.bedwars.wins
           var wins = wins.toFixed(0);
-          const wins = Formatter(wins,2)
+          var wins = Formatter(wins,2)
           if (data.stats.bedwars.winstreak == 0) {
             fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${username}`).then((res) => {
-              res.json().then((data) => {
-              const winstreak = data.player.data.overall_winstreak
+              res.json().then((a) => {
+              const winstreak = a.player.data.overall_winstreak
               this.send(`/gc Info for ${username}- FKDR: ${data.stats.bedwars.finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)  
               })
             })
@@ -120,39 +119,39 @@ class BedwarsCommand extends MinecraftCommand {
                 mode == 'castle') {
                   var finals = data.stats.bedwars[mode].finalKills
                   var finals = finals.toFixed(0);
-                  const finals = Formatter(finals,2)
+                  var finals = Formatter(finals,2)
                   var wins = data.stats.bedwars[mode].wins
                   var wins = wins.toFixed(0);
-                  const wins = Formatter(wins,2)
+                  var wins = Formatter(wins,2)
                   this.send(`/gc Info for ${player} in mode ${mode} - FKDR: ${data.stats.bedwars[mode].finalKDRatio}, Winstreak: ${data.stats.bedwars[mode].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[mode].WLRatio}, BLR ${data.stats.bedwars[mode].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[mode].beds.broken} - ${makeid(10)}`)
               }
               else if (mode == 'overall') {
                 var finals = data.stats.bedwars.finalKills
                 var finals = finals.toFixed(0);
-                const finals = Formatter(finals,2)
+                var finals = Formatter(finals,2)
                 var wins = data.stats.bedwars.wins
                 var wins = wins.toFixed(0);
-                const wins = Formatter(wins,2)
+                var wins = Formatter(wins,2)
               this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
               }
               else if (mode == 'dream') {
                 this.send(`/gc To use dreams just enter the mode! Valid Modes: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
               }
-              else if (mode == 'voidless' || mode == 'lucky' || mode == 'armed' || mode == 'rush' || mode == 'ultimate') {
-                // make it overall only
-                // by adding 2s stats with 4s stats
-                // TODO add 2s stats and 4s stats as a var 'overall'
-                // TODO send in g chat
-                var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
-                var overallLosses = data.stats.bedwars.dream[mode].doubles.losses + data.stats.bedwars.dream[mode].fours.losses // NEEDS CHECKING
-                var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
-                var overallFinalDeath = data.stats.bedwars.dream[mode].doubles.finalDeaths + data.stats.bedwars.dream[mode].fours.finalDeaths // NEEDS CHECKING
-                var overallBeds = data.stats.bedwars.dream[mode].doubles.beds.broken + data.stats.bedwars.dream[mode].fours.beds.broken
-                var overallBedsLost = data.stats.bedwars.dream[mode].doubles.beds.lost + data.stats.bedwars.dream[mode].fours.beds.lost // NEEDS CHECKING
-                // var overallBLR = data.stats.bedwars.dream[mode].doubles.beds.BLRatio + data.stats.bedwars.dream[mode].fours.beds.BLRatio
-                // var overallFKDR = 
-                // var overallWLR = 
-              }
+              // else if (mode == 'voidless' || mode == 'lucky' || mode == 'armed' || mode == 'rush' || mode == 'ultimate') {
+              //   // make it overall only
+              //   // by adding 2s stats with 4s stats
+              //   // TODO add 2s stats and 4s stats as a var 'overall'
+              //   // TODO send in g chat
+              //   var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
+              //   var overallLosses = data.stats.bedwars.dream[mode].doubles.losses + data.stats.bedwars.dream[mode].fours.losses // NEEDS CHECKING
+              //   var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
+              //   var overallFinalDeath = data.stats.bedwars.dream[mode].doubles.finalDeaths + data.stats.bedwars.dream[mode].fours.finalDeaths // NEEDS CHECKING
+              //   var overallBeds = data.stats.bedwars.dream[mode].doubles.beds.broken + data.stats.bedwars.dream[mode].fours.beds.broken
+              //   var overallBedsLost = data.stats.bedwars.dream[mode].doubles.beds.lost + data.stats.bedwars.dream[mode].fours.beds.lost // NEEDS CHECKING
+              //   // var overallBLR = data.stats.bedwars.dream[mode].doubles.beds.BLRatio + data.stats.bedwars.dream[mode].fours.beds.BLRatio
+              //   // var overallFKDR = 
+              //   // var overallWLR = 
+              // }
               else {
                 this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
               }
@@ -166,9 +165,6 @@ class BedwarsCommand extends MinecraftCommand {
           console.log(error)
         })
       }
-    } else {
-      this.send(`/gc You are Blacklisted! - ${makeid(10)}`)
-    }
     }
     else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
