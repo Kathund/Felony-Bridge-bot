@@ -15,9 +15,7 @@ function Formatter(num, digits) {
     { value: 1e3, symbol: "k" },
     { value: 1e6, symbol: "m" },
     { value: 1e9, symbol: "b" },
-    { value: 1e12, symbol: "t" },
-    { value: 1e15, symbol: "q" },
-    { value: 1e18, symbol: "qi" }
+    { value: 1e12, symbol: "t" }
   ];
   const rx = /.0+$|(.[0-9]*[1-9])0+$/;
   var item = lookup.slice().reverse().find(function(item) {
@@ -58,6 +56,9 @@ onCommand(username, message) {
           console.log(data)
           this.send(`/gc Slayer info for ${player} - Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
     else if (subcommand == 'dungeons') {
@@ -65,6 +66,9 @@ onCommand(username, message) {
         res.json().then((data) => {
           this.send(`/gc Dungeons info for ${player} - Level: ${data.dungeons.catacombs.level.level} Selected Class: ${data.dungeons.selected_class} Secrets: ${data.dungeons.secrets_found} F5/6/7 completions: ${data.dungeons.boss_collections.catacombs_5.killed}/${data.dungeons.boss_collections.catacombs_6.killed}/${data.dungeons.boss_collections.catacombs_7.killed} - ${makeid(10)}`)
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
     else if (subcommand == 'wealth') {
@@ -80,6 +84,9 @@ onCommand(username, message) {
           console.log(`Purse : ${purse} Bank : ${bank}`)
           this.send(`/gc Wealth info for ${player} - Purse: ${purse} Bank: ${bank} - ${makeid(10)}`)
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
     else if (subcommand == 'netwroth') {
@@ -94,6 +101,9 @@ onCommand(username, message) {
           console.log(networth)
            
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
     else {
