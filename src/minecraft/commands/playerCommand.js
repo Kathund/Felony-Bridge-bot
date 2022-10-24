@@ -14,6 +14,21 @@ function makeid(length) {
    return result;
 }
 
+function Formatter(num, digits) {
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "k" },
+    { value: 1e6, symbol: "m" },
+    { value: 1e9, symbol: "b" },
+    { value: 1e12, symbol: "t" }
+  ];
+  const rx = /.0+$|(.[0-9]*[1-9])0+$/;
+  var item = lookup.slice().reverse().find(function(item) {
+    return num >= item.value;
+  });
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
+
 class PlayerCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
@@ -36,7 +51,13 @@ onCommand(username, message) {
       HypAPI.getPlayer(player).then((data) => {
           // console log the data
           console.log(data)
-          this.send(`/gc Info for ${player} - Rank: ${data.rank} Karma: ${data.karma} Network Level: ${data.level} Achievement Points: ${data.achievementPoints} - ${makeid(10)}`)
+          var karma = data.karma
+          var ap = data.achievementPoints
+          var karma = karma.toFixed(0);
+          var ap = ap.toFixed(0);
+          const karma = Formatter(karma,2)
+          const ap = Formatter(ap,2)
+          this.send(`/gc Info for ${player} - Rank: ${data.rank} Karma: ${karma} Network Level: ${data.level} Achievement Points: ${ap} - ${makeid(10)}`)
       }).catch((error) => {
         this.send(`/gc ${player} is not a valid player!`)
         console.log(error)

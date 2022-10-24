@@ -1,10 +1,10 @@
-// TODO once they update the package u can work on this dumb ass fucking shit or go die in in a hole
-// TODO you are useless and u should die in a fucking hole 
+// TODO update 'skyhelper-networth' package because its outdated
 
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
 const check = 'test'
+const { getNetworth } = require('skyhelper-networth');
 const fetch = (...args) => import('node-fetch').then(({
 	default: fetch
 }) => fetch(...args)).catch(err => console.log(err));
@@ -15,9 +15,7 @@ function Formatter(num, digits) {
     { value: 1e3, symbol: "k" },
     { value: 1e6, symbol: "m" },
     { value: 1e9, symbol: "b" },
-    { value: 1e12, symbol: "t" },
-    { value: 1e15, symbol: "q" },
-    { value: 1e18, symbol: "qi" }
+    { value: 1e12, symbol: "t" }
   ];
   const rx = /.0+$|(.[0-9]*[1-9])0+$/;
   var item = lookup.slice().reverse().find(function(item) {
@@ -58,6 +56,9 @@ onCommand(username, message) {
           console.log(data)
           this.send(`/gc Slayer info for ${player} - Zombie: ${data.slayers.zombie.level.currentLevel} Wolf: ${data.slayers.wolf.level.currentLevel} Spider: ${data.slayers.spider.level.currentLevel} Enderman: ${data.slayers.enderman.level.currentLevel} Blaze: ${data.slayers.blaze.level.currentLevel} - ${makeid(10)}`)
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
     else if (subcommand == 'dungeons') {
@@ -65,9 +66,13 @@ onCommand(username, message) {
         res.json().then((data) => {
           this.send(`/gc Dungeons info for ${player} - Level: ${data.dungeons.catacombs.level.level} Selected Class: ${data.dungeons.selected_class} Secrets: ${data.dungeons.secrets_found} F5/6/7 completions: ${data.dungeons.boss_collections.catacombs_5.killed}/${data.dungeons.boss_collections.catacombs_6.killed}/${data.dungeons.boss_collections.catacombs_7.killed} - ${makeid(10)}`)
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
     else if (subcommand == 'wealth') {
+      
       fetch(`https://sky.shiiyu.moe/api/v2/coins/${player}/${profile}`).then((res) => {
         res.json().then((data) => {
           const n = data.purse
@@ -79,24 +84,27 @@ onCommand(username, message) {
           console.log(`Purse : ${purse} Bank : ${bank}`)
           this.send(`/gc Wealth info for ${player} - Purse: ${purse} Bank: ${bank} - ${makeid(10)}`)
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
     }
-    else if (subcommand == 'test') {
-      const plr = player
-      HypAPI.getSkyblockProfiles(plr).then((profiles) => {
-        profiles.sort((a, b) => b.me.lastSaveTimestamp - a.me.lastSaveTimestamp)[0];
-        HypAPI.getSkyblockMember(plr).then(member => {
-          const sbstat = member.get(profiles[0].profileName)
-          console.log(profiles)
-          // console.log(sbstat)
+    else if (subcommand == 'netwroth') {
+      fetch(`https://api.mojang.com/users/profiles/minecraft/${player}?at=0`).then((res) => {
+        res.json().then(async (data) => {
+          const uuid = data.id
+          console.log(uuid)  
+          const profile = message.split(' ')[2]
+          const profileData = profile.members[`${uuid}`]
+          const bankBalance = profile.banking?.balance;
+          const networth = await getNetworth(profileData, bankBalance, { onlyNetworth });
+          console.log(networth)
+           
         })
+      }).catch(err => {
+        console.log(`Error was caused by ${username}`)
+        console.log(err)
       })
-    //   fetch(`https://sky.shiiyu.moe/api/v2/profile/${player}`).then((res) => {
-    //     res.json().then((data) => {
-    //       const a = '4c4cc2c333114046808399edf39e9923'
-    //       console.log(data.profiles[a])
-    //     })
-    //   })
     }
     else {
       this.send(`/gc overall is work in progress - ${makeid(10)}`) 
@@ -108,4 +116,5 @@ onCommand(username, message) {
 }}
 
 module.exports = sbCommand
-
+
+
