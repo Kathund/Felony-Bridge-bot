@@ -89,23 +89,23 @@ onCommand(username, message) {
         console.log(err)
       })
     }
-    else if (subcommand == 'netwroth') {
-      fetch(`https://api.mojang.com/users/profiles/minecraft/${player}?at=0`).then((res) => {
-        res.json().then(async (data) => {
-          const uuid = data.id
-          console.log(uuid)  
-          const profile = message.split(' ')[2]
-          const profileData = profile.members[`${uuid}`]
-          const bankBalance = profile.banking?.balance;
-          const networth = await getNetworth(profileData, bankBalance, { onlyNetworth });
-          console.log(networth)
+    // else if (subcommand == 'networth') {
+    //   fetch(`https://api.mojang.com/users/profiles/minecraft/${player}?at=0`).then((res) => {
+    //     res.json().then(async (data) => {
+    //       const uuid = data.id
+    //       console.log(uuid)  
+    //       const profile = message.split(' ')[2]
+    //       const profileData = profile.members['<7301afb195ac4f35907d8a2d88ee8885>']
+    //       const bankBalance = profile.banking?.balance;
+    //       const networth = await getNetworth(profileData, bankBalance, { onlyNetworth });
+    //       console.log(networth)
            
-        })
-      }).catch(err => {
-        console.log(`Error was caused by ${username}`)
-        console.log(err)
-      })
-    }
+    //     })
+    //   }).catch(err => {
+    //     console.log(`Error was caused by ${username}`)
+    //     console.log(err)
+    //   })
+    // }
     else {
       this.send(`/gc overall is work in progress - ${makeid(10)}`) 
     }
