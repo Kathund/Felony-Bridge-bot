@@ -5,6 +5,7 @@ const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
 const check = 'test'
+const { getNetworth } = require('skyhelper-networth');
 const fetch = (...args) => import('node-fetch').then(({
 	default: fetch
 }) => fetch(...args)).catch(err => console.log(err));
@@ -79,6 +80,20 @@ onCommand(username, message) {
           const bank = Formatter(ba,2)
           console.log(`Purse : ${purse} Bank : ${bank}`)
           this.send(`/gc Wealth info for ${player} - Purse: ${purse} Bank: ${bank} - ${makeid(10)}`)
+        })
+      })
+    }
+    else if (subcommand == 'netwroth') {
+      fetch(`https://api.mojang.com/users/profiles/minecraft/${player}?at=0`).then((res) => {
+        res.json().then(async (data) => {
+          const uuid = data.id
+          console.log(uuid)  
+          const profile = message.split(' ')[2]
+          const profileData = profile.members[`${uuid}`]
+          const bankBalance = profile.banking?.balance;
+          const networth = await getNetworth(profileData, bankBalance, { onlyNetworth });
+          console.log(networth)
+           
         })
       })
     }
