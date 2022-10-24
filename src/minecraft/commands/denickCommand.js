@@ -61,10 +61,10 @@ class DenickCommand extends MinecraftCommand {
                 HypAPI.getPlayer(a).then((data) => {
                     var kills = data.stats.dules.kills
                     var kills = kills.toFixed(0);
-                    const kills = Formatter(kills,2)
+                    var kills = Formatter(kills,2)
                     var wins = data.stats.duels.wins
                     var wins = wins.toFixed(0);
-                    const wins = Formatter(wins,2)                   
+                    var wins = Formatter(wins,2)                   
                   this.send(`/gc Denicked - ${player} is ${a} - Division: ${data.stats.duels.division} Kills: ${kills} Wins: ${wins} KD: ${data.stats.duels.KDRatio} WLR: ${data.stats.duels.WLRatio} - ${makeid(10)}`)
                 })
               }
@@ -72,10 +72,10 @@ class DenickCommand extends MinecraftCommand {
                 HypAPI.getPlayer(a).then((data) => {
                     var finals = data.stats.bedwars.finalKills
                     var finals = finals.toFixed(0);
-                    const finals = Formatter(finals,2)
+                    var finals = Formatter(finals,2)
                     var wins = data.stats.bedwars.wins
                     var wins = wins.toFixed(0);
-                    const wins = Formatter(wins,2)
+                    var wins = Formatter(wins,2)
                   this.send(`/gc Denicked - ${player} is ${a} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
                 }).catch(err => {
                   console.log(`error was caused by ${username}`)
