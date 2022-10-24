@@ -18,6 +18,21 @@ function makeid(length) {
    return result;
 }
 
+function Formatter(num, digits) {
+  const lookup = [
+    { value: 1, symbol: "" },
+    { value: 1e3, symbol: "k" },
+    { value: 1e6, symbol: "m" },
+    { value: 1e9, symbol: "b" },
+    { value: 1e12, symbol: "t" }
+  ];
+  const rx = /.0+$|(.[0-9]*[1-9])0+$/;
+  var item = lookup.slice().reverse().find(function(item) {
+    return num >= item.value;
+  });
+  return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}
+
 class DenickCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
@@ -44,12 +59,24 @@ class DenickCommand extends MinecraftCommand {
               const a = (aaa.player.ign)
               if (subcommand == 'duels') {
                 HypAPI.getPlayer(a).then((data) => {
-                  this.send(`/gc Denicked - ${player} is ${a} - Division: ${data.stats.duels.division} Kills: ${data.stats.duels.kills} Wins: ${data.stats.duels.wins} KD: ${data.stats.duels.KDRatio} WLR: ${data.stats.duels.WLRatio} - ${makeid(10)}`)
+                    var kills = data.stats.dules.kills
+                    var kills = kills.toFixed(0);
+                    const kills = Formatter(kills,2)
+                    var wins = data.stats.duels.wins
+                    var wins = wins.toFixed(0);
+                    const wins = Formatter(wins,2)                   
+                  this.send(`/gc Denicked - ${player} is ${a} - Division: ${data.stats.duels.division} Kills: ${kills} Wins: ${wins} KD: ${data.stats.duels.KDRatio} WLR: ${data.stats.duels.WLRatio} - ${makeid(10)}`)
                 })
               }
               else {
                 HypAPI.getPlayer(a).then((data) => {
-                  this.send(`/gc Denicked - ${player} is ${a} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${data.stats.bedwars.wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${data.stats.bedwars.finalKills}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
+                    var finals = data.stats.bedwars.finalKills
+                    var finals = finals.toFixed(0);
+                    const finals = Formatter(finals,2)
+                    var wins = data.stats.bedwars.wins
+                    var wins = wins.toFixed(0);
+                    const wins = Formatter(wins,2)
+                  this.send(`/gc Denicked - ${player} is ${a} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
                 }).catch(err => {
                   console.log(`error was caused by ${username}`)
                   console.log(err)
