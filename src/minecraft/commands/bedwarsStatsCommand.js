@@ -142,7 +142,14 @@ class BedwarsCommand extends MinecraftCommand {
                 // by adding 2s stats with 4s stats
                 // TODO add 2s stats and 4s stats as a var 'overall'
                 // TODO send in g chat
-                var overallFKDR = data.stats.bedwars.
+                var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
+                var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
+                var overallFinalDeath = data.stats.bedwars.dream[mode].doubles.finalDeaths + data.stats.bedwars.dream[mode].fours.finalDeaths // NEEDS CHECKING
+                var overallBeds = data.stats.bedwars.dream[mode].doubles.beds.broken + data.stats.bedwars.dream[mode].fours.beds.broken
+                var overallBedsLost = data.stats.bedwars.dream[mode].doubles.beds.lost + data.stats.bedwars.dream[mode].fours.beds.lost // NEEDS CHECKING
+                // var overallBLR = data.stats.bedwars.dream[mode].doubles.beds.BLRatio + data.stats.bedwars.dream[mode].fours.beds.BLRatio
+                // var overallFKDR = 
+                // var overallWLR = 
               }
               else {
                 this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
