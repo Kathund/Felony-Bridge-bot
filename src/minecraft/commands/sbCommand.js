@@ -1,5 +1,4 @@
-// TODO once they update the package u can work on this dumb ass fucking shit or go die in in a hole
-// TODO you are useless and u should die in a fucking hole 
+// TODO update 'skyhelper-networth' package because its outdated
 
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
