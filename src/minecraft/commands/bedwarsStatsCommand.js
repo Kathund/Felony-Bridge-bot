@@ -143,6 +143,7 @@ class BedwarsCommand extends MinecraftCommand {
                 // TODO add 2s stats and 4s stats as a var 'overall'
                 // TODO send in g chat
                 var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
+                var overallLosses = data.stats.bedwars.dream[mode].doubles.losses + data.stats.bedwars.dream[mode].fours.losses // NEEDS CHECKING
                 var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
                 var overallFinalDeath = data.stats.bedwars.dream[mode].doubles.finalDeaths + data.stats.bedwars.dream[mode].fours.finalDeaths // NEEDS CHECKING
                 var overallBeds = data.stats.bedwars.dream[mode].doubles.beds.broken + data.stats.bedwars.dream[mode].fours.beds.broken
