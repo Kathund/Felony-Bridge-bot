@@ -135,7 +135,14 @@ class BedwarsCommand extends MinecraftCommand {
               this.send(`/gc Info for ${player} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
               }
               else if (mode == 'dream') {
-                this.send(`/gc Invalid type! Valid Types: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
+                this.send(`/gc To use dreams just enter the mode! Valid Modes: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
+              }
+              else if (mode == 'voidless' || mode == 'lucky' || mode == 'armed' || mode == 'rush' || mode == 'ultimate') {
+                // make it overall only
+                // by adding 2s stats with 4s stats
+                // TODO add 2s stats and 4s stats as a var 'overall'
+                // TODO send in g chat
+                var overallFKDR = data.stats.bedwars.
               }
               else {
                 this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
