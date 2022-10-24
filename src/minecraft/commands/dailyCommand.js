@@ -379,25 +379,25 @@ onCommand(username, message) {
         var karma = Formatter(Player.karma, 2)
 
         if (mode == 'solo') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_solo_wins} FKDR ${Bedwars_solo_fkdr} BLR ${Bedwars_solo_bblr} Finals ${Bedwars_solo_finalKills} Beds ${Bedwars_solo_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_solo_wins} FKDR: ${Bedwars_solo_fkdr} BLR: ${Bedwars_solo_bblr} Finals: ${Bedwars_solo_finalKills} Beds: ${Bedwars_solo_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == 'doubles') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_doubles_wins} FKDR ${Bedwars_doubles_fkdr} BLR ${Bedwars_doubles_bblr} Finals ${Bedwars_doubles_finalKills} Beds ${Bedwars_doubles_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_doubles_wins} FKDR: ${Bedwars_doubles_fkdr} BLR: ${Bedwars_doubles_bblr} Finals: ${Bedwars_doubles_finalKills} Beds: ${Bedwars_doubles_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == 'threes') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_threes_wins} FKDR ${Bedwars_threes_fkdr} BLR ${Bedwars_threes_bblr} Finals ${Bedwars_threes_finalKills} beds ${Bedwars_threes_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_threes_wins} FKDR: ${Bedwars_threes_fkdr} BLR: ${Bedwars_threes_bblr} Finals: ${Bedwars_threes_finalKills} Beds: ${Bedwars_threes_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == 'fours') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_fours_wins} FKDR ${Bedwars_fours_fkdr} BLR ${Bedwars_fours_bblr} Finals: ${Bedwars_fours_finalKills} Beds: ${Bedwars_fours_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_fours_wins} FKDR: ${Bedwars_fours_fkdr} BLR: ${Bedwars_fours_bblr} Finals: ${Bedwars_fours_finalKills} Beds: ${Bedwars_fours_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == '4v4') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_four_two_wins} FKDR ${Bedwars_four_two_fkdr} BLR ${Bedwars_four_two_bblr} Finals ${Bedwars_four_two_finalKills} Beds ${Bedwars_four_two_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_four_two_wins} FKDR: ${Bedwars_four_two_fkdr} BLR: ${Bedwars_four_two_bblr} Finals: ${Bedwars_four_two_finalKills} Beds: ${Bedwars_four_two_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == 'overall') {
-            this.send(`/gc Daily stats for ${PlayerName}: Wins: ${bedwars_wins} FKDR ${bedwars_fkdr} BLR ${bedwars_bblr} Finals ${bedwars_finalKills} Beds ${bedwars_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName}: Wins: ${bedwars_wins} FKDR: ${bedwars_fkdr} BLR: ${bedwars_bblr} Finals: ${bedwars_finalKills} Beds: ${bedwars_bedsBroken} - ${makeid(10)}`)
         }
         else {
-            this.send(`/gc Daily stats for ${PlayerName}: Wins: ${bedwars_wins} FKDR ${bedwars_fkdr} BLR ${bedwars_bblr} Finals ${bedwars_finalKills} Beds ${bedwars_bedsBroken} - ${makeid(10)}`)
+            this.send(`/gc Daily stats for ${PlayerName}: Wins: ${bedwars_wins} FKDR: ${bedwars_fkdr} BLR: ${bedwars_bblr} Finals: ${bedwars_finalKills} Beds: ${bedwars_bedsBroken} - ${makeid(10)}`)
         }
 
         }).catch(err => {
