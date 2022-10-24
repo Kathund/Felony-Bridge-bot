@@ -2,6 +2,9 @@ const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
 const check = 'enabled'
+const fetch = (...args) => import('node-fetch').then(({
+	default: fetch
+}) => fetch(...args)).catch(err => console.log(err));
 
 function makeid(length) {
     var result           = '';
@@ -52,10 +55,37 @@ class BedwarsCommand extends MinecraftCommand {
           var wins = data.stats.bedwars[player].wins
           var wins = wins.toFixed(0);
           const wins = Formatter(wins,2)
-          this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, Winstreak: ${data.stats.bedwars[player].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+          if (data.stats.bedwars[player].winstreak == 0) {
+            fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${username}`).then((res) => {
+              res.json().then((data) => {
+                if (player == 'solo') {
+                  const winstreak = data.player.data.eight_one_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                }
+                else if (player == 'doubles') {
+                  const winstreak = data.player.data.eight_two_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                }
+                else if (player == 'threes') {
+                  const winstreak = data.player.data.four_three_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                }
+                else if (player == 'fours') {
+                  const winstreak = data.player.data.four_four_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                }
+                else if (player == '4v4') {
+                  const winstreak = data.player.data.four_two_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                }
+              })
+            })
+          } else {
+            this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, Winstreak: ${data.stats.bedwars[player].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+          }
         })
       }
-      else if (player == 'overall') {
+      else if (player == 'overall' || player == undefined) {
         HypAPI.getPlayer(username).then((data) => {
           var finals = data.stats.bedwars.finalKills
           var finals = finals.toFixed(0);
@@ -63,18 +93,14 @@ class BedwarsCommand extends MinecraftCommand {
           var wins = data.stats.bedwars.wins
           var wins = wins.toFixed(0);
           const wins = Formatter(wins,2)
-          this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
-        })
-      }
-      else if (player == undefined) {
-        HypAPI.getPlayer(username).then((data) => {
-          var finals = data.stats.bedwars.finalKills
-          var finals = finals.toFixed(0);
-          const finals = Formatter(finals,2)
-          var wins = data.stats.bedwars.wins
-          var wins = wins.toFixed(0);
-          const wins = Formatter(wins,2)
-          this.send(`/gc Info for ${username} - Star: ${data.stats.bedwars.level}, FKDR: ${data.stats.bedwars.finalKDRatio}, Winstreak: ${data.stats.bedwars.winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)
+          if (data.stats.bedwars.winstreak == 0) {
+            fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${username}`).then((res) => {
+              res.json().then((data) => {
+              const winstreak = data.player.data.overall_winstreak
+              this.send(`/gc Info for ${username}- FKDR: ${data.stats.bedwars.finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)  
+              })
+            })
+          }
         })
       }
       else if (player == 'help') {
