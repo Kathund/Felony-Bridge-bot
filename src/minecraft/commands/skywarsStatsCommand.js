@@ -22,8 +22,6 @@ class SkywarsCommand extends MinecraftCommand {
     this.aliases = ['skywars']
     this.description = 'Look up your skywars stats'
   }
-
-// TODO REWRITE THIS COMMAND
  
 onCommand(username, message) {
   if (check != 'disabled') {
