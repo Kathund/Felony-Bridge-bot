@@ -2,7 +2,7 @@
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
-const check = 'enabled'
+const check = 'disabled'
 const fetch = (...args) => import('node-fetch').then(({
 	default: fetch
 }) => fetch(...args)).catch(err => console.log(err));
@@ -80,7 +80,7 @@ class DenickCommand extends MinecraftCommand {
                 }).catch(err => {
                   console.log(`error was caused by ${username}`)
                   console.log(err)
-                  this.send(`/gc ${player} is not in the database! - ${makeid(10)}`)
+                  this.send(`/gc ${player} is not in the database! API got removed - ${makeid(10)}`)
                 })
               }
             }).catch(err => console.log(err));
