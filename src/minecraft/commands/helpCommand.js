@@ -31,6 +31,9 @@ class HelpCommand extends MinecraftCommand {
       else if (subcommand == 'bedwars') {
         this.send(`/gc Usage: !bedwars <player> [mode] - will show the player's bedwars stats - ${makeid(10)}`)
       }
+      else if (subcommand == 'daily') {
+        this.send(`/gc Usage: !daily <player> - will show the player's daily stats - ${makeid(10)}`)
+      }
       else if (subcommand == 'denick') {
         this.send(`/gc Usage: !denick <nick> - will denick someone - ${makeid(10)}`)
       }
@@ -49,6 +52,9 @@ class HelpCommand extends MinecraftCommand {
       else if (subcommand == 'help') {
         this.send(`/gc Usage: !help [command] - ${makeid(10)}`)
       }
+      else if (subcommand == 'monthly') {
+        this.send(`/gc Usage: !monthly <player> - will show the player's monthly stats - ${makeid(10)}`)
+      }
       else if (subcommand == 'player') {
         this.send(`/gc Usage: !player <player> - will show the player's stats - ${makeid(10)}`)
       }
@@ -58,11 +64,14 @@ class HelpCommand extends MinecraftCommand {
       else if (subcommand == 'watchdog') {
         this.send(`/gc Usage: !watchdog - will show the watchdog info - ${makeid(10)}`)
       }
+      else if (subcommand == 'weekly') {
+        this.send(`/gc Usage: !weekly <player> - will show the player's weekly stats - ${makeid(10)}`)
+      }
       else if (subcommand == 'winstreak') {
         this.send(`/gc Usage: !winstreak <player> - will show the player's winstreak and if there api is off there ESTIMATED wisstreak - ${makeid(10)}`)
       }
       else {
-        this.send(`/gc Current Commands: !api, !bedwars, !denick, !duels, !findnick, !guild, !go, !help, !player, !skywars, !watchdog !winstreak - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
+        this.send(`/gc Current Commands: !api, !bedwars, !daily, !denick, !duels, !findnick, !guild, !go, !help, !monthly, !player, !skywars, !watchdog !weekly, !winstreak - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
       }
     } else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
