@@ -81,6 +81,20 @@ class BedwarsCommand extends MinecraftCommand {
           }
         })
       }
+      else if (player == 'voidless' || player == 'lucky' || player == 'armed' || player == 'rush' || player == 'ultimate') {
+        HypAPI.getPlayer(username).then((data) => {
+          var overallWins = data.stats.bedwars.dream[player].doubles.wins + data.stats.bedwars.dream[player].fours.wins
+          var overallLosses = data.stats.bedwars.dream[player].doubles.losses + data.stats.bedwars.dream[player].fours.losses
+          var overallFinals = data.stats.bedwars.dream[player].doubles.finalKills + data.stats.bedwars.dream[player].fours.finalKills
+          var overallFinalDeath = data.stats.bedwars.dream[player].doubles.finalDeaths + data.stats.bedwars.dream[player].fours.finalDeaths
+          var overallBeds = data.stats.bedwars.dream[player].doubles.beds.broken + data.stats.bedwars.dream[player].fours.beds.broken
+          var overallBedsLost = data.stats.bedwars.dream[player].doubles.beds.lost + data.stats.bedwars.dream[player].fours.beds.lost
+          var overallBLR = overallBeds / overallBedsLost
+          var overallFKDR = overallFinals / overallFinalDeath
+          var overallWLR = overallWins / overallLosses
+          this.send(`/gc Info for ${username} in ${player} - Wins: ${overallWins} WLR: ${overallWLR} Finals: ${overallFinals} FKDR: ${overallFKDR} Beds: ${overallBeds} BLR ${overallBLR}`)
+        })
+      }
       else if (player == 'overall' || player == undefined) {
         HypAPI.getPlayer(username).then((data) => {
           var finals = data.stats.bedwars.finalKills
@@ -135,10 +149,10 @@ class BedwarsCommand extends MinecraftCommand {
                 var overallBLR = overallBeds / overallBedsLost
                 var overallFKDR = overallFinals / overallFinalDeath
                 var overallWLR = overallWins / overallLosses
-                console.log(` Wins: ${overallWins} WLR: ${overallWLR} Finals: ${overallFinals} FKDR: ${overallFKDR} Beds: ${overallBeds} BLR ${overallBLR}`)
+                this.send(`/gc Info for ${player} in ${mode} - Wins: ${overallWins} WLR: ${overallWLR} Finals: ${overallFinals} FKDR: ${overallFKDR} Beds: ${overallBeds} BLR ${overallBLR}`)
               }
               else {
-                this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
+                this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, voidless, lcuky, armed, rush, ultimate] - ${makeid(10)}`)
               }
             }
             else {
