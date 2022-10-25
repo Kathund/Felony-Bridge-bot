@@ -46,6 +46,10 @@ class monthlyCommand extends MinecraftCommand {
  
 onCommand(username, message) {
   if (check != 'disabled') {
+    if (username == 'help') {
+        this.send(`/gc Usage: !monthly <username> - ${makeid(10)}`)
+    }
+    else {
     const player = message.split(' ')[1]
     const mode = message.split(' ')[2]
     // Pixelic-API Docs
@@ -417,7 +421,7 @@ onCommand(username, message) {
 
       })
 
-    }
+    }}
   else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
     }
