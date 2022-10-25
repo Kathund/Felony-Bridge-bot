@@ -115,59 +115,6 @@ onCommand(username, message) {
         else {
           var bedwars_bblr = (bedwars_bedsBroken / bedwars_bedsLost).toFixed(2)
         }
-        // SOLO
-        var Bedwars_solo_wins = Player.stats.Bedwars.eight_one_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_wins_bedwars - Daily.Bedwars.solo.wins
-        
-        var Bedwars_solo_losses = Player.stats.Bedwars.eight_one_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_losses_bedwars - Daily.Bedwars.solo.losses
-        
-        var Bedwars_solo_kills = Player.stats.Bedwars.eight_one_kills_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_kills_bedwars - Daily.Bedwars.solo.kills
-        
-        var Bedwars_solo_deaths = Player.stats.Bedwars.eight_one_deaths_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_deaths_bedwars - Daily.Bedwars.solo.deaths
-        
-        var Bedwars_solo_finalKills = Player.stats.Bedwars.eight_one_final_kills_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_final_kills_bedwars - Daily.Bedwars.solo.finalKills
-        
-        var Bedwars_solo_finalDeaths = Player.stats.Bedwars.eight_one_final_deaths_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_final_deaths_bedwars - Daily.Bedwars.solo.finalDeaths
-        
-        var Bedwars_solo_bedsBroken = Player.stats.Bedwars.eight_one_beds_broken_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_beds_broken_bedwars - Daily.Bedwars.solo.bedsBroken
-        
-        var Bedwars_solo_bedsLost = Player.stats.Bedwars.eight_one_beds_lost_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_beds_lost_bedwars - Daily.Bedwars.solo.bedsLost
-        
-        if (Bedwars_solo_wins == '0') {
-            var Bedwars_solo_wlr = '0'
-        }
-        else if (Bedwars_solo_losses == '0') {
-            var Bedwars_solo_wlr = Bedwars_solo_wins
-        }
-        else {
-            var Bedwars_solo_wlr = (Bedwars_solo_wins / Bedwars_solo_losses).toFixed(2)
-        }
-        if (Bedwars_solo_kills == '0') {
-            var Bedwars_solo_kdr = '0'
-        }
-        else if (Bedwars_solo_deaths == '0') {
-            var Bedwars_solo_kdr = Bedwars_solo_kills
-        }
-        else {
-            var Bedwars_solo_kdr = (Bedwars_solo_kills / Bedwars_solo_deaths).toFixed(2)
-        }
-        if (Bedwars_solo_finalKills == '0') {
-            var Bedwars_solo_fkdr = '0'
-        }
-        else if (Bedwars_solo_finalDeaths == '0') {
-            var Bedwars_solo_fkdr = Bedwars_solo_finalKills
-        }
-        else {
-            var Bedwars_solo_fkdr = (Bedwars_solo_finalKills / Bedwars_solo_finalDeaths).toFixed(2)
-        }
-        if (Bedwars_solo_bedsBroken == '0') {
-            var Bedwars_solo_bblr = '0'
-        }
-        else if (Bedwars_solo_bedsLost == '0') {
-            var Bedwars_solo_bblr = Bedwars_solo_bedsBroken
-        }
-        else {
-            var Bedwars_solo_bblr = (Bedwars_solo_bedsBroken / Bedwars_solo_bedsLost).toFixed(2)
-        }
         // 2s
         var Bedwars_doubles_wins = Player.stats.Bedwars.eight_two_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_wins_bedwars - Daily.Bedwars.doubles.wins
         
@@ -389,11 +336,99 @@ onCommand(username, message) {
         var level = Math.trunc(levelRaw)
         var karma = Formatter(Player.karma, 2)
 
-        if (mode == 'solo') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_solo_wins} FKDR: ${Bedwars_solo_fkdr} BLR: ${Bedwars_solo_bblr} Finals: ${Bedwars_solo_finalKills} Beds: ${Bedwars_solo_bedsBroken} - ${makeid(10)}`)
+        if (mode == 'solo') {            
+            var Bedwars_solo_wins = Player.stats.Bedwars.eight_one_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_wins_bedwars - Daily.Bedwars.solo.wins
+            var Bedwars_solo_losses = Player.stats.Bedwars.eight_one_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_losses_bedwars - Daily.Bedwars.solo.losses
+            var Bedwars_solo_kills = Player.stats.Bedwars.eight_one_kills_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_kills_bedwars - Daily.Bedwars.solo.kills
+            var Bedwars_solo_deaths = Player.stats.Bedwars.eight_one_deaths_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_deaths_bedwars - Daily.Bedwars.solo.deaths
+            var Bedwars_solo_finalKills = Player.stats.Bedwars.eight_one_final_kills_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_final_kills_bedwars - Daily.Bedwars.solo.finalKills
+            var Bedwars_solo_finalDeaths = Player.stats.Bedwars.eight_one_final_deaths_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_final_deaths_bedwars - Daily.Bedwars.solo.finalDeaths
+            var Bedwars_solo_bedsBroken = Player.stats.Bedwars.eight_one_beds_broken_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_beds_broken_bedwars - Daily.Bedwars.solo.bedsBroken
+            var Bedwars_solo_bedsLost = Player.stats.Bedwars.eight_one_beds_lost_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_beds_lost_bedwars - Daily.Bedwars.solo.bedsLost
+            if (Bedwars_solo_wins == '0') {
+                var Bedwars_solo_wlr = '0'
+            }
+            else if (Bedwars_solo_losses == '0') {
+                var Bedwars_solo_wlr = Bedwars_solo_wins
+            }
+            else {
+                var Bedwars_solo_wlr = (Bedwars_solo_wins / Bedwars_solo_losses).toFixed(2)
+            }
+            if (Bedwars_solo_kills == '0') {
+                var Bedwars_solo_kdr = '0'
+            }
+            else if (Bedwars_solo_deaths == '0') {
+                var Bedwars_solo_kdr = Bedwars_solo_kills
+            }
+            else {
+                var Bedwars_solo_kdr = (Bedwars_solo_kills / Bedwars_solo_deaths).toFixed(2)
+            }
+            if (Bedwars_solo_finalKills == '0') {
+                var Bedwars_solo_fkdr = '0'
+            }
+            else if (Bedwars_solo_finalDeaths == '0') {
+                var Bedwars_solo_fkdr = Bedwars_solo_finalKills
+            }
+            else {
+                var Bedwars_solo_fkdr = (Bedwars_solo_finalKills / Bedwars_solo_finalDeaths).toFixed(2)
+            }
+            if (Bedwars_solo_bedsBroken == '0') {
+                var Bedwars_solo_bblr = '0'
+            }
+            else if (Bedwars_solo_bedsLost == '0') {
+                var Bedwars_solo_bblr = Bedwars_solo_bedsBroken
+            }
+            else {
+                var Bedwars_solo_bblr = (Bedwars_solo_bedsBroken / Bedwars_solo_bedsLost).toFixed(2)
+            }
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_solo_wins} WLR: ${Bedwars_solo_wlr} FKDR: ${Bedwars_solo_fkdr} BLR: ${Bedwars_solo_bblr} Finals: ${Bedwars_solo_finalKills} Beds: ${Bedwars_solo_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == 'doubles') {
-            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_doubles_wins} FKDR: ${Bedwars_doubles_fkdr} BLR: ${Bedwars_doubles_bblr} Finals: ${Bedwars_doubles_finalKills} Beds: ${Bedwars_doubles_bedsBroken} - ${makeid(10)}`)
+            var Bedwars_doubles_wins = Player.stats.Bedwars.eight_two_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_wins_bedwars - Daily.Bedwars.doubles.wins
+            var Bedwars_doubles_losses = Player.stats.Bedwars.eight_two_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_losses_bedwars - Daily.Bedwars.doubles.losses
+            var Bedwars_doubles_kills = Player.stats.Bedwars.eight_two_kills_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_kills_bedwars - Daily.Bedwars.doubles.kills
+            var Bedwars_doubles_deaths = Player.stats.Bedwars.eight_two_deaths_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_deaths_bedwars - Daily.Bedwars.doubles.deaths
+            var Bedwars_doubles_finalKills = Player.stats.Bedwars.eight_two_final_kills_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_final_kills_bedwars - Daily.Bedwars.doubles.finalKills
+            var Bedwars_doubles_finalDeaths = Player.stats.Bedwars.eight_two_final_deaths_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_final_deaths_bedwars - Daily.Bedwars.doubles.finalDeaths
+            var Bedwars_doubles_bedsBroken = Player.stats.Bedwars.eight_two_beds_broken_bedwars === undefined ? 0 :  Player.stats.Bedwars.eight_two_beds_broken_bedwars - Daily.Bedwars.doubles.bedsBroken
+            var Bedwars_doubles_bedsLost = Player.stats.Bedwars.eight_two_beds_lost_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_beds_lost_bedwars - Daily.Bedwars.doubles.bedsLost
+            if (Bedwars_doubles_wins == '0') {
+                var Bedwars_doubles_wlr = '0'
+            }
+            else if (Bedwars_doubles_losses == '0') {
+                var Bedwars_doubles_wlr = Bedwars_doubles_wins
+            }
+            else {
+                var Bedwars_doubles_wlr = (Bedwars_doubles_wins / Bedwars_doubles_losses).toFixed(2)
+            }
+            if (Bedwars_doubles_kills == '0') {
+                var Bedwars_doubles_kdr = '0'
+            }
+            else if (Bedwars_doubles_deaths == '0') {
+                var Bedwars_doubles_kdr = Bedwars_doubles_kills
+            }
+            else {
+                var Bedwars_doubles_kdr = (Bedwars_doubles_kills / Bedwars_doubles_deaths).toFixed(2)
+            }
+            if (Bedwars_doubles_finalKills == '0') {
+                var Bedwars_doubles_fkdr = '0'
+            }
+            else if (Bedwars_doubles_finalDeaths == '0') {
+                var Bedwars_doubles_fkdr = Bedwars_doubles_finalKills
+            }
+            else {
+                var Bedwars_doubles_fkdr = (Bedwars_doubles_finalKills / Bedwars_doubles_finalDeaths).toFixed(2)
+            }
+            if (Bedwars_doubles_bedsBroken == '0') {
+                var Bedwars_doubles_bblr = '0'
+            }
+            else if (Bedwars_doubles_bedsLost == '0') {
+                var Bedwars_doubles_bblr = Bedwars_doubles_bedsBroken
+            }
+            else {
+                var Bedwars_doubles_bblr = (Bedwars_doubles_bedsBroken / Bedwars_doubles_bedsLost).toFixed(2)
+            }
+            this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_doubles_wins}  WLR: ${Bedwars_doubles_wlr} FKDR: ${Bedwars_doubles_fkdr} BLR: ${Bedwars_doubles_bblr} Finals: ${Bedwars_doubles_finalKills} Beds: ${Bedwars_doubles_bedsBroken} - ${makeid(10)}`)
         }
         else if (mode == 'threes') {
             this.send(`/gc Daily stats for ${PlayerName} in ${mode}: Wins: ${Bedwars_threes_wins} FKDR: ${Bedwars_threes_fkdr} BLR: ${Bedwars_threes_bblr} Finals: ${Bedwars_threes_finalKills} Beds: ${Bedwars_threes_bedsBroken} - ${makeid(10)}`)
