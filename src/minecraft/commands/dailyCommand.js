@@ -61,7 +61,7 @@ onCommand(username, message) {
     fetch(`https://api.hypixel.net/player?uuid=${UUID}&key=${KEY}`).then((res) => {res.json().then((player) => {
 
         const Player = player.player
-        const PlayerName = Player.displayname
+        const PlayerName = message.split(' ')[1]
         // General
 
         var EXP = Formatter((Player.networkExp - Daily.General.EXP), 2)
