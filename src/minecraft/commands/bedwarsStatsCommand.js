@@ -137,21 +137,22 @@ class BedwarsCommand extends MinecraftCommand {
               else if (mode == 'dream') {
                 this.send(`/gc To use dreams just enter the mode! Valid Modes: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
               }
-              // else if (mode == 'voidless' || mode == 'lucky' || mode == 'armed' || mode == 'rush' || mode == 'ultimate') {
-              //   // make it overall only
-              //   // by adding 2s stats with 4s stats
-              //   // TODO add 2s stats and 4s stats as a var 'overall'
-              //   // TODO send in g chat
-              //   var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
-              //   var overallLosses = data.stats.bedwars.dream[mode].doubles.losses + data.stats.bedwars.dream[mode].fours.losses // NEEDS CHECKING
-              //   var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
-              //   var overallFinalDeath = data.stats.bedwars.dream[mode].doubles.finalDeaths + data.stats.bedwars.dream[mode].fours.finalDeaths // NEEDS CHECKING
-              //   var overallBeds = data.stats.bedwars.dream[mode].doubles.beds.broken + data.stats.bedwars.dream[mode].fours.beds.broken
-              //   var overallBedsLost = data.stats.bedwars.dream[mode].doubles.beds.lost + data.stats.bedwars.dream[mode].fours.beds.lost // NEEDS CHECKING
-              //   // var overallBLR = data.stats.bedwars.dream[mode].doubles.beds.BLRatio + data.stats.bedwars.dream[mode].fours.beds.BLRatio
-              //   // var overallFKDR = 
-              //   // var overallWLR = 
-              // }
+              else if (mode == 'voidless' || mode == 'lucky' || mode == 'armed' || mode == 'rush' || mode == 'ultimate') {
+                // make it overall only
+                // by adding 2s stats with 4s stats
+                // TODO NEEDS TESTING THIS HAS NEVER BEEN TESTED
+                // TODO send in g chat
+                var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
+                var overallLosses = data.stats.bedwars.dream[mode].doubles.losses + data.stats.bedwars.dream[mode].fours.losses
+                var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
+                var overallFinalDeath = data.stats.bedwars.dream[mode].doubles.finalDeaths + data.stats.bedwars.dream[mode].fours.finalDeaths
+                var overallBeds = data.stats.bedwars.dream[mode].doubles.beds.broken + data.stats.bedwars.dream[mode].fours.beds.broken
+                var overallBedsLost = data.stats.bedwars.dream[mode].doubles.beds.lost + data.stats.bedwars.dream[mode].fours.beds.lost
+                var overallBLR = overallBeds / overallBedsLost
+                var overallFKDR = overallFinals / overallFinalDeath
+                var overallWLR = overallWins / overallLosses
+                console.log(` Wins: ${overallWins} WLR: ${overallWLR} Finals: ${overallFinals} FKDR: ${overallFKDR} Beds: ${overallBeds} BLR ${overallBLR}`)
+              }
               else {
                 this.send(`/gc Invalid mode! Valid Modes: [solo, double, threes, fours, 4v4, castle, overall, dream] - ${makeid(10)}`)
               }
