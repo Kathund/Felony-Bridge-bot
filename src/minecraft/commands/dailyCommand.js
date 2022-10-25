@@ -44,6 +44,8 @@ class dailyCommand extends MinecraftCommand {
     this.description = 'Shows ur daily stats'
   }
  
+  // TODO rewrite this commmand so it dosent take so long to load
+
 onCommand(username, message) {
   if (check != 'disabled') {
     if (username == 'help') {
@@ -113,6 +115,7 @@ onCommand(username, message) {
         else {
           var bedwars_bblr = (bedwars_bedsBroken / bedwars_bedsLost).toFixed(2)
         }
+        // SOLO
         var Bedwars_solo_wins = Player.stats.Bedwars.eight_one_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_wins_bedwars - Daily.Bedwars.solo.wins
         
         var Bedwars_solo_losses = Player.stats.Bedwars.eight_one_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_one_losses_bedwars - Daily.Bedwars.solo.losses
@@ -165,6 +168,7 @@ onCommand(username, message) {
         else {
             var Bedwars_solo_bblr = (Bedwars_solo_bedsBroken / Bedwars_solo_bedsLost).toFixed(2)
         }
+        // 2s
         var Bedwars_doubles_wins = Player.stats.Bedwars.eight_two_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_wins_bedwars - Daily.Bedwars.doubles.wins
         
         var Bedwars_doubles_losses = Player.stats.Bedwars.eight_two_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.eight_two_losses_bedwars - Daily.Bedwars.doubles.losses
@@ -217,6 +221,7 @@ onCommand(username, message) {
         else {
             var Bedwars_doubles_bblr = (Bedwars_doubles_bedsBroken / Bedwars_doubles_bedsLost).toFixed(2)
         }
+        // 3s
         var Bedwars_threes_wins = Player.stats.Bedwars.four_three_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.four_three_wins_bedwars - Daily.Bedwars.threes.wins
         
         var Bedwars_threes_losses = Player.stats.Bedwars.four_three_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.four_three_losses_bedwars - Daily.Bedwars.threes.losses
@@ -269,6 +274,7 @@ onCommand(username, message) {
         else {
             var Bedwars_threes_bblr = (Bedwars_threes_bedsBroken / Bedwars_threes_bedsLost).toFixed(2)
         }
+        // 4s
         var Bedwars_fours_wins = Player.stats.Bedwars.four_four_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.four_four_wins_bedwars - Daily.Bedwars.fours.wins
         
         var Bedwars_fours_losses = Player.stats.Bedwars.four_four_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.four_four_losses_bedwars - Daily.Bedwars.fours.losses
@@ -321,6 +327,7 @@ onCommand(username, message) {
         else {
             var Bedwars_fours_bblr = (Bedwars_fours_bedsBroken / Bedwars_fours_bedsLost).toFixed(2)
         }
+        // 4v4s
         var Bedwars_four_two_wins = Player.stats.Bedwars.two_four_wins_bedwars === undefined ? 0 : Player.stats.Bedwars.two_four_wins_bedwars - Daily.Bedwars.four_two.wins
         
         var Bedwars_four_two_losses = Player.stats.Bedwars.two_four_losses_bedwars === undefined ? 0 : Player.stats.Bedwars.two_four_losses_bedwars - Daily.Bedwars.four_two.losses
