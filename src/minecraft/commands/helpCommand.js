@@ -34,15 +34,15 @@ class HelpCommand extends MinecraftCommand {
       else if (subcommand == 'daily') {
         this.send(`/gc Usage: !daily <player> - will show the player's daily stats - ${makeid(10)}`)
       }
-      else if (subcommand == 'denick') {
-        this.send(`/gc Usage: !denick <nick> - will denick someone - ${makeid(10)}`)
-      }
+      // else if (subcommand == 'denick') {
+      //   this.send(`/gc Usage: !denick <nick> - will denick someone - ${makeid(10)}`)
+      // }
       else if (subcommand == 'duels') {
         this.send(`/gc Usage: !duels <player> [mode] - will show the player's duels stats - ${makeid(10)}`)
       }
-      else if (subcommand == 'findnick') {
-        this.send(`/gc Usage: !findnick <player> - will find the nick of a player - ${makeid(10)}`)
-      }
+      // else if (subcommand == 'findnick') {
+      //   this.send(`/gc Usage: !findnick <player> - will find the nick of a player - ${makeid(10)}`)
+      // }
       else if (subcommand == 'guild') {
         this.send(`/gc Usage: !guild <guild> - will show the guild's stats - ${makeid(10)}`)
       }
@@ -71,7 +71,7 @@ class HelpCommand extends MinecraftCommand {
         this.send(`/gc Usage: !winstreak <player> - will show the player's winstreak and if there api is off there ESTIMATED wisstreak - ${makeid(10)}`)
       }
       else {
-        this.send(`/gc Current Commands: !api, !bedwars, !daily, !denick, !duels, !findnick, !guild, !go, !help, !monthly, !player, !skywars, !watchdog !weekly, !winstreak - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
+        this.send(`/gc Current Commands: !api, !bedwars, !daily, !duels, !guild, !go, !help, !monthly, !player, !skywars, !watchdog !weekly, !winstreak - EVERY command has a sub help menu eg: !help bedwars - <> are required and [] are not required - ${makeid(10)}`)
       }
     } else {
       this.send(`/gc This command is disabled! - ${makeid(10)}`)
