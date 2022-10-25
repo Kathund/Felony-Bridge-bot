@@ -2,7 +2,7 @@
 const MinecraftCommand = require('../../contracts/MinecraftCommand')
 const HypixelAPIReborn = require('hypixel-api-reborn')
 const HypAPI = require('../../Hypixel.js')
-const check = 'enabled'
+const check = 'disabled'
 const fetch = (...args) => import('node-fetch').then(({
 	default: fetch
 }) => fetch(...args)).catch(err => console.log(err));
@@ -48,7 +48,7 @@ class findNickCommand extends MinecraftCommand {
         }
       }
       else {
-        this.send(`/gc This command is disabled! - ${makeid(10)}`)
+        this.send(`/gc This command is disabled! API got removed - ${makeid(10)}`)
       }
   }
 }
