@@ -35,7 +35,7 @@ function Formatter(num, digits) {
     return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
   }
 
-class men extends MinecraftCommand {
+class monthlyCommand extends MinecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
@@ -424,6 +424,6 @@ onCommand(username, message) {
   }
 }
 
-module.exports = men
+module.exports = monthlyCommand
 
 
