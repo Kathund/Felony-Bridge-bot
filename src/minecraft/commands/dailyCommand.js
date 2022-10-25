@@ -43,13 +43,11 @@ class dailyCommand extends MinecraftCommand {
     this.aliases = ['']
     this.description = 'Shows ur daily stats'
   }
- 
-  // TODO rewrite this commmand so it dosent take so long to load
 
 onCommand(username, message) {
   if (check != 'disabled') {
     if (username == 'help') {
-        this.send(`/gc Usage: !monthly <username> - ${makeid(10)}`)
+        this.send(`/gc Usage: !daily <username> - ${makeid(10)}`)
     }
     else {
     const player = message.split(' ')[1]
