@@ -33,55 +33,62 @@ onCommand(username, message) {
     if (player == 'help') {
       this.send(`/gc Usage: !sw <player> [mode] - Modes: solo, team, ranked, mega - look up your skywars stats - ${makeid(10)}`)
     }
+      if (player == 'solo' || player == 'temas') {
+        HypAPI.getPlayer(username).then((data) => {
+          var overallKills = data.stats.skywars[mode].normal.kills + data.stats.skywars[mode].insnae.kills
+          var overallDeaths = data.stats.skywars[mode].normal.deaths + data.stats.skywars[mode].insane.deaths
+          var overallWins = data.stats.skywars[mode].normal.wins + data.stats.skywars[mode].insane.wins
+          var overallLosses = data.stats.skywars[mode].normal.losses + data.stats.skywars[mode].insane.losses
+          var overallKDR = overallWins / overallDeaths
+          var overallWLR = overallWins / overallLosses
+          this.send(`/gc ${username}'s Skywars Stats in mode ${player} - Kills: ${overallKills} KD ${overallKDR} Wins: ${overallWins} WLR ${overallWLR} - ${makeid(10)}`)
+        })
+      }
+      else if (player == 'mega') {
+        HypAPI.getPlayer(username).then((data) => {
+          this.send(`/gc ${username}'s Skywars Stats in mode ${player} - Kills: ${data.stats.skywars.mega.overall.kills} KD ${data.stats.skywars.mega.overall.KDRatio} Wins: ${data.stats.skywars.mega.overall.wins} WLR ${data.stats.skywars.mega.overall.WLRatio} - ${makeid(10)}`)
+        })
+      }
+      else if (player == 'overall' || player == undefined) {
+        HypAPI.getPlayer(username).then((data) => {
+          this.send(`/gc ${username}'s skywars stats - Kills: ${data.stats.skywars.kills} KD ${data.stats.skywars.KDRatio} Wins: ${data.stats.skywars.wins} WLR ${data.stats.skywars.WLRatio} - ${makeid(10)}`)
+        })
+      }
+      else if (player == 'ranked') {
+        this.send(`/gc Ranked isn't supported anymore`)
+      }
+      else {
+        const mode = message.split(' ')[2]
+        HypAPI.getPlayer(player).then((data) => {
+          if (mode == 'solo' || mode == 'team') {
+            var overallKills = data.stats.skywars[mode].normal.kills + data.stats.skywars[mode].insane.kills
+            var overallDeaths = data.stats.skywars[mode].normal.deaths + data.stats.skywars[mode].insane.deaths
+            var overallWins = data.stats.skywars[mode].normal.wins + data.stats.skywars[mode].insane.wins
+            var overallLosses = data.stats.skywars[mode].normal.losses + data.stats.skywars[mode].insane.losses
+            var overallKDR = overallWins / overallDeaths
+            var overallWLR = overallWins / overallLosses
+            this.send(`/gc ${player}'s Skywars Stats in mode ${mode} - Kills: ${overallKills} KD ${overallKDR} Wins: ${overallWins} WLR ${overallWLR} - ${makeid(10)}`)
+          }
+          else if (mode == 'mega') {
+            this.send(`/gc ${player}'s Skywars Stats in mode ${mode} - Kills: ${data.stats.skywars.mega.overall.kills} KD ${data.stats.skywars.mega.overall.KDRatio} Wins: ${data.stats.skywars.mega.overall.wins} WLR ${data.stats.skywars.mega.overall.WLRatio} - ${makeid(10)}`)
+          }
+          else if (mode == 'overall' || mode == undefined) {
+            this.send(`/gc ${player}'s skywars stats - Kills: ${data.stats.skywars.kills} KD ${data.stats.skywars.KDRatio} Wins: ${data.stats.skywars.wins} WLR ${data.stats.skywars.WLRatio} - ${makeid(10)}`)
+          }
+          else if (mode == 'ranked') {
+            this.send(`/gc Ranked isn't supported anymore`)
+          }
+          else {
+            this.send(`/gc Usage: !sw <player> [mode] - Modes: solo, team, ranked, mega - look up your skywars stats - ${makeid(10)}`)
+          }
+        })
+      }
+    }
     else {
-      HypAPI.getPlayer(player).then((data) => {
-          // check the ammount of splits in the message
-          if (message.split(' ').length == 4) {
-            // get the mode from the third word of the message
-            const mode = message.split(' ')[2]
-            // check if the mode is solo
-            if (mode == 'solo' || mode == 'team') {
-              const type = message.split(' ')[3]
-              if (type == 'overall' || type == 'normal' || type == 'insane') {
-                this.send(`/gc info for ${player} in ${mode} ${type} - Kills: ${data.stats.skywars[mode][type].kills} Wins: ${data.stats.skywars[mode][type].wins} KD: ${data.stats.skywars[mode][type].KDRatio} WLR: ${data.stats.skywars[mode][type].WLRatio} - ${makeid(10)}`)
-              }
-              else {
-                this.send(`/gc info for ${player} in ${mode} overall - Kills: ${data.stats.skywars[mode].overall.kills} Wins: ${data.stats.skywars[mode].overall.wins} KD: ${data.stats.skywars[mode].overall.KDRatio} WLR: ${data.stats.skywars[mode].overall.WLRatio} - ${makeid(10)}`)
-              }
-            }
-            else {
-              this.send(`/gc Invalid mode! Valid Modes: [solo, team, ranked, mega] - ${makeid(10)}`)
-            }
-          }
-          else if (message.split(' ').length == 3) {
-            // get the mode from the third word of the message
-            const mode = message.split(' ')[2]
-            if (mode == 'ranked') {
-              this.send(`/gc Ranked is no longer supported - ${makeid(10)}`)
-            }
-            else if (mode == 'mega') {
-              this.send(`/gc info for ${player} in ${mode} - Kills: ${data.stats.skywars[mode].overall.kills} Wins: ${data.stats.skywars[mode].overall.wins} KD: ${data.stats.skywars[mode].overall.KDRatio} WLR: ${data.stats.skywars[mode].overall.WLRatio} - ${makeid(10)}`)
-            }
-            else {
-              this.send(`/gc Invalid mode! Valid Modes: [solo, team, ranked, mega] - ${makeid(10)}`)
-            }
-          }
-          else if (message.split(' ').length == 2) {
-            // send the stats
-            this.send(`/gc Info for ${player} - Level: ${data.stats.skywars.level}, Kills: ${data.stats.skywars.kills} Wins: ${data.stats.skywars.wins} KD: ${data.stats.skywars.KDRatio} WLR: ${data.stats.skywars.WLRatio} - ${makeid(10)}`)
-          }
-      }).catch((error) => {
-        this.send(`/gc ${player} does not exist! - ${makeid(10)}`)
-        console.log(`error was caused by ${username}`)
-        console.log(error)
-      })
+      this.send(`/gc This command is disabled`)
     }
   }
-  else {
-    this.send(`/gc This command is disabled! - ${makeid(10)}`)
-  }
-}}
-
+}
 module.exports = SkywarsCommand
 
 
