@@ -24,7 +24,8 @@ class duelCommand extends MinecraftCommand {
     this.description = 'Look up your duels stats'
   }
 
- 
+  // TODO REWITE THIS COMMAND
+
 onCommand(username, message) {
   if (check != 'disabled') {
     // get the player name in the second word of the message
