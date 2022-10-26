@@ -41,6 +41,7 @@ class BedwarsCommand extends MinecraftCommand {
     this.description = 'Look up your Bedwars stats'
   }
 
+  // TODO rewrite this command u fucking dumb dumb
  
   onCommand(username, message) {
     if (check != 'disabled') { 
