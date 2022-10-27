@@ -30,37 +30,46 @@ onCommand(username, message) {
   if (check != 'disabled') {
     // get the player name in the second word of the message
     const player = message.split(' ')[1]
+    const subcommand = message.split(' ')[2]
     if (player == 'help') {
         this.send(`/gc Usage: !duels <player> [mode] - Modes: [parkour, bowspleef, arena, megawalls, sumo, classic, combo, blitz, nodebuff, bow, boxing, uhc, op, skywars, bridge] - ${makeid(10)}`)
     }
-    // get the player's stats
-    HypAPI.getPlayer(player).then((data) => {
-      // check the ammount of splits in the message
-      if (message.split(' ').length == 3) {
-        // get the mode from the third word of the message
-        const mode = message.split(' ')[2]
-        // check the mode against the valid modes
-        if (mode == 'parkour'|| mode == 'bowspleef' || mode == 'arena' || mode == 'megawalls' || mode == 'sumo' || mode == 'classic' || mode == 'combo' || mode == 'blitz' || mode == 'nodebuff' || mode == 'bow') {
-          this.send(`/gc info for ${player} in ${mode}: Division: ${data.stats.duels[mode].division} Kills: ${data.stats.duels[mode].kills} Wins: ${data.stats.duels[mode].wins} KD: ${data.stats.duels[mode].KDRatio} WLR: ${data.stats.duels[mode].WLRatio} - ${makeid(10)}`)
+    else if (player == 'parkour'|| player == 'bowspleef' || player == 'arena' || player == 'megawalls' || player == 'sumo' || player == 'classic' || player == 'combo' || player == 'blitz' || player == 'nodebuff' || player == 'bow') {
+      HypAPI.getPlayer(username).then((data) => {
+        this.send(`/gc info for ${username} in ${player}: Division: ${data.stats.duels[subcommand].division} Kills: ${data.stats.duels[subcommand].kills} Wins: ${data.stats.duels[subcommand].wins} KD: ${data.stats.duels[subcommand].KDRatio} WLR: ${data.stats.duels[subcommand].WLRatio} - ${makeid(10)}`)
+      })
+    }
+    else if (player == 'uhc' || player == 'op' || player == 'skywars' || player == 'bridge') {
+      HypAPI.getPlayer(username).then((data) => {
+        this.send(`/gc info for ${player} in ${subcommand}: Division: ${data.stats.duels[subcommand].division} Kills: ${data.stats.duels[subcommand].kills} Wins: ${data.stats.duels[subcommand].wins} KD: ${data.stats.duels[subcommand].KDRatio} WLR: ${data.stats.duels[subcommand].WLRatio} - ${makeid(10)}`)
+      })
+    }
+    else if (player == 'boxing') {
+      HypAPI.getPlayer(username).then((data) => {
+        this.send(`/gc info for ${player} in ${subcommand}: Division: ${data.stats.duels[subcommandvvvvvv].division} Kills: ${data.stats.duels[subcommand].kills} Wins: ${data.stats.duels[subcommand].wins} KD: ${data.stats.duels[subcommand].KDRatio} WLR: ${data.stats.duels[subcommand].WLRatio} - ${makeid(10)}`)
+      })
+    }
+    else if (player == 'overall' || player == undefined) {
+      HypAPI.getPlayer(username).then((data) => {
+        this.send(`/gc info for ${username} in overall: Division: ${data.stats.duels.overall.division} Kills: ${data.stats.duels.overall.kills} Wins: ${data.stats.duels.overall.wins} KD: ${data.stats.duels.overall.KDRatio} WLR: ${data.stats.duels.overall.WLRatio} - ${makeid(10)}`)
+      })
+    }
+    else {
+      HypAPI.getPlayer(player).then((data) => {
+        if (subcommand == 'parkour'|| subcommand == 'bowspleef' || subcommand == 'arena' || subcommand == 'megawalls' || subcommand == 'sumo' || subcommand == 'classic' || subcommand == 'combo' || subcommand == 'blitz' || subcommand == 'nodebuff' || subcommand == 'bow') {
+          this.send(`/gc info for ${player} in ${subcommand}: Division: ${data.stats.duels[subcommand].division} Kills: ${data.stats.duels[subcommand].kills} Wins: ${data.stats.duels[subcommand].wins} KD: ${data.stats.duels[subcommand].KDRatio} WLR: ${data.stats.duels[subcommand].WLRatio} - ${makeid(10)}`)
         }
-        else if (mode == 'uhc' || mode == 'op' || mode == 'skywars' || mode == 'bridge') {
-          this.send(`/gc info for ${player} in ${mode}: Division: ${data.stats.duels[mode].division} Kills: ${data.stats.duels[mode].overall.kills} Wins: ${data.stats.duels[mode].overall.wins} KD: ${data.stats.duels[mode].overall.KDRatio} WLR: ${data.stats.duels[mode].overall.WLRatio} - ${makeid(10)}`)
+        else if (subcommand == 'uhc' || subcommand == 'op' || subcommand == 'skywars' || subcommand == 'bridge') {
+          this.send(`/gc info for ${player} in ${subcommand}: Division: ${data.stats.duels[subcommand].division} Kills: ${data.stats.duels[subcommand].kills} Wins: ${data.stats.duels[subcommand].wins} KD: ${data.stats.duels[subcommand].KDRatio} WLR: ${data.stats.duels[subcommand].WLRatio} - ${makeid(10)}`)
         }
-        else if (mode == 'boxing') {
-          this.send(`/gc info for ${player} in ${mode}: Division: ${data.stats.duels[mode].division} Kills: ${data.stats.duels[mode].kills} Wins: ${data.stats.duels[mode].wins} - ${makeid(10)}`)
+        else if (subcommand == 'boxing') {
+          this.send(`/gc info for ${player} in ${subcommand}: Division: ${data.stats.duels[subcommand].division} Kills: ${data.stats.duels[subcommand].kills} Wins: ${data.stats.duels[subcommand].wins} KD: ${data.stats.duels[subcommand].KDRatio} WLR: ${data.stats.duels[subcommand].WLRatio} - ${makeid(10)}`)
         }
-        else {
-          this.send(`/gc Invalid mode! Valid Modes: [parkour, bowspleef, arena, megawalls, sumo, classic, combo, blitz, nodebuff, bow, boxing, uhc, op, skywars, bridge] - ${makeid(10)}`)
+        else if (subcommand == 'overall' || subcommand == undefined) {
+          this.send(`/gc info for ${player} in overall: Division: ${data.stats.duels.overall.division} Kills: ${data.stats.duels.overall.kills} Wins: ${data.stats.duels.overall.wins} KD: ${data.stats.duels.overall.KDRatio} WLR: ${data.stats.duels.overall.WLRatio} - ${makeid(10)}`)
         }
-      }
-      else {
-        this.send(`/gc info for ${player} - Division: ${data.stats.duels.division} Kills: ${data.stats.duels.kills} Wins: ${data.stats.duels.wins} KD: ${data.stats.duels.KDRatio} WLR: ${data.stats.duels.WLRatio} - ${makeid(10)}`)
-      }
-    }).catch((error) => {
-      this.send(`/gc ${player} does not exist! - ${makeid(10)}`)
-      console.log(`error was caused by ${username}`)
-      console.log(error)
-    })
+      })
+    }
   } else {
     this.send(`/gc This command is disabled! - ${makeid(10)}`)
   }
