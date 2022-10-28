@@ -49,36 +49,36 @@ class BedwarsCommand extends MinecraftCommand {
       const player = message.split(' ')[1]
       // get the player's stats
       if (player == 'solo' || player == 'doubles' || player == 'threes' || player == 'fours' || player == '4v4') {
-        HypAPI.getPlayer(username).then((data) => {
-          var finals = data.stats.bedwars[player].finalKills
-          var wins = data.stats.bedwars[player].wins
-          if (data.stats.bedwars[player].winstreak == 0) {
+        HypAPI.getPlayer(username).then((hypixelAPIData) => {
+          var finals = hypixelAPIData.stats.bedwars[player].finalKills
+          var wins = hypixelAPIData.stats.bedwars[player].wins
+          if (hypixelAPIData.stats.bedwars[player].winstreak == 0) {
             fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${username}`).then((res) => {
-              res.json().then((a) => {
+              res.json().then((antisniperAPIInfo) => {
                 if (player == 'solo') {
-                  const winstreak = a.player.data.eight_one_winstreak
-                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                  const winstreak = antisniperAPIInfo.player.data.eight_one_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${hypixelAPIData.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars[player].WLRatio}, BLR ${hypixelAPIData.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == 'doubles') {
-                  const winstreak = a.player.data.eight_two_winstreak
-                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                  const winstreak = antisniperAPIInfo.player.data.eight_two_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${hypixelAPIData.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars[player].WLRatio}, BLR ${hypixelAPIData.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == 'threes') {
-                  const winstreak = a.player.data.four_three_winstreak
-                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                  const winstreak = antisniperAPIInfo.player.data.four_three_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${hypixelAPIData.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars[player].WLRatio}, BLR ${hypixelAPIData.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == 'fours') {
-                  const winstreak = a.player.data.four_four_winstreak
-                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                  const winstreak = antisniperAPIInfo.player.data.four_four_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${hypixelAPIData.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars[player].WLRatio}, BLR ${hypixelAPIData.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
                 else if (player == '4v4') {
-                  const winstreak = a.player.data.four_two_winstreak
-                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+                  const winstreak = antisniperAPIInfo.player.data.four_two_winstreak
+                  this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${hypixelAPIData.stats.bedwars[player].finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars[player].WLRatio}, BLR ${hypixelAPIData.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
                 }
               })
             })
           } else {
-            this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${data.stats.bedwars[player].finalKDRatio}, Winstreak: ${data.stats.bedwars[player].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[player].WLRatio}, BLR ${data.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
+            this.send(`/gc Info for ${username} in mode ${player} - FKDR: ${hypixelAPIData.stats.bedwars[player].finalKDRatio}, Winstreak: ${hypixelAPIData.stats.bedwars[player].winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars[player].WLRatio}, BLR ${hypixelAPIData.stats.bedwars[player].beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars[player].beds.broken} - ${makeid(10)}`)
           }
         })
       }
@@ -97,14 +97,14 @@ class BedwarsCommand extends MinecraftCommand {
         })
       }
       else if (player == 'overall' || player == undefined) {
-        HypAPI.getPlayer(username).then((data) => {
-          var finals = data.stats.bedwars.finalKills
-          var wins = data.stats.bedwars.wins
-          if (data.stats.bedwars.winstreak == 0) {
+        HypAPI.getPlayer(username).then((hypixelAPIData) => {
+          var finals = hypixelAPIData.stats.bedwars.finalKills
+          var wins = hypixelAPIData.stats.bedwars.wins
+          if (hypixelAPIData.stats.bedwars.winstreak == 0) {
             fetch(`https://api.antisniper.net/winstreak?key=976e7ac3-b818-4442-ae92-c452dfa8b8f1&name=${username}`).then((res) => {
-              res.json().then((a) => {
-              const winstreak = a.player.data.overall_winstreak
-              this.send(`/gc Info for ${username}- FKDR: ${data.stats.bedwars.finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars.WLRatio}, BLR ${data.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars.beds.broken} - ${makeid(10)}`)  
+              res.json().then((antisniperAPIData) => {
+              const winstreak = antisniperAPIData.player.data.overall_winstreak
+              this.send(`/gc Info for ${username}- FKDR: ${hypixelAPIData.stats.bedwars.finalKDRatio}, ESTIMATED Winstreak: ${winstreak}, Wins: ${wins}, WLR ${hypixelAPIData.stats.bedwars.WLRatio}, BLR ${hypixelAPIData.stats.bedwars.beds.BLRatio}, Finals: ${finals}, Beds: ${hypixelAPIData.stats.bedwars.beds.broken} - ${makeid(10)}`)  
               })
             })
           }
@@ -137,10 +137,6 @@ class BedwarsCommand extends MinecraftCommand {
                 this.send(`/gc To use dreams just enter the mode! Valid Modes: [voidless, lucky, armed, rush, ultimate] - ${makeid(10)}`)
               }
               else if (mode == 'voidless' || mode == 'lucky' || mode == 'armed' || mode == 'rush' || mode == 'ultimate') {
-                // make it overall only
-                // by adding 2s stats with 4s stats
-                // TODO NEEDS TESTING THIS HAS NEVER BEEN TESTED
-                // TODO send in g chat
                 var overallWins = data.stats.bedwars.dream[mode].doubles.wins + data.stats.bedwars.dream[mode].fours.wins
                 var overallLosses = data.stats.bedwars.dream[mode].doubles.losses + data.stats.bedwars.dream[mode].fours.losses
                 var overallFinals = data.stats.bedwars.dream[mode].doubles.finalKills + data.stats.bedwars.dream[mode].fours.finalKills
