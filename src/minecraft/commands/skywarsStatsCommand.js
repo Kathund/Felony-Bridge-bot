@@ -37,7 +37,7 @@ onCommand(username, message) {
           var overallDeaths = data.stats.skywars[mode].normal.deaths + data.stats.skywars[mode].insane.deaths
           var overallWins = data.stats.skywars[mode].normal.wins + data.stats.skywars[mode].insane.wins
           var overallLosses = data.stats.skywars[mode].normal.losses + data.stats.skywars[mode].insane.losses
-          var overallKDR = overallWins / overallDeaths
+          var overallKDR = overallKills / overallDeaths
           var overallWLR = overallWins / overallLosses
           this.send(`/gc ${username}'s Skywars Stats in mode ${player} - Kills: ${overallKills} KD ${overallKDR} Wins: ${overallWins} WLR ${overallWLR} - ${makeid(10)}`)
         })
