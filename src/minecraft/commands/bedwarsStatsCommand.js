@@ -118,12 +118,7 @@ class BedwarsCommand extends MinecraftCommand {
             // check the ammount of splits in the message
             if(message.split(' ').length == 3) {
               const mode = message.split(' ')[2]
-              if(mode == 'solo' ||
-                mode == 'doubles' ||
-                mode == 'threes' ||
-                mode == 'fours' ||
-                mode == '4v4' ||
-                mode == 'castle') {
+              if(mode == 'solo' || mode == 'doubles' || mode == 'threes' || mode == 'fours' || mode == '4v4' || mode == 'castle') {
                   var finals = data.stats.bedwars[mode].finalKills
                   var wins = data.stats.bedwars[mode].wins
                   this.send(`/gc Info for ${player} in mode ${mode} - FKDR: ${data.stats.bedwars[mode].finalKDRatio}, Winstreak: ${data.stats.bedwars[mode].winstreak}, Wins: ${wins}, WLR ${data.stats.bedwars[mode].WLRatio}, BLR ${data.stats.bedwars[mode].beds.BLRatio}, Finals: ${finals}, Beds: ${data.stats.bedwars[mode].beds.broken} - ${makeid(10)}`)
