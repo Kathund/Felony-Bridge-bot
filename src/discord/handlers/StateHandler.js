@@ -13,7 +13,7 @@ class StateHandler {
     Logger.discordMessage("Client ready, logged in as " + this.discord.client.user.tag);
     this.discord.client.user.setPresence({
       activities: [
-        { name: `/help | by DuckySoLucky#5181`, type: ActivityType.Playing },
+        { name: `/help | by Kathund#2004`, type: ActivityType.Playing },
       ],
     });
     const channel = await getChannel("Guild");

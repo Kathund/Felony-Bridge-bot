@@ -1,11 +1,10 @@
-const { replaceAllRanks, toFixed, addCommas } = require('../../contracts/helperFunctions.js')
+const { replaceAllRanks, addCommas } = require('../../contracts/helperFunctions.js')
 const { getLatestProfile } = require('../../../API/functions/getLatestProfile.js')
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 let guildInfo = [], guildRanks = [], members = [], guildTop = []
 const hypixel = require('../../contracts/API/HypixelRebornAPI.js')
 const { getUUID } = require('../../contracts/API/PlayerDBAPI.js')
 const eventHandler = require('../../contracts/EventHandler.js')
-const getWeight = require('../../../API/stats/weight.js')
 const messages = require('../../../messages.json')
 /*eslint-disable */
 const { EmbedBuilder } = require('discord.js')
@@ -40,7 +39,7 @@ class StateHandler extends eventHandler {
       await delay(69)
       this.send(`/party accept ${username}`)
       await delay(5000)
-      this.send(`/party leave`)        
+      this.send(`/party leave`)
     }
 
     if (this.isGuildTopMessage(message)) {
@@ -69,61 +68,53 @@ class StateHandler extends eventHandler {
       const username = replaceAllRanks(message.split('has')[0].replaceAll('-----------------------------------------------------\n', ''))
       const uuid = await getUUID(username);
       if (config.guildRequirement.enabled) {
-        const [player, profile] = await Promise.all([
+        const [player] = await Promise.all([
           hypixel.getPlayer(uuid),
           getLatestProfile(uuid)
         ])
         let meetRequirements = false;
 
-        const weight = (await getWeight(profile.profile, profile.uuid)).weight.senither.total
-
-        const bwLevel = player.stats.bedwars.level;
-        const bwFKDR = player.stats.bedwars.finalKDRatio;
-
-        const swLevel = player.stats.skywars.level/5;
-        const swKDR = player.stats.skywars.KDRatio;
-        
-        const duelsWins = player.stats.duels.wins;
-        const dWLR = player.stats.duels.WLRatio;
-
-        if (weight > config.guildRequirement.requirements.senitherWeight) meetRequirements = true;
-
+        const hypixelLevel = player.level
+        const bwLevel = player.stats.bedwars.level
+        const bwWins = player.stats.bedwars.wins
+        const swWins = player.stats.skywars.wins
+        const duelsWins = player.stats.duels.wins
+        const duelsWLR = player.stats.duels.WLRatio
         if (bwLevel > config.guildRequirement.requirements.bedwarsStars) meetRequirements = true;
-        if (bwLevel > config.guildRequirement.requirements.bedwarsStarsWithFKDR && bwFKDR > config.guildRequirement.requirements.bedwarsFKDR) meetRequirements = true;
+        if (hypixelLevel > config.guildRequirement.requirements.hypixelNetworkLevel) meetRequirements = true;
+        if (bwWins > config.guildRequirement.requirements.bedwarsWins) meetRequirements = true;
+        if (swWins > config.guildRequirement.requirements.skywarsWins) meetRequirements = true;
+        if (duelsWins > config.guildRequirement.requirements.dulesWins) if (duelsWLR > config.guildRequirement.requirements.duelsWLR) meetRequirements = true;
+        if (duelsWLR > config.guildRequirement.requirements.duelsWLR) if (duelsWins > config.guildRequirement.requirements.duelsWins) meetRequirements = true;
 
-        if (swLevel > config.guildRequirement.requirements.skywarsStars) meetRequirements = true;
-        if (swLevel > config.guildRequirement.requirements.skywarsStarsWithKDR && swKDR > config.guildRequirement.requirements.skywarsStarsWithKDR) meetRequirements = true;
+        const statsEmbed = new EmbedBuilder()
+          .setColor(2067276)
+          .setTitle(`${player.nickname} has requested to join the Guild!`)
+          .setDescription(`**Hypixel Network Level**\n${player.level}\n`)
+          .addFields(
+            { name: 'Bedwars Stars', value: `${player.stats.bedwars.level}/${config.guildRequirement.requirements.bedwarsStars}`, inline: true },
+            { name: 'Bedwars Wins', value: `${addCommas(player.stats.bedwars.wins)}/${addCommas(config.guildRequirement.requirements.bedwarsWins)}`, inline: true },
+            { name: 'Skywars Wins', value: `${addCommas(player.stats.skywars.wins)}/${addCommas(config.guildRequirement.requirements.skywarsWins)}`, inline: true },
+            { name: 'Duels Wins', value: `${addCommas(player.stats.duels.wins)}/${addCommas(config.guildRequirement.requirements.duelsWins)}`, inline: true },
+            { name: 'Duels WLR', value: `${player.stats.duels.KDRatio}/${config.guildRequirement.requirements.duelsWLR}`, inline: true },
+          )
+          .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
+          .setFooter({ text: `by DuckySoLucky#5181 | /help [command] for more information`, iconURL: 'https://imgur.com/tgwQJTX.png' });
+        await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
 
-        if (duelsWins > config.guildRequirement.requirements.duelsWins) meetRequirements = true;
-        if (duelsWins > config.guildRequirement.requirements.duelsWinsWithWLR && dWLR > config.guildRequirement.requirements.duelsWinsWithWLR) meetRequirements = true;
-
-
-        bot.chat(`/oc ${username} ${meetRequirements ? 'Does' : 'Doesn\'t'} meet Requirements. [BW] [${player.stats.bedwars.level}✫] FKDR:${player.stats.bedwars.finalKDRatio} | [SW] [${player.stats.skywars.level}✫] KDR:${player.stats.skywars.KDRatio} | [Duels] Wins: ${player.stats.duels.wins} WLR: ${player.stats.duels.WLRatio} | Skyblock: ${weight}`)
-
-        if (meetRequirements) {
-          const statsEmbed = new EmbedBuilder()
-            .setColor(2067276)
-            .setTitle(`${player.nickname} has requested to join the Guild!`)
-            .setDescription(`**Hypixel Network Level**\n${player.level}\n`)
-            .addFields(
-                { name: 'Bedwars Level', value: `${player.stats.bedwars.level}`, inline: true },
-                { name: 'Skywars Level', value: `${player.stats.skywars.level}`, inline: true },
-                { name: 'Duels Wins', value: `${player.stats.duels.wins}`, inline: true },
-                { name: 'Bedwars FKDR', value: `${player.stats.bedwars.finalKDRatio}`, inline: true },
-                { name: 'Skywars KDR', value: `${player.stats.skywars.KDRatio}`, inline: true },
-                { name: 'Duels WLR', value: `${player.stats.duels.KDRatio}`, inline: true },
-                { name: 'Senither Weight', value: `${addCommas(toFixed((weight), 2))}`, inline: true },
-            )
-            .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`) 
-            .setFooter({ text: `by DuckySoLucky#5181 | /help [command] for more information`, iconURL: 'https://imgur.com/tgwQJTX.png' });
-  
-          await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });   
+        if (meetRequirements == true) {
+          bot.chat(`/oc ${player.nickname} has the requirements to join ${config.minecraft.guildName}!`)
+          await delay(5000) 
+          bot.chat(`/g accept ${player.nickname}`)
+        }
+        else {
+          bot.chat(`/oc ${username}Dosen't meet Requirements. [Hypixel] ${player.level}/${config.guildRequirement.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.guildRequirement.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.guildRequirement.requirements.bedwarsWins)} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.guildRequirement.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.guildRequirement.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.guildRequirement.requirements.duelsWLR}`)
         }
       }
     }
 
     if (this.isGuildListMessage(message)) {
-      if(!message.includes('Online Members')) {
+      if (!message.includes('Online Members')) {
         if (message.includes('Guild Name') || message.includes('Total Members') || message.includes('Online Members')) {
           guildInfo.push(message)
         } else if (message.includes('--')) {
@@ -140,16 +131,16 @@ class StateHandler extends eventHandler {
           members[i] = replaceAllRanks(members[i])
           members[i] = members[i].replaceAll('  ', ' ')
           members[i] = members[i].replaceAll(' ● ', '` ᛫ `')
-          String.prototype.reverse = function () {return this.split('').reverse().join('')}
-          String.prototype.replaceLast = function (what, replacement) {return this.reverse().replace(new RegExp(what.reverse()), replacement.reverse()).reverse()}
+          String.prototype.reverse = function () { return this.split('').reverse().join('') }
+          String.prototype.replaceLast = function (what, replacement) { return this.reverse().replace(new RegExp(what.reverse()), replacement.reverse()).reverse() }
           members[i] = members[i].replaceLast(' ●', '`')
           members[i] = members[i].replaceLast('᛫ `', '')
         }
         let description = `Member Count: **${guildInfoSplit2[2]}/125**\nOnline Members: **${guildInfoSplit3[2]}**\n`
         for (let i = 0; i < guildRanks.length; i++) {
-          description+= `\n`
+          description += `\n`
           guildRanks[i] = guildRanks[i].replaceAll('--', '**')
-          description+= `${guildRanks[i]}\n \`${members[i]}`
+          description += `${guildRanks[i]}\n \`${members[i]}`
         }
 
         this.minecraft.broadcastHeadedEmbed({
@@ -163,33 +154,33 @@ class StateHandler extends eventHandler {
         guildRanks = [];
         members = [];
       }
-  }
-  
+    }
+
 
     if (this.isLoginMessage(message)) {
       const data = JSON.parse(fs.readFileSync('config.json'));
-      if (data.discord.joinMessage) { 
+      if (data.discord.joinMessage) {
         const user = message.split('>')[1].trim().split('joined.')[0].trim()
-        return this.minecraft.broadcastPlayerToggle({ 
+        return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
-          username: user, 
-          message: messages.loginMessage, 
-          color: 2067276, 
-          channel: 'Guild' 
+          username: user,
+          message: messages.loginMessage,
+          color: 2067276,
+          channel: 'Guild'
         })
       }
     }
 
     if (this.isLogoutMessage(message)) {
       const data = JSON.parse(fs.readFileSync('config.json'));
-      if (data.discord.joinMessage) { 
+      if (data.discord.joinMessage) {
         const user = message.split('>')[1].trim().split('left.')[0].trim()
-        return this.minecraft.broadcastPlayerToggle({ 
+        return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
-          username: user, 
-          message: messages.logoutMessage, 
-          color: 15548997, 
-          channel: 'Guild' 
+          username: user,
+          message: messages.logoutMessage,
+          color: 15548997,
+          channel: 'Guild'
         })
       }
     }
@@ -197,7 +188,7 @@ class StateHandler extends eventHandler {
     if (this.isJoinMessage(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[0]
       await delay(1000)
-      bot.chat(`/gc ${messages.guildJoinMessage} | By DuckySoLucky#5181`)
+      bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`)
       return [this.minecraft.broadcastHeadedEmbed({
         message: `${user} ${messages.joinMessage}`,
         title: `Member Joined`,
@@ -210,7 +201,7 @@ class StateHandler extends eventHandler {
         icon: `https://mc-heads.net/avatar/${user}`,
         color: 2067276,
         channel: 'Guild'
-      })]  
+      })]
     }
 
     if (this.isLeaveMessage(message)) {
@@ -246,53 +237,53 @@ class StateHandler extends eventHandler {
         icon: `https://mc-heads.net/avatar/${user}`,
         color: 15548997,
         channel: 'Guild'
-      })]   
+      })]
     }
 
     if (this.isPromotionMessage(message)) {
       const username = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[0]
       const newRank = message.replace(/\[(.*?)\]/g, '').trim().split(' to ').pop().trim()
-      return [this.minecraft.broadcastCleanEmbed({ 
-        message: `${username} ${messages.promotionMessage} ${newRank}`, 
-        color: 2067276, 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: `${username} ${messages.promotionMessage} ${newRank}`,
+        color: 2067276,
         channel: 'Guild'
       }),
-      this.minecraft.broadcastCleanEmbed({ 
-        message: `${username} ${messages.promotionMessage} ${newRank}`, 
-        color: 2067276, 
-        channel: 'Logger' 
+      this.minecraft.broadcastCleanEmbed({
+        message: `${username} ${messages.promotionMessage} ${newRank}`,
+        color: 2067276,
+        channel: 'Logger'
       })]
     }
 
     if (this.isDemotionMessage(message)) {
       const username = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[0]
       const newRank = message.replace(/\[(.*?)\]/g, '').trim().split(' to ').pop().trim()
-      return [this.minecraft.broadcastCleanEmbed({ 
-        message: `${username} ${messages.demotionMessage} ${newRank}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: `${username} ${messages.demotionMessage} ${newRank}`,
+        color: 15548997,
+        channel: 'Guild'
       }),
-      this.minecraft.broadcastCleanEmbed({ 
-        message: `${username} ${messages.demotionMessage} ${newRank}`, 
-        color: 15548997, 
-        channel: 'Logger' 
+      this.minecraft.broadcastCleanEmbed({
+        message: `${username} ${messages.demotionMessage} ${newRank}`,
+        color: 15548997,
+        channel: 'Logger'
       })]
     }
 
     if (this.isCannotMuteMoreThanOneMonth(message)) {
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.cannotMuteMoreThanOneMonthMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.cannotMuteMoreThanOneMonthMessage}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
     if (this.isBlockedMessage(message)) {
       const blockedMsg = message.match(/".+"/g)[0].slice(1, -1)
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.blockedMessageFirst} ${blockedMsg} ${messages.blockedMessageSecond}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.blockedMessageFirst} ${blockedMsg} ${messages.blockedMessageSecond}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
@@ -306,22 +297,22 @@ class StateHandler extends eventHandler {
     }
 
     if (this.isNoPermission(message)) {
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.noPermissionMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.noPermissionMessage}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
     if (this.isIncorrectUsage(message)) {
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: message.split("'").join("`"), 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: message.split("'").join("`"),
+        color: 15548997,
+        channel: 'Guild'
       })
     }
-    
-    if(this.isAlreadyBlacklistedMessage(message)) {
+
+    if (this.isAlreadyBlacklistedMessage(message)) {
       return this.minecraft.broadcastHeadedEmbed({
         message: `${messages.alreadyBlacklistedMessage}`,
         title: `Blacklist`,
@@ -364,147 +355,148 @@ class StateHandler extends eventHandler {
 
     if (this.isOnlineInvite(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[2]
-      return [this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.onlineInvite}`, 
-        color: 2067276, 
-        channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.onlineInvite}`, 
-        color: 2067276, 
-        channel: 'Logger' 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.onlineInvite}`,
+        color: 2067276,
+        channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.onlineInvite}`,
+        color: 2067276,
+        channel: 'Logger'
       })]
     }
 
     if (this.isOfflineInvite(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[6].match(/\w+/g)[0]
-      return [this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.offlineInvite}`, 
-        color: 2067276, 
-        channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.offlineInvite}`, 
-        color: 2067276, 
-        channel: 'Logger' 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.offlineInvite}`,
+        color: 2067276,
+        channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.offlineInvite}`,
+        color: 2067276,
+        channel: 'Logger'
       })]
     }
 
     if (this.isFailedInvite(message)) {
-      return [this.minecraft.broadcastCleanEmbed({ 
-        message: message.replace(/\[(.*?)\]/g, '').trim(), 
-        color: 15548997, channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
-        message: message.replace(/\[(.*?)\]/g, '').trim(), 
-        color: 15548997, 
-        channel: 'Logger' 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: message.replace(/\[(.*?)\]/g, '').trim(),
+        color: 15548997, channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
+        message: message.replace(/\[(.*?)\]/g, '').trim(),
+        color: 15548997,
+        channel: 'Logger'
       })]
     }
 
     if (this.isGuildMuteMessage(message)) {
       const time = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[7]
-      return [ this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.guildMuteMessage} ${time}`, 
-        color: 15548997, 
-        channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
+      return [this.minecraft.broadcastCleanEmbed({
         message: `${messages.guildMuteMessage} ${time}`,
-        color: 15548997, 
-        channel: 'Logger' 
+        color: 15548997,
+        channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
+        message: `${messages.guildMuteMessage} ${time}`,
+        color: 15548997,
+        channel: 'Logger'
       })]
     }
 
     if (this.isGuildUnmuteMessage(message)) {
-      return [ this.minecraft.broadcastCleanEmbed({ 
+      return [this.minecraft.broadcastCleanEmbed({
         message: `${messages.guildUnmuteMessage}`,
-        color: 2067276, channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
+        color: 2067276, channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
         message: `${messages.guildUnmuteMessage}`,
-        color: 2067276, 
-        channel: 'Logger' 
+        color: 2067276,
+        channel: 'Logger'
       })]
     }
 
     if (this.isUserMuteMessage(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[3].replace(/[^\w]+/g, '')
       const time = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[5]
-      return [ this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.userMuteMessage} ${time}`, 
-        color: 15548997, channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.userMuteMessage} ${time}`, 
-        color: 15548997, 
-        channel: 'Logger' 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.userMuteMessage} ${time}`,
+        color: 15548997, channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.userMuteMessage} ${time}`,
+        color: 15548997,
+        channel: 'Logger'
       })]
     }
 
     if (this.isUserUnmuteMessage(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[3]
-      return [ this.minecraft.broadcastCleanEmbed({
-        message: `${user} ${messages.userUnmuteMessage}`, 
-         color: 2067276, 
-         channel: 'Guild' 
-      }), 
-      this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.userUnmuteMessage}`, 
-        color: 2067276, 
-        channel: 'Logger' 
+      return [this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.userUnmuteMessage}`,
+        color: 2067276,
+        channel: 'Guild'
+      }),
+      this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.userUnmuteMessage}`,
+        color: 2067276,
+        channel: 'Logger'
       })]
     }
 
     if (this.isSetrankFail(message)) {
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.setrankFailMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.setrankFailMessage}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
-    if (this.isGuildQuestCompletion(message)) { 
-      this.minecraft.broadcastHeadedEmbed({ 
-        title: 'Guild Quest Completion', 
-        icon: `https://hypixel.paniek.de/guild/${config.minecraft.guildID}/banner.png`, 
+    if (this.isGuildQuestCompletion(message)) {
+      this.minecraft.broadcastHeadedEmbed({
+        title: 'Guild Quest Completion',
+        icon: `https://hypixel.paniek.de/guild/${config.minecraft.guildID}/banner.png`,
         message: `${message}`,
-        color: 15844367, 
+        color: 15844367,
         channel: 'Guild'
       })
     }
 
     if (this.isAlreadyMuted(message)) {
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.alreadyMutedMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.alreadyMutedMessage}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
     if (this.isNotInGuild(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(' ')[0]
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.notInGuildMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.notInGuildMessage}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
     if (this.isLowestRank(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(' ')[0]
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${user} ${messages.lowestRankMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${user} ${messages.lowestRankMessage}`,
+        color: 15548997,
+        channel: 'Guild'
       })
     }
 
     if (this.isAlreadyHasRank(message)) {
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.alreadyHasRankMessage}`, 
-        color: 15548997, 
-        channel: 'Guild' })
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.alreadyHasRankMessage}`,
+        color: 15548997,
+        channel: 'Guild'
+      })
     }
 
     if (this.isTooFast(message)) {
@@ -513,8 +505,8 @@ class StateHandler extends eventHandler {
 
     if (this.isPlayerNotFound(message)) {
       const user = message.split(' ')[8].slice(1, -1)
-      return this.minecraft.broadcastCleanEmbed({ 
-        message: `${messages.playerNotFoundMessageFirst} ${user} ${messages.playerNotFoundMessageSecond}`, 
+      return this.minecraft.broadcastCleanEmbed({
+        message: `${messages.playerNotFoundMessageFirst} ${user} ${messages.playerNotFoundMessageSecond}`,
         color: 15548997,
         channel: 'Guild'
       })
@@ -534,7 +526,8 @@ class StateHandler extends eventHandler {
         message: 'debug_temp_message_ignore',
         chat: 'debugChannel'
       }
-    )}
+      )
+    }
 
     const parts = message.split(':')
     const group = parts.shift().trim()
@@ -559,7 +552,7 @@ class StateHandler extends eventHandler {
       guildRank: guildRank,
       chat: chatType,
     })
-    
+
   }
 
   isMessageFromBot(username) {
@@ -617,7 +610,7 @@ class StateHandler extends eventHandler {
   }
 
   isGuildListMessage(message) {
-    return message.includes('●') || message.includes(' -- ') && message.includes(' -- ') || message.startsWith('Online Members: ') || message.includes('Online Members: ') || message.startsWith('Total Members:') ||  message.startsWith('Guild Name:')
+    return message.includes('●') || message.includes(' -- ') && message.includes(' -- ') || message.startsWith('Online Members: ') || message.includes('Online Members: ') || message.startsWith('Total Members:') || message.startsWith('Guild Name:')
   }
 
   isPromotionMessage(message) {
@@ -627,7 +620,7 @@ class StateHandler extends eventHandler {
   isDemotionMessage(message) {
     return message.includes('was demoted from') && !message.includes(':')
   }
-  
+
   isRequestMessage(message) {
     return message.includes('has requested to join the Guild!')
   }
@@ -699,7 +692,7 @@ class StateHandler extends eventHandler {
   isAlreadyHasRank(message) {
     return message.includes('They already have that rank!') && !message.includes(':')
   }
-    
+
   isLobbyJoinMessage(message) {
     return (message.endsWith(' the lobby!') || message.endsWith(' the lobby! <<<')) && message.includes('[MVP+')
   }
