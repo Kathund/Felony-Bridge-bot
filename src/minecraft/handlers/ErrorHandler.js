@@ -1,37 +1,39 @@
-const EventHandler = require('../../contracts/EventHandler')
+const eventHandler = require("../../contracts/EventHandler.js");
+// eslint-disable-next-line
+const Logger = require("../.././Logger.js");
 
-class StateHandler extends EventHandler {
+class StateHandler extends eventHandler {
   constructor(minecraft) {
-    super()
+    super();
 
-    this.minecraft = minecraft
+    this.minecraft = minecraft;
   }
 
   registerEvents(bot) {
-    this.bot = bot
+    this.bot = bot;
 
-    this.bot.on('error', (...args) => this.onError(...args))
+    this.bot.on("error", (...args) => this.onError(...args));
   }
 
   onError(error) {
-    if (this.isConnectionResetError(error)) {
-      return
-    }
+    if (this.isConnectionResetError(error)) return;
 
     if (this.isConnectionRefusedError(error)) {
-      return this.minecraft.app.log.error('Connection refused while attempting to login via the Minecraft client')
+      return Logger.errorMessage(
+        "Connection refused while attempting to login via the Minecraft client"
+      );
     }
 
-    this.minecraft.app.log.error(error)
+    Logger.warnMessage(error);
   }
 
   isConnectionResetError(error) {
-    return error.hasOwnProperty('code') && error.code == 'ECONNRESET'
+    return error.code && error.code == "ECONNRESET";
   }
 
   isConnectionRefusedError(error) {
-    return error.hasOwnProperty('code') && error.code == 'ECONNREFUSED'
+    return error.code && error.code == "ECONNREFUSED";
   }
 }
 
-module.exports = StateHandler
+module.exports = StateHandler;

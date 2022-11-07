@@ -1,49 +1,58 @@
+/*eslint-disable */
+const { ActivityType } = require("discord.js");
+const config = require("../../../config.json");
+const Logger = require("../../Logger.js");
+/*eslint-enable */
+
 class StateHandler {
   constructor(discord) {
-    this.discord = discord
+    this.discord = discord;
   }
 
   async onReady() {
-    this.discord.app.log.discord('Client ready, logged in as ' + this.discord.client.user.tag)
-    this.discord.client.user.setActivity('Guild Chat', { type: 'WATCHING' })
+    Logger.discordMessage("Client ready, logged in as " + this.discord.client.user.tag);
+    this.discord.client.user.setPresence({
+      activities: [
+        { name: `/help | by DuckySoLucky#5181`, type: ActivityType.Playing },
+      ],
+    });
+    const channel = await getChannel("Guild");
+    global.bridgeChat = config.discord.guildChatChannel;
+    global.uptime = new Date().getTime();
 
-    if (this.discord.app.config.discord.messageMode == 'webhook') {
-      this.discord.webhook = await getWebhook(this.discord)
-    }
-
-    this.discord.client.channels.fetch(this.discord.app.config.discord.channel).then(channel => {
-      channel.send({
-        embed: {
+    channel.send({
+      embeds: [
+        {
           author: { name: `Chat Bridge is Online` },
-          color: '47F049'
-        }
-      })
-    })
+          color: 2067276,
+        },
+      ],
+    });
   }
 
-  onClose() {
-    this.discord.client.channels.fetch(this.discord.app.config.discord.channel).then(channel => {
-      channel.send({
-        embed: {
+  async onClose() {
+    const channel = await getChannel("Guild");
+    channel.send({
+      embeds: [
+        {
           author: { name: `Chat Bridge is Offline` },
-          color: 'F04947'
-        }
-      }).then(() => { process.exit() })
-    }).catch(() => { process.exit() })
+          color: 15548997,
+        },
+      ],
+    });
   }
 }
 
-async function getWebhook(discord) {
-  let channel = discord.client.channels.cache.get(discord.app.config.discord.channel)
-  let webhooks = await channel.fetchWebhooks()
-  if (webhooks.first()) {
-    return webhooks.first()
+async function getChannel(type) {
+  if (type == "Officer") {
+    return client.channels.fetch(config.discord.officerChannel);
+  } else if (type == "Logger") {
+    return client.channels.fetch(config.discord.loggingChannel);
+  } else if (type == "debugChannel") {
+    return client.channels.fetch(config.console.debugChannel);
   } else {
-    var res = await channel.createWebhook(discord.client.user.username, {
-      avatar: discord.client.user.avatarURL(),
-    })
-    return res
+    return client.channels.fetch(config.discord.guildChatChannel);
   }
 }
 
-module.exports = StateHandler
+module.exports = StateHandler;

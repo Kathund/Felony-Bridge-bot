@@ -1,49 +1,51 @@
-const EventHandler = require('../../contracts/EventHandler')
+const eventHandler = require("../../contracts/EventHandler.js");
+// eslint-disable-next-line
+const Logger = require("../../Logger.js");
 
-class StateHandler extends EventHandler {
+class StateHandler extends eventHandler {
   constructor(minecraft) {
-    super()
+    super();
 
-    this.minecraft = minecraft
-    this.loginAttempts = 0
-    this.exactDelay = 0
+    this.minecraft = minecraft;
+    this.loginAttempts = 0;
+    this.exactDelay = 0;
   }
 
   registerEvents(bot) {
-    this.bot = bot
+    this.bot = bot;
 
-    this.bot.on('login', (...args) => this.onLogin(...args))
-    this.bot.on('end', (...args) => this.onEnd(...args))
-    this.bot.on('kicked', (...args) => this.onKicked(...args))
+    this.bot.on("login", (...args) => this.onLogin(...args));
+    this.bot.on("end", (...args) => this.onEnd(...args));
+    this.bot.on("kicked", (...args) => this.onKicked(...args));
   }
 
   onLogin() {
-    this.minecraft.app.log.minecraft('Client ready, logged in as ' + this.bot.username)
+    Logger.minecraftMessage("Client ready, logged in as " + this.bot.username);
 
-    this.loginAttempts = 0
-    this.exactDelay = 0
+    this.loginAttempts = 0;
+    this.exactDelay = 0;
   }
 
   onEnd() {
-    let loginDelay = this.exactDelay
-    if (loginDelay == 0) {
-      loginDelay = (this.loginAttempts + 1) * 5000
+    const loginDelay =
+      this.exactDelay > 60000 ? 60000 : (this.loginAttempts + 1) * 5000;
 
-      if (loginDelay > 60000) {
-        loginDelay = 60000
-      }
-    }
+    Logger.warnMessage(
+      `Minecraft bot has disconnected! Attempting reconnect in ${
+        loginDelay / 1000
+      } seconds`
+    );
 
-    this.minecraft.app.log.warn(`Minecraft bot disconnected from server, attempting reconnect in ${loginDelay / 1000} seconds`)
-
-    setTimeout(() => this.minecraft.connect(), loginDelay)
+    setTimeout(() => this.minecraft.connect(), loginDelay);
   }
 
   onKicked(reason) {
-    this.minecraft.app.log.warn(`Minecraft bot was kicked from server for "${reason}"`)
+    Logger.warnMessage(
+      `Minecraft bot has been kicked from the server for "${reason}"`
+    );
 
-    this.loginAttempts++
+    this.loginAttempts++;
   }
 }
 
-module.exports = StateHandler
+module.exports = StateHandler;

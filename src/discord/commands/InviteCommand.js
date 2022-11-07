@@ -1,20 +1,30 @@
-const DiscordCommand = require('../../contracts/DiscordCommand')
+const config = require("../../../config.json");
 
-class InviteCommand extends DiscordCommand {
-  constructor(discord) {
-    super(discord)
+module.exports = {
+  name: "invite",
+  description: "Invites the given user to the guild.",
+  options: [
+    {
+      name: "name",
+      description: "Minecraft Username",
+      type: 3,
+      required: true,
+    },
+  ],
 
-    this.name = 'invite'
-    this.aliases = ['i', 'inv']
-    this.description = 'Invites the given user to the guild'
-  }
-
-  onCommand(message) {
-    let args = this.getArgs(message)
-    let user = args.shift()
-
-    this.sendMinecraftMessage(`/g invite ${user ? user : ''}`)
-  }
-}
-
-module.exports = InviteCommand
+  execute: async (interaction, client) => {
+    const name = interaction.options.getString("name");
+    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.commandRole)) {
+      bot.chat(`/g invite ${name}`);
+      await interaction.followUp({
+        content: "Command has been executed successfully.",
+        ephemeral: true,
+      });
+    } else {
+      await interaction.followUp({
+        content: "You do not have permission to run this command.",
+        ephemeral: true,
+      });
+    }
+  },
+};
