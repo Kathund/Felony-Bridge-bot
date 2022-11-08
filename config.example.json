@@ -1,16 +1,11 @@
 {
   "minecraft": {
     "prefix": "!",
-    "guildID": "HYPIXEL_GUILD_ID",
-    "guildName": "GUILD_NAME",
+    "guildName": "Felony",
+    "guildID": "5fc50e9a8ea8c9d1008d5f86",
     "guildExp": 0,
-    "ranks": {
-      "guards": 350000,
-      "thieves": 175000,
-      "prisoners": 50000
-    },
     "messageRepeatBypass": true,
-    "messageRepeatBypassLength": 24
+    "messageRepeatBypassLength": 20
   },
   "discord": {
     "token": "TOKEN",
@@ -31,27 +26,27 @@
   },
   "api": {
     "hypixelAPI": "https://api.hypixel.net",
-    "hypixelAPIkey": "HYPIXEL_API_KEY",
+    "hypixelAPIkey": "HYPIXEL_KEY",
     "skyHelperAPI": "http://192.95.42.73:1924//v1",
-    "skyHelperKey": "DuckySoLucky",
+    "skyHelperKey": "Udderly_cool",
     "antiSniperAPI": "https://api.antisniper.net",
-    "antiSniperKey": "ANTISNIPER_API_KEY",
-    "pixelAPI": "https://api.pixelic.de/v1/player",
-    "pixelKey": "PIXEL_API_KEY",
+    "antiSniperKey": "ANTISNIPER_KEY",
     "skyShiiyuAPI": "https://sky.shiiyu.moe/api/v2",
     "playerDBAPI": "https://playerdb.co/api/player/minecraft",
-    "imgurAPIkey": "IMGUR_CLIENT_ID"
+    "pixelAPI": "https://api.pixelic.de/v1/player",
+    "pixelKey": "PIXEL_KEY",
+    "imgurAPIkey": "IMGUR_KEY"
   },
   "event": {
     "enabled": true,
     "notifiers": {
-      "BANK_INTEREST": true,
-      "DARK_AUCTION": true,
-      "ELECTION_BOOTH_OPENS": false,
+      "BANK_INTEREST": false,
+      "DARK_AUCTION": false,
+      "ELECTION_BOOTH_OPENS": true,
       "ELECTION_OVER": true,
-      "FALLEN_STAR_CULT": true,
+      "FALLEN_STAR_CULT": false,
       "FEAR_MONGERER": true,
-      "JACOBS_CONTEST": true,
+      "JACOBS_CONTEST": false,
       "JERRYS_WORKSHOP": true,
       "NEW_YEAR_CELEBRATION": true,
       "SEASON_OF_JERRY": true,
@@ -61,13 +56,15 @@
   },
   "guildRequirement": {
     "enabled": true,
-    "autoAccept": false,
+    "autoAccept": true,
     "requirements": {
-      "hypixelNetworkLevel": 0,
-      "skywarsStars": 0,
-      "bedwarsStars": 0,
-      "senitherWeight": 0,
-      "lilyWeight": 0
+      "hypixelNetworkLevel": 150,
+      "bedwarsStars": 150,
+      "bedwarsWins": 3500,
+      "skywarsWins": 5000,
+      "duelsWins": 7000,
+      "duelsWLR": 3,
+      "weight": 500
     }
   }
 }
