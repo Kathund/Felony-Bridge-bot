@@ -234,7 +234,7 @@ async function getStats(player, uuid, mode, time, username) {
     axios.get(
       `${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`
     ),
-    axios.get(`${config.api.pixelAPI}/${time}?key=${config.api.pixelKey}?uuid=${uuid}`),
+    axios.get(`${config.api.pixelAPI}/${time}?key=${config.api.pixelKey}&uuid=${uuid}`),
   ]);
 
   if (!mode || mode.includes("/")) {
