@@ -18,6 +18,7 @@ class GEXPRankCommand extends minecraftCommand {
             const player = await hypixel.getPlayer(username)
             if (player.guild.me.rank == "Police" || player.guild.me.rank == "Wardens" || player.guild.me.rank == "Guild Master") {
                 const arg = this.getArgs(message);
+                var ign = null
                 if (arg[0]) ign = arg[0];
                 const ignRank = await hypixel.getPlayer(ign);
                 const weekGEXP = ignRank.guild.me.weeklyExperience
