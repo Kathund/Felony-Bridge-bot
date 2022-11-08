@@ -23,9 +23,9 @@ A two-way chat bridge between [Hypixel](https://hypixel.net/) guild chat and a [
 
 To get started, clone down the repository using:
 
-    git clone https://github.com/DuckySoLucky/hypixel-discord-chat-bridge.git
+    git clone https://github.com/Kathund/Felony-Bridge-bot.git
 
-Next go into the `hypixel-discord-chat-bridge` folder and install all the dependencies using NPM.
+Next go into the `Felony-Bridge-Bot` folder and install all the dependencies using NPM.
 
     npm i
 
@@ -207,3 +207,4 @@ The bot also includes an integrated frag bot that can be used by the guild.
 - [SkyShiiyu API](https://github.com/SkyCryptWebsite/SkyCrypt)
 - [SlothPixel API](https://github.com/slothpixel)
 - [Senither](https://github.com/Senither)
+- [DuckySoLucky](https://github.com/DuckySoLucky/hypixel-discord-chat-bridge)
