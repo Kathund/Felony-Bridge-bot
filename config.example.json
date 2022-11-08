@@ -59,15 +59,21 @@
       "TRAVELING_ZOO": true
     }
   },
-  "guildRequirement": {
-    "enabled": true,
-    "autoAccept": false,
+  "guild": {
+    "autoAccept": true,
     "requirements": {
       "hypixelNetworkLevel": 0,
       "skywarsStars": 0,
       "bedwarsStars": 0,
       "senitherWeight": 0,
       "lilyWeight": 0
+    },
+    "id": "HYPIXEL_GUILD_ID",
+    "name": "GUILD_NAME",
+    "ranks": {
+      "guards": 350000,
+      "thieves": 175000,
+      "prisoners": 50000
     }
   }
 }
