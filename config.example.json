@@ -2,7 +2,13 @@
   "minecraft": {
     "prefix": "!",
     "guildID": "HYPIXEL_GUILD_ID",
+    "guildName": "GUILD_NAME",
     "guildExp": 0,
+    "ranks": {
+      "guards": 350000,
+      "thieves": 175000,
+      "prisoners": 50000
+    },
     "messageRepeatBypass": true,
     "messageRepeatBypassLength": 24
   },
@@ -26,20 +32,14 @@
   "api": {
     "hypixelAPI": "https://api.hypixel.net",
     "hypixelAPIkey": "HYPIXEL_API_KEY",
-
     "skyHelperAPI": "http://192.95.42.73:1924//v1",
     "skyHelperKey": "DuckySoLucky",
-
     "antiSniperAPI": "https://api.antisniper.net",
     "antiSniperKey": "ANTISNIPER_API_KEY",
-    
     "pixelAPI": "https://api.pixelic.de/v1/player",
     "pixelKey": "PIXEL_API_KEY",
-
     "skyShiiyuAPI": "https://sky.shiiyu.moe/api/v2",
-
     "playerDBAPI": "https://playerdb.co/api/player/minecraft",
-
     "imgurAPIkey": "IMGUR_CLIENT_ID"
   },
   "event": {
