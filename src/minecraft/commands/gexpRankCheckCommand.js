@@ -25,15 +25,15 @@ class GEXPRankCommand extends minecraftCommand {
                 if (weekGEXP > config.guild.ranks.prisoners) {
                     this.send(`/g setrank ${ignRank.nickname} Prisoners`)
                     await delay(500)
-                    this.send(`/gc ${ignRank.nickname} is now a Prisoners!`)
                     if (weekGEXP > config.guild.ranks.thieves) {
                         this.send(`/g setrank ${ignRank.nickname} Thieves`)
-                        await delay(500)
-                        this.send(`/gc ${ignRank.nickname} is now a Thieves!`)
                         if (weekGEXP > config.guild.ranks.guards) {
                             this.send(`/g setrank ${ignRank.nickname} Guards`)
                             await delay(500)
                             this.send(`/gc ${ignRank.nickname} is now a Guard!`)
+                        } else {
+                            await delay(500)
+                            this.send(`/gc ${ignRank.nickname} is now a Thieves!`)
                         }
                     }
                 } else {
