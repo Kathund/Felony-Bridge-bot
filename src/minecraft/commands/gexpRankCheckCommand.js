@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.example.json")
 
@@ -22,10 +23,13 @@ class GEXPRankCommand extends minecraftCommand {
                 const ignRank = await hypixel.getPlayer(ign);
                 const weekGEXP = ignRank.guild.me.weeklyExperience
                 if (weekGEXP > config.minecraft.ranks.guards) {
+                    await delay(1000)
                     this.send(`/g setrank ${ign} Guards`)
                 } else if (weekGEXP > config.minecraft.ranks.thieves) {
+                    await delay(1000)
                     this.send(`/g setrank ${ign} Thieves`)
                 } else if (weekGEXP > config.minecraft.ranks.prisoners) {
+                    await delay(1000)
                     this.send(`/g setrank ${ing} Prisoners`)
                 } else {
                     this.send(`/g`)
