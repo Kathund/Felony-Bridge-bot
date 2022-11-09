@@ -23,16 +23,21 @@ class GEXPRankCommand extends minecraftCommand {
                 const ignRank = await hypixel.getPlayer(ign);
                 const weekGEXP = ignRank.guild.me.weeklyExperience
                 if (weekGEXP > config.minecraft.ranks.guards) {
+                    this.send(`/gc ${ign} is now Guards`)
                     await delay(1000)
                     this.send(`/g setrank ${ign} Guards`)
                 } else if (weekGEXP > config.minecraft.ranks.thieves) {
+                    this.send(`/gc ${ign} is now Thieves`)
                     await delay(1000)
                     this.send(`/g setrank ${ign} Thieves`)
                 } else if (weekGEXP > config.minecraft.ranks.prisoners) {
+                    this.send(`/gc ${ign} is now Prisoners`)
                     await delay(1000)
                     this.send(`/g setrank ${ing} Prisoners`)
                 } else {
-                    this.send(`/g`)
+                    this.send(`/go ${ign} dose not have the 50k gxp`)
+                    await delay(1000)
+                    this.send(`/g kick ${ign} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
                 }
             }
         } catch (error) {
