@@ -1,7 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.example.json")
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 class GEXPRankCommand extends minecraftCommand {
     constructor(minecraft) {
@@ -17,7 +16,7 @@ class GEXPRankCommand extends minecraftCommand {
         try {
             const player = await hypixel.getPlayer(username)
             const arg = this.getArgs(message);
-            if (arg[0]) ign = arg[0];
+            if (arg[0]) var ign = arg[0];
             const ignRank = await hypixel.getPlayer(ign);
             const weekGEXP = ignRank.guild.me.weeklyExperience
             console.log(weekGEXP)
