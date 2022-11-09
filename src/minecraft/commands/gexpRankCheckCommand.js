@@ -19,26 +19,32 @@ class GEXPRankCommand extends minecraftCommand {
             const arg = this.getArgs(message);
             console.log(weekGEXP)
             if (player.guild.me.rank == "Police" || player.guild.me.rank == "Wardens" || player.guild.me.rank == "Guild Master") {
-                if (arg[0]) ign = arg[0];
-                const ignRank = await hypixel.getPlayer(ign);
-                const weekGEXP = ignRank.guild.me.weeklyExperience
-                if (weekGEXP > config.minecraft.ranks.guards) {
-                    this.send(`/gc ${ign} is now Guards`)
-                    await delay(1000)
-                    this.send(`/g setrank ${ign} Guards`)
-                } else if (weekGEXP > config.minecraft.ranks.thieves) {
-                    this.send(`/gc ${ign} is now Thieves`)
-                    await delay(1000)
-                    this.send(`/g setrank ${ign} Thieves`)
-                } else if (weekGEXP > config.minecraft.ranks.prisoners) {
-                    this.send(`/gc ${ign} is now Prisoners`)
-                    await delay(1000)
-                    this.send(`/g setrank ${ing} Prisoners`)
+                if (arg[0]) {
+                    const ign = arg[0];
+                    const ignRank = await hypixel.getPlayer(ign);
+                    const weekGEXP = ignRank.guild.me.weeklyExperience
+                    if (weekGEXP > config.minecraft.ranks.guards) {
+                        this.send(`/gc ${ign} is now Guards`)
+                        await delay(1000)
+                        this.send(`/g setrank ${ign} Guards`)
+                    } else if (weekGEXP > config.minecraft.ranks.thieves) {
+                        this.send(`/gc ${ign} is now Thieves`)
+                        await delay(1000)
+                        this.send(`/g setrank ${ign} Thieves`)
+                    } else if (weekGEXP > config.minecraft.ranks.prisoners) {
+                        this.send(`/gc ${ign} is now Prisoners`)
+                        await delay(1000)
+                        this.send(`/g setrank ${ing} Prisoners`)
+                    } else {
+                        this.send(`/go ${ign} dose not have the 50k gxp`)
+                        await delay(1000)
+                        this.send(`/g kick ${ign} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
+                    }
                 } else {
-                    this.send(`/go ${ign} dose not have the 50k gxp`)
-                    await delay(1000)
-                    this.send(`/g kick ${ign} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
+                    this.send(`/gc You need to specify a player`)
                 }
+            } else {
+                this.send(`/gc This is a staff only command`)
             }
         } catch (error) {
             console.log(error);
