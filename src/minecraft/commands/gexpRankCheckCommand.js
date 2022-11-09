@@ -17,12 +17,12 @@ class GEXPRankCommand extends minecraftCommand {
         try {
             const player = await hypixel.getPlayer(username)
             const arg = this.getArgs(message);
-            console.log(weekGEXP)
             if (player.guild.me.rank == "Police" || player.guild.me.rank == "Wardens" || player.guild.me.rank == "Guild Master") {
                 if (arg[0]) {
                     const ign = arg[0];
                     const ignRank = await hypixel.getPlayer(ign);
                     const weekGEXP = ignRank.guild.me.weeklyExperience
+                    console.log(weekGEXP)
                     if (weekGEXP > config.minecraft.ranks.guards) {
                         this.send(`/gc ${ign} is now Guards`)
                         await delay(1000)
@@ -34,7 +34,7 @@ class GEXPRankCommand extends minecraftCommand {
                     } else if (weekGEXP > config.minecraft.ranks.prisoners) {
                         this.send(`/gc ${ign} is now Prisoners`)
                         await delay(1000)
-                        this.send(`/g setrank ${ing} Prisoners`)
+                        this.send(`/g setrank ${ign} Prisoners`)
                     } else {
                         this.send(`/go ${ign} dose not have the 50k gxp`)
                         await delay(1000)
