@@ -4,6 +4,11 @@
     "guildName": "Felony",
     "guildID": "5fc50e9a8ea8c9d1008d5f86",
     "guildExp": 0,
+    "ranks": {
+      "guards": 4585858,
+      "thieves": 45858,
+      "prisoners": 34
+    },
     "messageRepeatBypass": true,
     "messageRepeatBypassLength": 20
   },
