@@ -19,6 +19,7 @@
     "url": "https://github.com/Kathund/Felony-Bridge-bot/issues"
   },
   "homepage": "https://github.com/Kathund/Felony-Bridge-bot#readme",
+
   "dependencies": {
     "@discordjs/rest": "^1.3.0",
     "axios": "^1.1.3",
@@ -38,5 +39,28 @@
     "prismarine-nbt": "^2.2.1",
     "skyhelper-networth": "^1.3.0",
     "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.33.1",
+    "concurrently": "^7.3.0",
+    "ejs-lint": "^2.0.0",
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-deprecation": "^1.3.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-lit": "^1.6.1",
+    "eslint-plugin-wc": "^1.3.2",
+    "nodemon": "^2.0.19",
+    "prettier": "2.7.1"
+  },
+  "eslintConfig": {
+    "globals": {
+      "bot": true,
+      "client": true,
+      "minecraftCommandList": true,
+      "uptime": true,
+      "bridgeChat": true
+    }
   }
 }
