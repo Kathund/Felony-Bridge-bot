@@ -16,11 +16,11 @@ class GEXPRankCommand extends minecraftCommand {
         try {
             const player = await hypixel.getPlayer(username)
             const arg = this.getArgs(message);
-            if (arg[0]) var ign = arg[0];
-            const ignRank = await hypixel.getPlayer(ign);
-            const weekGEXP = ignRank.guild.me.weeklyExperience
             console.log(weekGEXP)
             if (player.guild.me.rank == "Police" || player.guild.me.rank == "Wardens" || player.guild.me.rank == "Guild Master") {
+                if (arg[0]) ign = arg[0];
+                const ignRank = await hypixel.getPlayer(ign);
+                const weekGEXP = ignRank.guild.me.weeklyExperience
                 if (weekGEXP > config.minecraft.ranks.guards) {
                     this.send(`/g setrank ${ign} Guards`)
                 } else if (weekGEXP > config.minecraft.ranks.thieves) {
