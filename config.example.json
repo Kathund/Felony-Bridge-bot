@@ -10,7 +10,8 @@
       "prisoners": 34
     },
     "messageRepeatBypass": true,
-    "messageRepeatBypassLength": 20
+    "messageRepeatBypassLength": 20,
+    "welcomeMessage": true
   },
   "discord": {
     "token": "TOKEN",
