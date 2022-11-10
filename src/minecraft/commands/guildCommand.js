@@ -1,6 +1,7 @@
 const minecraftCommand = require("../../contracts/MinecraftCommand.js");
+const { addNotation, capitalize } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { capitalize } = require("../../contracts/helperFunctions.js");
+const { getUsername } = require("../../contracts/API/PlayerDBAPI.js");
 
 class GuildInformationCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -19,7 +20,9 @@ class GuildInformationCommand extends minecraftCommand {
         return this.send("/gc This guild does not exist.");
       });
 
-      this.send(`/gc Guild ${guildName} | Tag: ${guild.tag} | Members: ${guild.members.length} | Level: ${guild.level} | Weekly GEXP: ${guild.totalWeeklyGexp}`);
+      const owner = await getUsername(guild.guildMaster.uuid);
+
+      this.send(`/gc Guild ${guildName} | Tag: ${guild.tag} | Members: ${guild.members.length} | Level: ${guild.level} | Weekly GEXP: ${addNotation("oneLetters", guild.totalWeeklyGexp)} | Owner: ${owner}`);
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
