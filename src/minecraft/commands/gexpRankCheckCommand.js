@@ -22,7 +22,6 @@ class GEXPRankCommand extends minecraftCommand {
                     const ign = arg[0];
                     const guild = await hypixel.getGuild('player', ign);
                     const weekGEXP = guild.me.weeklyExperience
-                    console.log(weekGEXP)
                     if (weekGEXP > config.minecraft.ranks.guards) {
                         this.send(`/gc ${ign} is now Guards`)
                         // this.minecraft.bot.chat(message);
