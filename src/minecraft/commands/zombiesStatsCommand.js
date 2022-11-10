@@ -1,13 +1,13 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 
-class UHCStatsCommand extends minecraftCommand {
+class ZombiesCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "UHC";
-        this.aliases = ["uhc"];
-        this.description = "UHC Stats of specified user.";
+        this.name = "zombies";
+        this.aliases = [];
+        this.description = "Zombies Stats of specified user.";
         this.options = ["name"];
         this.optionsDescription = ["Minecraft Username"];
     }
@@ -27,4 +27,4 @@ class UHCStatsCommand extends minecraftCommand {
     }
 }
 
-module.exports = UHCStatsCommand;
+module.exports = ZombiesCommand;
