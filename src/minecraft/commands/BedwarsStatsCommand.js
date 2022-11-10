@@ -1,7 +1,6 @@
+const { capitalize, addCommas } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { addCommas } = require("../../contracts/helperFunctions.js");
-const { capitalize } = require("../../contracts/helperFunctions.js");
 
 class BedwarsCommand extends minecraftCommand {
   constructor(minecraft) {
