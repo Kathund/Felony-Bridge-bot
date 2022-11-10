@@ -1,7 +1,7 @@
-const minecraftCommand = require("../../contracts/MinecraftCommand.js");
 const { addNotation, capitalize } = require("../../contracts/helperFunctions.js");
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const minecraftCommand = require("../../contracts/MinecraftCommand.js");
 const { getUsername } = require("../../contracts/API/PlayerDBAPI.js");
+const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 
 class GuildInformationCommand extends minecraftCommand {
   constructor(minecraft) {
