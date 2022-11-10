@@ -13,16 +13,11 @@ class FurryCommand extends minecraftCommand {
 
     async onCommand(username, message) {
         try {
-            if (username == 'SpookyBurger' || username == 'SpookyTryin' || username == 'SpookyKath' || username == 'Aqua015' || username == 'SpookyZom' || username == 'SpookyMosu' || username == 'SpookyCGTV') {
-                this.send(`/gc The furrys are SpookyTryin SpookyBurger Aqua015 SpookyZom SpookyMosu SpookyCGTV `);
-            }
-            else {
-                this.send(`/gc The furrys are SpookyTryin SpookyBurger Aqua015 SpookyZom SpookyMosu SpookyCGTV and finally ${username}`);
-            }
+            this.send(`/gc The furrys are TryinHard SpookyBurger VQUV I1lI Mosu Yunoh_ oBigTiger 1vz_ SpookyCGTV and finally ${username}`);
         } catch (error) {
             console.log(error);
             this.send(
-                "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
+                "/gc There is no player with the given"
             );
         }
     }
