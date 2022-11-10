@@ -18,7 +18,7 @@ class ZombiesCommand extends minecraftCommand {
             if (msg[0]) username = msg[0];
             const player = await hypixel.getPlayer(username);
             var stats = player.stats.arcade.zombies
-            this.send(`/gc [${player.rank} ${player.nickname}]: Wins: ${stats.overall.wins} | Kills: ${stats.overall.zombieKills} | Deaths: ${stats.overall.deaths} | Shots: ${stats.bulletsShot} Hits: ${stats.bulletsHit} Accuracy: ${stats.gunAccuracy} Headshot Accuracy ${stats.headshotAccuracy}`);
+            this.send(`/gc [${player.rank}] ${player.nickname}: Wins: ${stats.overall.wins} | Kills: ${stats.overall.zombieKills} | Deaths: ${stats.overall.deaths} | Shots: ${stats.bulletsShot} Hits: ${stats.bulletsHit} Accuracy: ${stats.gunAccuracy} Headshot Accuracy ${stats.headshotAccuracy}`);
         } catch (error) {
             this.send(
                 "There is no player with the given UUID or name or player has never joined Hypixel."
