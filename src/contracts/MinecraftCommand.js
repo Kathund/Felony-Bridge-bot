@@ -19,7 +19,7 @@ class minecraftCommand {
         const string = helperFunctions.generateID(
           config.minecraft.messageRepeatBypassLength
         );
-        if (args[1] == "kick") return this.minecraft.bot.chat(message)
+        if (args[1] == "promote" || args[1] == "demote" || args[1] == "setrank") return this.minecraft.bot.chat(message)
         else {
           this.minecraft.bot.chat(message + " - " + string);
         }
