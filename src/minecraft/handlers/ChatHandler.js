@@ -188,7 +188,7 @@ class StateHandler extends eventHandler {
     if (this.isJoinMessage(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[0]
       await delay(1000)
-      bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`)
+      if (config.minecraft.welcomeMessage == true) return bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`)
       return [this.minecraft.broadcastHeadedEmbed({
         message: `${user} ${messages.joinMessage}`,
         title: `Member Joined`,
