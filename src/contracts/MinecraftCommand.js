@@ -10,7 +10,6 @@ class minecraftCommand {
     const args = message.split(" ");
 
     args.shift();
-
     return args;
   }
 
@@ -20,7 +19,10 @@ class minecraftCommand {
         const string = helperFunctions.generateID(
           config.minecraft.messageRepeatBypassLength
         );
-        this.minecraft.bot.chat(message + " - " + string);
+        if (args[1] == "kick") return this.minecraft.bot.chat(message)
+        else {
+          this.minecraft.bot.chat(message + " - " + string);
+        }
       } else {
         this.minecraft.bot.chat(message);
       }
