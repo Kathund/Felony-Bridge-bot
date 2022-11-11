@@ -22,16 +22,15 @@ class GEXPRankCommand extends minecraftCommand {
                     const ign = arg[0];
                     const guild = await hypixel.getGuild('player', ign);
                     const weekGEXP = guild.me.weeklyExperience
-                    if (weekGEXP > config.minecraft.ranks.guards) {
+                    if (weekGEXP > config.minecraft.guild.ranks.guards) {
                         this.send(`/gc ${ign} is now Guards`)
-                        // this.minecraft.bot.chat(message);
                         await delay(1000)
                         this.minecraft.bot.chat(`/g setrank ${ign} Guards`)
-                    } else if (weekGEXP > config.minecraft.ranks.thieves) {
+                    } else if (weekGEXP > config.minecraft.guild.ranks.thieves) {
                         this.send(`/gc ${ign} is now Thieves`)
                         await delay(1000)
                         this.minecraft.bot.chat(`/g setrank ${ign} Thieves`)
-                    } else if (weekGEXP > config.minecraft.ranks.prisoners) {
+                    } else if (weekGEXP > config.minecraft.guild.ranks.prisoners) {
                         this.send(`/gc ${ign} is now Prisoners`)
                         await delay(1000)
                         this.minecraft.bot.chat(`/g setrank ${ign} Prisoners`)
