@@ -1,6 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { getUUID } = require("../../contracts/API/PlayerDBAPI.js");
 const { getStats } = require("../../contracts/helperFunctions.js");
+const { getUUID } = require("../../contracts/API/PlayerDBAPI.js");
+const config = require("../../../config.json")
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -44,8 +45,7 @@ class MonthlyStatsCommand extends minecraftCommand {
           } being added to the database..`
         );
 
-        fetch(`https://api.pixelic.de/v1/player/register?uuid=${uuid}`, {
-          method: "POST",
+        fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {          method: "POST",
         }).then((res) => {
           if (res.status == 201) {
             this.send(`/gc Successfully registered ${player} in the database!`);
