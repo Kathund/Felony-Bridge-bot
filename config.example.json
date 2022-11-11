@@ -1,17 +1,30 @@
 {
   "minecraft": {
     "prefix": "!",
-    "guildName": "Felony",
-    "guildID": "5fc50e9a8ea8c9d1008d5f86",
     "guildExp": 0,
-    "ranks": {
-      "guards": 400000,
-      "thieves": 150000,
-      "prisoners": 50000
+    "guild": {
+      "name": "Felony",
+      "id": "5fc50e9a8ea8c9d1008d5f86",
+      "joinChecker": true,
+      "autoAccept": true,
+      "requirements": {
+        "hypixelNetworkLevel": 150,
+        "bedwarsStars": 150,
+        "bedwarsWins": 3500,
+        "skywarsWins": 5000,
+        "duelsWins": 7000,
+        "duelsWLR": 3,
+        "weight": 500
+      },
+      "ranks": {
+        "guards": 400000,
+        "thieves": 150000,
+        "prisoners": 50000
+      },
+      "welcomeMessage": true
     },
     "messageRepeatBypass": true,
-    "messageRepeatBypassLength": 20,
-    "welcomeMessage": true
+    "messageRepeatBypassLength": 20
   },
   "discord": {
     "token": "TOKEN",
@@ -23,7 +36,7 @@
     "commandRole": "ROLE_ID",
     "messageMode": "minecraft",
     "filterMessages": true,
-    "joinMessage": false
+    "joinMessage": true
   },
   "console": {
     "maxEventSize": 50,
@@ -61,16 +74,6 @@
     }
   },
   "guildRequirement": {
-    "enabled": true,
-    "autoAccept": true,
-    "requirements": {
-      "hypixelNetworkLevel": 150,
-      "bedwarsStars": 150,
-      "bedwarsWins": 3500,
-      "skywarsWins": 5000,
-      "duelsWins": 7000,
-      "duelsWLR": 3,
-      "weight": 500
-    }
+    "enabled": true
   }
 }
