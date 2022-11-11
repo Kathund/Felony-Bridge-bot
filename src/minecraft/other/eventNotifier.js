@@ -4,11 +4,11 @@ const config = require('../../../config.json');
 const axios = require('axios');
 const { getSkyblockCalendar } = require('../../../API/functions/getCalendar.js');
 
-if (config.event.enabled) {
+if (config.minecraft.sb.event.enabled) {
     setInterval(async () => {
         const EVENTS = getSkyblockCalendar();
         for (const event of Object.keys(EVENTS.data.events)) {
-            if (!config.event.notifiers[event]) continue;
+            if (!config.minecraft.sb.event.notifiers[event]) continue;
             const eventInfo = EVENTS.data.events[event];
             if (eventInfo.events[0].start_timestamp < Date.now()) continue;
             if (event == "JACOBS_CONTEST") {
