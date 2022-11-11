@@ -23,6 +23,25 @@
       },
       "welcomeMessage": true
     },
+    "sb": {
+      "event": {
+        "enabled": true,
+        "notifiers": {
+          "BANK_INTEREST": false,
+          "DARK_AUCTION": false,
+          "ELECTION_BOOTH_OPENS": true,
+          "ELECTION_OVER": true,
+          "FALLEN_STAR_CULT": false,
+          "FEAR_MONGERER": true,
+          "JACOBS_CONTEST": false,
+          "JERRYS_WORKSHOP": true,
+          "NEW_YEAR_CELEBRATION": true,
+          "SEASON_OF_JERRY": true,
+          "SPOOKY_FESTIVAL": true,
+          "TRAVELING_ZOO": true
+        }
+      }
+    },
     "messageRepeatBypass": true,
     "messageRepeatBypassLength": 20
   },
@@ -55,25 +74,5 @@
     "pixelAPI": "https://api.pixelic.de/v1/player",
     "pixelKey": "PIXEL_KEY",
     "imgurAPIkey": "IMGUR_KEY"
-  },
-  "event": {
-    "enabled": true,
-    "notifiers": {
-      "BANK_INTEREST": false,
-      "DARK_AUCTION": false,
-      "ELECTION_BOOTH_OPENS": true,
-      "ELECTION_OVER": true,
-      "FALLEN_STAR_CULT": false,
-      "FEAR_MONGERER": true,
-      "JACOBS_CONTEST": false,
-      "JERRYS_WORKSHOP": true,
-      "NEW_YEAR_CELEBRATION": true,
-      "SEASON_OF_JERRY": true,
-      "SPOOKY_FESTIVAL": true,
-      "TRAVELING_ZOO": true
-    }
-  },
-  "guildRequirement": {
-    "enabled": true
   }
 }
