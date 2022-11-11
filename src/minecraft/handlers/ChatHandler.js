@@ -67,7 +67,7 @@ class StateHandler extends eventHandler {
     if (this.isRequestMessage(message)) {
       const username = replaceAllRanks(message.split('has')[0].replaceAll('-----------------------------------------------------\n', ''))
       const uuid = await getUUID(username);
-      if (config.guildRequirement.enabled) {
+      if (config.minecraft.guild.joinChecker) {
         const [player] = await Promise.all([
           hypixel.getPlayer(uuid),
           getLatestProfile(uuid)
@@ -80,35 +80,38 @@ class StateHandler extends eventHandler {
         const swWins = player.stats.skywars.wins
         const duelsWins = player.stats.duels.wins
         const duelsWLR = player.stats.duels.WLRatio
-        if (bwLevel > config.guildRequirement.requirements.bedwarsStars) meetRequirements = true;
-        if (hypixelLevel > config.guildRequirement.requirements.hypixelNetworkLevel) meetRequirements = true;
-        if (bwWins > config.guildRequirement.requirements.bedwarsWins) meetRequirements = true;
-        if (swWins > config.guildRequirement.requirements.skywarsWins) meetRequirements = true;
-        if (duelsWins > config.guildRequirement.requirements.dulesWins) if (duelsWLR > config.guildRequirement.requirements.duelsWLR) meetRequirements = true;
-        if (duelsWLR > config.guildRequirement.requirements.duelsWLR) if (duelsWins > config.guildRequirement.requirements.duelsWins) meetRequirements = true;
+        if (bwLevel > config.minecraft.guild.requirements.bedwarsStars) meetRequirements = true;
+        if (hypixelLevel > config.minecraft.guild.requirements.hypixelNetworkLevel) meetRequirements = true;
+        if (bwWins > config.minecraft.guild.requirements.bedwarsWins) meetRequirements = true;
+        if (swWins > config.minecraft.guild.requirements.skywarsWins) meetRequirements = true;
+        if (duelsWins > config.minecraft.guild.requirements.dulesWins) if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) meetRequirements = true;
+        if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) if (duelsWins > config.minecraft.guild.requirements.duelsWins) meetRequirements = true;
 
         const statsEmbed = new EmbedBuilder()
           .setColor(2067276)
           .setTitle(`${player.nickname} has requested to join the Guild!`)
           .setDescription(`**Hypixel Network Level**\n${player.level}\n`)
           .addFields(
-            { name: 'Bedwars Stars', value: `${player.stats.bedwars.level}/${config.guildRequirement.requirements.bedwarsStars}`, inline: true },
-            { name: 'Bedwars Wins', value: `${addCommas(player.stats.bedwars.wins)}/${addCommas(config.guildRequirement.requirements.bedwarsWins)}`, inline: true },
-            { name: 'Skywars Wins', value: `${addCommas(player.stats.skywars.wins)}/${addCommas(config.guildRequirement.requirements.skywarsWins)}`, inline: true },
-            { name: 'Duels Wins', value: `${addCommas(player.stats.duels.wins)}/${addCommas(config.guildRequirement.requirements.duelsWins)}`, inline: true },
-            { name: 'Duels WLR', value: `${player.stats.duels.KDRatio}/${config.guildRequirement.requirements.duelsWLR}`, inline: true },
+            { name: 'Bedwars Stars', value: `${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars}`, inline: true },
+            { name: 'Bedwars Wins', value: `${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)}`, inline: true },
+            { name: 'Skywars Wins', value: `${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)}`, inline: true },
+            { name: 'Duels Wins', value: `${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)}`, inline: true },
+            { name: 'Duels WLR', value: `${player.stats.duels.KDRatio}/${config.minecraft.guild.requirements.duelsWLR}`, inline: true },
           )
           .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
+          .setTimestamp()
           .setFooter({ text: `by DuckySoLucky#5181 | /help [command] for more information`, iconURL: 'https://imgur.com/tgwQJTX.png' });
         await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
 
         if (meetRequirements == true) {
           bot.chat(`/oc ${player.nickname} has the requirements to join ${config.minecraft.guildName}!`)
-          await delay(5000) 
-          bot.chat(`/g accept ${player.nickname}`)
+          if (config.minecraft.guild.autoAccept == true) {
+            await delay(300)
+            bot.chat(`/g accept ${player.nickname}`)
+          }
         }
         else {
-          bot.chat(`/oc ${username}Dosen't meet Requirements. [Hypixel] ${player.level}/${config.guildRequirement.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.guildRequirement.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.guildRequirement.requirements.bedwarsWins)} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.guildRequirement.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.guildRequirement.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.guildRequirement.requirements.duelsWLR}`)
+          bot.chat(`/oc ${username}Dosen't meet Requirements. [Hypixel] ${player.level}/${config.minecraft.guild.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.minecraft.guild.requirements.duelsWLR}`)
         }
       }
     }
@@ -146,7 +149,7 @@ class StateHandler extends eventHandler {
         this.minecraft.broadcastHeadedEmbed({
           message: `${description}`,
           title: guildInfoSplit[2],
-          icon: `https://hypixel.paniek.de/guild/${config.minecraft.guildID}/banner.png`,
+          icon: `https://hypixel.paniek.de/guild/${config.minecraft.guild.id}/banner.png`,
           color: 2067276,
           channel: 'Guild'
         })
@@ -188,7 +191,7 @@ class StateHandler extends eventHandler {
     if (this.isJoinMessage(message)) {
       const user = message.replace(/\[(.*?)\]/g, '').trim().split(/ +/g)[0]
       await delay(1000)
-      if (config.minecraft.welcomeMessage == true) return bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`)
+      if (config.minecraft.guild.welcomeMessage == true) return bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`)
       return [this.minecraft.broadcastHeadedEmbed({
         message: `${user} ${messages.joinMessage}`,
         title: `Member Joined`,
@@ -458,7 +461,7 @@ class StateHandler extends eventHandler {
     if (this.isGuildQuestCompletion(message)) {
       this.minecraft.broadcastHeadedEmbed({
         title: 'Guild Quest Completion',
-        icon: `https://hypixel.paniek.de/guild/${config.minecraft.guildID}/banner.png`,
+        icon: `https://hypixel.paniek.de/guild/${config.minecraft.guild.id}/banner.png`,
         message: `${message}`,
         color: 15844367,
         channel: 'Guild'
