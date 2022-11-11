@@ -32,6 +32,7 @@ class StateHandler {
 
   async onClose() {
     const channel = await getChannel("Guild");
+    global.bridgeChat = config.discord.guildChatChannel;
     channel.send({
       embeds: [
         {
