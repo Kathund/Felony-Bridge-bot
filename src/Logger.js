@@ -1,23 +1,24 @@
-const chalk = require('chalk');
+const clc = require("cli-color");
+
 
 async function discordMessage(message) {
-  return console.log(chalk.bgMagenta.black(`[${await getCurrentTime()}] Discord >`) + ' ' + chalk.magenta(message));
+  return console.log(clc.bgMagenta.black(`[${await getCurrentTime()}] Discord >`) + ' ' + clc.magenta(message));
 }
 
 async function minecraftMessage(message) {
-  return console.log(chalk.bgGreenBright.black(`[${await getCurrentTime()}] Minecraft >`) + ' ' + chalk.greenBright(message));
+  return console.log(clc.bgGreenBright.black(`[${await getCurrentTime()}] Minecraft >`) + ' ' + clc.greenBright(message));
 }
 
 async function warnMessage(message) {
-  return console.log(chalk.bgYellow.black(`[${await getCurrentTime()}] Warning >`) + ' ' + chalk.yellow(message));
+  return console.log(clc.bgYellow.black(`[${await getCurrentTime()}] Warning >`) + ' ' + clc.yellow(message));
 }
 
 async function errorMessage(message) {
-  return console.log(chalk.bgRedBright.black(`[${await getCurrentTime()}] Error >`) + ' ' + chalk.redBright(message));
+  return console.log(clc.bgRedBright.black(`[${await getCurrentTime()}] Error >`) + ' ' + clc.redBright(message));
 }
 
 async function broadcastMessage(message, location) {
-  return console.log(chalk.inverse(`[${await getCurrentTime()}] ${location} Broadcast >`) + ' ' + message);
+  return console.log(clc.inverse(`[${await getCurrentTime()}] ${location} Broadcast >`) + ' ' + message);
 }
 
 async function getCurrentTime() {
