@@ -94,7 +94,7 @@ class StateHandler extends eventHandler {
           bot.chat(`/oc ${player.nickname} has the requirements to join ${config.minecraft.guild.name}!`)
           const statsEmbed = new EmbedBuilder()
             .setColor(2067276)
-            .setTitle(`${player.nickname} has requested to join the Guild!`)
+            .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
             .setDescription(`${player.nickname} **has** the requirements to join the Guild!`)
             .addFields(
               { name: 'Hypixel Level', value: `${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel}`, inline: true },
@@ -116,7 +116,7 @@ class StateHandler extends eventHandler {
         } else {
           const statsEmbed = new EmbedBuilder()
             .setColor(15346463)
-            .setTitle(`${player.nickname} has requested to join the Guild!`)
+            .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
             .setDescription(`${player.nickname} **dose not** have the requirements to join the Guild!`)
             .addFields(
               { name: 'Hypixel Level', value: `${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel}`, inline: true },
