@@ -17,33 +17,29 @@ class PurgeCommand extends minecraftCommand {
             if (username == 'Udderly_cool') {
                 this.send(`/gc ITS TIME BITCHES ITS THE PERGE`)
                 await delay(1000)
-                this.send(`/g kick GreenSheep1234 Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick alfontop Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick Eloid Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick rqpper Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick Retimo Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick ihoopje Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick lufh Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick dyschezia Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick SpookySpizzard Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick Spookyl1ght Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick ii_Chunk Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick pe1t Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick xSpaceX Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick ssphex Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick vSyphex Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick _lerts Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick ethuhn Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick abglaine Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick 67ig Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick siszeus Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick DissTrack Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick orqzor Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
-                this.send(`/g kick LilUziVrt Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick VALMAHSLILKITTY Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick gixd Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
+                this.send(`/g kick gothgirle Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
                 await delay(500)
                 this.send(`/gc The purge is done!`)
             }
