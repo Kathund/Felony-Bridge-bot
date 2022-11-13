@@ -91,7 +91,7 @@ class StateHandler extends eventHandler {
         if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) if (duelsWins > config.minecraft.guild.requirements.duelsWins) meetRequirements = true;
 
         if (meetRequirements == true) {
-          bot.chat(`/oc ${player.nickname} has the requirements to join ${config.minecraft.guild.name}!`)
+          bot.chat(`/oc [${player.rank}] ${player.nickname}: has the requirements to join ${config.minecraft.guild.name}!`)
           const statsEmbed = new EmbedBuilder()
             .setColor(2067276)
             .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
@@ -107,7 +107,7 @@ class StateHandler extends eventHandler {
             )
             .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
             .setTimestamp()
-            .setFooter({ text: `by Kathund#2004 | /help [command] for more information`});
+            .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
           await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
           if (config.minecraft.guild.autoAccept == true) {
             await delay(300)
@@ -129,9 +129,11 @@ class StateHandler extends eventHandler {
             )
             .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
             .setTimestamp()
-            .setFooter({ text: `by Kathund#2004 | /help [command] for more information`});
+            .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
           await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
-          bot.chat(`/oc ${username}Dosen't meet Requirements. [Hypixel] ${player.level}/${config.minecraft.guild.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)} FKDR: ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.minecraft.guild.requirements.duelsWLR}`)
+          bot.chat(`/oc [${player.rank}] ${player.nickname}: Dosen't meet Requirements`)
+          delay(300)
+          bot.chat(`/oc [Hypixel] ${player.level}/${config.minecraft.guild.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)} FKDR: ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.minecraft.guild.requirements.duelsWLR}`)
         }
       }
     }
