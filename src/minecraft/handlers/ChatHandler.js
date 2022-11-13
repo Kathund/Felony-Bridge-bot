@@ -107,7 +107,7 @@ class StateHandler extends eventHandler {
             )
             .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
             .setTimestamp()
-            .setFooter({ text: `by DuckySoLucky#5181 | /help [command] for more information`, iconURL: 'https://imgur.com/tgwQJTX.png' });
+            .setFooter({ text: `by Kathund#2004 | /help [command] for more information`});
           await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
           if (config.minecraft.guild.autoAccept == true) {
             await delay(300)
