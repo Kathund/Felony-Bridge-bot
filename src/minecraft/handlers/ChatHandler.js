@@ -129,7 +129,7 @@ class StateHandler extends eventHandler {
             )
             .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
             .setTimestamp()
-            .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
+            .setFooter({ text: `by Kathund#2004 | /help [command] for more information`, iconURL: "https://i.imgur.com/uUuZx2E.png" });
           await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
           bot.chat(`/oc [${player.rank}] ${player.nickname}: Dosen't meet Requirements`)
           delay(300)
