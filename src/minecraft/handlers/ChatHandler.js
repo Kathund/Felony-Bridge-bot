@@ -131,9 +131,8 @@ class StateHandler extends eventHandler {
             .setTimestamp()
             .setFooter({ text: `by Kathund#2004 | /help [command] for more information`, iconURL: "https://i.imgur.com/uUuZx2E.png" });
           await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
-          bot.chat(`/oc [${player.rank}] ${player.nickname}: Dosen't meet Requirements`)
-          delay(300)
-          bot.chat(`/oc [Hypixel] ${player.level}/${config.minecraft.guild.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)} FKDR: ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.minecraft.guild.requirements.duelsWLR}`)
+          delay(1000)
+          bot.chat(`/oc [${player.rank}] ${player.nickname}: Dosen't meet Requirements - [Hypixel] ${player.level}/${config.minecraft.guild.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)} FKDR: ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.minecraft.guild.requirements.duelsWLR}`)
         }
       }
     }
