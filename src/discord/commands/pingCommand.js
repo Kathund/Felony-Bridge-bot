@@ -12,7 +12,7 @@ module.exports = {
       .setDescription(`Latency: ${client.ws.ping}ms`)
       .setFooter({
         text: `by DuckySoLucky#5181 | /help [command] for more information`,
-        iconURL: "https://imgur.com/tgwQJTX.png",
+        iconURL: "https://i.imgur.com/uUuZx2E.png",
       });
 
     interaction.followUp({ embeds: [embed] });
