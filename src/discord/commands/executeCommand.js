@@ -28,8 +28,8 @@ module.exports = {
         .setTitle("Command has been executed successfully")
         .setDescription(`\`/${command}\`\n`)
         .setFooter({
-          text: "by DuckySoLucky#5181",
-          iconURL: "https://imgur.com/tgwQJTX.png",
+          text: "by Kathund#2004",
+          iconURL: "https://i.imgur.com/uUuZx2E.png",
         });
       await interaction.followUp({ embeds: [commandMessage], ephemeral: true });
     } else {
