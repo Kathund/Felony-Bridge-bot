@@ -1,6 +1,7 @@
 const helperFunctions = require("./helperFunctions.js");
 const config = require("../../config.json");
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 class minecraftCommand {
   constructor(minecraft) {
     this.minecraft = minecraft;
