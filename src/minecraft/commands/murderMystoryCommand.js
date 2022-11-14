@@ -19,8 +19,8 @@ class MurderMysteryCommand extends minecraftCommand {
             const player = await hypixel.getPlayer(username);
             var stats = player.stats.murdermystery
             var losses = stats.playedGames - stats.wins
-            var WLR = stats.wins / losses
-            this.send(`/gc [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${WLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`);
+            var mmWLR = stats.wins / losses
+            this.send(`/gc [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${mmWLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`);
         } catch (error) {
             this.send(
                 "There is no player with the given UUID or name or player has never joined Hypixel."
