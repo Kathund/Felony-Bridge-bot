@@ -19,9 +19,13 @@ module.exports = {
   ],
 
   execute: async (interaction, client) => {
-    const name = interaction.options.getString("name");
-    const time = interaction.options.getString("time");
-    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.commandRole)) {
+    let hasPerms = false;
+    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.guildMaster)) hasPerms = true;
+    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.wardens)) hasPerms = true;
+    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.police)) hasPerms = true;
+    if (hasPerms) {
+      const name = interaction.options.getString("name");
+      const time = interaction.options.getString("time");
       bot.chat(`/g mute ${name} ${time}`);
       await interaction.followUp({
         content: "Command has been executed successfully.",
