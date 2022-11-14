@@ -66,8 +66,8 @@ module.exports = {
           { name: "**Discord**: ", value: `${discordCommands}`, inline: true }
         )
         .setFooter({
-          text: "by DuckySoLucky#5181 | /help [command] for more information",
-          iconURL: "https://imgur.com/tgwQJTX.png",
+          text: "by Kathund#2004 | /help [command] for more information",
+          iconURL: "https://i.imgur.com/uUuZx2E.png",
         });
       await interaction.followUp({ embeds: [helpMenu] });
     } else {
@@ -88,8 +88,8 @@ module.exports = {
               .setTitle(`**${config.minecraft.prefix}${command.name}**`)
               .setDescription(description + "\n")
               .setFooter({
-                text: "by DuckySoLucky#5181 | () = required, [] = optional",
-                iconURL: "https://imgur.com/tgwQJTX.png",
+                text: "by Kathund#2004 | () = required, [] = optional",
+                iconURL: "https://i.imgur.com/uUuZx2E.png",
               });
             await interaction.followUp({ embeds: [commandData] });
             break;
@@ -117,8 +117,8 @@ module.exports = {
                 inline: true,
               })
               .setFooter({
-                text: "by DuckySoLucky#5181 | () = required, [] = optional",
-                iconURL: "https://imgur.com/tgwQJTX.png",
+                text: "by Kathund#2004 | () = required, [] = optional",
+                iconURL: "https://i.imgur.com/uUuZx2E.png",
               });
             await interaction.followUp({ embeds: [commandData] });
             break;
@@ -142,8 +142,8 @@ module.exports = {
               )
               .setDescription(description + "\n")
               .setFooter({
-                text: "by DuckySoLucky#5181 | () = required, [] = optional",
-                iconURL: "https://imgur.com/tgwQJTX.png",
+                text: "by Kathund#2004 | () = required, [] = optional",
+                iconURL: "https://i.imgur.com/uUuZx2E.png",
               });
             await interaction.followUp({ embeds: [commandData] });
             break;
@@ -172,8 +172,8 @@ module.exports = {
               inline: true,
             })
             .setFooter({
-              text: "by DuckySoLucky#5181 | () = required, [] = optional",
-              iconURL: "https://imgur.com/tgwQJTX.png",
+              text: "by Kathund#2004 | () = required, [] = optional",
+              iconURL: "https://i.imgur.com/uUuZx2E.png",
             });
           await interaction.followUp({ embeds: [commandData] });
           break;
@@ -185,8 +185,8 @@ module.exports = {
         .setTitle("Error")
         .setDescription(`Command \`${commandName}\` was not found`)
         .setFooter({
-          text: "by DuckySoLucky#5181",
-          iconURL: "https://imgur.com/tgwQJTX.png",
+          text: "by Kathund#2004",
+          iconURL: "https://i.imgur.com/uUuZx2E.png",
         });
       await interaction.followUp({ embeds: [errorEmbed] });
     }
