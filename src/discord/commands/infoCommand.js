@@ -98,8 +98,8 @@ module.exports = {
         }
       )
       .setFooter({
-        text: "by DuckySoLucky#5181 | /help [command] for more information",
-        iconURL: "https://imgur.com/tgwQJTX.png",
+        text: "by Kathund#2004 | /help [command] for more information",
+        iconURL: "https://i.imgur.com/uUuZx2E.png",
       });
     await interaction.followUp({ embeds: [infoEmbed] });
   },
