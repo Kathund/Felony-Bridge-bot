@@ -4,7 +4,6 @@ const fetch = (...args) => import('node-fetch').then(({
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { getUsername } = require("../../contracts/API/PlayerDBAPI.js");
 const config = require("../../../config.json")
 
 class GCheckCommand extends minecraftCommand {
@@ -34,6 +33,10 @@ class GCheckCommand extends minecraftCommand {
         }
         var amount = guildMembers.length;
         console.log(amount)
+        console.log(guildMembers[0])
+        var i = guildMembers[1]
+        var player = await hypixel.getPlayer(i)
+        this.send(`/gc ${player.nickname}`)
       } else {
         // this.send(`/gc This is a staff only command`)
         this.send(`/gc Kaths making this command`)
