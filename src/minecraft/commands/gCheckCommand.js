@@ -1,6 +1,10 @@
+const fetch = (...args) => import('node-fetch').then(({
+  default: fetch
+}) => fetch(...args)).catch(err => console.log(err));
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { getUsername } = require("../../contracts/API/PlayerDBAPI.js");
 const config = require("../../../config.json")
 
 class GCheckCommand extends minecraftCommand {
@@ -15,16 +19,25 @@ class GCheckCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-        // const check = await hypixel.getGuild(`player`, username)
-        // if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
-        if (username == 'Udderly_cool') {
-            const guild = await hypixel.getGuild('name', config.minecraft.guild.name);
-            await delay(500)
-            console.log(guild.members)
-        } else {
-            // this.send(`/gc This is a staff only command`)
-            this.send(`/gc Kaths making this command`)
+      // const check = await hypixel.getGuild(`player`, username)
+      // if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
+      if (username == 'Udderly_cool') {
+        const msg = this.getArgs(message);
+        if (msg[0]) username = msg[0];
+        const guild = await hypixel.getGuild('name', config.minecraft.guild.name);
+        var a = guild.members;
+
+        var guildMembers = [];
+
+        for (const member in a) {
+            guildMembers.push(a[member].uuid)
         }
+        var amount = guildMembers.length;
+        console.log(amount)
+      } else {
+        // this.send(`/gc This is a staff only command`)
+        this.send(`/gc Kaths making this command`)
+      }
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
