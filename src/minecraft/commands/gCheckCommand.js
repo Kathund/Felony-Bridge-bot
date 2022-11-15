@@ -7,7 +7,7 @@ class GCheckCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
 
-    this.name = "aaaafdsdfsfggfds";
+    this.name = "gcheck";
     this.aliases = [];
     this.description = "no";
     this.options = [];
@@ -17,7 +17,7 @@ class GCheckCommand extends minecraftCommand {
     try {
       // const check = await hypixel.getGuild(`player`, username)
       // if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
-      if (username == 'Udderly_cool' || username == 'Join_FELONY') {
+      if (username == 'Udderly_cool' || username == 'TryinHard') {
         const check = await hypixel.getGuild('name', config.minecraft.guild.name);
         var members = check.members;
 
