@@ -21,7 +21,7 @@ class GuildExperienceCommand extends minecraftCommand {
     try {
       const [player, guild] = await Promise.all([
         getUUID(username),
-        hypixel.getGuild("id", config.minecraft.guildID),
+        hypixel.getGuild("id", config.minecraft.guild.id),
       ]);
 
       for (const member of guild.members) {
