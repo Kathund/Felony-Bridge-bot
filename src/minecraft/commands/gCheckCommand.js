@@ -34,29 +34,29 @@ class GCheckCommand extends minecraftCommand {
           var i = guildMembers[num]
           var player = await hypixel.getPlayer(i)
           console.log(`${player.nickname} = ${guildMembers[num]} = ${num}`)
-          var guild = await hypixel.getGuild('player', player.nickname)
+          var guild = await hypixel.getGuild('player', i)
           if (guild.me.rank == "Police" || guild.me.rank == "Wardens" || guild.me.rank == "Guild Master") {
             console.log(`${player.nickname} is a staff member`)
           } else {
             const weekGEXP = guild.me.weeklyExperience
             if (weekGEXP > config.minecraft.guild.ranks.guards) {
               this.send(`/go ${player.nickname} is now Guards`)
-              await delay(5000)
+              await delay(3000)
               this.minecraft.bot.chat(`/g setrank ${player.nickname} Guards`)
             } else if (weekGEXP > config.minecraft.guild.ranks.thieves) {
               this.send(`/go ${player.nickname} is now Thieves`)
-              await delay(5000)
+              await delay(3000)
               this.minecraft.bot.chat(`/g setrank ${player.nickname} Thieves`)
             } else if (weekGEXP > config.minecraft.guild.ranks.prisoners) {
               this.send(`/go ${player.nickname} is now Prisoners`)
-              await delay(5000)
+              await delay(3000)
               this.minecraft.bot.chat(`/g setrank ${player.nickname} Prisoners`)
             } else {
               this.send(`/go ${player.nickname} dose not have the 50k gxp`)
-              await delay(5000)
+              await delay(3000)
               if (config.minecraft.guild.kicking == false) {
                 this.send(`/oc Kicking is disabled`)
-                await delay(5000)
+                await delay(3000)
                 this.minecraft.bot.chat(`/g setrank ${player.nickname} Prisoners`)
               } else {
                 this.send(`/g kick ${player.nickname} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
