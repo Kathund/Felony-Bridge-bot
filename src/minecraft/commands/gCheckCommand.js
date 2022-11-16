@@ -20,7 +20,6 @@ class GCheckCommand extends minecraftCommand {
         const check = await hypixel.getGuild('name', config.minecraft.guild.name);
         var members = check.members;
         var guildMembers = [];
-
         for (const member in members) {
           guildMembers.push(members[member].uuid)
         }
