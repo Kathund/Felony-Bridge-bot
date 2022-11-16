@@ -18,9 +18,9 @@ class GuildEXPCommand extends minecraftCommand {
       const arg = this.getArgs(message);
       if (arg[0]) {
         username = arg[0]
-        var guild = await hypixel.getGuild('player', username)
-        var rawGexp = guild.me.weeklyExperience
-        var gexp = addCommas(rawGexp)
+        let guild = await hypixel.getGuild('player', username)
+        let rawGexp = guild.me.weeklyExperience
+        let gexp = addCommas(rawGexp)
         let rank = 'a'
         if (rawGexp >= config.minecraft.guild.ranks.guards) rank = 'guards'
         if (rawGexp >= config.minecraft.guild.ranks.thieves) rank = 'thieves'
@@ -31,9 +31,9 @@ class GuildEXPCommand extends minecraftCommand {
           this.send(`/gc ${username}'s GEXP is ${gexp} - They have the requirements for ${rank}`)
         }
       } else {
-        var guild = await hypixel.getGuil('player', username)
-        var rawGexp = guild.me.weeklyExperience
-        var gexp = addCommas(rawGexp)
+        let guild = await hypixel.getGuil('player', username)
+        let rawGexp = guild.me.weeklyExperience
+        let gexp = addCommas(rawGexp)
         let rank = 'a'
         if (rawGexp >= config.minecraft.guild.ranks.guards) rank = 'guards'
         if (rawGexp >= config.minecraft.guild.ranks.thieves) rank = 'thieves'
