@@ -1,7 +1,6 @@
 {
   "minecraft": {
     "prefix": "!",
-    "guildExp": 0,
     "guild": {
       "name": "Felony",
       "id": "5fc50e9a8ea8c9d1008d5f86",
@@ -9,13 +8,15 @@
       "autoAccept": true,
       "requirements": {
         "hypixelNetworkLevel": 150,
-        "bedwarsStars": 150,
+        "bedwarsStars": 200,
+        "bedwarsFKDR": 2,
         "bedwarsWins": 3500,
         "skywarsWins": 5000,
         "duelsWins": 7000,
         "duelsWLR": 3,
         "weight": 500
       },
+      "kicking": false,
       "ranks": {
         "guards": 400000,
         "thieves": 150000,
@@ -46,33 +47,44 @@
     "messageRepeatBypassLength": 20
   },
   "discord": {
-    "token": "TOKEN",
-    "clientID": "CLIENT_ID_OF_DISCORD_BOT",
-    "serverID": "DISCORD_SERVER_ID",
-    "guildChatChannel": "CHANNEL_ID",
-    "officerChannel": "CHANNEL_ID",
-    "loggingChannel": "CHANNEL_ID",
-    "commandRole": "ROLE_ID",
-    "messageMode": "minecraft",
-    "filterMessages": true,
+    "token": "",
+    "clientID": "1027856966527221801",
+    "serverID": "966209630906777660",
+    "guildChatChannel": "1038287823612153856",
+    "officerChannel": "1035511724536774676",
+    "loggingChannel": "1035511927524298813",
+    "roles": {
+      "staff": {
+        "guildMaster": "966558439474077696",
+        "wardens": "966558337590247494",
+        "police": "1006971502526206003"
+      },
+      "guards": "1006971357864657059",
+      "thieves": "1006970500758646794",
+      "prisoners": "1006969716256034897",
+      "guildRole": "966557741365739561",
+      "botDev": "1034124987705069568"
+    },
+    "messageMode": "bot",
+    "filterMessages": false,
     "joinMessage": true
   },
   "console": {
     "maxEventSize": 50,
     "debug": true,
-    "debugChannel": "CHANNEL_ID"
+    "debugChannel": "1035511927524298813"
   },
   "api": {
     "hypixelAPI": "https://api.hypixel.net",
-    "hypixelAPIkey": "HYPIXEL_KEY",
+    "hypixelAPIkey": "HYPIXEL_API_KEY",
     "skyHelperAPI": "http://192.95.42.73:1924//v1",
     "skyHelperKey": "Udderly_cool",
     "antiSniperAPI": "https://api.antisniper.net",
-    "antiSniperKey": "ANTISNIPER_KEY",
+    "antiSniperKey": "ANTISNIPER_API_KEY",
     "skyShiiyuAPI": "https://sky.shiiyu.moe/api/v2",
     "playerDBAPI": "https://playerdb.co/api/player/minecraft",
     "pixelAPI": "https://api.pixelic.de/v1/player",
-    "pixelKey": "PIXEL_KEY",
-    "imgurAPIkey": "IMGUR_KEY"
+    "pixelKey": "PIXEL_API_KEY",
+    "imgurAPIkey": "IMGUR_API_KEY"
   }
 }
