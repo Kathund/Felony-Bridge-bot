@@ -15,9 +15,8 @@ class GCheckCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      // const check = await hypixel.getGuild(`player`, username)
-      // if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
-      if (username == 'Udderly_cool' || username == 'TryinHard') {
+      const check = await hypixel.getGuild(`player`, username)
+      if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
         const check = await hypixel.getGuild('name', config.minecraft.guild.name);
         var members = check.members;
 
@@ -33,10 +32,9 @@ class GCheckCommand extends minecraftCommand {
         for (let x of f) {
           var i = guildMembers[num]
           var player = await hypixel.getPlayer(i)
-          console.log(`${player.nickname} = ${guildMembers[num]} = ${num}`)
           var guild = await hypixel.getGuild('player', i)
           if (guild.me.rank == "Police" || guild.me.rank == "Wardens" || guild.me.rank == "Guild Master") {
-            console.log(`${player.nickname} is a staff member`)
+            this.send(`/oc ${player.nickname} is a staff member`)
           } else {
             const weekGEXP = guild.me.weeklyExperience
             if (weekGEXP > config.minecraft.guild.ranks.guards) {
@@ -68,8 +66,7 @@ class GCheckCommand extends minecraftCommand {
         }
         this.send(`/oc Done`)
       } else {
-        // this.send(`/gc This is a staff only command`)
-        this.send(`/gc Kaths making this command`)
+        this.send(`/gc This is a staff only command`)
       }
     } catch (error) {
       console.log(error);
