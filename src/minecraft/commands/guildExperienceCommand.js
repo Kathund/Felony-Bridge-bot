@@ -15,12 +15,11 @@ class GuildEXPCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      username = arg[0]
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0]
-      let guild = await hypixel.getGuil('player', username)
-      let rawGexp = guild.me.weeklyExperience
-      let gexp = addCommas(rawGexp)
+      var guild = await hypixel.getGuil('player', username)
+      var rawGexp = guild.me.weeklyExperience
+      var gexp = addCommas(rawGexp)
       let rank = 'a'
       if (rawGexp >= config.minecraft.guild.ranks.guards) rank = 'guards'
       if (rawGexp >= config.minecraft.guild.ranks.thieves) rank = 'thieves'
