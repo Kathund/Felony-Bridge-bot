@@ -19,7 +19,6 @@ class GCheckCommand extends minecraftCommand {
       if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
         const check = await hypixel.getGuild('name', config.minecraft.guild.name);
         var members = check.members;
-
         var guildMembers = [];
 
         for (const member in members) {
