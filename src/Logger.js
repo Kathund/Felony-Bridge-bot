@@ -1,24 +1,21 @@
-const clc = require("cli-color");
-
-
 async function discordMessage(message) {
-  return console.log(clc.bgMagenta.black(`[${await getCurrentTime()}] Discord >`) + ' ' + clc.magenta(message));
+  return console.log(`[${await getCurrentTime()}] Discord > ${message}`);
 }
 
 async function minecraftMessage(message) {
-  return console.log(clc.bgGreenBright.black(`[${await getCurrentTime()}] Minecraft >`) + ' ' + clc.greenBright(message));
+  return console.log(`[${await getCurrentTime()}] Minecraft > ${message}`);
 }
 
 async function warnMessage(message) {
-  return console.log(clc.bgYellow.black(`[${await getCurrentTime()}] Warning >`) + ' ' + clc.yellow(message));
+  return console.log(`[${await getCurrentTime()}] Warning > ${message}`)
 }
 
 async function errorMessage(message) {
-  return console.log(clc.bgRedBright.black(`[${await getCurrentTime()}] Error >`) + ' ' + clc.redBright(message));
+  return console.log(`[${await getCurrenttTime()}] Error > ${message}`)
 }
 
 async function broadcastMessage(message, location) {
-  return console.log(clc.inverse(`[${await getCurrentTime()}] ${location} Broadcast >`) + ' ' + message);
+  return console.log(`[${await getCurrentTime()}] ${location} Broadcat > ${message}`);
 }
 
 async function getCurrentTime() {
