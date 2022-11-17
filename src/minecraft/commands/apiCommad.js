@@ -14,8 +14,8 @@ class KeyCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-        const keyInfo = await hypixel.getKeyInfo(config.api.hypixelAPIkey)
-        console.log(keyInfo)
+      const keyInfo = await hypixel.getKeyInfo(config.api.hypixelAPIkey)
+      console.log(keyInfo)
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");

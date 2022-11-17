@@ -68,8 +68,7 @@ class RenderCommand extends minecraftCommand {
       });
 
       this.send(
-        `/gc ${username}'s item at slot ${itemNumber} » ${
-          upload.data.link ?? "Something went Wrong.."
+        `/gc ${username}'s item at slot ${itemNumber} » ${upload.data.link ?? "Something went Wrong.."
         }`
       );
     } catch (error) {

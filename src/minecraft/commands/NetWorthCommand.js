@@ -50,12 +50,9 @@ class NetWorthCommand extends minecraftCommand {
       }
 
       this.send(
-        `/gc ${capitalize(username)}'s Networth is ${
-          addNotation("oneLetters", profile.networth) ?? 0
-        } | Unsoulbound Networth: ${
-          addNotation("oneLetters", profile.unsoulboundNetworth) ?? 0
-        } | Purse: ${addNotation("oneLetters", profile.purse) || 0} | Bank: ${
-          addNotation("oneLetters", profile.bank) ?? 0
+        `/gc ${capitalize(username)}'s Networth is ${addNotation("oneLetters", profile.networth) ?? 0
+        } | Unsoulbound Networth: ${addNotation("oneLetters", profile.unsoulboundNetworth) ?? 0
+        } | Purse: ${addNotation("oneLetters", profile.purse) || 0} | Bank: ${addNotation("oneLetters", profile.bank) ?? 0
         }`
       );
     } catch (error) {

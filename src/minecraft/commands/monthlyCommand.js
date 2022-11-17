@@ -25,7 +25,7 @@ class MonthlyStatsCommand extends minecraftCommand {
     if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d"].includes(args[0])) {
       mode = args[0];
       if (args[1]) player = args[1];
-    } 
+    }
     if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d"].includes(args[1])) {
       mode = args[1];
       player = args[0];
@@ -38,14 +38,13 @@ class MonthlyStatsCommand extends minecraftCommand {
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
         this.send(
-          `/gc ${
-            player == username ? "You are" : `${player} is`
-          } not in the database. ${
-            player == username ? "You are" : `${player} is`
+          `/gc ${player == username ? "You are" : `${player} is`
+          } not in the database. ${player == username ? "You are" : `${player} is`
           } being added to the database..`
         );
 
-        fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {          method: "POST",
+        fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
+          method: "POST",
         }).then((res) => {
           if (res.status == 201) {
             this.send(`/gc Successfully registered ${player} in the database!`);
