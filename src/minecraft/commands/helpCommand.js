@@ -13,6 +13,7 @@ class HelpCommand extends minecraftCommand {
 
   onCommand(username, message) {
     try {
+      // TODO update ss
       this.send(`/gc https://imgur.com/4LoDwPs.png`);
     } catch (error) {
       console.log(error);
