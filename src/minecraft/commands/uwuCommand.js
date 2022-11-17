@@ -15,7 +15,9 @@ class UwuCommand extends minecraftCommand {
         try {
             this.send(`/gc uwu!`)
             await delay(300)
-            // this.minecraft.bot.chat(`/g kick 1vz_ uwu men go in my ass uwu uwu`)
+            this.minecraft.bot.chat(`/g mute ${username} 1h`)
+            await delay(300)
+            this.send(`/gc ${username} If u want an unmute get a staff to do it or message me udderly (Kathun#2004) to get an unmute`)
         } catch (error) {
             console.log(error);
             this.send("/gc Something went wrong..");
