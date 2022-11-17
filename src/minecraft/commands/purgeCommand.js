@@ -20,9 +20,11 @@ class PurgeCommand extends minecraftCommand {
             const check = await hypixel.getGuild(`player`, username)
             if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
                 let amount = 5000
+                let max = 125
                 const arg = this.getArgs(message);
                 if (arg[0]) amount = arg[0]
-                this.send(`/go Purging anyone under the ${amount} gexp`)
+                if (arg[1]) max = arg[1]
+                this.send(`/go Purging anyone under the ${amount} gexp with the max amount ${max}`)
                 await delay(1000)
                 const check = await hypixel.getGuild('name', config.minecraft.guild.name);
                 var members = check.members;
@@ -35,6 +37,10 @@ class PurgeCommand extends minecraftCommand {
                 this.send(`/oc Checking ${guildMembers.length} members`)
                 await delay(2000)
                 for (let x of f) {
+                    if (num >= max) {
+                        this.send(`/oc Reached max amount of ${max} purged`)
+                        break;
+                    }
                     var i = guildMembers[num]
                     var player = await hypixel.getPlayer(i)
                     var guild = await hypixel.getGuild('player', i)
