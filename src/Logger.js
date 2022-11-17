@@ -11,7 +11,7 @@ async function warnMessage(message) {
 }
 
 async function errorMessage(message) {
-  return console.log(`[${await getCurrenttTime()}] Error > ${message}`)
+  return console.log(`[${await getCurrentTime()}] Error > ${message}`)
 }
 
 async function broadcastMessage(message, location) {
