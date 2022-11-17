@@ -22,11 +22,9 @@ class FairySoulsCommand extends minecraftCommand {
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       this.send(
-        `/gc ${username}'s Fairy Souls: ${
-          data.profile.fairy_souls_collected
-        }/238 | Progress: ${
-          (Math.round((data.profile.fairy_souls_collected / 238) * 100) / 100) *
-          100
+        `/gc ${username}'s Fairy Souls: ${data.profile.fairy_souls_collected
+        }/238 | Progress: ${(Math.round((data.profile.fairy_souls_collected / 238) * 100) / 100) *
+        100
         }%`
       );
     } catch (error) {

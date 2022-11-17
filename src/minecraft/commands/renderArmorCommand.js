@@ -29,7 +29,7 @@ class ArmorCommand extends minecraftCommand {
       if (!profile.profile.inv_armor?.data) {
         return this.send(`/gc This player has an Inventory API off.`);
       }
-      
+
       if (profile.profileData.game_mode) username = `♲ ${username}`;
 
       const inventoryData = (

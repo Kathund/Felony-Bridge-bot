@@ -37,26 +37,19 @@ class BedwarsCommand extends minecraftCommand {
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc [${player.stats.bedwars.level}✫] ${
-            player.nickname
-          } FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${
-            player.stats.bedwars.finalKDRatio
-          } Wins: ${player.stats.bedwars.wins} WLR: ${
-            player.stats.bedwars.WLRatio
-          } BB: ${player.stats.bedwars.beds.broken} BLR: ${
-            player.stats.bedwars.beds.BLRatio
+          `/gc [${player.stats.bedwars.level}✫] ${player.nickname
+          } FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
+          } Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
+          } BB: ${player.stats.bedwars.beds.broken} BLR: ${player.stats.bedwars.beds.BLRatio
           } WS: ${player.stats.bedwars.winstreak}`
         );
       } else if (mode) {
         this.send(
           `/gc [${player.stats.bedwars.level}✫] ${player.nickname} ${capitalize(
             mode
-          )} FK: ${addCommas(player.stats.bedwars[mode].finalKills)} FKDR: ${
-            player.stats.bedwars[mode].finalKDRatio
-          } Wins: ${player.stats.bedwars[mode].wins} WLR: ${
-            player.stats.bedwars[mode].WLRatio
-          } BB: ${player.stats.bedwars[mode].beds.broken} BLR: ${
-            player.stats.bedwars[mode].beds.BLRatio
+          )} FK: ${addCommas(player.stats.bedwars[mode].finalKills)} FKDR: ${player.stats.bedwars[mode].finalKDRatio
+          } Wins: ${player.stats.bedwars[mode].wins} WLR: ${player.stats.bedwars[mode].WLRatio
+          } BB: ${player.stats.bedwars[mode].beds.broken} BLR: ${player.stats.bedwars[mode].beds.BLRatio
           } WS: ${player.stats.bedwars[mode].winstreak}`
         );
       }

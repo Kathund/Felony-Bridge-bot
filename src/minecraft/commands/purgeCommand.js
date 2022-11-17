@@ -1,5 +1,8 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const config = require("../../../config.json")
+
 
 class PurgeCommand extends minecraftCommand {
     constructor(minecraft) {
@@ -14,43 +17,54 @@ class PurgeCommand extends minecraftCommand {
 
     async onCommand(username, message) {
         try {
-            if (username == 'Udderly_cool') {
-                this.send(`/gc ITS TIME BITCHES ITS THE PERGE`)
+            const check = await hypixel.getGuild(`player`, username)
+            if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
+                let amount = 5000
+                let max = 125
+                const arg = this.getArgs(message);
+                if (arg[0]) amount = arg[0]
+                if (arg[1]) max = arg[1]
+                this.send(`/go Purging anyone under the ${amount} gexp with the max amount ${max}`)
                 await delay(1000)
-                this.send(`/g kick alfontop Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick rqpper Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick ihoopje Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick dyschezia Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick Spookyl1ght Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick pe1t Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick ssphex Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick _lerts Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick abglaine Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick siszeus Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick orqzor Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/g kick gothgirle Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`);
-                await delay(500)
-                this.send(`/gc The purge is done!`)
-            }
-            else {
-                this.send(`/gc no`);
+                const check = await hypixel.getGuild('name', config.minecraft.guild.name);
+                var members = check.members;
+                var guildMembers = [];
+                for (const member in members) {
+                    guildMembers.push(members[member].uuid)
+                }
+                var f = guildMembers.entries();
+                let num = 0
+                this.send(`/oc Checking ${guildMembers.length} members`)
+                await delay(2000)
+                for (let x of f) {
+                    if (num >= max) {
+                        this.send(`/oc Reached max amount of ${max} purged`)
+                        break;
+                    }
+                    var i = guildMembers[num]
+                    var player = await hypixel.getPlayer(i)
+                    var guild = await hypixel.getGuild('player', i)
+                    if (guild.me.rank == "Police" || guild.me.rank == "Wardens" || guild.me.rank == "Guild Master") {
+                        this.send(`/oc ${player.nickname} is a staff member`)
+                    } else {
+                        const weekGEXP = guild.me.weeklyExperience
+                        if (weekGEXP <= amount) {
+                            this.send(`/g kick ${player.nickname} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
+                            await delay(3000)
+                        } else {
+                            this.send(`/oc ${player.nickname} has more then ${amount} gexp`)
+                            await delay(3000)
+                        }
+                    }
+                    num = num + 1
+                    x = x + 1
+                }
+            } else {
+                this.send(`/gc Staff only command`);
             }
         } catch (error) {
             console.log(error);
-            this.send(
-                "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
-            );
+            this.send("/gc Something went wrong..");
         }
     }
 }

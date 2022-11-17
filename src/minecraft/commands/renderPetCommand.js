@@ -51,8 +51,7 @@ class RenderCommand extends minecraftCommand {
           }
 
           const renderedItem = await renderLore(
-            `§7[Lvl ${pet.level}] §${getRarityColor(pet.tier)}${
-              pet.display_name
+            `§7[Lvl ${pet.level}] §${getRarityColor(pet.tier)}${pet.display_name
             }`,
             newLore
           );
@@ -61,8 +60,7 @@ class RenderCommand extends minecraftCommand {
             type: "stream",
           });
           return this.send(
-            `/gc ${username}'s Active Pet » ${
-              upload.data.link ?? "Something went Wrong.."
+            `/gc ${username}'s Active Pet » ${upload.data.link ?? "Something went Wrong.."
             }`
           );
         }

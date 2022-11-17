@@ -15,7 +15,7 @@ module.exports = { start };
 
 //--------------------------------
 // If u wanna have fancy website
-/*
+
 var http = require('http');
 var fs = require('fs');
 
@@ -28,4 +28,4 @@ fs.readFile('./src/web/index.html', function (err, html) {
         response.write(html);  
         response.end();  
     }).listen(PORT);
-});*/
+});

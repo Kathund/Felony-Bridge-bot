@@ -29,8 +29,7 @@ class DenickerCommand extends minecraftCommand {
 
       const player = await hypixel.getPlayer(response.player?.ign);
       this.send(
-        `/gc ${player.rank ? `[${player.rank}] ` : ``}${
-          response.player?.ign
+        `/gc ${player.rank ? `[${player.rank}] ` : ``}${response.player?.ign
         } is nicked as ${response.player.queried_nick}`
       );
     } catch (error) {

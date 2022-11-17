@@ -55,11 +55,11 @@ class MinecraftManager extends CommunicationBridge {
     }
 
     if (channel === config.discord.guildChatChannel) {
-      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/gc ${replyingTo? `${username} replying to ${replyingTo} »` : `${username} »`} ${message}`)) : this.bot.chat(`/gc ${replyingTo? `${username} replying to ${replyingTo} »` : `${username} »`} ${message}`)
+      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/gc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)) : this.bot.chat(`/gc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)
     }
 
     if (channel === config.discord.officerChannel) {
-      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/oc ${replyingTo? `${username} replying to ${replyingTo} »` : `${username} »`} ${message}`)) : this.bot.chat(`/oc ${replyingTo? `${username} replying to ${replyingTo} »` : `${username} »`} ${message}`)
+      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/oc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)) : this.bot.chat(`/oc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)
     }
   }
 }
