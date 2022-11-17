@@ -14,4 +14,3 @@ app.register().then(() => {
 webServer.start()
   
 
-// TODO remove 'cli-color' from npm packages
