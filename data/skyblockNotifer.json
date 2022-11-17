@@ -145,6 +145,10 @@
     "High latency for Europe connections | Monitoring - Our upstream provider has implemented a fix and we are monitoring. | Oct 3, 17:23 EDT",
     "High latency for Europe connections | Investigating - We are currently investigating an issue with our upstream provider resulting in higher latency for players in Europe. | Oct 3, 13:00 EDT",
     "SkyBlock Bazaar Disabled | Identified - The Bazaar is currently disabled due to exploits, we have identified the issue and are working to resolve it. | Sep 4, 16:57 EDT",
-    "SkyBlock Dungeons Disabled | Resolved - This incident has been resolved. | Sep 1, 11:41 EDT"
+    "SkyBlock Dungeons Disabled | Resolved - This incident has been resolved. | Sep 1, 11:41 EDT",
+    "Emergency Maintenance | Resolved - This incident has been resolved. | Nov 16, 14:40 EST",
+    "Emergency Maintenance | Monitoring - A fix has been implemented and we are monitoring as we re-open the server | Nov 16, 14:21 EST",
+    "Emergency Maintenance | Update - We are continuing to investigate issues with one of our core services and as a result, we are in emergency maintenance. Players will be unable to join and the Public API is unavailable. | Nov 16, 14:04 EST",
+    "Emergency Maintenance | Investigating - We are currently investigating issues with one of our core services and as a result, we are in emergency maintenance. | Nov 16, 13:56 EST"
   ]
 }
