@@ -1,10 +1,5 @@
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
-const {
-  addNotation,
-  addCommas,
-} = require("../../contracts/helperFunctions.js");
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { addNotation, addCommas } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getNetworth, getPrices } = require("skyhelper-networth");
 const getTalismans = require("../../../API/stats/talismans.js");
