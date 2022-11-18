@@ -11,7 +11,7 @@ class LeaderBoardCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "example";
+        this.name = "lb";
         this.aliases = [];
         this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         this.options = [];
@@ -19,11 +19,15 @@ class LeaderBoardCommand extends minecraftCommand {
 
     async onCommand(username, message) {
         try {
-            fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=bedwars&timeframe=daily&limit=10`).then((res) => {
-                res.join().then((data) => {
-                    console.log(data);
+            if (username == "Udderly_cool") {
+                fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=bedwars&timeframe=daily&limit=10`).then((res) => {
+                    res.join().then((data) => {
+                        console.log(data);
+                    })
                 })
-            })
+            } else {
+                this.send("You are not Udderly_cool");
+            }
         } catch (error) {
             console.log(error);
             this.send("/gc Something went wrong..");
