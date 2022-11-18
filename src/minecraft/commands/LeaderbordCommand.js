@@ -22,6 +22,7 @@ class LeaderBoardCommand extends minecraftCommand {
             if (username == "Udderly_cool") {
                 fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=bedwars&timeframe=daily&limit=10`).then((res) => {
                     res.json().then((data) => {
+                        console.log(data.lastUpdated)
                         console.log(data.four_two.wins);
                     })
                 })
