@@ -23,7 +23,7 @@ class LeaderBoardCommand extends minecraftCommand {
                 fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=bedwars&timeframe=lifetime&limit=10`).then((res) => {
                     res.json().then((data) => {
                         var date = new Date(data.lastUpdated * 1000);
-                        console.log(date.toLocaleTimeString("en-US"));
+                        console.log(`${lastUpdated} = ${date.toLocaleTimeString("en-US")});
                         console.log(data.four_two.wins);
                     })
                 })
