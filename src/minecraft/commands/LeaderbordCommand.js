@@ -1,6 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { getUUID } = require("../../contracts/API/PlayerDBAPI.js");
-const config = require("../../../config.json")
+const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const config = require("../../../config.json");
 const fetch = (...args) =>
     import("node-fetch")
         .then(({ default: fetch }) => fetch(...args))
@@ -21,10 +21,26 @@ class LeaderBoardCommand extends minecraftCommand {
         try {
             if (username == "Udderly_cool") {
                 fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=bedwars&timeframe=lifetime&limit=10`).then((res) => {
-                    res.json().then((data) => {
+                    res.json().then(async (data) => {
                         var date = new Date(data.lastUpdated * 1000);
-                        console.log(`${lastUpdated} = ${date.toLocaleTimeString("en-US")}`);
+                        console.log(`${data.lastUpdated} = ${date.toLocaleTimeString("en-US")}`);
                         console.log(data.four_two.wins);
+                        var a = data.four_two.wins[0].UUID
+                        console.log(a)
+                        var b = await hypixel.getPlayer(a)
+                        console.log(b.nickname)
+                        var player0 = data.four_two.wins[0];
+                        var player1 = data.four_two.wins[1];
+                        var player2 = data.four_two.wins[2];
+                        var player3 = data.four_two.wins[3];
+                        var player4 = data.four_two.wins[4];
+                        var player5 = data.four_two.wins[5];
+                        var player6 = data.four_two.wins[6];
+                        var player7 = data.four_two.wins[7];
+                        var player8 = data.four_two.wins[8];
+                        var player9 = data.four_two.wins[9];
+                        console.log(``)
+                        this.send(`/gc ${b.nickname} ${data.four_two.wins[0].wins}`);
                     })
                 })
             } else {
