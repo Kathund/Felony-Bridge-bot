@@ -3,7 +3,6 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json")
 
-
 class PurgeCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
