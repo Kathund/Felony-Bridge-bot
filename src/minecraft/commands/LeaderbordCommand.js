@@ -29,16 +29,6 @@ class LeaderBoardCommand extends minecraftCommand {
                         console.log(a)
                         var b = await hypixel.getPlayer(a)
                         console.log(b.nickname)
-                        var player0 = data.four_two.wins[0];
-                        var player1 = data.four_two.wins[1];
-                        var player2 = data.four_two.wins[2];
-                        var player3 = data.four_two.wins[3];
-                        var player4 = data.four_two.wins[4];
-                        var player5 = data.four_two.wins[5];
-                        var player6 = data.four_two.wins[6];
-                        var player7 = data.four_two.wins[7];
-                        var player8 = data.four_two.wins[8];
-                        var player9 = data.four_two.wins[9];
                         console.log(``)
                         this.send(`/gc ${b.nickname} ${data.four_two.wins[0].wins}`);
                     })
