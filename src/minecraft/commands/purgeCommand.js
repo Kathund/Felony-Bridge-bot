@@ -45,6 +45,7 @@ class PurgeCommand extends minecraftCommand {
                     var guild = await hypixel.getGuild('player', i)
                     if (guild.me.rank == "Police" || guild.me.rank == "Wardens" || guild.me.rank == "Guild Master") {
                         this.send(`/oc ${player.nickname} is a staff member`)
+                        await delay(3000)
                     } else {
                         const weekGEXP = guild.me.weeklyExperience
                         if (weekGEXP <= amount) {
