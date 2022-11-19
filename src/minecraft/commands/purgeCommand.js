@@ -18,7 +18,7 @@ class PurgeCommand extends minecraftCommand {
         try {
             const check = await hypixel.getGuild(`player`, username)
             if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
-                let amount = 5000
+                let amount = config.minecraft.guild.ranks.prisoners
                 let max = 125
                 const arg = this.getArgs(message);
                 if (arg[0]) amount = arg[0]
