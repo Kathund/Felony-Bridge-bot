@@ -33,10 +33,11 @@ class PurgeCommand extends minecraftCommand {
                 }
                 var f = guildMembers.entries();
                 let num = 0
+                let kicked = 0
                 this.send(`/oc Checking ${guildMembers.length} members`)
                 await delay(2000)
                 for (let x of f) {
-                    if (num >= max) {
+                    if (kicked >= max) {
                         this.send(`/oc Reached max amount of ${max} purged`)
                         break;
                     }
@@ -50,6 +51,7 @@ class PurgeCommand extends minecraftCommand {
                         const weekGEXP = guild.me.weeklyExperience
                         if (weekGEXP <= amount) {
                             this.send(`/g kick ${player.nickname} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
+                            kicked = kicked + 1
                             await delay(3000)
                         } else {
                             this.send(`/oc ${player.nickname} has more then ${amount} gexp`)
