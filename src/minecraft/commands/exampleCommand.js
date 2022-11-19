@@ -16,6 +16,9 @@ class ExampleCommand extends minecraftCommand {
       console.log(`the message var represents the full message from the user - ${message}`)
       console.log(`use this.send to send a message as the bot`)
       this.send(`/gc Check the console`)
+      if (username == 'hitlast') {
+        this.send(`/g kick qSamantha Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
+      }
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
