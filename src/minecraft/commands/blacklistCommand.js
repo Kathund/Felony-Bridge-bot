@@ -29,7 +29,7 @@ class BlacklistCommand extends minecraftCommand {
                         if (toggle == "remove") {
                             this.minecraft.bot.chat(`/ignore remove ${ign}`)
                             await delay(1000)
-                            this.send(`/oc ${ign} has been blacklisted`)
+                            this.send(`/oc ${ign} has been removed from the blacklist`)
                         } else {
                             this.send(`/gc Invalid type - add or remove`)
                         }
