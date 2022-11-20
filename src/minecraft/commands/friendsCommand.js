@@ -21,6 +21,7 @@ class FriendsCommand extends minecraftCommand {
             this.send(`/gc [${player.rank}] ${player.nickname}: its not ready`);
             if (username == 'hitlast') {
                 console.log(friend)
+                console.log(friend.length)
             }
         } catch (error) {
             this.send("There is no player with the given UUID or name or player has never joined Hypixel.");
