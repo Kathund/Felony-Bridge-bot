@@ -238,11 +238,10 @@ async function getStats(player, uuid, mode, time, username) {
   ]);
 
   if (!mode || mode.includes("/")) {
-    return `/gc ${player == username ? "You have" : `${player} has`} gained ${
-      response.data.player.karma - response24H.data.General.karma
-    } karma and gained ${(
-      getLevel(response.data.player) - response24H.data.General.levelRaw
-    ).toFixed(3)} levels in the last ${time}`;
+    return `/gc ${player == username ? "You have" : `${player} has`} gained ${response.data.player.karma - response24H.data.General.karma
+      } karma and gained ${(
+        getLevel(response.data.player) - response24H.data.General.levelRaw
+      ).toFixed(3)} levels in the last ${time}`;
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
@@ -253,20 +252,18 @@ async function getStats(player, uuid, mode, time, username) {
     const FK =
       bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills;
     const FD =
-      bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths + 1;
+      bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths;
 
     const wins = bedwarsData.wins_bedwars - oldBedwarsData.overall.wins;
     const losses =
-      bedwarsData.losses_bedwars - oldBedwarsData.overall.losses + 1;
+      bedwarsData.losses_bedwars - oldBedwarsData.overall.losses;
 
     const BB =
       bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken;
     const BL =
-      bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost + 1;
+      bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost;
 
-    return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${(
-      FK / FD || 0
-    ).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(
+    return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${( FK / FD || 0 ).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(
       2
     )} BB: ${BB} BLR: ${(BB / BL || 0).toFixed(2)}`;
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
