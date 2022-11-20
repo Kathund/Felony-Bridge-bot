@@ -249,21 +249,19 @@ async function getStats(player, uuid, mode, time, username) {
     const experience = bedwarsData.Experience - oldBedwarsData.EXP;
     const level = getBedwarsLevel(experience);
 
-    const FK =
-      bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills;
-    const FD =
-      bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths;
+    const FK = bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills;
+    const FD = bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths + 1;
 
     const wins = bedwarsData.wins_bedwars - oldBedwarsData.overall.wins;
     const losses =
-      bedwarsData.losses_bedwars - oldBedwarsData.overall.losses;
+      bedwarsData.losses_bedwars - oldBedwarsData.overall.losses + 1;
 
     const BB =
       bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken;
     const BL =
-      bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost;
+      bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost + 1;
 
-    return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${( FK / FD || 0 ).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(
+    return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${(FK / FD || 0).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(
       2
     )} BB: ${BB} BLR: ${(BB / BL || 0).toFixed(2)}`;
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
