@@ -20,7 +20,8 @@ class PlayerCommand extends minecraftCommand {
             const player = await hypixel.getPlayer(username);
             const guild = await hypixel.getGuild('player', username)
             const friend = await hypixel.getFriends(username)
-            this.send(`/gc [${player.rank}] ${player.nickname}: Level: ${player.level} | Karma ${addNotation("oneLetters", player.karma)} | Achievement Points ${addNotation("oneLetters", player.achievementPoints)} | Guild: ${guild.name} | Friends: ${friend.length}`);
+            var friends = friend.length + 1
+            this.send(`/gc [${player.rank}] ${player.nickname}: Level: ${player.level} | Karma ${addNotation("oneLetters", player.karma)} | Achievement Points ${addNotation("oneLetters", player.achievementPoints)} | Guild: ${guild.name} | Friends: ${friends}`);
         } catch (error) {
             this.send("There is no player with the given UUID or name or player has never joined Hypixel.");
         }
