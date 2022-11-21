@@ -18,6 +18,7 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
             await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [loggingEmbed] });
+            hypixel.getPlayer('Kath likes men')
             await interaction.followUp({
                 content: "Command has been executed successfully.",
                 ephemeral: true,
