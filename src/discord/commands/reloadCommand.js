@@ -1,6 +1,7 @@
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
+// eslint-disable-next-line
 const { EmbedBuilder } = require('discord.js')
+const { generateID } = require('../../contracts/helperFunctions.js')
 
 module.exports = {
     name: "reload",
@@ -10,7 +11,7 @@ module.exports = {
         let hasPerms = false;
         if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.botDev)) hasPerms = true;
         if (hasPerms) {
-            bot.chat(`/gc The Bot is restarting!`)
+            bot.chat(`/gc The Bot is restarting! - ${generateID(config.minecraft.messageRepeatBypassLength)}`);
             const loggingEmbed = new EmbedBuilder()
                 .setColor(16733070)
                 .setTitle(`Bot Restarting!`)
