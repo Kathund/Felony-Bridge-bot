@@ -1,5 +1,6 @@
-const config = require("../../../config.json");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const config = require("../../../config.json");
+const { EmbedBuilder } = require('discord.js')
 
 module.exports = {
     name: "reload",
