@@ -16,7 +16,6 @@ module.exports = {
                 .setColor(16733070)
                 .setTitle(`Bot Restarting!`)
                 .setTimestamp()
-                .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
             await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [loggingEmbed] });
             await interaction.followUp({
                 content: "Command has been executed successfully.",
