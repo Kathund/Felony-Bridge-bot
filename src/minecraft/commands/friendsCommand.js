@@ -18,13 +18,11 @@ class FriendsCommand extends minecraftCommand {
             if (msg[0]) username = msg[0];
             const player = await hypixel.getPlayer(username);
             const friend = await hypixel.getFriends(username)
-            this.send(`/gc [${player.rank}] ${player.nickname} has ${friend.length} friends.`);
-            if (username == 'hitlast') {
-                // console.log(friend)
-                console.log(friend.length)
-            }
+            const friends = friend.length + 1
+            this.send(`/gc [${player.rank}] ${player.nickname} has ${friends} friends`);
         } catch (error) {
-            this.send("There is no player with the given UUID or name or player has never joined Hypixel.");
+            console.log(error)
+            this.send(`/gc Something went wrong`);
         }
     }
 }
