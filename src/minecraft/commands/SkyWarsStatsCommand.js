@@ -1,5 +1,10 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const fetch = (...args) =>
+    import("node-fetch")
+        .then(({ default: fetch }) => fetch(...args))
+        .catch((err) => console.log(err));
+        
 class SkywarsCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
@@ -17,10 +22,10 @@ class SkywarsCommand extends minecraftCommand {
       if (msg[0]) username = msg[0];
       const player = await hypixel.getPlayer(username);
       this.send(
-        `/gc [${player.stats.skywars.level}✫] ${player.nickname}ᐧᐧᐧᐧKDR:${player.stats.skywars.KDRatio}ᐧᐧᐧᐧWLR:${player.stats.skywars.WLRatio}ᐧᐧᐧᐧWS:${player.stats.skywars.winstreak}`
+        `/gc [${player.stats.skywars.level}✫] ${player.nickname} Kills: ${player.stats.skywars.kills} KDR:${player.stats.skywars.KDRatio} | Wins: ${player.stats.skywars.wins} WLR:${player.stats.skywars.WLRatio}| WS:${player.stats.skywars.winstreak}`
       );
       fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
-        method: "POST",
+      method: "POST",
       }).then((res) => {
         if (res.status == 201) {
           console.log(`/gc Successfully registered ${player} in the database!`);
