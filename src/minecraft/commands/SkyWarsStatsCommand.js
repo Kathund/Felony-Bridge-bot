@@ -30,11 +30,11 @@ class SkywarsCommand extends minecraftCommand {
       method: "POST",
       }).then((res) => {
         if (res.status == 201) {
-          console.log(`/gc Successfully registered ${player.nickname} in the database!`);
+          console.log(`/Successfully registered ${player.nickname} in the database!`);
         } else if (res.status == 400) {
-          console.log(`/gc ${player}.nickname is already registered in the database!`);
+          console.log(`/${player}.nickname is already registered in the database!`);
         } else {
-          console.log(`/gc An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`);
+          console.log(`/An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`);
         }
       });
     } catch (error) {

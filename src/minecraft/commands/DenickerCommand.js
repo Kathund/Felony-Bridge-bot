@@ -2,6 +2,10 @@ const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
 const axios = require("axios");
+const fetch = (...args) =>
+  import("node-fetch")
+    .then(({ default: fetch }) => fetch(...args))
+    .catch((err) => console.log(err));
 
 class DenickerCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -32,6 +36,17 @@ class DenickerCommand extends minecraftCommand {
         `/gc ${player.rank ? `[${player.rank}] ` : ``}${response.player?.ign
         } is nicked as ${response.player.queried_nick}`
       );
+      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
+        method: "POST",
+      }).then((res) => {
+        if (res.status == 201) {
+          console.log(`Successfully registered ${player.nickname} in the database!`);
+        } else if (res.status == 400) {
+          console.log(`${player.nickname} is already registered in the database!`);
+        } else {
+          console.log(`An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
+        }
+      });      
     } catch (error) {
       this.send("/gc Sorry, I wasn't able to denick this person.");
     }

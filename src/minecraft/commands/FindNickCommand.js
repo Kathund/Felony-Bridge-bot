@@ -24,6 +24,17 @@ class FindNickCommand extends minecraftCommand {
                     this.send(`/gc [${player.rank}] ${player.nickname}: Nicked - ${data.player.nick}`)
                 })
             })
+            fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
+              method: "POST",
+            }).then((res) => {
+              if (res.status == 201) {
+                console.log(`Successfully registered ${player.nickname} in the database!`);
+              } else if (res.status == 400) {
+                console.log(`${player.nickname} is already registered in the database!`);
+              } else {
+                console.log(`An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
+              }
+            });
         } catch (error) {
             this.send("/gc Something went wrong");
         }

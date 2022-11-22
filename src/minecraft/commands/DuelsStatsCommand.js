@@ -97,18 +97,16 @@ class DuelsStatsCommand extends minecraftCommand {
         method: "POST",
       }).then((res) => {
         if (res.status == 201) {
-          console.log(`/gc Successfully registered ${player.nickname} in the database!`);
+          console.log(`Successfully registered ${player.nickname} in the database!`);
         } else if (res.status == 400) {
-          console.log(`/gc ${player.nickname} is already registered in the database!`);
+          console.log(`${player.nickname} is already registered in the database!`);
         } else {
-          console.log(`/gc An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
+          console.log(`An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
         }
       });
     } catch (error) {
       console.log(error);
-      this.send(
-        "/gc There is no player with the given name or this duel does not exist."
-      );
+      this.send("/gc There is no player with the given name or this duel does not exist.");
     }
   }
 }
