@@ -1,6 +1,7 @@
 const { addNotation, capitalize, addCommas } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const config = require("../../../config.json")
 
 class BedwarsCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -54,6 +55,17 @@ class BedwarsCommand extends minecraftCommand {
           } WS: ${player.stats.bedwars[mode].winstreak}`
         );
       }
+      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
+        method: "POST",
+      }).then((res) => {
+        if (res.status == 201) {
+          console.log(`/gc Successfully registered ${player} in the database!`);
+        } else if (res.status == 400) {
+          console.log(`/gc ${player} is already registered in the database!`);
+        } else {
+          console.log(`/gc An error occured while registering ${player} in the database! Please try again in few seconds.`);
+        }
+      });
     } catch (error) {
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
