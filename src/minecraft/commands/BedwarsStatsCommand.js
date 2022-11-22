@@ -1,4 +1,4 @@
-const { capitalize, addCommas } = require("../../contracts/helperFunctions.js");
+const { addNotation, capitalize, addCommas } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 
@@ -38,6 +38,7 @@ class BedwarsCommand extends minecraftCommand {
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
           `/gc [${player.stats.bedwars.level}✫] ${player.nickname
+          } Coins: ${addNotation(player.stats.bedwars.coins)
           } FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
           } Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
           } BB: ${player.stats.bedwars.beds.broken} BLR: ${player.stats.bedwars.beds.BLRatio
