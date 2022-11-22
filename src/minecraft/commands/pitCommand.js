@@ -26,11 +26,11 @@ class PitCommand extends minecraftCommand {
                 method: "POST",
             }).then((res) => {
                 if (res.status == 201) {
-                    console.log(`/gc Successfully registered ${player} in the database!`);
+                    console.log(`/gc Successfully registered ${player.nickname} in the database!`);
                 } else if (res.status == 400) {
-                    console.log(`/gc ${player} is already registered in the database!`);
+                    console.log(`/gc ${player.nickname} is already registered in the database!`);
                 } else {
-                    console.log(`/gc An error occured while registering ${player} in the database! Please try again in few seconds.`);
+                    console.log(`/gc An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`);
                 }
             });
         } catch (error) {
