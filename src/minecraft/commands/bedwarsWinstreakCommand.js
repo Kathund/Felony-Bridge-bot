@@ -31,7 +31,7 @@ class DenickerCommand extends minecraftCommand {
         } | Fours » ${response.data.player.data.four_four_winstreak} | 4v4  » ${response.data.player.data.two_four_winstreak
         }`
       );
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
+      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
         method: "POST",
       }).then((res) => {
         if (res.status == 201) {
