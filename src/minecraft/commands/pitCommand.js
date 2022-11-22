@@ -21,7 +21,7 @@ class PitCommand extends minecraftCommand {
             if (msg[0]) username = msg[0]
             const player = await hypixel.getPlayer(username);
             this.send(`/gc [${player.rank}] ${player.nickname}: Kills: ${player.stats.pit.kills} | I know this is nothing but this is the only thing in the api lmao`)
-            fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
+            fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
                 method: "POST",
             }).then((res) => {
                 if (res.status == 201) {
