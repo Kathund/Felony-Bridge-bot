@@ -1,5 +1,9 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const fetch = (...args) =>
+    import("node-fetch")
+        .then(({ default: fetch }) => fetch(...args))
+        .catch((err) => console.log(err));
 
 class DuelsStatsCommand extends minecraftCommand {
   constructor(minecraft) {
