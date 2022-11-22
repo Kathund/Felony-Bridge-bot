@@ -2,6 +2,10 @@ const { addNotation, capitalize, addCommas } = require("../../contracts/helperFu
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json")
+const fetch = (...args) =>
+    import("node-fetch")
+        .then(({ default: fetch }) => fetch(...args))
+        .catch((err) => console.log(err));
 
 class BedwarsCommand extends minecraftCommand {
   constructor(minecraft) {
