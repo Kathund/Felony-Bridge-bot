@@ -22,6 +22,7 @@ class GuildEXPCommand extends minecraftCommand {
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0]
+      var player = await hypixel.getPlayer(username)
       var guild = await hypixel.getGuild('player', username)
       var rawGexp = guild.me.weeklyExperience
       var gexp = addCommas(rawGexp)
