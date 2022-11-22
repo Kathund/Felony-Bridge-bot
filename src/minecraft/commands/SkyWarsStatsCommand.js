@@ -21,10 +21,11 @@ class SkywarsCommand extends minecraftCommand {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
       const player = await hypixel.getPlayer(username);
+
       this.send(
         `/gc [${player.stats.skywars.level}✫] ${player.nickname} Kills: ${player.stats.skywars.kills} KDR:${player.stats.skywars.KDRatio} | Wins: ${player.stats.skywars.wins} WLR:${player.stats.skywars.WLRatio}| WS:${player.stats.skywars.winstreak}`
       );
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
+      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
       method: "POST",
       }).then((res) => {
         if (res.status == 201) {
