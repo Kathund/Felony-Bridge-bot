@@ -1,6 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { addNotation } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const config = require("../../../config.json");
 const fetch = (...args) =>
     import("node-fetch")
         .then(({ default: fetch }) => fetch(...args))
