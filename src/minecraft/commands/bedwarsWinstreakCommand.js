@@ -31,6 +31,17 @@ class DenickerCommand extends minecraftCommand {
         } | Fours » ${response.data.player.data.four_four_winstreak} | 4v4  » ${response.data.player.data.two_four_winstreak
         }`
       );
+      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
+        method: "POST",
+      }).then((res) => {
+        if (res.status == 201) {
+          console.log(`/gc Successfully registered ${player} in the database!`);
+        } else if (res.status == 400) {
+          console.log(`/gc ${player} is already registered in the database!`);
+        } else {
+          console.log(`/gc An error occured while registering ${player} in the database! Please try again in few seconds.`);
+        }
+      });
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
