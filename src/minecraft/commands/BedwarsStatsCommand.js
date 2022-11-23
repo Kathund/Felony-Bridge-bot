@@ -43,7 +43,7 @@ class BedwarsCommand extends minecraftCommand {
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
           `/gc [${player.stats.bedwars.level}✫] ${player.nickname
-          } Coins: ${player.stats.bedwars.coins
+          } Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
           } FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
           } Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
           } BB: ${player.stats.bedwars.beds.broken} BLR: ${player.stats.bedwars.beds.BLRatio
