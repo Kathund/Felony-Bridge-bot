@@ -9,6 +9,9 @@ module.exports = {
 
     execute: async (interaction, client) => {
         let hasPerms = false;
+        if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.guildMaster)) hasPerms = true;
+        if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.wardens)) hasPerms = true;
+        if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.police)) hasPerms = true;    
         if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.botDev)) hasPerms = true;
         if (hasPerms) {
             bot.chat(`/gc The Bot is restarting! - ${generateID(config.minecraft.messageRepeatBypassLength)}`);
