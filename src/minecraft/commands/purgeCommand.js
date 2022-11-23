@@ -61,7 +61,7 @@ class PurgeCommand extends minecraftCommand {
                 //     num = num + 1
                 //     x = x + 1
                 // }
-                this.send(`/gc This command is disabled and might come back in the future`)
+                this.send(`/go This command is disabled and might come back in the future`)
             } else {
                 this.send(`/gc Staff only command`);
             }
