@@ -26,7 +26,9 @@ class LeaderBoardCommand extends minecraftCommand {
                         console.log(`#1 ${getUsername(data.overall.wins[0].uuid)} = ${data.overall.wins[0].wins} | #2 ${getUsername(data.overall.wins[1].uuid)} = ${data.overall.wins[1].wins} | #3 ${getUsername(data.overall.wins[2].uuid)} = ${data.overall.wins[2].wins} | #4 ${getUsername(data.overall.wins[3].uuid)} = ${data.overall.wins[3].wins} | #5 ${getUsername(data.overall.wins[4].uuid)} = ${data.overall.wins[4].wins} | #6 ${getUsername(data.overall.wins[5].uuid)} = ${data.overall.wins[5].wins} | #7 ${getUsername(data.overall.wins[6].uuid)} = ${data.overall.wins[6].wins} | #8 ${getUsername(data.overall.wins[7].uuid)} = ${data.overall.wins[7].wins} | #9 ${getUsername(data.overall.wins[8].uuid)} = ${data.overall.wins[8].wins} | #10 ${getUsername(data.overall.wins[9].uuid)} = ${data.overall.wins[9].wins}`);
                     })
                 })
-            } else {}
+            } else {
+                console.log("a")
+            }
         } catch (error) {
             console.log(error);
             this.send("/gc Something went wrong..");
