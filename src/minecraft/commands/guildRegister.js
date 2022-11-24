@@ -31,7 +31,7 @@ class GRegister extends minecraftCommand {
         var f = guildMembers.entries();
         let num = 0
         await delay(2000)
-        console.log(`adding ${guildMembers.length()} users to database from the guild ${check.name}`)
+        console.log(`adding ${guildMembers.length} users to database from the guild ${check.name}`)
         for (let x of f) {
           var i = guildMembers[num]
           var player = hypixel.getPlayer(i)
