@@ -95,7 +95,6 @@ class SkyblockCommand extends minecraftCommand {
       }
       this.send(
         `/gc ${username}'s Senither Weight » ${Math.round(weight.weight.senither.total * 100) / 100
-        } | Lily Weight » ${Math.round(weight.weight.lily.total * 100) / 100
         } | Skill Average » ${Math.round(
           ((skills.farming.level +
             skills.mining.level +
