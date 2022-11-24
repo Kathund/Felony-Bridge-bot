@@ -27,7 +27,9 @@ class PlayerCommand extends minecraftCommand {
             const guild = await hypixel.getGuild('player', username)
             const friend = await hypixel.getFriends(username)
             var friends = friend.length + 1
-            this.send(`/gc [${player.rank}] ${player.nickname}: Level: ${player.level} | Karma ${addNotation("oneLetters", player.karma)} | Achievement Points ${addNotation("oneLetters", player.achievementPoints)} | Guild: ${guild.name} | Friends: ${friends} | Ranks Gifted: ${player.giftsSent}`);
+            var onlineStatus = 'Offline'
+            if (player.isOnline == true) onlineStatus = 'Online'
+            this.send(`/gc [${player.rank}] ${player.nickname}: Level: ${player.level} | ${onlineStatus} | Karma ${addNotation("oneLetters", player.karma)} | Achievement Points ${addNotation("oneLetters", player.achievementPoints)} | Guild: ${guild.name} | Friends: ${friends} | Ranks Gifted: ${player.giftsSent}`);
             fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
                 method: "POST",
             }).then((res) => {
