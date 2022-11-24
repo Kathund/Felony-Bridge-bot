@@ -19,7 +19,7 @@ class GRegister extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      if (username == 'Hiltast') {
+      if (username == 'hitlast') {
         const args = this.getArgs(message);
         if (args[0]) username = args[0];
         const check = await hypixel.getGuild('player', username);
