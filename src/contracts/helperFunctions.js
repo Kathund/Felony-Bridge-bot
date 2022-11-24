@@ -238,10 +238,9 @@ async function getStats(player, uuid, mode, time, username) {
   ]);
 
   if (!mode || mode.includes("/")) {
-    return `/gc ${player == username ? "You have" : `${player} has`} gained ${response.data.player.karma - response24H.data.General.karma
-      } karma and gained ${(
-        getLevel(response.data.player) - response24H.data.General.levelRaw
-      ).toFixed(3)} levels in the last ${time}`;
+    // return `/gc ${player} has gained `
+    // return `/gc ${player == username ? "You have" : `${player} has`} gained ${response.data.player.karma - response24H.data.General.karma} karma and gained ${(getLevel(response.data.player) - response24H.data.General.levelRaw).toFixed(3)} levels in the last ${time}`;
+    return `/gc This is diabled as I am re making all this code!`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
