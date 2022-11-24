@@ -292,16 +292,31 @@ async function getStats(player, uuid, mode, time, username) {
     const experience = skywarsData.skywars_experience - oldSkywarsData.EXP;
     const level = getSkywarsLevel(experience) - 1;
 
-    const kills = skywarsData.kills - oldSkywarsData.overall.kills;
-    const deaths = skywarsData.deaths - oldSkywarsData.overall.deaths + 1;
+    var wins = skywarsData.wins === undefined ? 0 : skywarsData.wins - oldSkywarsData.overall.wins
+    var losses = skywarsData.losses === undefined ? 0 : skywarsData.losses - oldSkywarsData.overall.losses
+    var kills = skywarsData.kills === undefined ? 0 : skywarsData.kills - oldSkywarsData.overall.kills
+    var deaths = skywarsData.deaths === undefined ? 0 : skywarsData.deaths - oldSkywarsData.overall.deaths
 
-    const wins = skywarsData.wins - oldSkywarsData.overall.wins;
-    const losses = skywarsData.losses - oldSkywarsData.overall.losses + 1;
+    if (wins == '0') {
+      var WLR = '0'
+    }
+    else if (losses == '0') {
+      var WLR = wins
+    }
+    else {
+      var WLR = (wins / losses).toFixed(2)
+    }
+    if (kills == '0') {
+      var KDR = '0'
+    }
+    else if (deaths == '0') {
+      var KDR = kills
+    }
+    else {
+      var KDR = (kills / deaths).toFixed(2)
+    }
 
-    const coins = skywarsData.coins - oldSkywarsData.coins;
-
-    return `/gc This is diabled as I am re making all this code!`
-    // return `/gc [${level}✫] ${player} Kills: ${addCommas(kills)} KDR: ${(kills / deaths || 0).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(2)} Coins: ${addCommas(coins || 0)}`;
+    return `/gc [${level}✫] ${player} | Kills: ${addCommas(kills)} KDR: ${KDR} | Wins: ${wins} WLR: ${WLR}`;
   } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
     const duelsData = response.data.player.stats.Duels;
     const oldDuelsData = response24H.data.Duels;
