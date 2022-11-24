@@ -1,11 +1,6 @@
 const { calculateTotalSenitherWeight } = require("../constants/senitherWeight.js");
-// eslint-disable-next-line
-const LilyWeight = require("lilyweight");
-const config = require("../../config.json");
-const lilyW = new LilyWeight(config.api.hypixelAPIkey);
 
 module.exports = async (profile, uuid) => {
-  const lily = await lilyW.getWeight(uuid);
   const senither = await calculateTotalSenitherWeight(profile);
   const weight = {
     skills: {
@@ -336,28 +331,6 @@ module.exports = async (profile, uuid) => {
             weight_overflow: senither.dungeons.classes.tank.weight_overflow,
           },
         },
-      },
-    },
-    lily: {
-      total: lily.total,
-      skills: {
-        total: lily.skill.base + lily.skill.overflow,
-        base: lily.skill.base,
-        overflow: lily.skill.overflow,
-      },
-      slayer: {
-        total: lily.slayer,
-      },
-      catacombs: {
-        total:
-          lily.catacombs.completion.base +
-          lily.catacombs.completion.master +
-          lily.catacombs.experience,
-        completion: {
-          base: lily.catacombs.completion.base,
-          master: lily.catacombs.completion.master,
-        },
-        experience: lily.catacombs.experience,
       },
     },
   };
