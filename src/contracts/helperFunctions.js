@@ -321,19 +321,33 @@ async function getStats(player, uuid, mode, time, username) {
     const duelsData = response.data.player.stats.Duels;
     const oldDuelsData = response24H.data.Duels;
 
-    const gamesPlayed =
-      duelsData.games_played_duels - oldDuelsData.overall.gamesPlayed;
+    const gamesPlayed = duelsData.games_played_duels - oldDuelsData.overall.gamesPlayed;
 
-    const wins = duelsData.wins - oldDuelsData.overall.wins;
-    const losses = duelsData.losses - oldDuelsData.overall.losses + 1;
+    let wins = duelsData.wins === undefined ? 0 : duelsData.wins - oldDuelsData.overall.wins
+    let losses = duelsData.losses === undefined ? 0 : duelsData.losses - oldDuelsData.overall.losses
+    let kills = duelsData.kills === undefined ? 0 : duelsData.kills - oldDuelsData.overall.kills
+    let deaths = duelsData.deaths === undefined ? 0 : duelsData.deaths - oldDuelsData.overall.deaths
 
-    const kills = duelsData.kills - oldDuelsData.overall.kills;
-    const deaths = duelsData.deaths - oldDuelsData.overall.deaths + 1;
+    if (wins == '0') {
+      let WLR = '0'
+    }
+    else if (losses == '0') {
+      let WLR = wins
+    }
+    else {
+      let WLR = (wins / losses).toFixed(2)
+    }
+    if (kills == '0') {
+      let KDR = '0'
+    }
+    else if (deaths == '0') {
+      let KDR = kills
+    }
+    else {
+      let KDR = (kills / deaths).toFixed(2)
+    }
 
-    const coins = duelsData.coins - oldDuelsData.coins;
-
-    return `/gc This is diabled as I am re making all this code!`
-    // return `/gc ${player} Games: ${addCommas(gamesPlayed)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(2)} Kills: ${addCommas(kills)} KDR: ${(kills / deaths || 0).toFixed(2)} Coins: ${addCommas(coins || 0)}`;
+    return `/gc ${player} | Kills: ${addCommas(kills)} KDR: ${KDR} | Wins: ${addCommas(wins)} WLR: ${WLR}`;
   }
 }
 
