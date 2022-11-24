@@ -247,39 +247,39 @@ async function getStats(player, uuid, mode, time, username) {
     const bedwarsExperience = bedwarsData.Experience - oldBedwarsData.EXP;
     const bedwarsLevel = getBedwarsLevel(bedwarsExperience);
 
-    var bedwarsWins = bedwarsData.wins_bedwars === undefined ? 0 : bedwarsData.wins_bedwars - oldBedwarsData.overall.wins
-    var bedwarsLosses = bedwarsData.losses_bedwars === undefined ? 0 : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
-    var bedwarsFinalKills = bedwarsData.final_kills_bedwars === undefined ? 0 : bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills
-    var bedwarsFinalDeaths = bedwarsData.final_deaths_bedwars === undefined ? 0 : bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths
-    var bedwarsBedsBroken = bedwarsData.beds_broken_bedwars === undefined ? 0 : bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken
-    var bedwarsBedsLost = bedwarsData.beds_lost_bedwars === undefined ? 0 : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
+    let bedwarsWins = bedwarsData.wins_bedwars === undefined ? 0 : bedwarsData.wins_bedwars - oldBedwarsData.overall.wins
+    let bedwarsLosses = bedwarsData.losses_bedwars === undefined ? 0 : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
+    let bedwarsFinalKills = bedwarsData.final_kills_bedwars === undefined ? 0 : bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills
+    let bedwarsFinalDeaths = bedwarsData.final_deaths_bedwars === undefined ? 0 : bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths
+    let bedwarsBedsBroken = bedwarsData.beds_broken_bedwars === undefined ? 0 : bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken
+    let bedwarsBedsLost = bedwarsData.beds_lost_bedwars === undefined ? 0 : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
 
     if (bedwarsWins == '0') {
-      var bedwarsWins = '0'
+      let bedwarsWins = '0'
     }
     else if (bedwars_losses == '0') {
-      var bedwarsWlr = bedwars_wins
+      let bedwarsWlr = bedwars_wins
     }
     else {
-      var bedwarsWlr = (bedwarsWins / bedwarsLosses).toFixed(2)
+      let bedwarsWlr = (bedwarsWins / bedwarsLosses).toFixed(2)
     }
     if (bedwarsFinalKills == '0') {
-      var bedwarsFkdr = '0'
+      let bedwarsFkdr = '0'
     }
     else if (bedwarsFinalDeaths == '0') {
-      var bedwarsFkdr = bedwars_finalKills
+      let bedwarsFkdr = bedwars_finalKills
     }
     else {
-      var bedwarsFkdr = (bedwarsFinalKills / bedwarsFinalDeaths).toFixed(2)
+      let bedwarsFkdr = (bedwarsFinalKills / bedwarsFinalDeaths).toFixed(2)
     }
     if (bedwarsBedsBroken == '0') {
-      var bedwarsBblr = '0'
+      let bedwarsBblr = '0'
     }
     else if (bedwarsBedsLost == '0') {
-      var bedwarsBblr = bedwarsBedsBroken
+      let bedwarsBblr = bedwarsBedsBroken
     }
     else {
-      var bedwarsBblr = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2)
+      let bedwarsBblr = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2)
     }
 
     return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr}`;
@@ -291,28 +291,28 @@ async function getStats(player, uuid, mode, time, username) {
     const skywarsExperience = skywarsData.skywars_experience - oldSkywarsData.EXP;
     const skywarsLevel = getSkywarsLevel(skywarsExperience) - 1;
 
-    var skywarsWins = skywarsData.wins === undefined ? 0 : skywarsData.wins - oldSkywarsData.overall.wins
-    var skywarsLosses = skywarsData.losses === undefined ? 0 : skywarsData.losses - oldSkywarsData.overall.losses
-    var skywarsKills = skywarsData.kills === undefined ? 0 : skywarsData.kills - oldSkywarsData.overall.kills
-    var skywarsDeaths = skywarsData.deaths === undefined ? 0 : skywarsData.deaths - oldSkywarsData.overall.deaths
+    let skywarsWins = skywarsData.wins === undefined ? 0 : skywarsData.wins - oldSkywarsData.overall.wins
+    let skywarsLosses = skywarsData.losses === undefined ? 0 : skywarsData.losses - oldSkywarsData.overall.losses
+    let skywarsKills = skywarsData.kills === undefined ? 0 : skywarsData.kills - oldSkywarsData.overall.kills
+    let skywarsDeaths = skywarsData.deaths === undefined ? 0 : skywarsData.deaths - oldSkywarsData.overall.deaths
 
     if (skywarsWins == '0') {
-      var skywarsWlr = '0'
+      let skywarsWlr = '0'
     }
     else if (skywarsLosses == '0') {
-      var skywarsWlr = skywarsWins
+      let skywarsWlr = skywarsWins
     }
     else {
-      var skywarsWlr = (skywarsWins / skywarsLosses).toFixed(2)
+      let skywarsWlr = (skywarsWins / skywarsLosses).toFixed(2)
     }
     if (skywarsKills == '0') {
-      var skywarsKdr = '0'
+      let skywarsKdr = '0'
     }
     else if (skywarsDeaths == '0') {
-      var skywarsKdr = skywarsKills
+      let skywarsKdr = skywarsKills
     }
     else {
-      var skywarsKdr = (skywarsKills / skywarsDeaths).toFixed(2)
+      let skywarsKdr = (skywarsKills / skywarsDeaths).toFixed(2)
     }
 
     return `/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr}`;
@@ -320,28 +320,28 @@ async function getStats(player, uuid, mode, time, username) {
     const duelsData = response.data.player.stats.Duels;
     const oldDuelsData = response24H.data.Duels;
 
-    var duelsWins = duelsData.wins === undefined ? 0 : duelsData.wins - oldDuelsData.overall.wins
-    var duelsLosses = duelsData.losses === undefined ? 0 : duelsData.losses - oldDuelsData.overall.losses
-    var duelsKills = duelsData.kills === undefined ? 0 : duelsData.kills - oldDuelsData.overall.kills
-    var duelsDeaths = duelsData.deaths === undefined ? 0 : duelsData.deaths - oldDuelsData.overall.deaths
+    let duelsWins = duelsData.wins === undefined ? 0 : duelsData.wins - oldDuelsData.overall.wins
+    let duelsLosses = duelsData.losses === undefined ? 0 : duelsData.losses - oldDuelsData.overall.losses
+    let duelsKills = duelsData.kills === undefined ? 0 : duelsData.kills - oldDuelsData.overall.kills
+    let duelsDeaths = duelsData.deaths === undefined ? 0 : duelsData.deaths - oldDuelsData.overall.deaths
 
     if (duelsWins == '0') {
-      var duelsWlr = '0'
+      let duelsWlr = '0'
     }
     else if (duelsLosses == '0') {
-      var duelsWlr = duelsWins
+      let duelsWlr = duelsWins
     }
     else {
-      var duelsWlr = (duelsWins / duelsLosses).toFixed(2)
+      let duelsWlr = (duelsWins / duelsLosses).toFixed(2)
     }
     if (duelsKills == '0') {
-      var duelsKdr = '0'
+      let duelsKdr = '0'
     }
     else if (duelsDeaths == '0') {
-      var duelsKdr = duelsKills
+      let duelsKdr = duelsKills
     }
     else {
-      var duelsKdr = (duelsKills / duelsDeaths).toFixed(2)
+      let duelsKdr = (duelsKills / duelsDeaths).toFixed(2)
     }
 
     return `/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr}`;
