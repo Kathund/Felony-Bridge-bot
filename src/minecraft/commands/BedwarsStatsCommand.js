@@ -43,11 +43,12 @@ class BedwarsCommand extends minecraftCommand {
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
           `/gc [${player.stats.bedwars.level}✫] ${player.nickname
-          } Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
-          } FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
-          } Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
-          } BB: ${player.stats.bedwars.beds.broken} BLR: ${player.stats.bedwars.beds.BLRatio
-          } WS: ${player.stats.bedwars.winstreak}`
+          } | Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
+          } | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
+          } | Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
+          } | BB: ${player.stats.bedwars.beds.broken} BLR: ${player.stats.bedwars.beds.BLRatio
+          } | WS: ${player.stats.bedwars.winstreak
+          } | Items Collected: Iron: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.iron)} Gold: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.gold)} Diamonds: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.diamond)} Emeralds: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.emerald)}`
         );
       } else if (mode) {
         this.send(
