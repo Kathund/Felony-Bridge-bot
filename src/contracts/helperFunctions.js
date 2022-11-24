@@ -242,7 +242,7 @@ async function getStats(player, uuid, mode, time, username) {
       if (time == 'daily') lastTime = '24 hours'
       if (time == 'weekly') lastTime = '7 days'
       if (time == 'monthly') lastTime = '30 days'
-    return `/gc ${player} gained ${response.data.player.karma - response24H.data.General.karma} karma and gained ${(getLevel(response.data.player) - response24H.data.General.levelRaw).toFixed(3)} levels in the last ${lastTime}`;
+    return `/gc ${player == username ? `${username}` : `${player}`} gained ${response.data.player.karma - response24H.data.General.karma} karma and gained ${(getLevel(response.data.player) - response24H.data.General.levelRaw).toFixed(3)} levels in the last ${lastTime}`;
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
