@@ -5,6 +5,7 @@ const getDirName = require("path").dirname;
 const nbt = require("prismarine-nbt");
 const util = require("util");
 const parseNbt = util.promisify(nbt.parse);
+const getLevel = require("../.././API/stats/hypixelLevel.js");
 const axios = require("axios");
 const config = require("../../config.json");
 const moment = require("moment");
