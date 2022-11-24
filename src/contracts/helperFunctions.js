@@ -300,11 +300,8 @@ async function getStats(player, uuid, mode, time, username) {
 
     const coins = skywarsData.coins - oldSkywarsData.coins;
 
-    return `/gc [${level}✫] ${player} Kills: ${addCommas(kills)} KDR: ${(
-      kills / deaths || 0
-    ).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(
-      2
-    )} Coins: ${addCommas(coins || 0)}`;
+    return `/gc This is diabled as I am re making all this code!`
+    // return `/gc [${level}✫] ${player} Kills: ${addCommas(kills)} KDR: ${(kills / deaths || 0).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(2)} Coins: ${addCommas(coins || 0)}`;
   } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
     const duelsData = response.data.player.stats.Duels;
     const oldDuelsData = response24H.data.Duels;
@@ -320,13 +317,8 @@ async function getStats(player, uuid, mode, time, username) {
 
     const coins = duelsData.coins - oldDuelsData.coins;
 
-    return `/gc ${player} Games: ${addCommas(
-      gamesPlayed
-    )} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(2)} Kills: ${addCommas(
-      kills
-    )} KDR: ${(kills / deaths || 0).toFixed(2)} Coins: ${addCommas(
-      coins || 0
-    )}`;
+    return `/gc This is diabled as I am re making all this code!`
+    // return `/gc ${player} Games: ${addCommas(gamesPlayed)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(2)} Kills: ${addCommas(kills)} KDR: ${(kills / deaths || 0).toFixed(2)} Coins: ${addCommas(coins || 0)}`;
   }
 }
 
