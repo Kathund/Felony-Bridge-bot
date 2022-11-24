@@ -237,7 +237,7 @@ async function getStats(player, uuid, mode, time, username) {
     axios.get(`${config.api.pixelAPI}/${time}?key=${config.api.pixelKey}&uuid=${uuid}`),
   ]);
 
-  if (!mode || mode.includes("/")) {
+  if (!mode || mode.includes("/") || mode == ["all", "overall"].includes(mode.toLowerCase())) {
       var lastTime = '24 hours'
       if (time == 'daily') lastTime = '24 hours'
       if (time == 'weekly') lastTime = '7 days'
