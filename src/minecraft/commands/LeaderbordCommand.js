@@ -1,6 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getUsername } = require("../../contracts/API/PlayerDBAPI.js");
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
 const fetch = (...args) =>
     import("node-fetch")
