@@ -238,18 +238,11 @@ async function getStats(player, uuid, mode, time, username) {
   ]);
 
   if (!mode || mode.includes("/")) {
-    // const data = response.data.player.stats
-    // const oldData = response24H.data.general
-    var lastTime = '24 hours'
-    if (time == 'daily') lastTime = '24 hours'
-    if (time == 'weekly') lastTime = '7 days'
-    if (time == 'monthly') lastTime = '30 days'
-
-    // var karma = data.karma - oldData.karma
-    // var levels = getLevel(response.data.player) - response24H.data.General.levelRaw
-
-    // this.send(`/gc ${username} has gained ${karma} and gained ${levels} levels in the last ${lastTime}!`)
-    this.send(`/gc kath is going fucking insane ${lastTime}`)
+      var lastTime = '24 hours'
+      if (time == 'daily') lastTime = '24 hours'
+      if (time == 'weekly') lastTime = '7 days'
+      if (time == 'monthly') lastTime = '30 days'
+    return `/gc ${player} gained ${response.data.player.karma - response24H.data.General.karma} karma and gained ${(getLevel(response.data.player) - response24H.data.General.levelRaw).toFixed(3)} levels in the last ${lastTime}`;
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
