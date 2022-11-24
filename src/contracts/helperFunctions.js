@@ -249,21 +249,43 @@ async function getStats(player, uuid, mode, time, username) {
     const experience = bedwarsData.Experience - oldBedwarsData.EXP;
     const level = getBedwarsLevel(experience);
 
-    const FK = bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills;
-    const FD = bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths + 1;
+    var wins = bedwarsData.wins_bedwars === undefined ? 0 : bedwarsData.wins_bedwars - oldBedwarsData.overall.wins
+    var losses = bedwarsData.losses_bedwars === undefined ? 0 : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
+    var FK = bedwarsData.final_kills_bedwars === undefined ? 0 : bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills
+    var FD = bedwarsData.final_deaths_bedwars === undefined ? 0 : bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths
+    var BB = bedwarsData.beds_broken_bedwars === undefined ? 0 : bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken
+    var BL = bedwarsData.beds_lost_bedwars === undefined ? 0 : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
 
-    const wins = bedwarsData.wins_bedwars - oldBedwarsData.overall.wins;
-    const losses =
-      bedwarsData.losses_bedwars - oldBedwarsData.overall.losses + 1;
+    if (wins == '0') {
+      var wins = '0'
+    }
+    else if (bedwars_losses == '0') {
+      var WLR = bedwars_wins
+    }
+    else {
+      var WLR = (wins / losses).toFixed(2)
+    }
+    if (FK == '0') {
+      var FKDR = '0'
+    }
+    else if (FD == '0') {
+      var FKDR = bedwars_finalKills
+    }
+    else {
+      var FKDR = (FK / FD).toFixed(2)
+    }
+    if (BB == '0') {
+      var BBLR = '0'
+    }
+    else if (BL == '0') {
+      var BBLR = BB
+    }
+    else {
+      var BBLR = (BB / BL).toFixed(2)
+    }
 
-    const BB =
-      bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken;
-    const BL =
-      bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost + 1;
-
-    return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${(FK / FD || 0).toFixed(2)} Wins: ${wins} WLR: ${(wins / losses || 0).toFixed(
-      2
-    )} BB: ${BB} BLR: ${(BB / BL || 0).toFixed(2)}`;
+    return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${FKDR} | Wins: ${wins} WLR: ${WLR} | BB: ${BB} BLR: ${BBLR}`;
+  
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars;
     const oldSkywarsData = response24H.data.Skywars;
