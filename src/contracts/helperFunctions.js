@@ -255,34 +255,38 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsBedsLost = bedwarsData.beds_lost_bedwars === undefined ? 0 : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
 
     if (bedwarsWins == '0') {
-      var bedwarsWins = '0'
+      var bedwarsWlr1 = '0'
     }
-    else if (bedwars_losses == '0') {
-      var bedwarsWlr = bedwars_wins
+    else if (bedwarsLosses == '0') {
+      var bedwarsWlr2 = bedwarsWins
     }
     else {
-      var bedwarsWlr = (bedwarsWins / bedwarsLosses).toFixed(2)
+      var bedwarsWlr3 = (bedwarsWins / bedwarsLosses).toFixed(2)
     }
     if (bedwarsFinalKills == '0') {
-      var bedwarsFkdr = '0'
+      var bedwarsFkdr1 = '0'
     }
     else if (bedwarsFinalDeaths == '0') {
-      var bedwarsFkdr = bedwars_finalKills
+      var bedwarsFkdr2 = bedwarsFinalKills
     }
     else {
-      var bedwarsFkdr = (bedwarsFinalKills / bedwarsFinalDeaths).toFixed(2)
+      var bedwarsFkdr3 = (bedwarsFinalKills / bedwarsFinalDeaths).toFixed(2)
     }
     if (bedwarsBedsBroken == '0') {
-      var bedwarsBblr = '0'
+      var bedwarsBblr1 = '0'
     }
     else if (bedwarsBedsLost == '0') {
-      var bedwarsBblr = bedwarsBedsBroken
+      var bedwarsBblr2 = bedwarsBedsBroken
     }
     else {
-      var bedwarsBblr = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2)
+      var bedwarsBblr3 = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2)
     }
 
-    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr}`;
+    var bedwarsWlr = bedwarsWlr1 || bedwarsWlr2 || bedwarsWlr3
+    var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3
+    var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
+
+    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr1}`;
 
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars;
@@ -297,23 +301,26 @@ async function getStats(player, uuid, mode, time, username) {
     var skywarsDeaths = skywarsData.deaths === undefined ? 0 : skywarsData.deaths - oldSkywarsData.overall.deaths
 
     if (skywarsWins == '0') {
-      var skywarsWlr = '0'
+      var skywarsWlr1 = '0'
     }
     else if (skywarsLosses == '0') {
-      var skywarsWlr = skywarsWins
+      var skywarsWlr2 = skywarsWins
     }
     else {
-      var skywarsWlr = (skywarsWins / skywarsLosses).toFixed(2)
+      var skywarsWlr3 = (skywarsWins / skywarsLosses).toFixed(2)
     }
     if (skywarsKills == '0') {
-      var skywarsKdr = '0'
+      var skywarsKdr1 = '0'
     }
     else if (skywarsDeaths == '0') {
-      var skywarsKdr = skywarsKills
+      var skywarsKdr2 = skywarsKills
     }
     else {
-      var skywarsKdr = (skywarsKills / skywarsDeaths).toFixed(2)
+      var skywarsKdr3 = (skywarsKills / skywarsDeaths).toFixed(2)
     }
+
+    var skywarsWlr = skywarsWlr1 || skywarsWlr2 || skywarsWlr3
+    var skywarsKdr = skywarsKdr1 || skywarsKdr2 || skywarsKdr3
 
     return `/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr}`;
   } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
@@ -326,24 +333,26 @@ async function getStats(player, uuid, mode, time, username) {
     var duelsDeaths = duelsData.deaths === undefined ? 0 : duelsData.deaths - oldDuelsData.overall.deaths
 
     if (duelsWins == '0') {
-      var duelsWlr = '0'
+      var duelsWlr1 = '0'
     }
     else if (duelsLosses == '0') {
-      var duelsWlr = duelsWins
+      var duelsWlr2 = duelsWins
     }
     else {
-      var duelsWlr = (duelsWins / duelsLosses).toFixed(2)
+      var duelsWlr3 = (duelsWins / duelsLosses).toFixed(2)
     }
     if (duelsKills == '0') {
-      var duelsKdr = '0'
+      var duelsKdr1 = '0'
     }
     else if (duelsDeaths == '0') {
-      var duelsKdr = duelsKills
+      var duelsKdr2 = duelsKills
     }
     else {
-      var duelsKdr = (duelsKills / duelsDeaths).toFixed(2)
+      var duelsKdr3 = (duelsKills / duelsDeaths).toFixed(2)
     }
 
+    var duelsWlr = duelsWlr1 || duelsWlr2 || duelsWlr3
+    var duelsKdr = duelsKdr1 || duelsKdr2 || duelsKdr3
     return `/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr}`;
   }
 }
