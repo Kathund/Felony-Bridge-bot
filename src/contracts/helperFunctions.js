@@ -238,8 +238,8 @@ async function getStats(player, uuid, mode, time, username) {
   ]);
 
   if (!mode || mode.includes("/")) {
-    const data = response.data.player.stats
-    const oldData = response24H.data.general
+    // const data = response.data.player.stats
+    // const oldData = response24H.data.general
     var lastTime = '24 hours'
     if (time == 'daily') lastTime = '24 hours'
     if (time == 'weekly') lastTime = '7 days'
