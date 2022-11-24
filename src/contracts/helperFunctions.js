@@ -248,7 +248,8 @@ async function getStats(player, uuid, mode, time, username) {
     var karma = data.karma - oldData.karma
     var levels = getLevel(response.data.player) - response24H.data.General.levelRaw
 
-    this.send(`/gc ${username} has gained ${karma} and gained ${levels} levels in the last ${lastTime}!`)
+    // this.send(`/gc ${username} has gained ${karma} and gained ${levels} levels in the last ${lastTime}!`)
+    this.send(`/gc kath is going fucking insane`)
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
