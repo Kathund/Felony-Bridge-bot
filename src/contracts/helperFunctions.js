@@ -285,7 +285,7 @@ async function getStats(player, uuid, mode, time, username) {
     }
 
     return `/gc [${level}✫] ${player} FK: ${addCommas(FK)} FKDR: ${FKDR} | Wins: ${wins} WLR: ${WLR} | BB: ${BB} BLR: ${BBLR}`;
-  
+
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars;
     const oldSkywarsData = response24H.data.Skywars;
