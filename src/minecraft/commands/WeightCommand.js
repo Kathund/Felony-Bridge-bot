@@ -23,11 +23,6 @@ class StatsCommand extends minecraftCommand {
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const profile = await getWeight(data.profile, data.uuid);
-      const lilyW = `Lily Weight » ${Math.round(profile.weight.lily.total * 100) / 100
-        } | Skills » ${Math.round(profile.weight.lily.skills.total * 100) / 100
-        } | Slayer » ${Math.round(profile.weight.lily.slayer.total * 100) / 100
-        } | Dungeons » ${Math.round(profile.weight.lily.catacombs.total * 100) / 100
-        }`;
       const senitherW = `Senither Weight » ${Math.round(profile.weight.senither.total * 100) / 100
         } | Skills: ${Math.round(
           (profile.weight.senither.skills.alchemy.total +
@@ -44,8 +39,6 @@ class StatsCommand extends minecraftCommand {
         } | Dungeons: ${Math.round(profile.weight.senither.dungeons.total * 100) / 100
         }`;
       this.send(`/gc ${username}'s ${senitherW}`);
-      await delay(690);
-      this.send(`/gc ${username}'s ${lilyW}`);
     } catch (error) {
       console.log(error);
       this.send(
