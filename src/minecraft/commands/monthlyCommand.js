@@ -22,11 +22,11 @@ class MonthlyStatsCommand extends minecraftCommand {
     const args = this.getArgs(message);
     let mode, player = username;
 
-    if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "overall", "all"].includes(args[0])) {
+    if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "gen", "g", "general"].includes(args[0])) {
       mode = args[0];
       if (args[1]) player = args[1];
     }
-    if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "overall", "all"].includes(args[1])) {
+    if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "gen", "g", "general"].includes(args[1])) {
       mode = args[1];
       player = args[0];
     }
