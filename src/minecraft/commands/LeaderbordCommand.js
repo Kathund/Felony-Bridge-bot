@@ -43,6 +43,8 @@ class LeaderBoardCommand extends minecraftCommand {
             if (msg[1] == ['lifetime', 'alltime', 'all', 'l']) timeframe = 'lifetime';
             fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=${mode}&timeframe=${timeframe}&limit=10`).then((res) => {
                 res.json().then(async (data) => {
+                    let gamemode = null
+                    let type = null
                     if (mode == 'bedwars') {
 
                         // check gamemode 
