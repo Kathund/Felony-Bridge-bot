@@ -44,8 +44,39 @@ class LeaderBoardCommand extends minecraftCommand {
                 if (msg[1] == ['lifetime', 'alltime', 'all', 'l']) timeframe = 'lifetime';
                 fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=${mode}&timeframe=${timeframe}&limit=10`).then((res) => {
                     res.json().then(async (data) => {
-                        if (msg[2] == 'wins') {
-                            console.log(`#1 ${getUsername(data.overall.wins[0].UUID)}: ${data.overall.wins[0].wins} | #2 ${getUsername(data.overall.wins[1].UUID)}: ${data.overall.wins[1].wins} | #3 ${getUsername(data.overall.wins[2].UUID)}: ${data.overall.wins[2].wins} | #4 ${getUsername(data.overall.wins[3].UUID)}: ${data.overall.wins[3].wins} | #5 ${getUsername(data.overall.wins[4].UUID)}: ${data.overall.wins[4].wins} | #6 ${getUsername(data.overall.wins[5].UUID)}: ${data.overall.wins[5].wins} | #7 ${getUsername(data.overall.wins[6].UUID)}: ${data.overall.wins[6].wins} | #8 ${getUsername(data.overall.wins[7].UUID)}: ${data.overall.wins[7].wins} | #9 ${getUsername(data.overall.wins[8].UUID)}: ${data.overall.wins[8].wins} | #10 ${getUsername(data.overall.wins[9].UUID)}: ${data.overall.wins[9].wins}`)
+                        if (mode == 'bedwars') {
+
+                            // check gamemode 
+                            if (msg[2] == 'overall') gamemode = 'overall'
+                            if (msg[2] == 'solo') gamemode = 'solo'
+                            if (msg[2] == 'doubles') gamemode = 'doubles'
+                            if (msg[2] == 'threes') gamemode = 'threes'
+                            if (msg[2] == 'fours') gamemode = 'fours'
+                            if (msg[2] == 'four_two') gamemode = 'four_two'
+
+                            // check stat type
+                            if (msg[3] == 'wins') type = 'wins'
+                            if (msg[3] == 'finals') type = 'finals'
+                            console.log(`/gc Leaderboard info for ${mode} ${gamemode} ${type} | #1 ${getUsername(data[gamemode][type][0].uuid)}: ${data[gamemode][type][0][type]} | #2 ${getUsername(data[gamemode][type][1].uuid)}: ${data[gamemode][type][1][type]} | #3 ${getUsername(data[gamemode][type][2].uuid)}: ${data[gamemode][type][2][type]} | #4 ${getUsername(data[gamemode][type][3].uuid)}: ${data[gamemode][type][3][type]} | #5 ${getUsername(data[gamemode][type][4].uuid)}: ${data[gamemode][type][4][type]} | #6 ${getUsername(data[gamemode][type][5].uuid)}: ${data[gamemode][type][5][type]} | #7 ${getUsername(data[gamemode][type][6].uuid)}: ${data[gamemode][type][6][type]} | #8 ${getUsername(data[gamemode][type][7].uuid)}: ${data[gamemode][type][7][type]} | #9 ${getUsername(data[gamemode][type][8].uuid)}: ${data[gamemode][type][8][type]} | #10 ${getUsername(data[gamemode][type][9].uuid)}: ${data[gamemode][type][9][type]}`)
+                        } else if (mode == 'skywars') {
+                            // Check gamemode
+                            if (msg[2] == 'overall') gamemode = 'overall'
+                            if (msg[2] == 'solo') gamemode = 'solo'
+                            if (msg[2] == 'teams') gamemode = 'teams'
+                            
+                            // Check Stat Type
+                            if (msg[3] == 'wins') type = 'wins'
+                            if (msg[3] == 'kills') type = 'kills'
+
+                            console.log(`/gc Leaderboard info for ${mode} ${gamemode} ${type} | #1 ${getUsername(data[gamemode][type][0].uuid)}: ${data[gamemode][type][0][type]} | #2 ${getUsername(data[gamemode][type][1].uuid)}: ${data[gamemode][type][1][type]} | #3 ${getUsername(data[gamemode][type][2].uuid)}: ${data[gamemode][type][2][type]} | #4 ${getUsername(data[gamemode][type][3].uuid)}: ${data[gamemode][type][3][type]} | #5 ${getUsername(data[gamemode][type][4].uuid)}: ${data[gamemode][type][4][type]} | #6 ${getUsername(data[gamemode][type][5].uuid)}: ${data[gamemode][type][5][type]} | #7 ${getUsername(data[gamemode][type][6].uuid)}: ${data[gamemode][type][6][type]} | #8 ${getUsername(data[gamemode][type][7].uuid)}: ${data[gamemode][type][7][type]} | #9 ${getUsername(data[gamemode][type][8].uuid)}: ${data[gamemode][type][8][type]} | #10 ${getUsername(data[gamemode][type][9].uuid)}: ${data[gamemode][type][9][type]}`)
+                        } else if (mode == 'duels') {
+                            if (msg[2] == 'overall') gamemode = 'overall'
+
+                            // Check Stat Type
+                            if (msg[3] == 'wins') type = 'wins'
+                            if (msg[3] == 'kills') type = 'kills'
+
+                            console.log(`/gc Leaderboard info for ${mode} ${gamemode} ${type} | #1 ${getUsername(data[gamemode][type][0].uuid)}: ${data[gamemode][type][0][type]} | #2 ${getUsername(data[gamemode][type][1].uuid)}: ${data[gamemode][type][1][type]} | #3 ${getUsername(data[gamemode][type][2].uuid)}: ${data[gamemode][type][2][type]} | #4 ${getUsername(data[gamemode][type][3].uuid)}: ${data[gamemode][type][3][type]} | #5 ${getUsername(data[gamemode][type][4].uuid)}: ${data[gamemode][type][4][type]} | #6 ${getUsername(data[gamemode][type][5].uuid)}: ${data[gamemode][type][5][type]} | #7 ${getUsername(data[gamemode][type][6].uuid)}: ${data[gamemode][type][6][type]} | #8 ${getUsername(data[gamemode][type][7].uuid)}: ${data[gamemode][type][7][type]} | #9 ${getUsername(data[gamemode][type][8].uuid)}: ${data[gamemode][type][8][type]} | #10 ${getUsername(data[gamemode][type][9].uuid)}: ${data[gamemode][type][9][type]}`)
                         }
                     })
                 })
