@@ -236,13 +236,17 @@ async function getStats(player, uuid, mode, time, username) {
     ),
     axios.get(`${config.api.pixelAPI}/${time}?key=${config.api.pixelKey}&uuid=${uuid}`),
   ]);
+  var lastTime = '24 hours'
+  if (time == 'daily') lastTime = '24 hours'
+  if (time == 'weekly') lastTime = '7 days'
+  if (time == 'monthly') lastTime = '30 days'
 
-  if (!mode || mode.includes("/") || mode == ["all", "overall"].includes(mode.toLowerCase())) {
-      var lastTime = '24 hours'
-      if (time == 'daily') lastTime = '24 hours'
-      if (time == 'weekly') lastTime = '7 days'
-      if (time == 'monthly') lastTime = '30 days'
-    return `/gc ${player == username ? `${username}` : `${player}`} gained ${response.data.player.karma - response24H.data.General.karma} karma and gained ${(getLevel(response.data.player) - response24H.data.General.levelRaw).toFixed(3)} levels in the last ${lastTime}`;
+  if (["gen", "general", "g"].includes(mode.toLowerCase())) {
+    const generalData = response.data.player;
+    const oldGeneralData = response24H.data.General;
+    var generalKarma =  generalData.karma === undefined ? 0 : generalData.karma - oldGeneralData.karma
+
+    return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`;
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
@@ -289,7 +293,7 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
 
-    return `/gc [${bedwarsLevel.toFixed(2)}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr}`;
+    return `/gc [${bedwarsLevel.toFixed(2)}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`;
 
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars;
@@ -325,7 +329,7 @@ async function getStats(player, uuid, mode, time, username) {
     var skywarsWlr = skywarsWlr1 || skywarsWlr2 || skywarsWlr3
     var skywarsKdr = skywarsKdr1 || skywarsKdr2 || skywarsKdr3
 
-    return `/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr}`;
+    return `/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last ${lastTime}`;
   } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
     const duelsData = response.data.player.stats.Duels;
     const oldDuelsData = response24H.data.Duels;
@@ -356,7 +360,9 @@ async function getStats(player, uuid, mode, time, username) {
 
     var duelsWlr = duelsWlr1 || duelsWlr2 || duelsWlr3
     var duelsKdr = duelsKdr1 || duelsKdr2 || duelsKdr3
-    return `/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr}`;
+    return `/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr} | in the last ${lastTime}`;
+  } else {
+    return `/gc Please use one of the set values | general bedwars duels or skywars`
   }
 }
 
