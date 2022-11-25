@@ -44,6 +44,9 @@ class LeaderBoardCommand extends minecraftCommand {
                 if (msg[1] == ['lifetime', 'alltime', 'all', 'l']) timeframe = 'lifetime';
                 fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=${mode}&timeframe=${timeframe}&limit=10`).then((res) => {
                     res.json().then(async (data) => {
+                        if (msg[2] == 'wins') {
+                            console.log(`#1 ${getUsername(data.overall.wins[0].UUID)}: ${data.overall.wins[0].wins} | #2 ${getUsername(data.overall.wins[1].UUID)}: ${data.overall.wins[1].wins} | #3 ${getUsername(data.overall.wins[2].UUID)}: ${data.overall.wins[2].wins} | #4 ${getUsername(data.overall.wins[3].UUID)}: ${data.overall.wins[3].wins} | #5 ${getUsername(data.overall.wins[4].UUID)}: ${data.overall.wins[4].wins} | #6 ${getUsername(data.overall.wins[5].UUID)}: ${data.overall.wins[5].wins} | #7 ${getUsername(data.overall.wins[6].UUID)}: ${data.overall.wins[6].wins} | #8 ${getUsername(data.overall.wins[7].UUID)}: ${data.overall.wins[7].wins} | #9 ${getUsername(data.overall.wins[8].UUID)}: ${data.overall.wins[8].wins} | #10 ${getUsername(data.overall.wins[9].UUID)}: ${data.overall.wins[9].wins}`)
+                        }
                     })
                 })
             } else {
