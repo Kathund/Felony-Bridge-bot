@@ -20,9 +20,28 @@ class LeaderBoardCommand extends minecraftCommand {
     async onCommand(username, message) {
         try {
             if (username == "Udderly_cool") {
-                fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=bedwars&timeframe=lifetime&limit=10`).then((res) => {
+                const msg = this.getArgs(message);
+                // check mode
+                if (msg[0] == ['bw', 'bedwars', 'bedwar', 'bws']) var mode = 'bedwars';
+                if (msg[0] == ['sw', 'skywars', 'skywar', 'sws']) var mode = 'skywars';
+                if (msg[0] == ['duels', 'duel', 'd']) var mode = 'duels';
+                if (msg[0] == ['general', 'gen', 'g']) var mode = 'general';
+                if (msg[1] == ['bw', 'bedwars', 'bedwar', 'bws']) var mode = 'bedwars';
+                if (msg[1] == ['sw', 'skywars', 'skywar', 'sws']) var mode = 'skywars';
+                if (msg[1] == ['duels', 'duel', 'd']) var mode = 'duels';
+                if (msg[1] == ['general', 'gen', 'g']) var mode = 'general';
+
+                // check timeframe
+                if (msg[0] == ['daily', 'day', 'd']) var timeframe = 'daily';
+                if (msg[0] == ['weekly', 'week', 'w']) var timeframe = 'weekly';
+                if (msg[0] == ['monthly', 'month', 'm']) var timeframe = 'monthly';
+                if (msg[0] == ['lifetime', 'alltime', 'all', 'l']) var timeframe = 'lifetime';
+                if (msg[1] == ['daily', 'day', 'd']) var timeframe = 'daily';
+                if (msg[1] == ['weekly', 'week', 'w']) var timeframe = 'weekly';
+                if (msg[1] == ['monthly', 'month', 'm']) var timeframe = 'monthly';
+                if (msg[1] == ['lifetime', 'alltime', 'all', 'l']) var timeframe = 'lifetime';
+                fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=${mode}&timeframe=${timeframe}&limit=10`).then((res) => {
                     res.json().then(async (data) => {
-                        console.log(`#1 ${getUsername(data.overall.wins[0].uuid)} = ${data.overall.wins[0].wins} | #2 ${getUsername(data.overall.wins[1].uuid)} = ${data.overall.wins[1].wins} | #3 ${getUsername(data.overall.wins[2].uuid)} = ${data.overall.wins[2].wins} | #4 ${getUsername(data.overall.wins[3].uuid)} = ${data.overall.wins[3].wins} | #5 ${getUsername(data.overall.wins[4].uuid)} = ${data.overall.wins[4].wins} | #6 ${getUsername(data.overall.wins[5].uuid)} = ${data.overall.wins[5].wins} | #7 ${getUsername(data.overall.wins[6].uuid)} = ${data.overall.wins[6].wins} | #8 ${getUsername(data.overall.wins[7].uuid)} = ${data.overall.wins[7].wins} | #9 ${getUsername(data.overall.wins[8].uuid)} = ${data.overall.wins[8].wins} | #10 ${getUsername(data.overall.wins[9].uuid)} = ${data.overall.wins[9].wins}`);
                     })
                 })
             } else {
