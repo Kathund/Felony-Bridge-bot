@@ -1,6 +1,11 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
+const fetch = (...args) =>
+    import("node-fetch")
+        .then(({ default: fetch }) => fetch(...args))
+        .catch((err) => console.log(err));
+
 const axios = require("axios");
 
 class DenickerCommand extends minecraftCommand {
