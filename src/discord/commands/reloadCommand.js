@@ -20,6 +20,7 @@ module.exports = {
                 .setTitle(`Bot Restarting!`)
                 .setTimestamp()
             await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [loggingEmbed] });
+            await client.channels.cache.get(`${config.discord.guildChatChannel}`).send({ embeds: [loggingEmbed] });
             await interaction.followUp({
                 content: "Command has been executed successfully.",
                 ephemeral: true,
