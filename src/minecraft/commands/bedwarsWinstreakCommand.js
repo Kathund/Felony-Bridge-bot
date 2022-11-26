@@ -24,8 +24,7 @@ class DenickerCommand extends minecraftCommand {
       const player = hypixel.getPlayer(username);
       fetch(`${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&name=${username}`).then((res) => {
         res.json().then((data) => {
-          console.log(data)
-          // this.send(`/gc [${player.stats.bedwars.level}✫] ${player.nickname}: Accurrate » ${response.data.player.accurate ? "Yes" : "No"} | Overall » ${response.data.player.data.overall_winstreak} | Solo » ${response.data.player.data.eight_one_winstreak} | Doubles » ${response.data.player.data.eight_two_winstreak} | Trios » ${response.data.player.data.four_three_winstreak} | Fours » ${response.data.player.data.four_four_winstreak} | 4v4  » ${response.data.player.data.two_four_winstreak}`);
+          this.send(`/gc [${player.stats.bedwars.level}✫] ${player.nickname}: Accurrate » ${data.player.accurate ? "Yes" : "No"} | Overall » ${data.player.data.overall_winstreak} | Solo » ${data.player.data.eight_one_winstreak} | Doubles » ${data.player.data.eight_two_winstreak} | Trios » ${data.player.data.four_three_winstreak} | Fours » ${data.player.data.four_four_winstreak} | 4v4  » ${data.player.data.two_four_winstreak}`);
         });
       });
       fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
