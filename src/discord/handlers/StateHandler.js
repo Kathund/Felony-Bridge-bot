@@ -38,9 +38,9 @@ class StateHandler {
         {
           author: { name: `Chat Bridge is Offline` },
           color: 15548997,
-        },
-      ],
-    });
+        }
+      ]
+    }).then(() => { process.exit(); });
   }
 }
 
