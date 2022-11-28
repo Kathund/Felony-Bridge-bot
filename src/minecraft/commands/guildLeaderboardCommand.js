@@ -13,6 +13,9 @@ class GuildLeaderboard extends minecraftCommand {
 
     async onCommand(username, message) {
         const args = this.getArgs(message);
+        let time = null
+        let mode = null
+        let type = null
         if (["daily", "weekly", "lifetime"].includes(args[0])) time = args[0];
         if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "gen", "g", "general"].includes(args[1])) mode = args[1];
         if (["overall", "solo", "doubles", "threes", "fours", "four_two"].includes(args[2])) type = args[2];
