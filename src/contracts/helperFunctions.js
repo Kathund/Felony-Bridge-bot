@@ -230,9 +230,7 @@ function getSkywarsLevel(exp) {
 
 async function getStats(player, uuid, mode, time, username) {
   const [response, response24H] = await Promise.all([
-    axios.get(
-      `${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`
-    ),
+    axios.get(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`),
     axios.get(`${config.api.pixelAPI}/${time}?key=${config.api.pixelKey}&uuid=${uuid}`),
   ]);
   var lastTime = '24 hours'
@@ -243,7 +241,7 @@ async function getStats(player, uuid, mode, time, username) {
   if (["gen", "general", "g"].includes(mode.toLowerCase())) {
     const generalData = response.data.player;
     const oldGeneralData = response24H.data.General;
-    var generalKarma =  generalData.karma === undefined ? 0 : generalData.karma - oldGeneralData.karma
+    var generalKarma = generalData.karma === undefined ? 0 : generalData.karma - oldGeneralData.karma
 
     return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`;
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
