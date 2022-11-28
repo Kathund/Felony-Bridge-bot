@@ -470,6 +470,15 @@ const parseTimestamp = function (text) {
   return dateMath ? dateMath.valueOf() : undefined;
 };
 
+async function getGuildLeaderboard(time, mode, type) {
+  const [leaderboard] = await Promise.all([
+    axios.get(`${config.api.pixelAPI}/leaderboard/guild?key=${config.api.pixelKey}&timeframe=${time}&mode=${mode}`),
+  ]);
+  if (["overall", "solo", "doubles", "threes", "fours", "four_two"].includes(type.toLowerCase())) {
+    console.log(leaderboard.data[type][0].wins.UUID)
+  }
+}
+
 module.exports = {
   replaceAllRanks,
   addNotation,
@@ -485,4 +494,5 @@ module.exports = {
   getStats,
   nth,
   parseTimestamp,
+  getGuildLeaderboard
 };
