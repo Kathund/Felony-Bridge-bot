@@ -1,18 +1,12 @@
 const { getGuildLeaderboard } = require("../../contracts/helperFunctions.js")
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const hypixel = require("../../contracts/API/HypixelAPI.js");
-const config = require("../../../config.json")
-const fetch = (...args) =>
-    import("node-fetch")
-        .then(({ default: fetch }) => fetch(...args))
-        .catch((err) => console.log(err));
 
-class ExampleCommand extends minecraftCommand {
+class GuildLeaderboard extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "example";
-        this.aliases = [];
+        this.name = "guildleaderborad";
+        this.aliases = ["glb", "gleaderboard", "guildlb"];
         this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         this.options = [];
     }
@@ -31,4 +25,4 @@ class ExampleCommand extends minecraftCommand {
     }
 }
 
-module.exports = ExampleCommand;
+module.exports = GuildLeaderboard;
