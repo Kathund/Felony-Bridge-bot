@@ -3,6 +3,7 @@ const { Client, Collection, AttachmentBuilder, GatewayIntentBits } = require("di
 const CommunicationBridge = require("../contracts/CommunicationBridge.js");
 const messageToImage = require("../contracts/messageToImage.js");
 const MessageHandler = require("./handlers/MessageHandler.js");
+const hypixel = require("../contracts/API/HypixelRebornAPI");
 const StateHandler = require("./handlers/StateHandler.js");
 const CommandHandler = require("./CommandHandler.js");
 const config = require("../../config.json");
@@ -112,6 +113,13 @@ class DiscordManager extends CommunicationBridge {
       Logger.broadcastMessage(`${username} [${guildRank}]: ${message}`,`Discord`);
     }
     channel = await this.getChannel(chat);
+    var color = 3447003
+    const player = hypixel.getPlayer(username)
+    if (player.rank == "Default") color = 8684676
+    if (player.rank == "VIP" || player.rank == "VIP+") color = 4178210
+    if (player.rank == "MVP" || player.rank == "MVP+") color = 2608358
+    if (player.rank == "MVP++") color = 14522668
+
     switch (config.discord.messageMode.toLowerCase()) {
       case "bot":
         channel.send({
