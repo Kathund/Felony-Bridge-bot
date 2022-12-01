@@ -67,6 +67,7 @@
       "botDev": "1034124987705069568"
     },
     "messageMode": "bot",
+    "useEmojis": false,
     "filterMessages": false,
     "joinMessage": true
   },
