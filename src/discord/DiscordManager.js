@@ -126,7 +126,7 @@ class DiscordManager extends CommunicationBridge {
           embeds: [
             {
               description: message,
-              color: 3447003,
+              color: color,
               timestamp: new Date(),
               footer: {
                 text: guildRank,
