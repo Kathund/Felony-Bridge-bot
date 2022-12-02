@@ -89,7 +89,7 @@ class StateHandler extends eventHandler {
         if (swWins > config.minecraft.guild.requirements.skywarsWins) meetRequirements = true;
         if (duelsWins > config.minecraft.guild.requirements.dulesWins) if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) meetRequirements = true;
         if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) if (duelsWins > config.minecraft.guild.requirements.duelsWins) meetRequirements = true;
-        if (hypixel.nickname == 'TryinBad') meetRequirements = true;
+        if (player .nickname == 'TryinBad') meetRequirements = true;
 
         if (meetRequirements == true) {
           var rank = player.rank
