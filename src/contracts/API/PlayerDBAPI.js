@@ -11,12 +11,9 @@ async function getUUID(username) {
 }
 
 async function getUsername(uuid) {
-  try {
-    const response = await axios.get(`${config.api.playerDBAPI}/${uuid}`);
-    return response.data.data.player.username;
-  } catch (error) {
-    console.log(error);
-  }
+  const response = await axios.get(`${config.api.playerDBAPI}/${uuid}`);
+  return response
 }
+
 
 module.exports = { getUUID, getUsername };
