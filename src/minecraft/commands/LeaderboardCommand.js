@@ -1,6 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js")
 const config = require("../../../config.json")
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js")
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -11,17 +10,13 @@ async function getUsername(UUID) {
   const fetch = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${UUID}`)
   return fetch.data.name
 }
-async function getUUID(Username) {
-  const fetch = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${Username}`)
-  return fetch.data.id
-}
 
 class LeaderBoardCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
-    this.name = "glb"
-    this.aliases = ["guildlb", "guildleaderboard"]
+    this.name = "lb"
+    this.aliases = ["leaderboard"]
     this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     this.options = []
   }
@@ -84,7 +79,7 @@ class LeaderBoardCommand extends minecraftCommand {
         var timeframe = "Lifetime"
       }
 
-      fetch(`https://api.pixelic.de/v1/leaderboard/guild?key=${config.api.pixelKey}&mode=${mode.toLowerCase()}&timeframe=${timeframe.toLowerCase()}&limit=10&uuid=${await getUUID(username)}`).then((res) => {
+      fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=${mode.toLowerCase()}&timeframe=${timeframe.toLowerCase()}&limit=10`).then((res) => {
         res.json().then(async (data) => {
           var gamemode
           var gamemodeFormatted
@@ -167,7 +162,7 @@ class LeaderBoardCommand extends minecraftCommand {
               var typeFormatted = "BBLR"
             }
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${
+              `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${
                 data[gamemode][type][4][type]
               } | #6 ${await getUsername(data[gamemode][type][5].UUID)}: ${data[gamemode][type][5][type]} | #7 ${await getUsername(data[gamemode][type][6].UUID)}: ${data[gamemode][type][6][type]} | #8 ${await getUsername(data[gamemode][type][7].UUID)}: ${data[gamemode][type][7][type]} | #9 ${await getUsername(data[gamemode][type][8].UUID)}: ${data[gamemode][type][8][type]} | #10 ${await getUsername(data[gamemode][type][9].UUID)}: ${data[gamemode][type][9][type]}`
             )
@@ -217,7 +212,7 @@ class LeaderBoardCommand extends minecraftCommand {
             }
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${
+              `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${
                 data[gamemode][type][4][type]
               } | #6 ${await getUsername(data[gamemode][type][5].UUID)}: ${data[gamemode][type][5][type]} | #7 ${await getUsername(data[gamemode][type][6].UUID)}: ${data[gamemode][type][6][type]} | #8 ${await getUsername(data[gamemode][type][7].UUID)}: ${data[gamemode][type][7][type]} | #9 ${await getUsername(data[gamemode][type][8].UUID)}: ${data[gamemode][type][8][type]} | #10 ${await getUsername(data[gamemode][type][9].UUID)}: ${data[gamemode][type][9][type]}`
             )
@@ -258,7 +253,7 @@ class LeaderBoardCommand extends minecraftCommand {
             }
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${
+              `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${
                 data[gamemode][type][4][type]
               } | #6 ${await getUsername(data[gamemode][type][5].UUID)}: ${data[gamemode][type][5][type]} | #7 ${await getUsername(data[gamemode][type][6].UUID)}: ${data[gamemode][type][6][type]} | #8 ${await getUsername(data[gamemode][type][7].UUID)}: ${data[gamemode][type][7][type]} | #9 ${await getUsername(data[gamemode][type][8].UUID)}: ${data[gamemode][type][8][type]} | #10 ${await getUsername(data[gamemode][type][9].UUID)}: ${data[gamemode][type][9][type]}`
             )
@@ -282,7 +277,7 @@ class LeaderBoardCommand extends minecraftCommand {
             }
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${typeFormatted} » #1 ${await getUsername(data[type][0].UUID)}: ${data[type][0][type]} | #2 ${await getUsername(data[type][1].UUID)}: ${data[type][1][type]} | #3 ${await getUsername(data[type][2].UUID)}: ${data[type][2][type]} | #4 ${await getUsername(data[type][3].UUID)}: ${data[type][3][type]} | #5 ${await getUsername(data[type][4].UUID)}: ${data[type][4][type]} | #6 ${await getUsername(data[type][5].UUID)}: ${data[type][5][type]} | #7 ${await getUsername(
+              `/gc ${timeframe} ${mode} ${typeFormatted} » #1 ${await getUsername(data[type][0].UUID)}: ${data[type][0][type]} | #2 ${await getUsername(data[type][1].UUID)}: ${data[type][1][type]} | #3 ${await getUsername(data[type][2].UUID)}: ${data[type][2][type]} | #4 ${await getUsername(data[type][3].UUID)}: ${data[type][3][type]} | #5 ${await getUsername(data[type][4].UUID)}: ${data[type][4][type]} | #6 ${await getUsername(data[type][5].UUID)}: ${data[type][5][type]} | #7 ${await getUsername(
                 data[type][6].UUID
               )}: ${data[type][6][type]} | #8 ${await getUsername(data[type][7].UUID)}: ${data[type][7][type]} | #9 ${await getUsername(data[type][8].UUID)}: ${data[type][8][type]} | #10 ${await getUsername(data[type][9].UUID)}: ${data[type][9][type]}`
             )
@@ -296,4 +291,4 @@ class LeaderBoardCommand extends minecraftCommand {
   }
 }
 
-module.exports = GuildLeaderBoardCommand
+module.exports = LeaderBoardCommand

@@ -1,4 +1,4 @@
-# Hypixel Guild chat bridge - Deisgned for Felony Guils
+# Hypixel Guild chat bridge - Designed for Felony Guild
 
 <img src="https://img.shields.io/github/contributors/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src="https://img.shields.io/github/stars/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src="https://img.shields.io/github/license/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src="https://img.shields.io/github/repo-size/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src='https://img.shields.io/github/commit-activity/m/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge'>
 
@@ -24,5 +24,5 @@ if you do need support message me on discord via [Kathund#2004](https://discord.
 - [SkyHelper API](https://github.com/Altpapier/SkyHelperAPI)
 - [SkyShiiyu API](https://github.com/SkyCryptWebsite/SkyCrypt)
 - [SlothPixel API](https://github.com/slothpixel)
-- [Pixel API](https://app.swaggerhub.com/apis-docs/Pixelicc/Pixelic-API/)
+- [Pixelic API](https://app.swaggerhub.com/apis-docs/Pixelicc/Pixelic-API/)
 - [Senither](https://github.com/Senither)
