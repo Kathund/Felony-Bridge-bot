@@ -114,12 +114,6 @@ class DiscordManager extends CommunicationBridge {
     }
     channel = await this.getChannel(chat);
     var color = 3447003
-    const player = hypixel.getPlayer(username)
-    if (player.rank == "Default") color = 8684676
-    if (player.rank == "VIP" || player.rank == "VIP+") color = 4178210
-    if (player.rank == "MVP" || player.rank == "MVP+") color = 2608358
-    if (player.rank == "MVP++") color = 14522668
-
     switch (config.discord.messageMode.toLowerCase()) {
       case "bot":
         channel.send({
