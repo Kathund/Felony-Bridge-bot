@@ -296,4 +296,4 @@ class LeaderBoardCommand extends minecraftCommand {
   }
 }
 
-module.exports = LeaderBoardCommand
+module.exports = GuildLeaderBoardCommand
