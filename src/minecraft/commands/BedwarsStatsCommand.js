@@ -39,10 +39,14 @@ class BedwarsCommand extends minecraftCommand {
       }
 
       const player = await hypixel.getPlayer(username);
+      var star = "${star}"
+      if (player.stats.bedwars.level >= 2100) star = "⚝"
+      if (player.stats.bedwars.level >= 1100) star = "⚝"
+      if (player.stats.bedwars.level >= 0) star = "✫"
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc [${player.stats.bedwars.level}✫] ${player.nickname
+          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } | Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
           } | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
           } | Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
@@ -52,7 +56,7 @@ class BedwarsCommand extends minecraftCommand {
         );
       } else if (mode) {
         this.send(
-          `/gc [${player.stats.bedwars.level}✫] ${player.nickname} ${capitalize(
+          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname} ${capitalize(
             mode
           )} FK: ${addCommas(player.stats.bedwars[mode].finalKills)} FKDR: ${player.stats.bedwars[mode].finalKDRatio
           } Wins: ${player.stats.bedwars[mode].wins} WLR: ${player.stats.bedwars[mode].WLRatio
