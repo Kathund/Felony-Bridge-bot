@@ -12,6 +12,7 @@ const config = require('../../../config.json')
 const Logger = require('../../Logger.js')
 /*eslint-enable */
 const fs = require('fs')
+const { runInThisContext } = require('vm')
 
 class StateHandler extends eventHandler {
   constructor(minecraft, command, discord) {
@@ -38,6 +39,8 @@ class StateHandler extends eventHandler {
       const username = replaceAllRanks(message.substr(54))
       await delay(69)
       this.send(`/party accept ${username}`)
+      await delay(420)
+      this.send(`/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`)
       await delay(5000)
       this.send(`/party leave`)
     }
@@ -89,9 +92,19 @@ class StateHandler extends eventHandler {
         if (swWins > config.minecraft.guild.requirements.skywarsWins) meetRequirements = true;
         if (duelsWins > config.minecraft.guild.requirements.dulesWins) if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) meetRequirements = true;
         if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) if (duelsWins > config.minecraft.guild.requirements.duelsWins) meetRequirements = true;
+        
+        var rank = player.rank
+        if (player.rank == "VIP") rank = "<:VIP1:987758621108609174><:VIP2:987758622073303081><:VIP3:987758623126073406>"
+        if (player.rank == "VIP+") rank = "<:VIP1:1017934584169639956><:VIP2:1017933759741427883><:VIP3:987758636300382211>"
+        if (player.rank == "MVP") rank = "<:MVP11:987763964668678206><:MVP22:987763965755019284><:MVP33:987763959501316118>"
+        if (player.rank == "MVP+") rank = "a"
+        if (player.rank == "MVP++") rank = "b"
+        if (player.rank == "Game Master") rank = "c"
+        if (player.rank == "Admin") rank = "d"
+        if (player.rank == "YouTube") rank = "e"
 
         if (meetRequirements == true) {
-          bot.chat(`/oc [${player.rank}] ${player.nickname}: has the requirements to join ${config.minecraft.guild.name}!`)
+          bot.chat(`/oc ${rank} ${player.nickname}: has the requirements to join ${config.minecraft.guild.name}!`)
           const statsEmbed = new EmbedBuilder()
             .setColor(2067276)
             .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
@@ -116,7 +129,7 @@ class StateHandler extends eventHandler {
         } else {
           const statsEmbed = new EmbedBuilder()
             .setColor(15346463)
-            .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
+            .setTitle(`${rank} ${player.nickname}: has requested to join the Guild!`)
             .setDescription(`${player.nickname} **dose not** have the requirements to join the Guild!`)
             .addFields(
               { name: 'Hypixel Level', value: `${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel}`, inline: true },
