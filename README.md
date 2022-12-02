@@ -1,4 +1,4 @@
-# Hypixel Guild chat bridge - Deisgned for Felony Guils
+# Hypixel Guild chat bridge - Designed for Felony Guild
 
 <img src="https://img.shields.io/github/contributors/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src="https://img.shields.io/github/stars/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src="https://img.shields.io/github/license/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src="https://img.shields.io/github/repo-size/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge"> <img src='https://img.shields.io/github/commit-activity/m/Kathund/Felony-Bridge-bot?color=success&style=for-the-badge'>
 
