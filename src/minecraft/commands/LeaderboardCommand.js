@@ -5,7 +5,6 @@ const fetch = (...args) =>
     .then(({ default: fetch }) => fetch(...args))
     .catch((err) => console.log(err))
 
-// PlayerDB not working KATH! Im always using axios so dont care about that
 const axios = require("axios")
 async function getUsername(UUID) {
   const fetch = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${UUID}`)
