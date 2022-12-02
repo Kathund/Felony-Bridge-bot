@@ -40,9 +40,9 @@ class BedwarsCommand extends minecraftCommand {
 
       const player = await hypixel.getPlayer(username);
       var star = "${star}"
-      if (player.stats.bedwars.level >= 2100) star = "⚝"
-      if (player.stats.bedwars.level >= 1100) star = "⚝"
       if (player.stats.bedwars.level >= 0) star = "✫"
+      if (player.stats.bedwars.level >= 1100) star = "✪"
+      if (player.stats.bedwars.level >= 2100) star = "⚝"
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
