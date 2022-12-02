@@ -12,6 +12,7 @@ const config = require('../../../config.json')
 const Logger = require('../../Logger.js')
 /*eslint-enable */
 const fs = require('fs')
+const { runInThisContext } = require('vm')
 
 class StateHandler extends eventHandler {
   constructor(minecraft, command, discord) {
@@ -38,6 +39,8 @@ class StateHandler extends eventHandler {
       const username = replaceAllRanks(message.substr(54))
       await delay(69)
       this.send(`/party accept ${username}`)
+      await delay(420)
+      this.send(`/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`)
       await delay(5000)
       this.send(`/party leave`)
     }
