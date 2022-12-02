@@ -24,5 +24,5 @@ if you do need support message me on discord via [Kathund#2004](https://discord.
 - [SkyHelper API](https://github.com/Altpapier/SkyHelperAPI)
 - [SkyShiiyu API](https://github.com/SkyCryptWebsite/SkyCrypt)
 - [SlothPixel API](https://github.com/slothpixel)
-- [Pixel API](https://app.swaggerhub.com/apis-docs/Pixelicc/Pixelic-API/)
+- [Pixelic API](https://app.swaggerhub.com/apis-docs/Pixelicc/Pixelic-API/)
 - [Senither](https://github.com/Senither)
