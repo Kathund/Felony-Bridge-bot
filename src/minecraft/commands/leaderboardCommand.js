@@ -10,18 +10,14 @@ async function getUsername(uuid) {
   const fetch = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
   return fetch.data.name
 }
-async function getUUID(username) {
-  const fetch = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${username}`)
-  return fetch.data.id
-}
 
-class GuildLeaderboardCommand extends minecraftCommand {
+class LeaderboardCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
-    this.name = "glb"
-    this.aliases = ["guildlb", "guildleaderboard"]
-    this.description = "Alows you to look up the leaderbaords for guilds"
+    this.name = "lb"
+    this.aliases = ["leaderboard"]
+    this.description = "Alows you to look up leaderboards"
     this.options = []
   }
 
@@ -51,7 +47,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
       if (["monthly", "month", "m"].includes(msg[1])) timeframe = "Monthly"
       if (["lifetime", "alltime", "all", "l"].includes(msg[1])) timeframe = "Lifetime"
 
-      fetch(`https://api.pixelic.de/v1/leaderboard/guild?key=${config.api.pixelKey}&mode=${mode.toLowerCase()}&timeframe=${timeframe.toLowerCase()}&limit=10&uuid=${await getUUID(username)}`).then((res) => {
+      fetch(`https://api.pixelic.de/v1/leaderboard?key=${config.api.pixelKey}&mode=${mode.toLowerCase()}&timeframe=${timeframe.toLowerCase()}&limit=10`).then((res) => {
         res.json().then(async (data) => {
           var gamemode = null
           var gamemodeFormatted = null
@@ -81,7 +77,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
             if (msg[3] == "bblr") type = "bblr", typeFormatted = "BBLR"
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${data[gamemode][type][4][type]
+              `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${data[gamemode][type][4][type]
               } | #6 ${await getUsername(data[gamemode][type][5].UUID)}: ${data[gamemode][type][5][type]} | #7 ${await getUsername(data[gamemode][type][6].UUID)}: ${data[gamemode][type][6][type]} | #8 ${await getUsername(data[gamemode][type][7].UUID)}: ${data[gamemode][type][7][type]} | #9 ${await getUsername(data[gamemode][type][8].UUID)}: ${data[gamemode][type][8][type]} | #10 ${await getUsername(data[gamemode][type][9].UUID)}: ${data[gamemode][type][9][type]}`
             )
           } else if (mode.toLowerCase() == "skywars") {
@@ -94,12 +90,13 @@ class GuildLeaderboardCommand extends minecraftCommand {
             if (msg[3] == "wins") type = "wins", typeFormatted = "Wins"
             if (msg[3] == "losses") type = "losses", typeFormatted = "Losses"
             if (msg[3] == "wlr") type = "wlr", typeFormatted = "WLR"
+            if (msg[3] == "fkdr") type = "fkdr", typeFormatted = "FKDR"
             if (["kills", "k"].includes(msg[3])) type = "kills", typeFormatted = "Kills"
             if (["deaths", "d"].includes(msg[3])) type = "deaths", typeFormatted = "Deaths"
             if (msg[3] == "kdr") type = "kdr", typeFormatted = "KDR"
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${data[gamemode][type][4][type]
+              `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${data[gamemode][type][4][type]
               } | #6 ${await getUsername(data[gamemode][type][5].UUID)}: ${data[gamemode][type][5][type]} | #7 ${await getUsername(data[gamemode][type][6].UUID)}: ${data[gamemode][type][6][type]} | #8 ${await getUsername(data[gamemode][type][7].UUID)}: ${data[gamemode][type][7][type]} | #9 ${await getUsername(data[gamemode][type][8].UUID)}: ${data[gamemode][type][8][type]} | #10 ${await getUsername(data[gamemode][type][9].UUID)}: ${data[gamemode][type][9][type]}`
             )
           } else if (mode.toLowerCase() == "duels") {
@@ -115,7 +112,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
             if (msg[3] == "kdr") type = "kdr", typeFormatted = "KDR"
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${data[gamemode][type][4][type]
+              `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(data[gamemode][type][0].UUID)}: ${data[gamemode][type][0][type]} | #2 ${await getUsername(data[gamemode][type][1].UUID)}: ${data[gamemode][type][1][type]} | #3 ${await getUsername(data[gamemode][type][2].UUID)}: ${data[gamemode][type][2][type]} | #4 ${await getUsername(data[gamemode][type][3].UUID)}: ${data[gamemode][type][3][type]} | #5 ${await getUsername(data[gamemode][type][4].UUID)}: ${data[gamemode][type][4][type]
               } | #6 ${await getUsername(data[gamemode][type][5].UUID)}: ${data[gamemode][type][5][type]} | #7 ${await getUsername(data[gamemode][type][6].UUID)}: ${data[gamemode][type][6][type]} | #8 ${await getUsername(data[gamemode][type][7].UUID)}: ${data[gamemode][type][7][type]} | #9 ${await getUsername(data[gamemode][type][8].UUID)}: ${data[gamemode][type][8][type]} | #10 ${await getUsername(data[gamemode][type][9].UUID)}: ${data[gamemode][type][9][type]}`
             )
           } else if (mode.toLowerCase() == "general") {
@@ -126,7 +123,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
             if (["points", "achievementpoints", "ap"].includes(msg[2])) type = "achievementPoints", typeFormatted = "Achievement Points"
 
             this.send(
-              `/gc [Guild] ${timeframe} ${mode} ${typeFormatted} » #1 ${await getUsername(data[type][0].UUID)}: ${data[type][0][type]} | #2 ${await getUsername(data[type][1].UUID)}: ${data[type][1][type]} | #3 ${await getUsername(data[type][2].UUID)}: ${data[type][2][type]} | #4 ${await getUsername(data[type][3].UUID)}: ${data[type][3][type]} | #5 ${await getUsername(data[type][4].UUID)}: ${data[type][4][type]} | #6 ${await getUsername(data[type][5].UUID)}: ${data[type][5][type]} | #7 ${await getUsername(
+              `/gc ${timeframe} ${mode} ${typeFormatted} » #1 ${await getUsername(data[type][0].UUID)}: ${data[type][0][type]} | #2 ${await getUsername(data[type][1].UUID)}: ${data[type][1][type]} | #3 ${await getUsername(data[type][2].UUID)}: ${data[type][2][type]} | #4 ${await getUsername(data[type][3].UUID)}: ${data[type][3][type]} | #5 ${await getUsername(data[type][4].UUID)}: ${data[type][4][type]} | #6 ${await getUsername(data[type][5].UUID)}: ${data[type][5][type]} | #7 ${await getUsername(
                 data[type][6].UUID
               )}: ${data[type][6][type]} | #8 ${await getUsername(data[type][7].UUID)}: ${data[type][7][type]} | #9 ${await getUsername(data[type][8].UUID)}: ${data[type][8][type]} | #10 ${await getUsername(data[type][9].UUID)}: ${data[type][9][type]}`
             )
@@ -140,4 +137,4 @@ class GuildLeaderboardCommand extends minecraftCommand {
   }
 }
 
-module.exports = GuildLeaderboardCommand
+module.exports = LeaderboardCommand

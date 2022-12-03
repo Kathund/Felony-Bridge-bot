@@ -1,3 +1,4 @@
+/*eslint-disable */
 const { replaceAllRanks, addCommas } = require('../../contracts/helperFunctions.js')
 const { getLatestProfile } = require('../../../API/functions/getLatestProfile.js')
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -6,13 +7,12 @@ const hypixel = require('../../contracts/API/HypixelRebornAPI.js')
 const { getUUID } = require('../../contracts/API/PlayerDBAPI.js')
 const eventHandler = require('../../contracts/EventHandler.js')
 const messages = require('../../../messages.json')
-/*eslint-disable */
 const { EmbedBuilder } = require('discord.js')
 const config = require('../../../config.json')
 const Logger = require('../../Logger.js')
-/*eslint-enable */
 const fs = require('fs')
 const { runInThisContext } = require('vm')
+/*eslint-enable */
 
 class StateHandler extends eventHandler {
   constructor(minecraft, command, discord) {
