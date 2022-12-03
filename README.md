@@ -11,7 +11,7 @@ If you do need support message me on discord via [Kathund#2004](https://discord.
 ## Original Code 
 - This project was originally made by DuckySoLucky
 - I was lazy so make me own like i was doing before
-- Go use his and not mine coz mines designed for Felony guild
+- Go use his and not mine coz mines designed for the Felony Guild
 - https://github.com/DuckySoLucky/hypixel-discord-chat-bridge
 
 ## Powered by
