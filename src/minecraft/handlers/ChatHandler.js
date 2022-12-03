@@ -101,7 +101,7 @@ class StateHandler extends eventHandler {
         if (duelsWins > config.minecraft.guild.requirements.dulesWins) hasDuelsWins = true
         if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) hasDuelsWLR = true
         if (hasDuelsWins == true && hasDuelsWLR == true) meetRequirements = true;
-        
+
         var rank = player.rank
         if (player.rank == "VIP") rank = "<:VIP1:987758621108609174><:VIP2:987758622073303081><:VIP3:987758623126073406>"
         if (player.rank == "VIP+") rank = "<:VIP1:1017934584169639956><:VIP2:1017933759741427883><:VIP3:987758636300382211>"
@@ -112,46 +112,28 @@ class StateHandler extends eventHandler {
         if (player.rank == "Admin") rank = "d"
         if (player.rank == "YouTube") rank = "e"
 
+        bot.chat(`/oc ${rank} ${player.nickname}: ${meetRequirements ? "has" : "hasnt" } the requirements to join ${config.minecraft.guild.name}!`)
+        const statsEmbed = new EmbedBuilder()
+          .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
+          .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
+          .setDescription(`${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"} the requirements to join the Guild!`)
+          .addFields(
+            { name: 'General', value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel} ${hasHypixelLevel ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+            { name: 'Bedwars 1', value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars} ${hasBWStars ? config.discord.emojis.yes : config.discord.emojis.no}\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+            { name: 'Bedwars 2', value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins} ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+            { name: 'Skywars', value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins} ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+            { name: 'Duels', value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins} ${hasDuelsWins ? config.discord.emojis.yes : config.discord.emojis.no}\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR} ${hasDuelsWLR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+          )
+          .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
+          .setTimestamp()
+          .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
+        await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
         if (meetRequirements == true) {
-          bot.chat(`/oc ${rank} ${player.nickname}: has the requirements to join ${config.minecraft.guild.name}!`)
-          const statsEmbed = new EmbedBuilder()
-            .setColor("0x1FFF4C")
-            .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
-            .setDescription(`${player.nickname} **has** the requirements to join the Guild!`)
-            .addFields(
-              { name: 'General', value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel} ${hasHypixelLevel ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Bedwars 1', value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars} ${hasBWStars ? config.discord.emojis.yes : config.discord.emojis.no}\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Bedwars 2', value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins} ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Skywars', value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins} ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Duels', value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins} ${hasDuelsWins ? config.discord.emojis.yes : config.discord.emojis.no}\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR} ${hasDuelsWLR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-            )
-            .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
-            .setTimestamp()
-            .setFooter({ text: `by Kathund#2004 | /help [command] for more information` });
-          await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
           if (config.minecraft.guild.autoAccept == true) {
             await delay(300)
             bot.chat(`/g accept ${player.nickname}`)
           }
-        } else {
-          const statsEmbed = new EmbedBuilder()
-            .setColor("0xf92121")
-            .setTitle(`${rank} ${player.nickname}: has requested to join the Guild!`)
-            .setDescription(`${player.nickname} **dose not** have the requirements to join the Guild!`)
-            .addFields(
-              { name: 'General', value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel} ${hasHypixelLevel ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Bedwars 1', value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars} ${hasBWStars ? config.discord.emojis.yes : config.discord.emojis.no}\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Bedwars 2', value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins} ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Skywars', value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins} ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-              { name: 'Duels', value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins} ${hasDuelsWins ? config.discord.emojis.yes : config.discord.emojis.no}\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR} ${hasDuelsWLR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
-            )
-            .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
-            .setTimestamp()
-            .setFooter({ text: `by Kathund#2004 | /help [command] for more information`, iconURL: "https://i.imgur.com/uUuZx2E.png" });
-          await client.channels.cache.get(`${config.discord.loggingChannel}`).send({ embeds: [statsEmbed] });
-          delay(1000)
-          bot.chat(`/oc [${player.rank}] ${player.nickname}: Dosen't meet Requirements - [Hypixel] ${player.level}/${config.minecraft.guild.requirements.hypixelNetworkLevel} | [BW] Stars: ${player.stats.bedwars.level}/${config.minecraft.guild.requirements.bedwarsStars} Wins: ${addCommas(player.stats.bedwars.wins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)} FKDR: ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} | [SW] ${addCommas(player.stats.skywars.wins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)} | [Duels] Wins: ${addCommas(player.stats.duels.wins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)} WLR: ${player.stats.duels.WLRatio}/${config.minecraft.guild.requirements.duelsWLR}`)
-        }
+        } 
       }
     }
 
