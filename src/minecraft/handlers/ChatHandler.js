@@ -151,11 +151,26 @@ class StateHandler extends eventHandler {
           rank =
             "<:MVP11:987763964668678206><:MVP22:987763965755019284><:MVP33:987763959501316118>";
         }
-        if (player.rank == "MVP+") rank = "a";
-        if (player.rank == "MVP++") rank = "b";
-        if (player.rank == "Game Master") rank = "c";
-        if (player.rank == "Admin") rank = "d";
-        if (player.rank == "YouTube") rank = "e";
+        if (player.rank == "MVP+") {
+          rank =
+            "<:MVP1:987763961019662346><:MVP2:987763962470875147><:MVP3:987763963536216175><:AquaRed2:987758573876543518>";
+        }
+        if (player.rank == "MVP++") {
+          rank =
+            "<:GoldM:987758429928042537><:GoldMVP:987758431542861824><:GoldRed1:987758477202047007><:GoldRed2:987758478389043200>";
+        }
+        if (player.rank == "Game Master") {
+          rank =
+            "<:G_:1013837949558853692><:M_:1013837950926205038><:GM:1013837952289345556>";
+        }
+        if (player.rank == "Admin") {
+          rank =
+            "<:A_:1013837033652895775><:D_:1013837035041202176><:M_:1013837036370796595><:I_:1013837037541015632><:N_:1013837038690254868>";
+        }
+        if (player.rank == "YouTube") {
+          rank =
+            "<:Y_:1013834577531383888><:O_:1013834578802258071><:U_:1013834580505149500><:T_:1013834582426140822><:U2:1013834584078692414><:B_:1013834586205196328><:E_:1013834587727745175";
+        }
 
         bot.chat(
           `/oc [${player.rank}] ${player.nickname}: ${
