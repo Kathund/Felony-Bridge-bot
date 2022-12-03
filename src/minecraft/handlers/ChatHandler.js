@@ -13,7 +13,6 @@ const Logger = require('../../Logger.js')
 const fs = require('fs')
 const { runInThisContext } = require('vm')
 /*eslint-enable */
-// a
 
 class StateHandler extends eventHandler {
   constructor(minecraft, command, discord) {
