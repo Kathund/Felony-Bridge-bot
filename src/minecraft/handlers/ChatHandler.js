@@ -112,10 +112,10 @@ class StateHandler extends eventHandler {
         if (player.rank == "Admin") rank = "d"
         if (player.rank == "YouTube") rank = "e"
 
-        bot.chat(`/oc ${rank} ${player.nickname}: ${meetRequirements ? "has" : "hasnt" } the requirements to join ${config.minecraft.guild.name}!`)
+        bot.chat(`/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt" } the requirements to join ${config.minecraft.guild.name}!`)
         const statsEmbed = new EmbedBuilder()
           .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
-          .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
+          .setTitle(`${rank} ${player.nickname}: has requested to join the Guild!`)
           .setDescription(`${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"} the requirements to join the Guild!`)
           .addFields(
             { name: 'General', value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel} ${hasHypixelLevel ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
