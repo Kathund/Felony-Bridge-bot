@@ -27,7 +27,7 @@ class GuildEXPCommand extends minecraftCommand {
       var gexp = addCommas(rawGexp);
       this.send(`/gc ${username}'s GEXP is ${gexp}`);
       fetch(
-        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
         {
           method: "POST",
         }

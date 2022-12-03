@@ -26,7 +26,7 @@ class UHCStatsCommand extends minecraftCommand {
         `/gc [${player.stats.uhc.starLevel}✫] ${player.nickname}ᐧᐧᐧᐧKDR:${player.stats.uhc.KDRatio}ᐧᐧᐧᐧWLR:${player.stats.uhc.wins}ᐧᐧᐧHeads:${player.stats.uhc.headsEaten}`
       );
       fetch(
-        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
         {
           method: "POST",
         }

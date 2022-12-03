@@ -26,7 +26,7 @@ class CSGOCommand extends minecraftCommand {
         `/gc [ ${player.rank} ] ${player.nickanme}: Cops And Crims Stats | Kills: ${player.stats.copsandcrims.kills} Deaths: ${player.stats.copsandcrims.deaths} KD: ${player.stats.copsandcrims.KDRatio} | Wins ${player.stats.copsandcrims.wins}`
       );
       fetch(
-        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
         {
           method: "POST",
         }

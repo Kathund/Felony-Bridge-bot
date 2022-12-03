@@ -81,7 +81,7 @@ class DailyStatsCommand extends minecraftCommand {
         );
 
         fetch(
-          `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${uuid}`,
+          `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${uuid}`,
           {
             method: "POST",
           }

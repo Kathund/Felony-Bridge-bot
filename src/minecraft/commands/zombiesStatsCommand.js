@@ -27,7 +27,7 @@ class ZombiesCommand extends minecraftCommand {
         `/gc [${player.rank}] ${player.nickname}: Coins: ${player.stats.arcade.coins} | Wins: ${stats.overall.wins} | Kills: ${stats.overall.zombieKills} | Deaths: ${stats.overall.deaths} | Shots: ${stats.bulletsShot} Hits: ${stats.bulletsHit} Accuracy: ${stats.gunAccuracy} Headshot Accuracy ${stats.headshotAccuracy}`
       );
       fetch(
-        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
         {
           method: "POST",
         }
