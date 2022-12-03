@@ -15,7 +15,7 @@ async function errorMessage(message) {
 }
 
 async function broadcastMessage(message, location) {
-  return console.log(`[${await getCurrentTime()}] ${location} Broadcat > ${message}`);
+  return console.log(`[${await getCurrentTime()}] ${location} Broadcast > ${message}`);
 }
 
 async function getCurrentTime() {
