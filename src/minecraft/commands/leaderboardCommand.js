@@ -11,7 +11,7 @@ async function getUsername(UUID) {
   return fetch.data.name
 }
 
-class LeaderBoardCommand extends minecraftCommand {
+class leaderboardCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
@@ -291,4 +291,4 @@ class LeaderBoardCommand extends minecraftCommand {
   }
 }
 
-module.exports = LeaderBoardCommand
+module.exports = leaderboardCommand
