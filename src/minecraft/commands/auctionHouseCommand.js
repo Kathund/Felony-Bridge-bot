@@ -28,8 +28,8 @@ class AuctionHouseCommand extends minecraftCommand {
       if (arg[0]) username = arg[0];
 
       // Could have been done better and faster using Promise.all(), I'm lazy
-      const uuid = (await axios.get(`${config.api.playerDBAPI}/${username}`))
-        .data.data.player.raw_id;
+      const uuid = (await axios.get(`${config.api.MojangAPI}/${username}`)).data
+        .data.player.raw_id;
       const response = (
         await axios.get(
           `${config.api.hypixelAPI}/skyblock/auction?key=${config.api.hypixelAPIkey}&player=${uuid}`
@@ -51,10 +51,12 @@ class AuctionHouseCommand extends minecraftCommand {
           if (!response.auctions[i].bin) {
             bidder = (
               await axios.get(
-                `${config.api.hypixelAPI}/player?key=${config.api.hypixelAPIkey
-                }&uuid=${response.auctions[i].bids[
-                  response.auctions[i].bids.length - 1
-                ].bidder
+                `${config.api.hypixelAPI}/player?key=${
+                  config.api.hypixelAPIkey
+                }&uuid=${
+                  response.auctions[i].bids[
+                    response.auctions[i].bids.length - 1
+                  ].bidder
                 }`
               )
             ).data.player;

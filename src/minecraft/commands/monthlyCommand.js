@@ -1,7 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getStats } = require("../../contracts/helperFunctions.js");
-const { getUUID } = require("../../contracts/API/PlayerDBAPI.js");
-const config = require("../../../config.json")
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
+const config = require("../../../config.json");
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -20,13 +20,48 @@ class MonthlyStatsCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     const args = this.getArgs(message);
-    let mode, player = username;
+    let mode,
+      player = username;
 
-    if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "gen", "g", "general"].includes(args[0])) {
+    if (
+      [
+        "bw",
+        "bedwars",
+        "bedwar",
+        "bws",
+        "sw",
+        "skywars",
+        "skywar",
+        "sws",
+        "duels",
+        "duel",
+        "d",
+        "gen",
+        "g",
+        "general",
+      ].includes(args[0])
+    ) {
       mode = args[0];
       if (args[1]) player = args[1];
     }
-    if (["bw", "bedwars", "bedwar", "bws", "sw", "skywars", "skywar", "sws", "duels", "duel", "d", "gen", "g", "general"].includes(args[1])) {
+    if (
+      [
+        "bw",
+        "bedwars",
+        "bedwar",
+        "bws",
+        "sw",
+        "skywars",
+        "skywar",
+        "sws",
+        "duels",
+        "duel",
+        "d",
+        "gen",
+        "g",
+        "general",
+      ].includes(args[1])
+    ) {
       mode = args[1];
       player = args[0];
     }
@@ -34,18 +69,23 @@ class MonthlyStatsCommand extends minecraftCommand {
     const uuid = await getUUID(player);
 
     try {
-      this.send(await getStats(player, uuid, mode, 'monthly', username));
+      this.send(await getStats(player, uuid, mode, "monthly", username));
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
         this.send(
-          `/gc ${player == username ? "You are" : `${player} is`
-          } not in the database. ${player == username ? "You are" : `${player} is`
+          `/gc ${
+            player == username ? "You are" : `${player} is`
+          } not in the database. ${
+            player == username ? "You are" : `${player} is`
           } being added to the database..`
         );
 
-        fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`, {
-          method: "POST",
-        }).then((res) => {
+        fetch(
+          `https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${uuid}`,
+          {
+            method: "POST",
+          }
+        ).then((res) => {
           if (res.status == 201) {
             this.send(`/gc Successfully registered ${player} in the database!`);
           } else if (res.status == 400) {

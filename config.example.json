@@ -84,7 +84,6 @@
     "antiSniperAPI": "https://api.antisniper.net",
     "antiSniperKey": "ANTISNIPER_API_KEY",
     "skyShiiyuAPI": "https://sky.shiiyu.moe/api/v2",
-    "playerDBAPI": "https://playerdb.co/api/player/minecraft",
     "pixelAPI": "https://api.pixelic.de/v1/player",
     "pixelKey": "PIXEL_API_KEY",
     "imgurAPIkey": "IMGUR_API_KEY"

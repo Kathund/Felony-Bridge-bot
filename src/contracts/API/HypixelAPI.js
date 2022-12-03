@@ -1,6 +1,6 @@
 const axios = require("axios");
 const config = require("../../../config.json");
-const { getUUID } = require("./PlayerDBAPI.js");
+const { getUUID } = require("./MojangAPI.js");
 
 async function getKeyData() {
   // https://api.hypixel.net/key?key=HYPIXEL_API_KEY
