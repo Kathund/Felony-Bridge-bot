@@ -21,6 +21,11 @@ class PitCommand extends minecraftCommand {
             const msg = this.getArgs(message);
             if (msg[0]) username = msg[0]
             const player = await hypixel.getPlayer(username);
+            new hypixel.Pit(username).then(async (pit) => {
+                const stats = pit.kills
+                console.log(stats)
+            })
+            
             this.send(`/gc [${player.rank}] ${player.nickname}: Kills: ${player.stats.pit.kills} | I know this is nothing but this is the only thing in the api lmao`)
             fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
                 method: "POST",
