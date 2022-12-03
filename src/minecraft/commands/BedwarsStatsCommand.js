@@ -1,11 +1,15 @@
-const { addNotation, capitalize, addCommas } = require("../../contracts/helperFunctions.js");
+const {
+  addNotation,
+  capitalize,
+  addCommas,
+} = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const config = require("../../../config.json")
+const config = require("../../../config.json");
 const fetch = (...args) =>
-    import("node-fetch")
-        .then(({ default: fetch }) => fetch(...args))
-        .catch((err) => console.log(err));
+  import("node-fetch")
+    .then(({ default: fetch }) => fetch(...args))
+    .catch((err) => console.log(err));
 
 class BedwarsCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -39,40 +43,75 @@ class BedwarsCommand extends minecraftCommand {
       }
 
       const player = await hypixel.getPlayer(username);
-      var star = "${star}"
-      if (player.stats.bedwars.level >= 0) star = "✫"
-      if (player.stats.bedwars.level >= 1100) star = "✪"
-      if (player.stats.bedwars.level >= 2100) star = "⚝"
+      var star = "${star}";
+      if (player.stats.bedwars.level >= 0) star = "✫";
+      if (player.stats.bedwars.level >= 1100) star = "✪";
+      if (player.stats.bedwars.level >= 2100) star = "⚝";
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
-          } | Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
-          } | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
-          } | Wins: ${addNotation("oneLetters", player.stats.bedwars.wins)} WLR: ${player.stats.bedwars.WLRatio
-          } | BB: ${addNotation("oneLetters", player.stats.bedwars.beds.broken)} BLR: ${player.stats.bedwars.beds.BLRatio
-          } | WS: ${player.stats.bedwars.winstreak
-          } | Items Collected: Iron: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.iron)} Gold: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.gold)} Diamonds: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.diamond)} Emeralds: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.emerald)}`
+          `/gc [${player.stats.bedwars.level}${star}] ${
+            player.nickname
+          } | Coins: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.coins
+          )} | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${
+            player.stats.bedwars.finalKDRatio
+          } | Wins: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.wins
+          )} WLR: ${player.stats.bedwars.WLRatio} | BB: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.beds.broken
+          )} BLR: ${player.stats.bedwars.beds.BLRatio} | WS: ${
+            player.stats.bedwars.winstreak
+          } | Items Collected: Iron: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.collectedItemsTotal.iron
+          )} Gold: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.collectedItemsTotal.gold
+          )} Diamonds: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.collectedItemsTotal.diamond
+          )} Emeralds: ${addNotation(
+            "oneLetters",
+            player.stats.bedwars.collectedItemsTotal.emerald
+          )}`
         );
       } else if (mode) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname} ${capitalize(
-            mode
-          )} FK: ${addCommas(player.stats.bedwars[mode].finalKills)} FKDR: ${player.stats.bedwars[mode].finalKDRatio
-          } Wins: ${addCommas(player.stats.bedwars[mode].wins)} WLR: ${player.stats.bedwars[mode].WLRatio
-          } BB: ${addCommas(player.stats.bedwars[mode].beds.broken)} BLR: ${player.stats.bedwars[mode].beds.BLRatio
-          } WS: ${player.stats.bedwars[mode].winstreak}`
+          `/gc [${player.stats.bedwars.level}${star}] ${
+            player.nickname
+          } ${capitalize(mode)} FK: ${addCommas(
+            player.stats.bedwars[mode].finalKills
+          )} FKDR: ${player.stats.bedwars[mode].finalKDRatio} Wins: ${addCommas(
+            player.stats.bedwars[mode].wins
+          )} WLR: ${player.stats.bedwars[mode].WLRatio} BB: ${addCommas(
+            player.stats.bedwars[mode].beds.broken
+          )} BLR: ${player.stats.bedwars[mode].beds.BLRatio} WS: ${
+            player.stats.bedwars[mode].winstreak
+          }`
         );
       }
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
-        method: "POST",
-      }).then((res) => {
+      fetch(
+        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => {
         if (res.status == 201) {
-          console.log(`Successfully registered ${player.nickname} in the database!`);
+          console.log(
+            `Successfully registered ${player.nickname} in the database!`
+          );
         } else if (res.status == 400) {
-          console.log(`${player.nickname} is already registered in the database!`);
+          console.log(
+            `${player.nickname} is already registered in the database!`
+          );
         } else {
-          console.log(`An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`);
+          console.log(
+            `An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`
+          );
         }
       });
     } catch (error) {

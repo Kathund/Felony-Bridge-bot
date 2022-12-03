@@ -5,7 +5,7 @@ const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
     .catch((err) => console.log(err));
-``
+``;
 class DenickerCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
@@ -22,20 +22,41 @@ class DenickerCommand extends minecraftCommand {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
       const player = hypixel.getPlayer(username);
-      fetch(`${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&name=${username}`).then((res) => {
+      fetch(
+        `${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&name=${username}`
+      ).then((res) => {
         res.json().then((data) => {
-          this.send(`/gc [${player.stats.bedwars.level}✫] ${player.nickname}: Accurrate » ${data.player.accurate ? "Yes" : "No"} | Overall » ${data.player.data.overall_winstreak} | Solo » ${data.player.data.eight_one_winstreak} | Doubles » ${data.player.data.eight_two_winstreak} | Trios » ${data.player.data.four_three_winstreak} | Fours » ${data.player.data.four_four_winstreak} | 4v4  » ${data.player.data.two_four_winstreak}`);
+          this.send(
+            `/gc [${player.stats.bedwars.level}✫] ${
+              player.nickname
+            }: Accurrate » ${data.player.accurate ? "Yes" : "No"} | Overall » ${
+              data.player.data.overall_winstreak
+            } | Solo » ${data.player.data.eight_one_winstreak} | Doubles » ${
+              data.player.data.eight_two_winstreak
+            } | Trios » ${data.player.data.four_three_winstreak} | Fours » ${
+              data.player.data.four_four_winstreak
+            } | 4v4  » ${data.player.data.two_four_winstreak}`
+          );
         });
       });
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
-        method: "POST",
-      }).then((res) => {
+      fetch(
+        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => {
         if (res.status == 201) {
-          console.log(`Successfully registered ${player.nickname} in the database!`);
+          console.log(
+            `Successfully registered ${player.nickname} in the database!`
+          );
         } else if (res.status == 400) {
-          console.log(`${player.nickname} is already registered in the database!`);
+          console.log(
+            `${player.nickname} is already registered in the database!`
+          );
         } else {
-          console.log(`An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`);
+          console.log(
+            `An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`
+          );
         }
       });
     } catch (error) {

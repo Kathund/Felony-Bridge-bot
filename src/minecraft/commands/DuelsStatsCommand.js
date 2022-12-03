@@ -66,47 +66,66 @@ class DuelsStatsCommand extends minecraftCommand {
             Object?.keys(player?.stats?.duels?.[duel]).includes("1v1")
           ) {
             this.send(
-              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${player.stats.duels?.[duel]?.[
-                Object.keys(player.stats.duels[duel])[0]
-              ]?.division ?? "Unknown"
-              }] ${username ?? 0} Wins: ${player.stats.duels?.[duel]?.[
-                Object.keys(player.stats.duels[duel])[0]
-              ]?.wins ?? 0
-              } | CWS: ${player.stats.duels?.[duel]?.[
-                Object.keys(player.stats.duels[duel])[0]
-              ]?.winstreak ?? 0
-              } | BWS: ${player.stats.duels?.[duel]?.[
-                Object.keys(player.stats.duels[duel])[0]
-              ]?.bestWinstreak ?? 0
-              } | WLR: ${player.stats.duels?.[duel]?.[
-                Object.keys(player.stats.duels[duel])[0]
-              ]?.WLRatio ?? 0
+              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${
+                player.stats.duels?.[duel]?.[
+                  Object.keys(player.stats.duels[duel])[0]
+                ]?.division ?? "Unknown"
+              }] ${username ?? 0} Wins: ${
+                player.stats.duels?.[duel]?.[
+                  Object.keys(player.stats.duels[duel])[0]
+                ]?.wins ?? 0
+              } | CWS: ${
+                player.stats.duels?.[duel]?.[
+                  Object.keys(player.stats.duels[duel])[0]
+                ]?.winstreak ?? 0
+              } | BWS: ${
+                player.stats.duels?.[duel]?.[
+                  Object.keys(player.stats.duels[duel])[0]
+                ]?.bestWinstreak ?? 0
+              } | WLR: ${
+                player.stats.duels?.[duel]?.[
+                  Object.keys(player.stats.duels[duel])[0]
+                ]?.WLRatio ?? 0
               }`
             );
           } else {
             this.send(
-              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${player.stats.duels?.[duel]?.division ?? "Unknown"
-              }] ${username ?? 0} Wins: ${player.stats.duels?.[duel]?.wins ?? 0
-              } | CWS: ${player.stats.duels?.[duel]?.winstreak ?? 0} | BWS: ${player.stats.duels?.[duel]?.bestWinstreak ?? 0
+              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${
+                player.stats.duels?.[duel]?.division ?? "Unknown"
+              }] ${username ?? 0} Wins: ${
+                player.stats.duels?.[duel]?.wins ?? 0
+              } | CWS: ${player.stats.duels?.[duel]?.winstreak ?? 0} | BWS: ${
+                player.stats.duels?.[duel]?.bestWinstreak ?? 0
               } | WLR: ${player.stats.duels?.[duel]?.WLRatio ?? 0}`
             );
           }
         }
       });
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
-        method: "POST",
-      }).then((res) => {
+      fetch(
+        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => {
         if (res.status == 201) {
-          console.log(`Successfully registered ${player.nickname} in the database!`);
+          console.log(
+            `Successfully registered ${player.nickname} in the database!`
+          );
         } else if (res.status == 400) {
-          console.log(`${player.nickname} is already registered in the database!`);
+          console.log(
+            `${player.nickname} is already registered in the database!`
+          );
         } else {
-          console.log(`An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
+          console.log(
+            `An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`
+          );
         }
       });
     } catch (error) {
       console.log(error);
-      this.send("/gc There is no player with the given name or this duel does not exist.");
+      this.send(
+        "/gc There is no player with the given name or this duel does not exist."
+      );
     }
   }
 }

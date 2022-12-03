@@ -7,7 +7,6 @@ const fetch = (...args) =>
     .then(({ default: fetch }) => fetch(...args))
     .catch((err) => console.log(err));
 
-
 class GuildEXPCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
@@ -21,21 +20,30 @@ class GuildEXPCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const arg = this.getArgs(message);
-      if (arg[0]) username = arg[0]
-      var player = await hypixel.getPlayer(username)
-      var guild = await hypixel.getGuild('player', username)
-      var rawGexp = guild.me.weeklyExperience
-      var gexp = addCommas(rawGexp)
-      this.send(`/gc ${username}'s GEXP is ${gexp}`)
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
-        method: "POST",
-      }).then((res) => {
+      if (arg[0]) username = arg[0];
+      var player = await hypixel.getPlayer(username);
+      var guild = await hypixel.getGuild("player", username);
+      var rawGexp = guild.me.weeklyExperience;
+      var gexp = addCommas(rawGexp);
+      this.send(`/gc ${username}'s GEXP is ${gexp}`);
+      fetch(
+        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => {
         if (res.status == 201) {
-          console.log(`Successfully registered ${player.nickname} in the database!`);
+          console.log(
+            `Successfully registered ${player.nickname} in the database!`
+          );
         } else if (res.status == 400) {
-          console.log(`${player.nickname} is already registered in the database!`);
+          console.log(
+            `${player.nickname} is already registered in the database!`
+          );
         } else {
-          console.log(`An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
+          console.log(
+            `An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`
+          );
         }
       });
     } catch (error) {

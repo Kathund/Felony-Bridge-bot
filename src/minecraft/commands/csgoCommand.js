@@ -6,7 +6,6 @@ const fetch = (...args) =>
     .then(({ default: fetch }) => fetch(...args))
     .catch((err) => console.log(err));
 
-
 class CSGOCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
@@ -22,17 +21,28 @@ class CSGOCommand extends minecraftCommand {
     try {
       const args = this.getArgs(message);
       if (args[0]) username = args[0];
-      const player = hypixel.getPlayer(username)
-      this.send(`/gc [ ${player.rank} ] ${player.nickanme}: Cops And Crims Stats | Kills: ${player.stats.copsandcrims.kills} Deaths: ${player.stats.copsandcrims.deaths} KD: ${player.stats.copsandcrims.KDRatio} | Wins ${player.stats.copsandcrims.wins}`)
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
-        method: "POST",
-      }).then((res) => {
+      const player = hypixel.getPlayer(username);
+      this.send(
+        `/gc [ ${player.rank} ] ${player.nickanme}: Cops And Crims Stats | Kills: ${player.stats.copsandcrims.kills} Deaths: ${player.stats.copsandcrims.deaths} KD: ${player.stats.copsandcrims.KDRatio} | Wins ${player.stats.copsandcrims.wins}`
+      );
+      fetch(
+        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => {
         if (res.status == 201) {
-          console.log(`Successfully registered ${player.nickname} in the database!`);
+          console.log(
+            `Successfully registered ${player.nickname} in the database!`
+          );
         } else if (res.status == 400) {
-          console.log(`${player.nickname} is already registered in the database!`);
+          console.log(
+            `${player.nickname} is already registered in the database!`
+          );
         } else {
-          console.log(`An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`);
+          console.log(
+            `An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`
+          );
         }
       });
     } catch (error) {

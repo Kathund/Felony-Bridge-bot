@@ -2,10 +2,10 @@ const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
 const fetch = (...args) =>
-    import("node-fetch")
-        .then(({ default: fetch }) => fetch(...args))
-        .catch((err) => console.log(err));
-        
+  import("node-fetch")
+    .then(({ default: fetch }) => fetch(...args))
+    .catch((err) => console.log(err));
+
 class SkywarsCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
@@ -26,15 +26,24 @@ class SkywarsCommand extends minecraftCommand {
       this.send(
         `/gc [${player.stats.skywars.level}✫] ${player.nickname} Kills: ${player.stats.skywars.kills} KDR:${player.stats.skywars.KDRatio} | Wins: ${player.stats.skywars.wins} WLR:${player.stats.skywars.WLRatio}| WS:${player.stats.skywars.winstreak}`
       );
-      fetch(`https://api.pixelic.de/v1/player/register?key=${config.api.pixelKey}&uuid=${player.uuid}`, {
-      method: "POST",
-      }).then((res) => {
+      fetch(
+        `https://api.pixelic.de/v1/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
+        {
+          method: "POST",
+        }
+      ).then((res) => {
         if (res.status == 201) {
-          console.log(`/Successfully registered ${player.nickname} in the database!`);
+          console.log(
+            `/Successfully registered ${player.nickname} in the database!`
+          );
         } else if (res.status == 400) {
-          console.log(`/${player}.nickname is already registered in the database!`);
+          console.log(
+            `/${player}.nickname is already registered in the database!`
+          );
         } else {
-          console.log(`/An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`);
+          console.log(
+            `/An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`
+          );
         }
       });
     } catch (error) {

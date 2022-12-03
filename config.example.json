@@ -84,8 +84,8 @@
     "antiSniperAPI": "https://api.antisniper.net",
     "antiSniperKey": "ANTISNIPER_API_KEY",
     "skyShiiyuAPI": "https://sky.shiiyu.moe/api/v2",
-    "pixelAPI": "https://api.pixelic.de/v1/player",
-    "pixelKey": "PIXEL_API_KEY",
+    "pixelicAPI": "https://api.pixelic.de/v1/player",
+    "pixelicKey": "PIXELIC_API_KEY",
     "imgurAPIkey": "IMGUR_API_KEY"
   }
 }
