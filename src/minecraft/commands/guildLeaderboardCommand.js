@@ -47,7 +47,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
       }
 
       fetch(
-        `https://api.pixelic.de/v1/leaderboard/guild?key=${
+        `${config.api.pixelicAPI}/leaderboard/guild?key=${
           config.api.pixelicKey
         }&mode=${mode.toLowerCase()}&timeframe=${timeframe.toLowerCase()}&limit=10&uuid=${await getUUID(
           username

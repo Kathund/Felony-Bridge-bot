@@ -47,7 +47,7 @@ class LeaderboardCommand extends minecraftCommand {
       }
 
       fetch(
-        `https://api.pixelic.de/v1/leaderboard?key=${
+        `${config.api.pixelicAPI}/leaderboard?key=${
           config.api.pixelicKey
         }&mode=${mode.toLowerCase()}&timeframe=${timeframe.toLowerCase()}&limit=10`
       ).then((res) => {
