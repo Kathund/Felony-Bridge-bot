@@ -195,19 +195,19 @@ function getLevelRespectingPrestige(level) {
 }
 
 function getBedwarsLevel(exp) {
-  var prestiges = Math.floor(exp / XP_PER_PRESTIGE);
-  var level = prestiges * LEVELS_PER_PRESTIGE;
-  var expWithoutPrestiges = exp - prestiges * XP_PER_PRESTIGE;
+  var prestiges = Math.floor(exp / XP_PER_PRESTIGE)
+  var level = prestiges * LEVELS_PER_PRESTIGE
+  var expWithoutPrestiges = exp - prestiges * XP_PER_PRESTIGE
 
   for (let i = 1; i <= EASY_LEVELS; ++i) {
-    var expForEasyLevel = getExpForLevel(i);
+    var expForEasyLevel = getExpForLevel(i)
     if (expWithoutPrestiges < expForEasyLevel) {
       break;
     }
-    level++;
-    expWithoutPrestiges -= expForEasyLevel;
+    level++
+    expWithoutPrestiges -= expForEasyLevel
   }
-  return level + expWithoutPrestiges / 5000;
+  return level + expWithoutPrestiges / 5000
 }
 
 function getSkywarsLevel(exp) {
