@@ -76,6 +76,13 @@ class StateHandler extends eventHandler {
           getLatestProfile(uuid)
         ])
         let meetRequirements = false;
+        let hasHypixelLevel = false;
+        let hasBWStars = false;
+        let hasBWFKDR = false;
+        let hasBWWins = false;
+        let hasSWWins = false;
+        let hasDuelsWins = false;
+        let hasDuelsWLR = false;
 
         const hypixelLevel = player.level
         const bwStars = player.stats.bedwars.level
@@ -85,13 +92,15 @@ class StateHandler extends eventHandler {
         const duelsWins = player.stats.duels.wins
         const duelsWLR = player.stats.duels.WLRatio
 
-        if (hypixelLevel > config.minecraft.guild.requirements.hypixelNetworkLevel) meetRequirements = true;
-        if (bwStars > config.minecraft.guild.requirements.bedwarsStars) if (bwFKDR > config.minecraft.guild.requirements.bedwarsFKDR) meetRequirements = true;
-        if (bwFKDR > config.minecraft.guild.requirements.bedwarsFKDR) if (bwStars > config.minecraft.guild.requirements.bedwarsStars) meetRequirements = true;
-        if (bwWins > config.minecraft.guild.requirements.bedwarsWins) meetRequirements = true;
-        if (swWins > config.minecraft.guild.requirements.skywarsWins) meetRequirements = true;
-        if (duelsWins > config.minecraft.guild.requirements.dulesWins) if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) meetRequirements = true;
-        if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) if (duelsWins > config.minecraft.guild.requirements.duelsWins) meetRequirements = true;
+        if (hypixelLevel > config.minecraft.guild.requirements.hypixelNetworkLevel) hasHypixelLevel = true, meetRequirements = true;
+        if (bwStars > config.minecraft.guild.requirements.bedwarsStars) hasBWStars = true
+        if (bwFKDR > config.minecraft.guild.requirements.bedwarsFKDR) hasBWFKDR = true;
+        if (hasBWStars == true && hasBWFKDR == true) meetRequirements = true;
+        if (bwWins > config.minecraft.guild.requirements.bedwarsWins) hasBWWins = true, meetRequirements = true;
+        if (swWins > config.minecraft.guild.requirements.skywarsWins) hasSWWins = true, meetRequirements = true;
+        if (duelsWins > config.minecraft.guild.requirements.dulesWins) hasDuelsWins = true
+        if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) hasDuelsWLR = true
+        if (hasDuelsWins == true && hasDuelsWLR == true) meetRequirements = true;
         
         var rank = player.rank
         if (player.rank == "VIP") rank = "<:VIP1:987758621108609174><:VIP2:987758622073303081><:VIP3:987758623126073406>"
@@ -106,17 +115,15 @@ class StateHandler extends eventHandler {
         if (meetRequirements == true) {
           bot.chat(`/oc ${rank} ${player.nickname}: has the requirements to join ${config.minecraft.guild.name}!`)
           const statsEmbed = new EmbedBuilder()
-            .setColor(2067276)
+            .setColor("0x1FFF4C")
             .setTitle(`[${player.rank}] ${player.nickname}: has requested to join the Guild!`)
             .setDescription(`${player.nickname} **has** the requirements to join the Guild!`)
             .addFields(
-              { name: 'Hypixel Level', value: `${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel}`, inline: true },
-              { name: 'Bedwars Stars', value: `${bwStars}/${config.minecraft.guild.requirements.bedwarsStars}`, inline: true },
-              { name: 'Bedwars FKDR', value: `${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR}`, inline: true },
-              { name: 'Bedwars Wins', value: `${addCommas(bwWins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)}`, inline: true },
-              { name: 'Skywars Wins', value: `${addCommas(swWins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)}`, inline: true },
-              { name: 'Duels Wins', value: `${addCommas(duelsWins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)}`, inline: true },
-              { name: 'Duels WLR', value: `${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR}`, inline: true },
+              { name: 'General', value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel} ${hasHypixelLevel ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Bedwars 1', value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars} ${hasBWStars ? config.discord.emojis.yes : config.discord.emojis.no}\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Bedwars 2', value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins} ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Skywars', value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins} ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Duels', value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins} ${hasDuelsWins ? config.discord.emojis.yes : config.discord.emojis.no}\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR} ${hasDuelsWLR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
             )
             .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
             .setTimestamp()
@@ -128,17 +135,15 @@ class StateHandler extends eventHandler {
           }
         } else {
           const statsEmbed = new EmbedBuilder()
-            .setColor(15346463)
+            .setColor("0xf92121")
             .setTitle(`${rank} ${player.nickname}: has requested to join the Guild!`)
             .setDescription(`${player.nickname} **dose not** have the requirements to join the Guild!`)
             .addFields(
-              { name: 'Hypixel Level', value: `${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel}`, inline: true },
-              { name: 'Bedwars Stars', value: `${bwStars}/${config.minecraft.guild.requirements.bedwarsStars}`, inline: true },
-              { name: 'Bedwars FKDR', value: `${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR}`, inline: true },
-              { name: 'Bedwars Wins', value: `${addCommas(bwWins)}/${addCommas(config.minecraft.guild.requirements.bedwarsWins)}`, inline: true },
-              { name: 'Skywars Wins', value: `${addCommas(swWins)}/${addCommas(config.minecraft.guild.requirements.skywarsWins)}`, inline: true },
-              { name: 'Duels Wins', value: `${addCommas(duelsWins)}/${addCommas(config.minecraft.guild.requirements.duelsWins)}`, inline: true },
-              { name: 'Duels WLR', value: `${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR}`, inline: true },
+              { name: 'General', value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel} ${hasHypixelLevel ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Bedwars 1', value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars} ${hasBWStars ? config.discord.emojis.yes : config.discord.emojis.no}\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR} ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Bedwars 2', value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins} ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Skywars', value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins} ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
+              { name: 'Duels', value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins} ${hasDuelsWins ? config.discord.emojis.yes : config.discord.emojis.no}\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR} ${hasDuelsWLR ? config.discord.emojis.yes : config.discord.emojis.no}`, inline: false },
             )
             .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
             .setTimestamp()
