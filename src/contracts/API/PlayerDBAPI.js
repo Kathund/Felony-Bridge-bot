@@ -1,22 +1,13 @@
 const axios = require("axios");
-const config = require("../../../config.json");
 
 async function getUUID(username) {
-  try {
-    const response = await axios.get(`${config.api.playerDBAPI}/${username}`);
-    return response.data.data.player.raw_id;
-  } catch (error) {
-    console.log(error);
-  }
+    const fetch = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${username}`)
+    return fetch.data.id
 }
 
 async function getUsername(uuid) {
-  try {
-    const response = await axios.get(`${config.api.playerDBAPI}/${uuid}`);
-    return response.data.data.player.username;
-  } catch (error) {
-    console.log(error);
-  }
+    const fetch = await axios.get(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
+    return fetch.data.name
 }
 
 module.exports = { getUUID, getUsername };
