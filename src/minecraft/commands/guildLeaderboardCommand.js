@@ -16,7 +16,7 @@ async function getUUID(Username) {
   return fetch.data.id
 }
 
-class GuildLeaderboardCommand extends minecraftCommand {
+class guildLeaderboardCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft)
 
@@ -296,4 +296,4 @@ class GuildLeaderboardCommand extends minecraftCommand {
   }
 }
 
-module.exports = GuildLeaderboardCommand
+module.exports = guildLeaderboardCommand
