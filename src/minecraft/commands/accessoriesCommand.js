@@ -26,7 +26,7 @@ class AccessoriesCommand extends minecraftCommand {
           "/gc There is no player with the given UUID or name or the player has no Skyblock profiles."
         );
       }
-      // a
+      
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const talismans = await getTalismans(data.profile);
       const common = talismans?.common?.length,
