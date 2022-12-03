@@ -49,8 +49,8 @@ class BedwarsCommand extends minecraftCommand {
           `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } | Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
           } | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
-          } | Wins: ${player.stats.bedwars.wins} WLR: ${player.stats.bedwars.WLRatio
-          } | BB: ${player.stats.bedwars.beds.broken} BLR: ${player.stats.bedwars.beds.BLRatio
+          } | Wins: ${addNotation("oneLetters", player.stats.bedwars.wins)} WLR: ${player.stats.bedwars.WLRatio
+          } | BB: ${addNotation("oneLetters", player.stats.bedwars.beds.broken)} BLR: ${player.stats.bedwars.beds.BLRatio
           } | WS: ${player.stats.bedwars.winstreak
           } | Items Collected: Iron: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.iron)} Gold: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.gold)} Diamonds: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.diamond)} Emeralds: ${addNotation("oneLetters", player.stats.bedwars.collectedItemsTotal.emerald)}`
         );
@@ -59,8 +59,8 @@ class BedwarsCommand extends minecraftCommand {
           `/gc [${player.stats.bedwars.level}${star}] ${player.nickname} ${capitalize(
             mode
           )} FK: ${addCommas(player.stats.bedwars[mode].finalKills)} FKDR: ${player.stats.bedwars[mode].finalKDRatio
-          } Wins: ${player.stats.bedwars[mode].wins} WLR: ${player.stats.bedwars[mode].WLRatio
-          } BB: ${player.stats.bedwars[mode].beds.broken} BLR: ${player.stats.bedwars[mode].beds.BLRatio
+          } Wins: ${addCommas(player.stats.bedwars[mode].wins)} WLR: ${player.stats.bedwars[mode].WLRatio
+          } BB: ${addCommas(player.stats.bedwars[mode].beds.broken)} BLR: ${player.stats.bedwars[mode].beds.BLRatio
           } WS: ${player.stats.bedwars[mode].winstreak}`
         );
       }
