@@ -156,7 +156,7 @@ class StateHandler extends eventHandler {
           `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt"
           } the requirements to join ${config.minecraft.guild.name}!`
         );
-        console.log(playere.plusColor)
+        console.log(player.plusColor)
         const statsEmbed = new EmbedBuilder()
           .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
           .setTitle(
