@@ -139,21 +139,17 @@ class StateHandler extends eventHandler {
         }
         
         var plusColor = player.plusColor
+        var plusPlusColor = player.prefixColor
 
         var rank = player.rank;
         if (player.rank == "VIP") rank = config.discord.emojis.ranks.VIP
         if (player.rank == "VIP+") rank = config.discord.emojis.ranks.VIP_PLUS
         if (player.rank == "MVP") rank = config.discord.emojis.ranks.MVP
         if (player.rank == "MVP+") rank = config.discord.emojis.ranks.MVP_PLUS[plusColor.color]
-
+        if (player.rank == "MVP++") rank = config.discord.emojis.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
         if (player.rank == "Game Master") rank = config.discord.emojis.ranks.GAME_MASTER
         if (player.rank == "Admin") rank = config.discord.emojis.ranks.ADMIN
         if (player.rank == "Youtube") rank = config.discord.emojis.ranks.YOUTUBE
-        if (player.rank == "MVP++") {
-          rank =
-            "<:GoldM:987758429928042537><:GoldMVP:987758431542861824><:GoldRed1:987758477202047007><:GoldRed2:987758478389043200>";
-        }
-
         bot.chat(
           `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt"
           } the requirements to join ${config.minecraft.guild.name}!`
