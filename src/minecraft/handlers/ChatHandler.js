@@ -173,8 +173,7 @@ class StateHandler extends eventHandler {
         }
 
         bot.chat(
-          `/oc [${player.rank}] ${player.nickname}: ${
-            meetRequirements ? "has" : "hasnt"
+          `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt"
           } the requirements to join ${config.minecraft.guild.name}!`
         );
         const statsEmbed = new EmbedBuilder()
@@ -183,70 +182,55 @@ class StateHandler extends eventHandler {
             `${rank} ${player.nickname}: has requested to join the Guild!`
           )
           .setDescription(
-            `${player.nickname} ${
-              meetRequirements ? "**has**" : "**dose not**"
+            `${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"
             } the requirements to join the Guild!`
           )
           .addFields(
             {
               name: "General",
-              value: `Level - ${hypixelLevel}/${
-                config.minecraft.guild.requirements.hypixelNetworkLevel
-              } ${
-                hasHypixelLevel
+              value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel
+                } ${hasHypixelLevel
                   ? config.discord.emojis.yes
                   : config.discord.emojis.no
-              }`,
+                }`,
               inline: false,
             },
             {
               name: "Bedwars 1",
-              value: `Stars - ${bwStars}/${
-                config.minecraft.guild.requirements.bedwarsStars
-              } ${
-                hasBWStars
+              value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars
+                } ${hasBWStars
                   ? config.discord.emojis.yes
                   : config.discord.emojis.no
-              }\nFKDR - ${bwFKDR}/${
-                config.minecraft.guild.requirements.bedwarsFKDR
-              } ${
-                hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no
-              }`,
+                }\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR
+                } ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no
+                }`,
               inline: false,
             },
             {
               name: "Bedwars 2",
-              value: `Wins - ${bwWins}/${
-                config.minecraft.guild.requirements.bedwarsWins
-              } ${
-                hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no
-              }`,
+              value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins
+                } ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no
+                }`,
               inline: false,
             },
             {
               name: "Skywars",
-              value: `Wins - ${swWins}/${
-                config.minecraft.guild.requirements.skywarsWins
-              } ${
-                hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no
-              }`,
+              value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins
+                } ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no
+                }`,
               inline: false,
             },
             {
               name: "Duels",
-              value: `Wins - ${duelsWins}/${
-                config.minecraft.guild.requirements.duelsWins
-              } ${
-                hasDuelsWins
+              value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins
+                } ${hasDuelsWins
                   ? config.discord.emojis.yes
                   : config.discord.emojis.no
-              }\nWLR - ${duelsWLR}/${
-                config.minecraft.guild.requirements.duelsWLR
-              } ${
-                hasDuelsWLR
+                }\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR
+                } ${hasDuelsWLR
                   ? config.discord.emojis.yes
                   : config.discord.emojis.no
-              }`,
+                }`,
               inline: false,
             }
           )
