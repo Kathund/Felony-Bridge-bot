@@ -73,10 +73,8 @@ class DailyStatsCommand extends minecraftCommand {
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
         this.send(
-          `/gc ${
-            player == username ? "You are" : `${player} is`
-          } not in the database. ${
-            player == username ? "You are" : `${player} is`
+          `/gc ${player == username ? "You are" : `${player} is`
+          } not in the database. ${player == username ? "You are" : `${player} is`
           } being added to the database..`
         );
 
