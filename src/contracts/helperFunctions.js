@@ -309,6 +309,9 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
 
+    console.log(`[${bedwarsLevel}✫] ${player} FK: ${addCommas(
+      bedwarsFinalKills
+    )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`)
     return `[${bedwarsLevel}✫] ${player} FK: ${addCommas(
       bedwarsFinalKills
     )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
