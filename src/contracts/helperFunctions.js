@@ -254,9 +254,9 @@ async function getStats(player, uuid, mode, time, username) {
     const bedwarsData = response.data.player.stats.Bedwars;
     const oldBedwarsData = response24H.data.Bedwars;
 
-    const bedwarsLevel = (
-      getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-    ).toFixed(3);
+    // const bedwarsLevel = (
+    //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+    // ).toFixed(3);
 
     var bedwarsWins =
       bedwarsData.wins_bedwars === undefined
@@ -309,9 +309,12 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3;
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3;
 
-    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    return `/gc ${player} FK: ${addCommas(
       bedwarsFinalKills
     )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`;
+    // return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    //   bedwarsFinalKills
+    // )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`;
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars;
     const oldSkywarsData = response24H.data.Skywars;
