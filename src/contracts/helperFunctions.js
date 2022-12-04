@@ -256,9 +256,10 @@ async function getStats(player, uuid, mode, time, username) {
     const bedwarsData = response.data.player.stats.Bedwars
     const oldBedwarsData = response24H.data.Bedwars
 
-    const bedwarsLevel = (
-      getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-    ).toFixed(3)
+    // const bedwarsLevel = (
+    //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+    // ).toFixed(3)
+    const bedwarsLevel = 69420
     console.log(`ran bedwars level check - ${bedwarsLevel}`)
 
     var bedwarsWins =
