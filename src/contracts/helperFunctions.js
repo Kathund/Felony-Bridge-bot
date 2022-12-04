@@ -254,6 +254,7 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
+    console.log(response.data)
     const bedwarsData = response.data.player.stats.Bedwars
     console.log(`Current data loaded`)
     const oldBedwarsData = response24H.data.Bedwars
