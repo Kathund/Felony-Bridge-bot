@@ -234,7 +234,7 @@ async function getStats(player, uuid, mode, time, username) {
       `${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`
     ),
     axios.get(
-      `${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`
+      `https://api.pixelic.de/v1/player/${time}?key=${config.api.pixelicKey}&uuid=${uuid}`
     ),
   ])
   var lastTime = "24 hours"
