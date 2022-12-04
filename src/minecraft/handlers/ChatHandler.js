@@ -137,12 +137,14 @@ class StateHandler extends eventHandler {
         if (hasDuelsWins == true && hasDuelsWLR == true) {
           meetRequirements = true;
         }
+        
+        var plusColor = player.plusColor
 
         var rank = player.rank;
         if (player.rank == "VIP") rank = config.discord.emojis.ranks.VIP
         if (player.rank == "VIP+") rank = config.discord.emojis.ranks.VIP_PLUS
         if (player.rank == "MVP") rank = config.discord.emojis.ranks.MVP
-        if (player.rank == "MVP+") rank = config.discord.emojis.ranks.MVP_PLUS[player.plusColor.toString()]
+        if (player.rank == "MVP+") rank = config.discord.emojis.ranks.MVP_PLUS[plusColor.color]
 
         if (player.rank == "Game Master") rank = config.discord.emojis.ranks.GAME_MASTER
         if (player.rank == "Admin") rank = config.discord.emojis.ranks.ADMIN
