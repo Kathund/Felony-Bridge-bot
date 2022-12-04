@@ -252,9 +252,9 @@ async function getStats(player, uuid, mode, time, username) {
 
     return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
-    console.log(`ran bw stats`)
     const bedwarsData = response.data.player.stats.Bedwars
     const oldBedwarsData = response24H.data.Bedwars
+    console.log(`ran bw stats`)
 
     // const bedwarsLevel = (
     //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
