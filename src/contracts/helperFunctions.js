@@ -309,7 +309,7 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
 
-    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    return `[${bedwarsLevel}✫] ${player} FK: ${addCommas(
       bedwarsFinalKills
     )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
