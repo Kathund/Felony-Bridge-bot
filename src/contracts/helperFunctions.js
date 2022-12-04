@@ -194,21 +194,21 @@ function getLevelRespectingPrestige(level) {
   }
 }
 
-function getBedwarsLevel(exp) {
-  var prestiges = Math.floor(exp / XP_PER_PRESTIGE)
-  var level = prestiges * LEVELS_PER_PRESTIGE
-  var expWithoutPrestiges = exp - prestiges * XP_PER_PRESTIGE
+// function getBedwarsLevel(exp) {
+//   var prestiges = Math.floor(exp / XP_PER_PRESTIGE)
+//   var level = prestiges * LEVELS_PER_PRESTIGE
+//   var expWithoutPrestiges = exp - prestiges * XP_PER_PRESTIGE
 
-  for (let i = 1; i <= EASY_LEVELS; ++i) {
-    var expForEasyLevel = getExpForLevel(i)
-    if (expWithoutPrestiges < expForEasyLevel) {
-      break;
-    }
-    level++
-    expWithoutPrestiges -= expForEasyLevel
-  }
-  return level + expWithoutPrestiges / 5000
-}
+//   for (let i = 1; i <= EASY_LEVELS; ++i) {
+//     var expForEasyLevel = getExpForLevel(i)
+//     if (expWithoutPrestiges < expForEasyLevel) {
+//       break;
+//     }
+//     level++
+//     expWithoutPrestiges -= expForEasyLevel
+//   }
+//   return level + expWithoutPrestiges / 5000
+// }
 
 function getSkywarsLevel(exp) {
   var xps = [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000];
