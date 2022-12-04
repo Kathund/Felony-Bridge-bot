@@ -255,6 +255,12 @@ async function getStats(player, uuid, mode, time, username) {
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
     console.log(response.data)
+
+    // TODO fix it
+    // TODO current status - dont know where the error is
+    // TODO im using console.log in the code to see what is the problem
+    // TODO currenly it dosent like `const bedwarsData = response.data.player.stats.Bedwars`
+    
     const bedwarsData = response.data.player.stats.Bedwars
     console.log(`Current data loaded`)
     const oldBedwarsData = response24H.data.Bedwars
