@@ -159,7 +159,7 @@ class StateHandler extends eventHandler {
         const statsEmbed = new EmbedBuilder()
           .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
           .setTitle(
-            `${rank} ${player.nickname}: has requested to join the Guild!`
+            `${rank}   ${player.nickname}: has requested to join the Guild!`
           )
           .setDescription(
             `${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"
