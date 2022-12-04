@@ -254,13 +254,13 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
-    console.log(response.data)
+    console.log(response)
 
     // TODO fix it
     // TODO current status - dont know where the error is
     // TODO im using console.log in the code to see what is the problem
     // TODO currenly it dosent like `const bedwarsData = response.data.player.stats.Bedwars`
-    
+
     const bedwarsData = response.data.player.stats.Bedwars
     console.log(`Current data loaded`)
     const oldBedwarsData = response24H.data.Bedwars
