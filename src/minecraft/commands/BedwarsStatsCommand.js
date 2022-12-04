@@ -50,21 +50,18 @@ class BedwarsCommand extends minecraftCommand {
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${
-            player.nickname
+          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } | Coins: ${addNotation(
             "oneLetters",
             player.stats.bedwars.coins
-          )} | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${
-            player.stats.bedwars.finalKDRatio
+          )} | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
           } | Wins: ${addNotation(
             "oneLetters",
             player.stats.bedwars.wins
           )} WLR: ${player.stats.bedwars.WLRatio} | BB: ${addNotation(
             "oneLetters",
             player.stats.bedwars.beds.broken
-          )} BLR: ${player.stats.bedwars.beds.BLRatio} | WS: ${
-            player.stats.bedwars.winstreak
+          )} BLR: ${player.stats.bedwars.beds.BLRatio} | WS: ${player.stats.bedwars.winstreak
           } | Items Collected: Iron: ${addNotation(
             "oneLetters",
             player.stats.bedwars.collectedItemsTotal.iron
@@ -81,16 +78,14 @@ class BedwarsCommand extends minecraftCommand {
         );
       } else if (mode) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${
-            player.nickname
+          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } ${capitalize(mode)} FK: ${addCommas(
             player.stats.bedwars[mode].finalKills
           )} FKDR: ${player.stats.bedwars[mode].finalKDRatio} Wins: ${addCommas(
             player.stats.bedwars[mode].wins
           )} WLR: ${player.stats.bedwars[mode].WLRatio} BB: ${addCommas(
             player.stats.bedwars[mode].beds.broken
-          )} BLR: ${player.stats.bedwars[mode].beds.BLRatio} WS: ${
-            player.stats.bedwars[mode].winstreak
+          )} BLR: ${player.stats.bedwars[mode].beds.BLRatio} WS: ${player.stats.bedwars[mode].winstreak
           }`
         );
       }
