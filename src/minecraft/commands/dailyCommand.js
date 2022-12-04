@@ -69,7 +69,7 @@ class DailyStatsCommand extends minecraftCommand {
     const uuid = await getUUID(player);
 
     try {
-      // this.send(`/go ${await getStats(player, uuid, mode, "daily", username)}`);
+      this.send(`/gc ${await getStats(player, uuid, mode, "daily", username)}`);
       console.log(await getStats(player, uuid, mode, "daily", username));
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
