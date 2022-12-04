@@ -228,6 +228,7 @@ function getSkywarsLevel(exp) {
 }
 
 async function getStats(player, uuid, mode, time, username) {
+  console.log(`ran`)
   const [response, response24H] = await Promise.all([
     axios.get(
       `${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`
@@ -251,12 +252,14 @@ async function getStats(player, uuid, mode, time, username) {
 
     return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
+    console.log(`ran bw stats`)
     const bedwarsData = response.data.player.stats.Bedwars
     const oldBedwarsData = response24H.data.Bedwars
 
     const bedwarsLevel = (
       getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
     ).toFixed(3)
+    console.log(`ran bedwars level check - ${bedwarsLevel}`)
 
     var bedwarsWins =
       bedwarsData.wins_bedwars === undefined
@@ -308,6 +311,8 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsWlr = bedwarsWlr1 || bedwarsWlr2 || bedwarsWlr3
     var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
+    console.log(`ran all the math`)
+
 
     console.log(`[${bedwarsLevel}✫] ${player} FK: ${addCommas(
       bedwarsFinalKills
