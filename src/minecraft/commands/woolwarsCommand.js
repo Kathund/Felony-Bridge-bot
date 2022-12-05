@@ -28,7 +28,8 @@ class WoolwarsCommand extends minecraftCommand {
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
-
+      let hidden = false;
+      if (msg[0] == ["hidden", "hide", "h"]) hidden = true;
       const uuid = await getUUID(username);
       const woolWars = (
         await axios.get(
@@ -38,7 +39,7 @@ class WoolwarsCommand extends minecraftCommand {
       const level = getWoolWarsStar(woolWars.progression.experience);
 
       this.send(
-        `/gc [${toFixed(level, 0)}✫] ${username} » W: ${
+        `${hidden ? "/oc" : "/gc"} [${toFixed(level, 0)}✫] ${username} » W: ${
           woolWars.wool_wars.stats.wins
         } | WLR: ${toFixed(
           woolWars.wool_wars.stats.wins / woolWars.wool_wars.stats.games_played,

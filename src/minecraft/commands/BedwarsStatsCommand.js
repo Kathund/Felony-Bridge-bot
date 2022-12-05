@@ -26,6 +26,7 @@ class BedwarsCommand extends minecraftCommand {
     try {
       const msg = this.getArgs(message);
       let mode = null;
+      let hidden = false
 
       if (["solo", "doubles", "threes", "fours", "4v4"].includes(msg[0])) {
         mode = msg[0];
@@ -33,14 +34,11 @@ class BedwarsCommand extends minecraftCommand {
           username = msg[1];
         }
       } else {
-        if (msg[0] && !msg[0].includes("/")) {
-          username = msg[0];
-        }
-
-        if (["solo", "doubles", "threes", "fours", "4v4"].includes(msg[1])) {
-          mode = msg[1];
-        }
+        if (msg[0] && !msg[0].includes("/")) username = msg[0];
+        if (["solo", "doubles", "threes", "fours", "4v4"].includes(msg[1])) mode = msg[1];
       }
+
+      if (msg[2] == ["hidden", "hide", "h"]) hidden = true
 
       const player = await hypixel.getPlayer(username);
       var star = "${star}";
@@ -50,7 +48,7 @@ class BedwarsCommand extends minecraftCommand {
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
+          `${hidden ? '/go' : '/gc'} [${player.stats.bedwars.level}${star}] ${player.nickname
           } | Coins: ${addNotation(
             "oneLetters",
             player.stats.bedwars.coins
@@ -78,7 +76,7 @@ class BedwarsCommand extends minecraftCommand {
         );
       } else if (mode) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
+          `${hidden ? '/go' : '/gc'} [${player.stats.bedwars.level}${star}] ${player.nickname
           } ${capitalize(mode)} FK: ${addCommas(
             player.stats.bedwars[mode].finalKills
           )} FKDR: ${player.stats.bedwars[mode].finalKDRatio} Wins: ${addCommas(

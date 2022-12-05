@@ -21,13 +21,15 @@ class DenickerCommand extends minecraftCommand {
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
+      var hidden = false
+      if (arg[1] == ["hidden", "hide", "h"]) hidden = true
       const player = hypixel.getPlayer(username);
       fetch(
         `${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&name=${username}`
       ).then((res) => {
         res.json().then((data) => {
           this.send(
-            `/gc [${player.stats.bedwars.level}✫] ${
+            `${hidden ? "/oc" : "/gc"} [${player.stats.bedwars.level}✫] ${
               player.nickname
             }: Accurrate » ${data.player.accurate ? "Yes" : "No"} | Overall » ${
               data.player.data.overall_winstreak

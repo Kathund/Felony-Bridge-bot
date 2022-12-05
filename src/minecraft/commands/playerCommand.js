@@ -21,7 +21,9 @@ class PlayerCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const msg = this.getArgs(message);
+      let hidden = false;
       if (msg[0]) username = msg[0];
+      if (msg[1] == ["hidden", "hide", "h"]) hidden = true;
       const player = await hypixel.getPlayer(username);
       const guild = await hypixel.getGuild("player", username);
       const friend = await hypixel.getFriends(username);
@@ -29,16 +31,14 @@ class PlayerCommand extends minecraftCommand {
       var onlineStatus = "Offline";
       if (player.isOnline == true) onlineStatus = "Online";
       this.send(
-        `/gc [${player.rank}] ${player.nickname}: Level: ${
-          player.level
+        `${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname}: Level: ${player.level
         } | ${onlineStatus} | Karma ${addNotation(
           "oneLetters",
           player.karma
         )} | Achievement Points ${addNotation(
           "oneLetters",
           player.achievementPoints
-        )} | Guild: ${guild.name} | Friends: ${friends} | Ranks Gifted: ${
-          player.giftsSent
+        )} | Guild: ${guild.name} | Friends: ${friends} | Ranks Gifted: ${player.giftsSent
         }`
       );
       fetch(

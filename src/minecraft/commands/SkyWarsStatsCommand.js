@@ -20,11 +20,13 @@ class SkywarsCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const msg = this.getArgs(message);
+      let hidden = false;
+      if (msg[0] == ["hidden", "hide", "h"]) hidden = true;
       if (msg[0]) username = msg[0];
       const player = await hypixel.getPlayer(username);
 
       this.send(
-        `/gc [${player.stats.skywars.level}✫] ${player.nickname} Kills: ${player.stats.skywars.kills} KDR:${player.stats.skywars.KDRatio} | Wins: ${player.stats.skywars.wins} WLR:${player.stats.skywars.WLRatio}| WS:${player.stats.skywars.winstreak}`
+        `${hidden ? "/oc" : "/gc"} [${player.stats.skywars.level}✫] ${player.nickname} Kills: ${player.stats.skywars.kills} KDR:${player.stats.skywars.KDRatio} | Wins: ${player.stats.skywars.wins} WLR:${player.stats.skywars.WLRatio}| WS:${player.stats.skywars.winstreak}`
       );
       fetch(
         `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,

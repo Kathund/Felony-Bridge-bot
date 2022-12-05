@@ -20,6 +20,9 @@ class DenickerCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
+      const args = this.getArgs(message);
+      let hidden = false;
+      if (args[1] == ["hidden", "hide", "h"]) hidden = true;
       username = this.getArgs(message)[0];
       const response = (
         await axios.get(
@@ -28,12 +31,12 @@ class DenickerCommand extends minecraftCommand {
       ).data;
 
       if (!response.player?.ign) {
-        return this.send("/gc Sorry, I wasn't able to denick this person.");
+        return this.send(`${hidden ? "/oc" : "/gc"} Sorry, I wasn't able to denick this person`);
       }
 
       const player = await hypixel.getPlayer(response.player?.ign);
       this.send(
-        `/gc ${player.rank ? `[${player.rank}] ` : ``}${
+        `${hidden ? "/oc" : "/gc"}  ${player.rank ? `[${player.rank}] ` : ``}${
           response.player?.ign
         } is nicked as ${response.player.queried_nick}`
       );

@@ -18,6 +18,9 @@ class FindNickCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
+      const args = this.getArgs(message);
+      let hidden = false;
+      if (args[1] == ["hidden", "hide", "h"]) hidden = true;
       username = this.getArgs(message)[0];
       const player = hypixel.getPlayer(username);
       fetch(
@@ -25,7 +28,7 @@ class FindNickCommand extends minecraftCommand {
       ).then((res) => {
         res.json().then((data) => {
           this.send(
-            `/gc [${player.rank}] ${player.nickname}: Nicked - ${data.player.nick}`
+            `${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname}: Nicked - ${data.player.nick}`
           );
         });
       });
