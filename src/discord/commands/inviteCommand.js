@@ -21,8 +21,8 @@ module.exports = {
       const name = interaction.options.getString("name");
       bot.chat(`/g invite ${name}`);
       await interaction.followUp({
-        content: "Command has been executed successfully.",
-        ephemeral: true,
+        content: "Command has been executed successfully - Check <#1035511927524298813>",
+        ephemeral: false,
       });
     } else {
       await interaction.followUp({
