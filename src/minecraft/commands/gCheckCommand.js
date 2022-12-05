@@ -48,13 +48,13 @@ class GCheckCommand extends minecraftCommand {
               await delay(3000)
               this.minecraft.bot.chat(`/g setrank ${player.nickname} Prisoners`)
             } else {
-              this.send(`/go ${player.nickname} dose not have the 50k gxp`)
-              await delay(3000)
               if (config.minecraft.guild.kicking == false) {
-                this.send(`/oc Kicking is disabled`)
+                this.send(`/oc ${player.nickname} dose not have the 50k gxp - Kicking is disabled`)
                 await delay(3000)
                 this.minecraft.bot.chat(`/g setrank ${player.nickname} Prisoners`)
               } else {
+                this.send(`/oc ${player.nickname} dose not have the 50k gxp - Kicking`)
+                await delay(1000)
                 this.send(`/g kick ${player.nickname} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
               }
             }
