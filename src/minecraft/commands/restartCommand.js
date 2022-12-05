@@ -4,7 +4,7 @@ class ExampleCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "example";
+        this.name = "aaaaaaaaaaaaaaaaaaaaaaaaaa";
         this.aliases = [];
         this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         this.options = [];
