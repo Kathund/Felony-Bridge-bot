@@ -17,7 +17,9 @@ class SocialMediaCommand extends minecraftCommand {
             if (msg[0]) username = msg[0]
             var player = hypixel.getPlayer(username)
             this.send(`no`)
-            console.log(player.socialMedia)
+            console.log(player)
+            console.log((await player).socialMedia.links)
+
         } catch (error) {
             console.log(error);
             this.send("/gc Something went wrong..");
