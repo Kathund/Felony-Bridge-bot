@@ -23,7 +23,7 @@ class StateHandler {
     channel.send({
       embeds: [
         {
-          author: { name: `Chat Bridge is Online` },
+          author: { name: `${config.discord.emojis.online} Chat Bridge is Online` },
           color: 2067276,
         },
       ],
@@ -36,7 +36,7 @@ class StateHandler {
     channel.send({
       embeds: [
         {
-          author: { name: `Chat Bridge is Offline` },
+          author: { name: `${config.discord.emojis.offline} Chat Bridge is Offline` },
           color: 15548997,
         }
       ]
