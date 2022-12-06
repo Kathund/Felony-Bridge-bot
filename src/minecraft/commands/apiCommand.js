@@ -1,7 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { addNotation } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { getUUID } = require("../../contracts/api/MojangAPI.js");
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 
 class APICommand extends minecraftCommand {
   constructor(minecraft) {
