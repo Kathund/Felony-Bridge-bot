@@ -3,13 +3,13 @@ const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/api/MojangAPI.js");
 const { addNotation } = require("../../contracts/helperFunctions.js");
 
-class ExampleCommand extends minecraftCommand {
+class APICommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
 
     this.name = "api";
     this.aliases = [];
-    this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    this.description = "api command go brrr";
     this.options = [];
   }
 
@@ -24,4 +24,4 @@ class ExampleCommand extends minecraftCommand {
   }
 }
 
-module.exports = ExampleCommand;
+module.exports = APICommand;
