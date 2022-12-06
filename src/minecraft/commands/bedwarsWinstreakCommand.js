@@ -27,7 +27,7 @@ class DenickerCommand extends minecraftCommand {
       const player = hypixel.getPlayer(username)
       const uuid = await getUUID(username);
       fetch(
-        `${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&uuid=${uuid}`
+        `${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&player=${player.nickname}`
       ).then((res) => {
         res.json().then((data) => {
           console.log(data)
