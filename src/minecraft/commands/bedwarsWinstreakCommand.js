@@ -1,5 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
 const fetch = (...args) =>
   import("node-fetch")
@@ -23,11 +24,13 @@ class DenickerCommand extends minecraftCommand {
       if (arg[0]) username = arg[0];
       var hidden = false
       if (arg[1] == ["hidden", "hide", "h"]) hidden = true
-      const player = hypixel.getPlayer(username);
+      const player = hypixel.getPlayer(username)
+      const uuid = await getUUID(username);
       fetch(
-        `${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&name=${username}`
+        `${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&uuid=${uuid}`
       ).then((res) => {
         res.json().then((data) => {
+          console.log(data)
           this.send(
             `${hidden ? "/oc" : "/gc"} [${player.stats.bedwars.level}✫] ${
               player.nickname
