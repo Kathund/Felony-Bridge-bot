@@ -45,7 +45,7 @@ class BedwarsCommand extends minecraftCommand {
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc\ [${player.stats.bedwars.level}${star}] ${player.nickname
+          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } | Coins: ${addNotation(
             "oneLetters",
             player.stats.bedwars.coins
@@ -73,7 +73,7 @@ class BedwarsCommand extends minecraftCommand {
         );
       } else if (mode) {
         this.send(
-          `${hidden ? '/go' : '/gc'} [${player.stats.bedwars.level}${star}] ${player.nickname
+          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } ${capitalize(mode)} FK: ${addCommas(
             player.stats.bedwars[mode].finalKills
           )} FKDR: ${player.stats.bedwars[mode].finalKDRatio} Wins: ${addCommas(
