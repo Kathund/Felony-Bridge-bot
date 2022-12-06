@@ -16,7 +16,8 @@ class APICommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
         var data = hypixel.getKeyInfo()
-        this.send(`/oc ${await getUUID(data.owner)} ${await addNotation("oneLetters", data.totalRequests)}`)
+        var player = hypixel.getPlayer((await data).owner)
+        this.send(`/oc ${player.nickname} ${addNotation("oneLetters", data.totalRequests)}`)
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
