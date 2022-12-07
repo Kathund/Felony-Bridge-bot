@@ -19,19 +19,10 @@ class CalculateBedwarsCommand extends minecraftCommand {
                 let type = null;
                 let target = null;
 
-                if (msg[0] && !msg[0].includes("/")) {
-                    username = msg[0];
-                    if (['fkdr', 'wlr', 'blr'].includes(msg[1])) type = msg[1];
-                    if (msg[2]) target = msg[2];
-                } else if (msg[1] && !msg[1].includes("/")) {
-                    username = msg[1];
-                    if (['fkdr', 'wlr', 'blr'].includes(msg[0])) type = msg[0];
-                    if (msg[2]) target = msg[2];
-                } else if (msg[2] && !msg[2].includes("/")) {
-                    username = msg[2];
-                    if (['fkdr', 'wlr', 'blr'].includes(msg[0])) type = msg[0];
-                    if (msg[1]) target = msg[1];
-                }
+                // Todo add support for someones username and a gamemode (solo, doubles, threes, fours, 4v4)
+                if (['fkdr', 'wlr', 'blr'].includes(msg[0])) type = msg[0];
+                console.log(type)
+                if (msg[1]) target = msg[1];
 
                 var player = await hypixel.getPlayer(username);
 
