@@ -1,8 +1,4 @@
-const {
-  addNotation,
-  capitalize,
-  addCommas,
-} = require("../../contracts/helperFunctions.js");
+const { addNotation, capitalize, addCommas, getStar } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
@@ -38,10 +34,7 @@ class BedwarsCommand extends minecraftCommand {
       }
 
       const player = await hypixel.getPlayer(username);
-      var star = "${star}";
-      if (player.stats.bedwars.level >= 0) star = "✫";
-      if (player.stats.bedwars.level >= 1100) star = "✪";
-      if (player.stats.bedwars.level >= 2100) star = "⚝";
+      var star = getStar(player.stats.bedwars.level);
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(

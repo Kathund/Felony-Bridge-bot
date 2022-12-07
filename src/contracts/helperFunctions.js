@@ -266,9 +266,9 @@ async function getStats(player, uuid, mode, time, username) {
     const oldBedwarsData = response24H.data.Bedwars
     console.log(`Old data loaded`)
 
-    // const bedwarsLevel = (
-    //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-    // ).toFixed(3)
+    const bedwarsLevel = (
+      getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+    ).toFixed(3)
     console.log(`did bedwars level`)
 
     var bedwarsWins =
@@ -323,12 +323,9 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
     console.log(`did all the math`)
 
-    return `/gc ${player} FK: ${addCommas(
+    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
       bedwarsFinalKills
     )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
-    // return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
-    //   bedwarsFinalKills
-    // )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars
     const oldSkywarsData = response24H.data.Skywars
@@ -530,19 +527,28 @@ const parseTimestamp = function (text) {
   return dateMath ? dateMath.valueOf() : undefined;
 };
 
-module.exports = {
-  replaceAllRanks,
-  addNotation,
-  generateID,
-  getRarityColor,
-  addCommas,
-  toFixed,
-  timeSince,
-  writeAt,
-  capitalize,
-  decodeData,
-  numberWithCommas,
-  getStats,
-  nth,
-  parseTimestamp,
+const getStar = function (level) {
+  let star = "✫"
+  if (level >= 0) star = "✫";
+  if (level >= 1100) star = "✪";
+  if (level >= 2100) star = "⚝";
+  return star;
 };
+
+  module.exports = {
+    replaceAllRanks,
+    addNotation,
+    generateID,
+    getRarityColor,
+    addCommas,
+    toFixed,
+    timeSince,
+    writeAt,
+    capitalize,
+    decodeData,
+    numberWithCommas,
+    getStats,
+    nth,
+    parseTimestamp,
+    getStar,
+  };
