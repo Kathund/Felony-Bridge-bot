@@ -8,6 +8,7 @@ const parseNbt = util.promisify(nbt.parse);
 const axios = require("axios");
 const config = require("../../config.json");
 const moment = require("moment");
+const hypixel = require("../contracts/API/HypixelRebornAPI.js");
 
 function replaceAllRanks(input) {
   input = input.replaceAll("[OWNER] ", "");
@@ -229,14 +230,12 @@ function getSkywarsLevel(exp) {
 
 async function getStats(player, uuid, mode, time, username) {
   console.log(`Ran`)
-  const [response, response24H] = await Promise.all([
-    axios.get(
-      `${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`
-    ),
+  const [response24H] = await Promise.all([
     axios.get(
       `${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`
     ),
   ])
+  var response = hypixel.getPlayer(username)
   console.log(`Got api`)
   var lastTime = "24 hours"
   if (time == "daily") lastTime = "24 hours"
@@ -244,31 +243,32 @@ async function getStats(player, uuid, mode, time, username) {
   if (time == "monthly") lastTime = "30 days"
 
   if (["gen", "general", "g"].includes(mode.toLowerCase())) {
-    const generalData = response.data.player
-    const oldGeneralData = response24H.data.General
-    var generalKarma =
-      generalData.karma === undefined
-        ? 0
-        : generalData.karma - oldGeneralData.karma
+    // const generalData = response.data.player
+    // const oldGeneralData = response24H.data.General
+    // var generalKarma =
+    //   generalData.karma === undefined
+    //     ? 0
+    //     : generalData.karma - oldGeneralData.karma
 
-    return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
+    // return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
+    return `/gc will be fixed`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
-    console.log(response)
+    console.log(response.stats.bedwars)
 
     // TODO fix it
     // TODO current status - dont know where the error is
     // TODO im using console.log in the code to see what is the problem
     // TODO currenly it dosent like `const bedwarsData = response.data.player.stats.Bedwars`
 
-    const bedwarsData = response.data.player.stats.Bedwars
+    const bedwarsData = response.stats.bedwars
     console.log(`Current data loaded`)
     const oldBedwarsData = response24H.data.Bedwars
     console.log(`Old data loaded`)
 
-    const bedwarsLevel = (
-      getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-    ).toFixed(3)
+    // const bedwarsLevel = (
+    //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+    // ).toFixed(3)
     console.log(`did bedwars level`)
 
     var bedwarsWins =
@@ -323,9 +323,12 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
     console.log(`did all the math`)
 
-    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    return `/gc ${player} FK: ${addCommas(
       bedwarsFinalKills
     )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
+    // return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    //   bedwarsFinalKills
+    // )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars
     const oldSkywarsData = response24H.data.Skywars
