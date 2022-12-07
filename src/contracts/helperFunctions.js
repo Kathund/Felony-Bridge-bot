@@ -253,15 +253,15 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc will be fixed`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
-    var response = await hypixel.getPlayer(uuid)
-    console.log(response.stats.bedwars)
+    var playerData = await hypixel.getPlayer(uuid)
+    console.log(playerData.stats.bedwars)
 
     // TODO fix it
     // TODO current status - dont know where the error is
     // TODO im using console.log in the code to see what is the problem
     // TODO currenly it dosent like `const bedwarsData = response.data.player.stats.Bedwars`
 
-    const bedwarsData = response.stats.bedwars
+    const bedwarsData = playerData.stats.bedwars
     console.log(`Current data loaded`)
     const oldBedwarsData = response24H.data.Bedwars
     console.log(`Old data loaded`)
@@ -322,7 +322,7 @@ async function getStats(player, uuid, mode, time, username) {
     //   bedwarsFinalKills
     // )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
-    const skywarsData = response.data.player.stats.SkyWars
+    const skywarsData = playerData.data.player.stats.SkyWars
     const oldSkywarsData = response24H.data.Skywars
 
     const skywarsLevel = (
@@ -368,7 +368,7 @@ async function getStats(player, uuid, mode, time, username) {
       skywarsKills
     )} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last ${lastTime}`
   } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
-    const duelsData = response.data.player.stats.Duels
+    const duelsData = playerData.data.player.stats.Duels
     const oldDuelsData = response24H.data.Duels
 
     var duelsWins =
