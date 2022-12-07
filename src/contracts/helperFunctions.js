@@ -271,20 +271,15 @@ async function getStats(player, uuid, mode, time, username) {
     // ).toFixed(3)
     console.log(`did bedwars level`)
 
-    var bedwarsWins =
-      bedwarsData.wins === undefined
-        ? 0
-        : bedwarsData.wins - oldBedwarsData.overall.wins
-    console.log(`done bedwars final wins`)
-    var bedwarsLosses =
-      bedwarsData.losses === undefined
-        ? 0
-        : bedwarsData.losses - oldBedwarsData.overall.losses
+    // var bedwarsWins =
+    //   bedwarsData.wins == undefined
+    //     ? 0
+    //     : bedwarsData.wins - oldBedwarsData.overall.wins
+    var bedwarsWins = bedwarsData.win === undefined ? 0 : bedwarsData.wins - oldBedwarsData.overall.wins
+    console.log(`done bedwars wins`)
+    var bedwarsLosses = bedwarsData.losses === undefined ? 0 : bedwarsData.losses - oldBedwarsData.overall.losses
     console.log(`done bedwars losses`)
-    var bedwarsFinalKills =
-      bedwarsData.finalKills === undefined
-        ? 0
-        : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
+    var bedwarsFinalKills = bedwarsData.finalKills === undefined ? 0 : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
     console.log(`done bedwars final kills`)
     var bedwarsFinalDeaths =
       bedwarsData.finalDeaths === undefined
