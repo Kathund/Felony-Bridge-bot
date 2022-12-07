@@ -253,7 +253,7 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc will be fixed`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
-    var response = hypixel.getPlayer(player)
+    var response = hypixel.getPlayer(uuid)
     console.log(response.stats.bedwars)
 
     // TODO fix it
