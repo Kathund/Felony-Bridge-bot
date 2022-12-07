@@ -235,7 +235,6 @@ async function getStats(player, uuid, mode, time, username) {
       `${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`
     ),
   ])
-  var response = hypixel.getPlayer(username)
   console.log(`Got api`)
   var lastTime = "24 hours"
   if (time == "daily") lastTime = "24 hours"
@@ -254,6 +253,7 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc will be fixed`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
+    var response = hypixel.getPlayer(player)
     console.log(response.stats.bedwars)
 
     // TODO fix it
