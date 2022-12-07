@@ -253,7 +253,7 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc will be fixed`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
-    var response = hypixel.getPlayer(uuid)
+    var response = await hypixel.getPlayer(uuid)
     console.log(response.stats.bedwars)
 
     // TODO fix it
@@ -266,35 +266,35 @@ async function getStats(player, uuid, mode, time, username) {
     const oldBedwarsData = response24H.data.Bedwars
     console.log(`Old data loaded`)
 
-    const bedwarsLevel = (
-      getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-    ).toFixed(3)
+    // const bedwarsLevel = (
+    //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+    // ).toFixed(3)
     console.log(`did bedwars level`)
 
     var bedwarsWins =
-      bedwarsData.wins_bedwars === undefined
+      bedwarsData.wins === undefined
         ? 0
-        : bedwarsData.wins_bedwars - oldBedwarsData.overall.wins
+        : bedwarsData.wins - oldBedwarsData.overall.wins
     var bedwarsLosses =
-      bedwarsData.losses_bedwars === undefined
+      bedwarsData.losses === undefined
         ? 0
-        : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
+        : bedwarsData.losses - oldBedwarsData.overall.losses
     var bedwarsFinalKills =
-      bedwarsData.final_kills_bedwars === undefined
+      bedwarsData.finalKills === undefined
         ? 0
-        : bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills
+        : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
     var bedwarsFinalDeaths =
-      bedwarsData.final_deaths_bedwars === undefined
+      bedwarsData.finalDeaths === undefined
         ? 0
-        : bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths
+        : bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
     var bedwarsBedsBroken =
-      bedwarsData.beds_broken_bedwars === undefined
+      bedwarsData.beds.broken === undefined
         ? 0
-        : bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken
+        : bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
     var bedwarsBedsLost =
-      bedwarsData.beds_lost_bedwars === undefined
+      bedwarsData.beds.lost === undefined
         ? 0
-        : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
+        : bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
 
     if (bedwarsWins == "0") {
       var bedwarsWlr1 = "0"
@@ -323,9 +323,12 @@ async function getStats(player, uuid, mode, time, username) {
     var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3
     console.log(`did all the math`)
 
-    return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    return `/gc  ${player} FK: ${addCommas(
       bedwarsFinalKills
     )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
+    // return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+    //   bedwarsFinalKills
+    // )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
     const skywarsData = response.data.player.stats.SkyWars
     const oldSkywarsData = response24H.data.Skywars
