@@ -275,26 +275,17 @@ async function getStats(player, uuid, mode, time, username) {
     //   bedwarsData.wins == undefined
     //     ? 0
     //     : bedwarsData.wins - oldBedwarsData.overall.wins
-    var bedwarsWins = bedwarsData.win === undefined ? 0 : bedwarsData.wins - oldBedwarsData.overall.wins
+    var bedwarsWins = bedwarsData.wins - oldBedwarsData.overall.wins
     console.log(`done bedwars wins`)
-    var bedwarsLosses = bedwarsData.losses === undefined ? 0 : bedwarsData.losses - oldBedwarsData.overall.losses
+    var bedwarsLosses = bedwarsData.losses - oldBedwarsData.overall.losses
     console.log(`done bedwars losses`)
-    var bedwarsFinalKills = bedwarsData.finalKills === undefined ? 0 : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
+    var bedwarsFinalKills = bedwarsData.finalKills - oldBedwarsData.overall.finalKills
     console.log(`done bedwars final kills`)
-    var bedwarsFinalDeaths =
-      bedwarsData.finalDeaths === undefined
-        ? 0
-        : bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
+    var bedwarsFinalDeaths = bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
     console.log(`done bedwars final deaths`)
-    var bedwarsBedsBroken =
-      bedwarsData.beds.broken === undefined
-        ? 0
-        : bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
+    var bedwarsBedsBroken = bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
     console.log(`done bedwars broken`)
-    var bedwarsBedsLost =
-      bedwarsData.beds.lost === undefined
-        ? 0
-        : bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
+    var bedwarsBedsLost = bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
     console.log(`done bedwars lost`)
 
     if (bedwarsWins == "0") {
