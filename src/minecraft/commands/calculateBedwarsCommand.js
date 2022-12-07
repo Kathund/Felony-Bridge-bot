@@ -42,7 +42,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
                         this.send(`/gc You need ${neededWins} wins with 0 losses to reach ${target} wlr`);
                     }
                 } else if (type == 'blr') {
-                    if (target < player.stats.bedwars.beds.BLRatio) { this.send(`/gc You already have a higher fkdr than ${target}`) }
+                    if (target < player.stats.bedwars.beds.BLRatio) { this.send(`/gc You already have a higher blr than ${target}`) }
                     else {
                         var brokenBeds = player.stats.bedwars.beds.broken;
                         var lostBeds = player.stats.bedwars.beds.lost;
