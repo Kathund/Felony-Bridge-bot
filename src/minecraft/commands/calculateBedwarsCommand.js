@@ -18,7 +18,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
                 let type = null;
                 let target = null;
 
-                if (msg[0] == ['fkdr', 'wlr', 'blr']) type = msg[0];
+                if (['fkdr', 'wlr', 'blr'].includes(msg[0])) type = msg[0];
                 console.log(type)
                 if (msg[1]) target = msg[1];
 
