@@ -275,26 +275,32 @@ async function getStats(player, uuid, mode, time, username) {
       bedwarsData.wins === undefined
         ? 0
         : bedwarsData.wins - oldBedwarsData.overall.wins
+    console.log(`done bedwars final wins`)
     var bedwarsLosses =
       bedwarsData.losses === undefined
         ? 0
         : bedwarsData.losses - oldBedwarsData.overall.losses
+    console.log(`done bedwars losses`)
     var bedwarsFinalKills =
       bedwarsData.finalKills === undefined
         ? 0
         : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
+    console.log(`done bedwars final kills`)
     var bedwarsFinalDeaths =
       bedwarsData.finalDeaths === undefined
         ? 0
         : bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
+    console.log(`done bedwars final deaths`)
     var bedwarsBedsBroken =
       bedwarsData.beds.broken === undefined
         ? 0
         : bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
+    console.log(`done bedwars broken`)
     var bedwarsBedsLost =
       bedwarsData.beds.lost === undefined
         ? 0
         : bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
+    console.log(`done bedwars lost`)
 
     if (bedwarsWins == "0") {
       var bedwarsWlr1 = "0"
@@ -538,20 +544,20 @@ const getStar = function (level) {
   return star;
 };
 
-  module.exports = {
-    replaceAllRanks,
-    addNotation,
-    generateID,
-    getRarityColor,
-    addCommas,
-    toFixed,
-    timeSince,
-    writeAt,
-    capitalize,
-    decodeData,
-    numberWithCommas,
-    getStats,
-    nth,
-    parseTimestamp,
-    getStar,
-  };
+module.exports = {
+  replaceAllRanks,
+  addNotation,
+  generateID,
+  getRarityColor,
+  addCommas,
+  toFixed,
+  timeSince,
+  writeAt,
+  capitalize,
+  decodeData,
+  numberWithCommas,
+  getStats,
+  nth,
+  parseTimestamp,
+  getStar,
+};
