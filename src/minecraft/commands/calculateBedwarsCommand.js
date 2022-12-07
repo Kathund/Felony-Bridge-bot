@@ -21,18 +21,22 @@ class CalculateBedwarsCommand extends minecraftCommand {
         if (msg[1]) target = msg[1];
 
         var player = await hypixel.getPlayer(username);
+        console.log(player.stats.bedwars);
 
         if (type == 'fkdr') {
+            console.log(`fkdr running`)
             var finalKills = player.stats.bedwars.finalKills;
             var finalDeaths = player.stats.bedwars.finalDeaths;
             var neededFinalKills = (target * finalDeaths) - finalKills;
             this.send(`/gc You need ${neededFinalKills} final kills with 0 final deaths to reach ${target} fkdr`);
         } else if (type == 'wlr') {
+            console.log(`wlr running`)
             var wins = player.stats.bedwars.wins;
             var losses = player.stats.bedwars.losses;
             var neededWins = (target * losses) - wins;
             this.send(`/gc You need ${neededWins} wins with 0 losses to reach ${target} wlr`);
         } else if (type == 'blr') {
+            console.log(`blr running`)
             var brokenBeds = player.stats.bedwars.beds.broken;
             var lostBeds = player.stats.bedwars.beds.lost;
             var neededBrokenBeds = (target * lostBeds) - brokenBeds;
