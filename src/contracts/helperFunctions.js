@@ -232,9 +232,10 @@ async function getStats(player, uuid, mode, time, username) {
   console.log(`Ran`)
   const [response24H] = await Promise.all([
     axios.get(
-      `${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`
+      `${config.api.pixelicAPI}/player/${time}?key=${config.api.pixelicKey}&uuid=${uuid}`
     ),
   ])
+  console.log(response24H)
   console.log(`Got api`)
   var lastTime = "24 hours"
   if (time == "daily") lastTime = "24 hours"
@@ -253,17 +254,17 @@ async function getStats(player, uuid, mode, time, username) {
     return `/gc will be fixed`
   } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
     console.log(`Getting Bedwars stats for ${player}`)
-    var playerData = await hypixel.getPlayer(uuid)
-    console.log(playerData.stats.bedwars)
+    var response = await hypixel.getPlayer(uuid)
+    // console.log(response.stats.bedwars)
 
     // TODO fix it
     // TODO current status - dont know where the error is
     // TODO im using console.log in the code to see what is the problem
     // TODO currenly it dosent like `const bedwarsData = response.data.player.stats.Bedwars`
 
-    const bedwarsData = playerData.stats.bedwars
+    const bedwarsData = response.stats.bedwars
     console.log(`Current data loaded`)
-    const oldBedwarsData = response24H.data.Bedwars
+    const oldBedwarsData = response24H.data
     console.log(`Old data loaded`)
 
     // const bedwarsLevel = (
@@ -271,10 +272,14 @@ async function getStats(player, uuid, mode, time, username) {
     // ).toFixed(3)
     console.log(`did bedwars level`)
 
+    console.log(oldBedwarsData)
+
     // var bedwarsWins =
-    //   bedwarsData.wins == undefined
+    //   bedwarsData.wins === undefined
     //     ? 0
     //     : bedwarsData.wins - oldBedwarsData.overall.wins
+    console.log(`New ${bedwarsData.wins}`)
+    console.log(`Old ${oldBedwarsData.overall.wins}`)
     var bedwarsWins = bedwarsData.wins - oldBedwarsData.overall.wins
     console.log(`done bedwars wins`)
     var bedwarsLosses = bedwarsData.losses - oldBedwarsData.overall.losses
@@ -322,7 +327,7 @@ async function getStats(player, uuid, mode, time, username) {
     //   bedwarsFinalKills
     // )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
   } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
-    const skywarsData = playerData.data.player.stats.SkyWars
+    const skywarsData = response.data.player.stats.SkyWars
     const oldSkywarsData = response24H.data.Skywars
 
     const skywarsLevel = (
@@ -368,7 +373,7 @@ async function getStats(player, uuid, mode, time, username) {
       skywarsKills
     )} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last ${lastTime}`
   } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
-    const duelsData = playerData.data.player.stats.Duels
+    const duelsData = response.data.player.stats.Duels
     const oldDuelsData = response24H.data.Duels
 
     var duelsWins =
