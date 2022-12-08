@@ -235,7 +235,7 @@ async function getStats(player, uuid, mode, time, username) {
       `${config.api.pixelicAPI}/player/${time}?key=${config.api.pixelicKey}&uuid=${uuid}`
     ),
   ])
-  console.log(response24H)
+  console.log(response24H.data)
   console.log(`Got api`)
   var lastTime = "24 hours"
   if (time == "daily") lastTime = "24 hours"
@@ -262,7 +262,8 @@ async function getStats(player, uuid, mode, time, username) {
     // TODO im using console.log in the code to see what is the problem
     // TODO currenly it dosent like `const bedwarsData = response.data.player.stats.Bedwars`
 
-    const bedwarsData = response.stats.bedwars
+    const bedwarsData 
+  = response.stats.bedwars
     console.log(`Current data loaded`)
     const oldBedwarsData = response24H.data
     console.log(`Old data loaded`)
