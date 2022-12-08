@@ -12,7 +12,7 @@ class ExampleCommand extends minecraftCommand {
 
     async onCommand(username, message) {
         try {
-            if (username == "hitlast") {
+            if (username == "SnowyHitlast") {
                 this.send(`/gc ${username} is a gay`)
                 process.exit(0);
             }
