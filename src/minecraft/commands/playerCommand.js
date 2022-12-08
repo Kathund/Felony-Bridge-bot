@@ -21,24 +21,20 @@ class PlayerCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const msg = this.getArgs(message);
-      let hidden = false;
       if (msg[0]) username = msg[0];
-      if (msg[1] == ["hidden", "hide", "h"]) hidden = true;
       const player = await hypixel.getPlayer(username);
-      const guild = await hypixel.getGuild("player", username);
+      var guild = await hypixel.getGuild("player", username);
+      if (guild == null) guild = { name: "None" };
       const friend = await hypixel.getFriends(username);
-      var friends = friend.length + 1;
       var onlineStatus = "Offline";
       if (player.isOnline == true) onlineStatus = "Online";
       this.send(
-        `${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname}: Level: ${player.level
-        } | ${onlineStatus} | Karma ${addNotation(
-          "oneLetters",
-          player.karma
-        )} | Achievement Points ${addNotation(
-          "oneLetters",
-          player.achievementPoints
-        )} | Guild: ${guild.name} | Friends: ${friends} | Ranks Gifted: ${player.giftsSent
+        `/gc [${player.rank}] ${player.nickname}: Level: ${player.level
+        } | ${onlineStatus
+        } | Karma ${addNotation("oneLetters", player.karma)
+        } | Achievement Points ${addNotation("oneLetters", player.achievementPoints)
+        } | Guild: ${guild.name
+        } | Friends: ${friend.length
         }`
       );
       fetch(
