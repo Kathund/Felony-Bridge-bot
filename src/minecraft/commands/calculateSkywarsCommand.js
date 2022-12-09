@@ -1,12 +1,12 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 
-class CalculateDuelsCommand extends minecraftCommand {
+class CalculatSkywarsCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "calcduels";
-        this.aliases = [];
+        this.name = "calcskywars";
+        this.aliases = ["calcsw"];
         this.description = "Alows you to calc how close you are to the next wlr/kd";
         this.options = [];
     }
@@ -25,18 +25,18 @@ class CalculateDuelsCommand extends minecraftCommand {
             var player = await hypixel.getPlayer(username);
 
             if (type == 'kd') {
-                if (target < player.stats.duels.KDRatio) { this.send(`/gc You already have a higher kd than ${target}`) }
+                if (target < player.stats.skywars.KDRatio) { this.send(`/gc You already have a higher kd than ${target}`) }
                 else {
-                    var kills = player.stats.duels.kills
-                    var deaths = player.stats.duels.deaths
+                    var kills = player.stats.skywars.kills
+                    var deaths = player.stats.skywars.deaths
                     var neededKills = (target * deaths) - kills;
                     this.send(`/gc You need ${neededKills} kills with 0  deaths to reach ${target} kd`);
                 }
             } else if (type == 'wlr') {
-                if (target < player.stats.duels.WLRatio) { this.send(`/gc You already have a higher wlr than ${target}`) }
+                if (target < player.stats.skywars.WLRatio) { this.send(`/gc You already have a higher wlr than ${target}`) }
                 else {
-                    var wins = player.stats.duels.wins;
-                    var losses = player.stats.duels.losses;
+                    var wins = player.stats.skywars.wins;
+                    var losses = player.stats.skywars.losses;
                     var neededWins = (target * losses) - wins;
                     this.send(`/gc You need ${neededWins} wins with 0 losses to reach ${target} wlr`);
                 }
@@ -48,4 +48,4 @@ class CalculateDuelsCommand extends minecraftCommand {
     }
 }
 
-module.exports = CalculateDuelsCommand;
+module.exports = CalculatSkywarsCommand;
