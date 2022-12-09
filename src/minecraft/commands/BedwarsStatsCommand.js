@@ -59,19 +59,18 @@ class BedwarsCommand extends minecraftCommand {
         );
       }
       else if (["ultimate", "rush", "armed", "lucky", "voidless"].includes(mode)) {
-        console.log(player.stats.bedwars.dream[mode])
         var finalKills = player.stats.bedwars.dream[mode].doubles.finalKills + player.stats.bedwars.dream[mode].fours.finalKills
         var finalDeaths = player.stats.bedwars.dream[mode].doubles.finalDeaths + player.stats.bedwars.dream[mode].fours.finalDeaths
         var wins = player.stats.bedwars.dream[mode].doubles.wins + player.stats.bedwars.dream[mode].fours.wins
         var losses = player.stats.bedwars.dream[mode].doubles.losses + player.stats.bedwars.dream[mode].fours.losses
         var bedsBroken = player.stats.bedwars.dream[mode].doubles.beds.broken + player.stats.bedwars.dream[mode].fours.beds.broken
         var bedsLost = player.stats.bedwars.dream[mode].doubles.beds.lost + player.stats.bedwars.dream[mode].fours.beds.lost
-        this.send(`
-        /gc [${player.stats.bedwars.level}${star}] ${player.nickname
+        this.send(`/gc [${player.stats.bedwars.level}${star}] ${player.nickname
           } | ${capitalize(mode)
-          } | FK: ${addCommas(finalKills)} FKDR: ${finalKills / finalDeaths
-          } | Wins: ${addCommas(wins)} WLR: ${wins / losses
-          } | BB: ${addCommas(bedsBroken)} BLR: ${bedsBroken / bedsLost}
+          } | FK: ${addCommas(finalKills)} FKDR: ${(finalKills / finalDeaths).toFixed(2)
+          } | Wins: ${addCommas(wins)} WLR: ${(wins / losses).toFixed(2)
+          } | BB: ${addCommas(bedsBroken)} BLR: ${(bedsBroken / bedsLost).toFixed(2)
+          }
         `);
       }
       fetch(
