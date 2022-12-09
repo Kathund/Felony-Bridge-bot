@@ -538,6 +538,15 @@ const parseTimestamp = function (text) {
   return dateMath ? dateMath.valueOf() : undefined;
 };
 
+
+const getStar = function (level) {
+  let star = "✫"
+  if (level >= 0) star = "✫";
+  if (level >= 1100) star = "✪";
+  if (level >= 2100) star = "⚝";
+  return star;
+};
+
 module.exports = {
   replaceAllRanks,
   addNotation,
@@ -553,4 +562,5 @@ module.exports = {
   getStats,
   nth,
   parseTimestamp,
+  getStar
 };
