@@ -229,6 +229,8 @@ function getSkywarsLevel(exp) {
 }
 
 async function getStats(player, uuid, mode, time, username) {
+  // end the process
+  process.exit(0)
   console.log(`Ran`)
   const [response24H] = await Promise.all([
     axios.get(
