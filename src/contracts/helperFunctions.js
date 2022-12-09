@@ -261,9 +261,11 @@ async function getStats(player, uuid, mode, time, username) {
         return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
       } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
         console.log('Loaded bedwars')
-        const bedwarsData = response.data.player.stats.Bedwars
+        const bedwarsData = response.player.stats.SkyWars
+        console.log(bedwarsData)
         console.log('loaded new bedwars data')
-        const oldBedwarsData = response24H.data.Bedwars
+        const oldBedwarsData = response24H.Bedwars
+        console.log(oldBedwarsData)
         console.log('loaded old bedwars data')
 
         const bedwarsLevel = (
@@ -332,6 +334,9 @@ async function getStats(player, uuid, mode, time, username) {
 
         console.log('set bedwars wlr, fkdr, bblr')
 
+        console.log( `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
+          bedwarsFinalKills
+        )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`)
         return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(
           bedwarsFinalKills
         )} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`;
