@@ -228,15 +228,16 @@ function getSkywarsLevel(exp) {
 }
 
 async function getStats(player, uuid, mode, time, username) {
-  const [response, response24H] = await Promise.all([
-    axios.get(
-      `${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`
-    ),
-    axios.get(
-      `${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`
-    ),
-  ]);
-  console.log(response.data)
+  fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then((response) => {
+    console.log(response)
+    console.log('Loaded api new')
+  })
+  fetch(`${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then((response24H) => {
+    console.log(response24H)
+    console.log('Loaded api old')
+  })
+
+  // console.log(response.data)
   // console.log(response24H.data)
   console.log('Loaded api')
   var lastTime = "24 hours";
