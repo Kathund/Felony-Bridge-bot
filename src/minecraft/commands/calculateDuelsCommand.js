@@ -5,7 +5,7 @@ class CalculateDuelsCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "calcsw";
+        this.name = "calcduels";
         this.aliases = [];
         this.description = "Alows you to calc how close you are to the next wlr/kd";
         this.options = [];
