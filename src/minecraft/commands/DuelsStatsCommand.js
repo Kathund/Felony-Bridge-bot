@@ -57,8 +57,11 @@ class DuelsStatsCommand extends minecraftCommand {
 
       hypixel.getPlayer(username).then((player) => {
         if (!duel) {
-          this.send(
-            `/gc [Duels] [${player.stats.duels.division}] ${username} Wins: ${player.stats.duels.wins} | CWS: ${player.stats.duels.winstreak} | BWS: ${player.stats.duels.bestWinstreak} | WLR: ${player.stats.duels.WLRatio}`
+          this.send(`/gc [Duels] [${player.stats.duels.division}] ${username
+            } | Wins: ${player.stats.duels.wins} WLR: ${player.stats.duels.WLRatio
+            } | Kills: ${player.stats.duels.kills} KDR: ${player.stats.duels.KDRatio
+            } | CWS: ${player.stats.duels.winstreak} BWS: ${player.stats.duels.bestWinstreak} WS: ${player.stats.duels.winstreak
+            }`
           );
         } else {
           if (
@@ -66,36 +69,28 @@ class DuelsStatsCommand extends minecraftCommand {
             Object?.keys(player?.stats?.duels?.[duel]).includes("1v1")
           ) {
             this.send(
-              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${
-                player.stats.duels?.[duel]?.[
-                  Object.keys(player.stats.duels[duel])[0]
-                ]?.division ?? "Unknown"
-              }] ${username ?? 0} Wins: ${
-                player.stats.duels?.[duel]?.[
-                  Object.keys(player.stats.duels[duel])[0]
-                ]?.wins ?? 0
-              } | CWS: ${
-                player.stats.duels?.[duel]?.[
-                  Object.keys(player.stats.duels[duel])[0]
-                ]?.winstreak ?? 0
-              } | BWS: ${
-                player.stats.duels?.[duel]?.[
-                  Object.keys(player.stats.duels[duel])[0]
-                ]?.bestWinstreak ?? 0
-              } | WLR: ${
-                player.stats.duels?.[duel]?.[
-                  Object.keys(player.stats.duels[duel])[0]
-                ]?.WLRatio ?? 0
+              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${player.stats.duels?.[duel]?.[
+                Object.keys(player.stats.duels[duel])[0]
+              ]?.division ?? "Unknown"
+              }] ${username ?? 0} Wins: ${player.stats.duels?.[duel]?.[
+                Object.keys(player.stats.duels[duel])[0]
+              ]?.wins ?? 0
+              } | CWS: ${player.stats.duels?.[duel]?.[
+                Object.keys(player.stats.duels[duel])[0]
+              ]?.winstreak ?? 0
+              } | BWS: ${player.stats.duels?.[duel]?.[
+                Object.keys(player.stats.duels[duel])[0]
+              ]?.bestWinstreak ?? 0
+              } | WLR: ${player.stats.duels?.[duel]?.[
+                Object.keys(player.stats.duels[duel])[0]
+              ]?.WLRatio ?? 0
               }`
             );
           } else {
             this.send(
-              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${
-                player.stats.duels?.[duel]?.division ?? "Unknown"
-              }] ${username ?? 0} Wins: ${
-                player.stats.duels?.[duel]?.wins ?? 0
-              } | CWS: ${player.stats.duels?.[duel]?.winstreak ?? 0} | BWS: ${
-                player.stats.duels?.[duel]?.bestWinstreak ?? 0
+              `/gc [${duel.toUpperCase() ?? "Unknown"}] [${player.stats.duels?.[duel]?.division ?? "Unknown"
+              }] ${username ?? 0} Wins: ${player.stats.duels?.[duel]?.wins ?? 0
+              } | CWS: ${player.stats.duels?.[duel]?.winstreak ?? 0} | BWS: ${player.stats.duels?.[duel]?.bestWinstreak ?? 0
               } | WLR: ${player.stats.duels?.[duel]?.WLRatio ?? 0}`
             );
           }
