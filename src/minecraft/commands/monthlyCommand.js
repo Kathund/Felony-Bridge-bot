@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const { getStats } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
@@ -69,6 +70,8 @@ class MonthlyStatsCommand extends minecraftCommand {
     const uuid = await getUUID(player);
 
     try {
+      this.send(`/gc Fetching ${player}'s monthly stats...`)
+      await delay(1000);
       this.send(await getStats(player, uuid, mode, "monthly", username));
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
