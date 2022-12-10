@@ -336,10 +336,12 @@ async function getStats(player, uuid, mode, time, username) {
         //   } | Wins: ${bedwarsWins} WLR: ${bedwarsWlr
         //   } | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr
         //   } | in the last ${lastTime}`)
-        return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
+        this.minecraft.bot.chat(`/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
           } | Wins: ${bedwarsWins} WLR: ${bedwarsWlr
           } | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr
-          } | in the last ${lastTime}`
+          } | in the last ${lastTime
+          } - ${generateID(config.minecraft.messageRepeatBypassLength)
+          }`)
       } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
         const skywarsData = response.data.player.stats.SkyWars;
         const oldSkywarsData = response24H.data.Skywars;
