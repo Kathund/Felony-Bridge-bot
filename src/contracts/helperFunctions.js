@@ -330,9 +330,10 @@ async function getStats(player, uuid, mode, time, username) {
 
         console.log('set bedwars wlr, fkdr, bblr')
 
-        console.log(`/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
-          } | Wins: ${bedwarsWins} WLR: ${bedwarsWlr
-          } | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr
+        console.log(`/gc [${bedwarsLevel}✫] ${player
+          } | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
+          } | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr
+          } | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr
           } | in the last ${lastTime}`)
         return `/gc ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
       } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
