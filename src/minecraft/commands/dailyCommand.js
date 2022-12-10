@@ -1,5 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const { getStats } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
