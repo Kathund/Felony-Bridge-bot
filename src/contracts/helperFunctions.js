@@ -264,9 +264,7 @@ async function getStats(player, uuid, mode, time, username) {
         const oldBedwarsData = response24H.Bedwars
         console.log('loaded old bedwars data')
 
-        const bedwarsLevel = (
-          getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-        ).toFixed(3);
+        const bedwarsLevel = (getBedwarsLevel(response.player.stats.Bedwars.Experience - oldBedwarsData.EXP)).toFixed(2);
         console.log(`loaded bedwars level - ${bedwarsLevel}`)
 
         console.log('loaded hypixel player')
@@ -332,15 +330,11 @@ async function getStats(player, uuid, mode, time, username) {
 
         console.log('set bedwars wlr, fkdr, bblr')
 
-        // console.log(`/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
-        //   } | Wins: ${bedwarsWins} WLR: ${bedwarsWlr
-        //   } | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr
-        //   } | in the last ${lastTime}`)
-        return `/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
+        console.log(`/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
           } | Wins: ${bedwarsWins} WLR: ${bedwarsWlr
           } | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr
-          } | in the last ${lastTime
-          }`;
+          } | in the last ${lastTime}`)
+        return `/gc ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
       } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
         const skywarsData = response.data.player.stats.SkyWars;
         const oldSkywarsData = response24H.data.Skywars;
