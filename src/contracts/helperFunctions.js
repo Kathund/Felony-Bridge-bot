@@ -234,16 +234,11 @@ function getSkywarsLevel(exp) {
 async function getStats(player, uuid, mode, time, username) {
   console.log('i fucked ur mother ')
   fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then((response) => {
-    console.log(response)
     console.log('Loaded api new')
 
     fetch(`${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then((response24H) => {
-      console.log(response24H)
       console.log('Loaded api old')
 
-
-      // console.log(response.data)
-      // console.log(response24H.data)
       console.log('Loaded api')
       var lastTime = "24 hours";
       if (time == "daily") lastTime = "24 hours";
@@ -261,11 +256,11 @@ async function getStats(player, uuid, mode, time, username) {
         return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
       } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
         console.log('Loaded bedwars')
-        const bedwarsData = response.player.stats.SkyWars
+        const bedwarsData = response.player.stats.Bedwars
         console.log(bedwarsData)
+        console.log(bedwarsData.wins_bedwars)
         console.log('loaded new bedwars data')
         const oldBedwarsData = response24H.Bedwars
-        console.log(oldBedwarsData)
         console.log('loaded old bedwars data')
 
         const bedwarsLevel = (
@@ -277,32 +272,32 @@ async function getStats(player, uuid, mode, time, username) {
           bedwarsData.wins_bedwars === undefined
             ? 0
             : bedwarsData.wins_bedwars - oldBedwarsData.overall.wins
-        console.log('loaded bedwars wins')
+        console.log(`loaded bedwars wins - ${bedwarsWins}`)
         var bedwarsLosses =
           bedwarsData.losses_bedwars === undefined
             ? 0
             : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
-        console.log('loaded bedwars losses')
+        console.log(`loaded bedwars lossess - ${bedwarsLosses}`)
         var bedwarsFinalKills =
           bedwarsData.final_kills_bedwars === undefined
             ? 0
             : bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills
-        console.log('loaded bedwars final kills')
+        console.log(`loaded bedwars final kills - ${bedwarsFinalKills}`)
         var bedwarsFinalDeaths =
           bedwarsData.final_deaths_bedwars === undefined
             ? 0
             : bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths
-        console.log('loaded bedwars final deaths')
+        console.log(`loaded bedwars final deaths - ${bedwarsFinalDeaths}`)
         var bedwarsBedsBroken =
           bedwarsData.beds_broken_bedwars === undefined
             ? 0
             : bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken
-        console.log('loaded bedwars beds broken')
+        console.log(`loaded bedwars beds broken - ${bedwarsBedsBroken}`)
         var bedwarsBedsLost =
           bedwarsData.beds_lost_bedwars === undefined
             ? 0
             : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
-        console.log('loaded bedwars beds lost')
+        console.log(`loaded bedwars beds lost - ${bedwarsBedsLost}`)
 
         if (bedwarsWins == "0") {
           var bedwarsWlr1 = "0";
