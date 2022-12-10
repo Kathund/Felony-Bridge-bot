@@ -72,7 +72,7 @@ class MonthlyStatsCommand extends minecraftCommand {
     try {
       this.send(`/gc Fetching ${player}'s monthly stats...`)
       await delay(1000);
-      this.send(await getStats(player, uuid, mode, "monthly", username));
+      console.log(await getStats(player, uuid, mode, "monthly", username))
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
         this.send(
