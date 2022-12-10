@@ -330,15 +330,11 @@ async function getStats(player, uuid, mode, time, username) {
         var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3;
 
         console.log('set bedwars wlr, fkdr, bblr')
-
-        console.log(`/gc [${bedwarsLevel}✫] ${player
-          } | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
-          } | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr
-          } | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr
-          } | in the last ${lastTime}`)
+        
+        console.log(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last ${lastTime}`)
         await delay(1000)
         console.log(`sending`)
-        // return `/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last ${lastTime}`
+        return `/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last ${lastTime}`
       } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
         const skywarsData = response.data.player.stats.SkyWars;
         const oldSkywarsData = response24H.data.Skywars;
