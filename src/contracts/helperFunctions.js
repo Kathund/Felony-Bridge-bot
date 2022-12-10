@@ -261,8 +261,6 @@ async function getStats(player, uuid, mode, time, username) {
       } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
         console.log('Loaded bedwars')
         const bedwarsData = responseNew.stats.bedwars
-        console.log(bedwarsData)
-        console.log(bedwarsData.wins)
         console.log('loaded new bedwars data')
         const oldBedwarsData = response24H.Bedwars
         console.log('loaded old bedwars data')
