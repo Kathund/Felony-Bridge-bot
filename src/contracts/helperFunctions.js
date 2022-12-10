@@ -5,7 +5,6 @@ const getDirName = require("path").dirname;
 const nbt = require("prismarine-nbt");
 const util = require("util");
 const parseNbt = util.promisify(nbt.parse);
-const axios = require("axios");
 const config = require("../../config.json");
 const moment = require("moment");
 const hypixel = require("./API/HypixelRebornAPI.js")
@@ -265,10 +264,10 @@ async function getStats(player, uuid, mode, time, username) {
         const oldBedwarsData = response24H.Bedwars
         console.log('loaded old bedwars data')
 
-        // const bedwarsLevel = (
-        //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-        // ).toFixed(3);
-        console.log('loaded bedwars level')
+        const bedwarsLevel = (
+          getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+        ).toFixed(3);
+        console.log(`loaded bedwars level - ${bedwarsLevel}`)
 
         console.log('loaded hypixel player')
 
@@ -332,8 +331,6 @@ async function getStats(player, uuid, mode, time, username) {
         var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3;
 
         console.log('set bedwars wlr, fkdr, bblr')
-
-        var bedwarsLevel = 69420
 
         // console.log(`/gc [${bedwarsLevel}✫] ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr
         //   } | Wins: ${bedwarsWins} WLR: ${bedwarsWlr
