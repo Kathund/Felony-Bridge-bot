@@ -8,6 +8,7 @@ const parseNbt = util.promisify(nbt.parse);
 const axios = require("axios");
 const config = require("../../config.json");
 const moment = require("moment");
+const hypixel = require("./API/HypixelRebornAPI.js")
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -233,11 +234,14 @@ function getSkywarsLevel(exp) {
 
 async function getStats(player, uuid, mode, time, username) {
   console.log('i fucked ur mother ')
-  fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then((response) => {
+  fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then(async (response) => {
     console.log('Loaded api new')
 
-    fetch(`${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then((response24H) => {
+    fetch(`${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
       console.log('Loaded api old')
+
+      var responseNew = await hypixel.getPlayer(uuid)
+      console.log(`Loaded hypixel reboarn api`)
 
       console.log('Loaded api')
       var lastTime = "24 hours";
@@ -256,22 +260,24 @@ async function getStats(player, uuid, mode, time, username) {
         return `/gc ${player} gained ${generalKarma} karma | in the last ${lastTime}`
       } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
         console.log('Loaded bedwars')
-        const bedwarsData = response.player.stats.Bedwars
+        const bedwarsData = responseNew.stats.bedwars
         console.log(bedwarsData)
-        console.log(bedwarsData.wins_bedwars)
+        console.log(bedwarsData.wins)
         console.log('loaded new bedwars data')
         const oldBedwarsData = response24H.Bedwars
         console.log('loaded old bedwars data')
 
-        const bedwarsLevel = (
-          getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
-        ).toFixed(3);
+        // const bedwarsLevel = (
+        //   getBedwarsLevel(bedwarsData.Experience) - oldBedwarsData.levelRaw
+        // ).toFixed(3);
         console.log('loaded bedwars level')
 
+        console.log('loaded hypixel player')
+
         var bedwarsWins =
-          bedwarsData.wins_bedwars === undefined
+          bedwarsData.wins === undefined
             ? 0
-            : bedwarsData.wins_bedwars - oldBedwarsData.overall.wins
+            : bedwarsData.wins - oldBedwarsData.overall.wins
         console.log(`loaded bedwars wins - ${bedwarsWins}`)
         var bedwarsLosses =
           bedwarsData.losses_bedwars === undefined
@@ -279,24 +285,24 @@ async function getStats(player, uuid, mode, time, username) {
             : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
         console.log(`loaded bedwars lossess - ${bedwarsLosses}`)
         var bedwarsFinalKills =
-          bedwarsData.final_kills_bedwars === undefined
+          bedwarsData.finalKills === undefined
             ? 0
-            : bedwarsData.final_kills_bedwars - oldBedwarsData.overall.finalKills
+            : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
         console.log(`loaded bedwars final kills - ${bedwarsFinalKills}`)
         var bedwarsFinalDeaths =
-          bedwarsData.final_deaths_bedwars === undefined
+          bedwarsData.finalDeaths === undefined
             ? 0
-            : bedwarsData.final_deaths_bedwars - oldBedwarsData.overall.finalDeaths
+            : bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
         console.log(`loaded bedwars final deaths - ${bedwarsFinalDeaths}`)
         var bedwarsBedsBroken =
-          bedwarsData.beds_broken_bedwars === undefined
+          bedwarsData.beds.broken === undefined
             ? 0
-            : bedwarsData.beds_broken_bedwars - oldBedwarsData.overall.bedsBroken
+            : bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
         console.log(`loaded bedwars beds broken - ${bedwarsBedsBroken}`)
         var bedwarsBedsLost =
-          bedwarsData.beds_lost_bedwars === undefined
+          bedwarsData.beds.lost === undefined
             ? 0
-            : bedwarsData.beds_lost_bedwars - oldBedwarsData.overall.bedsLost
+            : bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
         console.log(`loaded bedwars beds lost - ${bedwarsBedsLost}`)
 
         if (bedwarsWins == "0") {
