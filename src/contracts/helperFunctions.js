@@ -8,6 +8,7 @@ const parseNbt = util.promisify(nbt.parse);
 const config = require("../../config.json");
 const moment = require("moment");
 const hypixel = require("./API/HypixelRebornAPI.js")
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -335,7 +336,9 @@ async function getStats(player, uuid, mode, time, username) {
           } | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr
           } | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr
           } | in the last ${lastTime}`)
-        return `/gc ${player} FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${bedwarsWins} WLR: ${bedwarsWlr} | BB: ${bedwarsBedsBroken} BLR: ${bedwarsBblr} | in the last ${lastTime}`
+        await delay(1000)
+        console.log(`sending`)
+        // return `/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last ${lastTime}`
       } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
         const skywarsData = response.data.player.stats.SkyWars;
         const oldSkywarsData = response24H.data.Skywars;
