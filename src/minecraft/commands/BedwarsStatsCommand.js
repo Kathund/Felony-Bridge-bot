@@ -33,9 +33,6 @@ class BedwarsCommand extends minecraftCommand {
         if (["solo", "doubles", "threes", "fours", "4v4", "castle", "ultimate", "rush", "armed", "lucky", "voidless"].includes(msg[1])) mode = msg[1];
       }
 
-      console.log(mode)
-      console.log(username)
-
       const player = await hypixel.getPlayer(username);
       var star = getStar(player.stats.bedwars.level);
 
