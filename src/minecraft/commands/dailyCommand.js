@@ -72,7 +72,7 @@ class DailyStatsCommand extends minecraftCommand {
     try {
       this.send(`/gc Fetching ${player}'s daily stats..`)
       await delay(1000)
-      console.log(await getStats(player, uuid, mode, "daily", username));
+      await getStats(player, uuid, mode, "daily", username);
     } catch (error) {
       if (error.response?.data?.error == "Player not in database") {
         this.send(
