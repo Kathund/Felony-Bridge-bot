@@ -30,7 +30,7 @@ class CalculateDuelsCommand extends minecraftCommand {
                     var kills = player.stats.duels.kills
                     var deaths = player.stats.duels.deaths
                     var neededKills = (target * deaths) - kills;
-                    this.send(`/gc You need ${neededKills} kills with 0  deaths to reach ${target} kd`);
+                    this.send(`/gc You need ${neededKills.toFixed(2)} kills with 0  deaths to reach ${target} kd`);
                 }
             } else if (type == 'wlr') {
                 if (target < player.stats.duels.WLRatio) { this.send(`/gc You already have a higher wlr than ${target}`) }
@@ -38,7 +38,7 @@ class CalculateDuelsCommand extends minecraftCommand {
                     var wins = player.stats.duels.wins;
                     var losses = player.stats.duels.losses;
                     var neededWins = (target * losses) - wins;
-                    this.send(`/gc You need ${neededWins} wins with 0 losses to reach ${target} wlr`);
+                    this.send(`/gc You need ${neededWins.toFixed(2)} wins with 0 losses to reach ${target} wlr`);
                 }
             }
         } catch (error) {
