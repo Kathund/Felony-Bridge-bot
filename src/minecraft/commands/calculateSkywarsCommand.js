@@ -30,7 +30,7 @@ class CalculatSkywarsCommand extends minecraftCommand {
                     var kills = player.stats.skywars.kills
                     var deaths = player.stats.skywars.deaths
                     var neededKills = (target * deaths) - kills;
-                    this.send(`/gc You need ${neededKills} kills with 0  deaths to reach ${target} kd`);
+                    this.send(`/gc You need ${neededKills.toFixed(2)} kills with 0  deaths to reach ${target} kd`);
                 }
             } else if (type == 'wlr') {
                 if (target < player.stats.skywars.WLRatio) { this.send(`/gc You already have a higher wlr than ${target}`) }
@@ -38,7 +38,7 @@ class CalculatSkywarsCommand extends minecraftCommand {
                     var wins = player.stats.skywars.wins;
                     var losses = player.stats.skywars.losses;
                     var neededWins = (target * losses) - wins;
-                    this.send(`/gc You need ${neededWins} wins with 0 losses to reach ${target} wlr`);
+                    this.send(`/gc You need ${neededWins.toFixed(2)} wins with 0 losses to reach ${target} wlr`);
                 }
             }
         } catch (error) {
