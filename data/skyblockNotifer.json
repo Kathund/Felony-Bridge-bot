@@ -157,6 +157,11 @@
     "Emergency Maintenance | Investigating - We are currently investigating issues with one of our core services and as a result, we are in emergency maintenance. | Nov 16, 13:56 EST",
     "Forums and Reward Claiming Unavailable | Resolved - This incident has been resolved. | Dec 8, 21:39 EST",
     "Forums and Reward Claiming Unavailable | Monitoring - A fix has been implemented and we are monitoring the results. | Dec 8, 21:32 EST",
-    "Forums and Reward Claiming Unavailable | Investigating - We are currently investigating an issue with the Hypixel Forums and Daily Rewards claiming to be unavailable | Dec 8, 20:57 EST"
+    "Forums and Reward Claiming Unavailable | Investigating - We are currently investigating an issue with the Hypixel Forums and Daily Rewards claiming to be unavailable | Dec 8, 20:57 EST",
+    "Housing Browser Unavailable | Resolved - This incident has been resolved. | Dec 10, 18:59 EST",
+    "Housing Browser Unavailable | Monitoring - We have now implemented a fix to improve guild lookup during house browsing, and we have re-enabled the full functionality of the browser and are monitoring. | Dec 10, 16:26 EST",
+    "Housing Browser Unavailable | Update - We have identified an issue causing the Housing browser to fail loading houses. In the meantime, we have disabled the browser looking up Guild information. | Dec 10, 14:03 EST",
+    "Housing Browser Unavailable | Identified - We have identified an issue causing the Housing browser to fail loading houses. In the meantime, we have disabled the browser looking up Guild information. | Dec 10, 13:09 EST",
+    "Housing Browser Unavailable | Investigating - We are currently investigating an issue with the Housing browser being unavailable | Dec 10, 13:01 EST"
   ]
 }
