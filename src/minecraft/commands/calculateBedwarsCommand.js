@@ -30,7 +30,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
                     var finalKills = player.stats.bedwars.finalKills;
                     var finalDeaths = player.stats.bedwars.finalDeaths;
                     var neededFinalKills = (target * finalDeaths) - finalKills;
-                    this.send(`/gc You need ${neededFinalKills} final kills with 0 final deaths to reach ${target} fkdr`);
+                    this.send(`/gc You need ${neededFinalKills.toFixed(2)} final kills with 0 final deaths to reach ${target} fkdr`);
                 }
             } else if (type == 'wlr') {
                 if (target < player.stats.bedwars.WLRatio) { this.send(`/gc You already have a higher wlr than ${target}`) }
@@ -38,7 +38,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
                     var wins = player.stats.bedwars.wins;
                     var losses = player.stats.bedwars.losses;
                     var neededWins = (target * losses) - wins;
-                    this.send(`/gc You need ${neededWins} wins with 0 losses to reach ${target} wlr`);
+                    this.send(`/gc You need ${neededWins.toFixed(2)} wins with 0 losses to reach ${target} wlr`);
                 }
             } else if (type == 'blr') {
                 if (target < player.stats.bedwars.beds.BLRatio) { this.send(`/gc You already have a higher blr than ${target}`) }
@@ -46,7 +46,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
                     var brokenBeds = player.stats.bedwars.beds.broken;
                     var lostBeds = player.stats.bedwars.beds.lost;
                     var neededBrokenBeds = (target * lostBeds) - brokenBeds;
-                    this.send(`/gc You need ${neededBrokenBeds} broken beds with 0 lost beds to reach ${target} blr`);
+                    this.send(`/gc You need ${neededBrokenBeds.toFixed(2)} broken beds with 0 lost beds to reach ${target} blr`);
                 }
             }
         } catch (error) {
