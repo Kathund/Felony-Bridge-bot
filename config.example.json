@@ -45,7 +45,15 @@
       }
     },
     "messageRepeatBypass": true,
-    "messageRepeatBypassLength": 20
+    "messageRepeatBypassLength": 20,
+    "bot": {
+      "server": "mc.hypixel.net",
+      "port": "25565",
+      "auth": "microsoft",
+      "version": "1.8.9",
+      "viewDistance": "tiny",
+      "chatLengthLimit": 256
+    }
   },
   "discord": {
     "token": "",
