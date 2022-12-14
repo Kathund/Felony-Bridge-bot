@@ -35,7 +35,6 @@ class NetWorthCommand extends minecraftCommand {
         );
       }
 
-
       const data = await getLatestProfile(username);
       console.log(await getLatestProfile(await getUUID(username)))
       username = await data.profileData?.game_mode ? `♲ ${username}` : username;
