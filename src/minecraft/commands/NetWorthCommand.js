@@ -1,6 +1,7 @@
 const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const { addNotation, capitalize } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const { getNetworth, getPrices } = require("skyhelper-networth");
 
 
@@ -36,6 +37,7 @@ class NetWorthCommand extends minecraftCommand {
 
 
       const data = await getLatestProfile(username);
+      console.log(await getLatestProfile(await getUUID(username)))
       username = await data.profileData?.game_mode ? `♲ ${username}` : username;
 
       const profile = await getNetworth(
