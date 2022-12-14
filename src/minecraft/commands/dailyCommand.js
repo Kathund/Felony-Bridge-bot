@@ -155,7 +155,7 @@ class DailyStatsCommand extends minecraftCommand {
           console.log('Loaded all api info')
 
           if (["gen", "general", "g"].includes(mode.toLowerCase())) {
-            const generalData = response.data.player;
+            const generalData = responseNew.stats
             const oldGeneralData = response24H.data.General;
             var generalKarma =
               generalData.karma === undefined
@@ -243,11 +243,11 @@ class DailyStatsCommand extends minecraftCommand {
             console.log(`sending`)
             this.send(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last 24 hours`)
           } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
-            const skywarsData = response.data.player.stats.SkyWars;
+            const skywarsData = responseNew.stats.skywars
             const oldSkywarsData = response24H.data.Skywars;
 
             const skywarsLevel = (
-              getSkywarsLevel(skywarsData.skywars_experience) - oldSkywarsData.levelRaw
+              getSkywarsLevel(response.player.stats.Skywars.skywars_experience) - oldSkywarsData.levelRaw
             ).toFixed(3);
 
             var skywarsWins =
