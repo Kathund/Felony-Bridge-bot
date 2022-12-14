@@ -1,5 +1,5 @@
-const getRank = require("../stats/rank.js");
 const getHypixelLevel = require("../stats/hypixelLevel.js");
+const getRank = require("../stats/rank.js");
 
 function parseHypixel(playerRes, uuid, res) {
   if (playerRes.player === undefined) {
