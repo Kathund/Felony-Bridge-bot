@@ -1,9 +1,8 @@
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const { addNotation, capitalize } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getNetworth, getPrices } = require("skyhelper-networth");
+
 
 let prices;
 getPrices().then((data) => {
@@ -35,8 +34,9 @@ class NetWorthCommand extends minecraftCommand {
         );
       }
 
+
       const data = await getLatestProfile(username);
-      username = data.profileData?.game_mode ? `♲ ${username}` : username;
+      username = await data.profileData?.game_mode ? `♲ ${username}` : username;
 
       const profile = await getNetworth(
         data.profile,
