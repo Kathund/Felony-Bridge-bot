@@ -285,9 +285,7 @@ class DailyStatsCommand extends minecraftCommand {
             var skywarsWlr = skywarsWlr1 || skywarsWlr2 || skywarsWlr3;
             var skywarsKdr = skywarsKdr1 || skywarsKdr2 || skywarsKdr3;
 
-            return `/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(
-              skywarsKills
-            )} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`;
+            this.send(`/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`)
           } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
             const duelsData = response.data.player.stats.Duels;
             const oldDuelsData = response24H.data.Duels;
@@ -326,11 +324,7 @@ class DailyStatsCommand extends minecraftCommand {
 
             var duelsWlr = duelsWlr1 || duelsWlr2 || duelsWlr3;
             var duelsKdr = duelsKdr1 || duelsKdr2 || duelsKdr3;
-            return `/gc ${player} | Kills: ${addCommas(
-              duelsKills
-            )} KDR: ${duelsKdr} | Wins: ${addCommas(
-              duelsWins
-            )} WLR: ${duelsWlr} | in the last 24 hours`;
+            this.send(`/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr} | in the last 24 hours`)
           }
         })
       })
