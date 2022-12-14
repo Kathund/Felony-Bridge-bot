@@ -1,5 +1,4 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const { addCommas } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
@@ -141,73 +140,49 @@ class DailyStatsCommand extends minecraftCommand {
     const uuid = await getUUID(player);
 
     try {
-      this.send(`/gc Fetching ${player}'s daily stats..`)
-      await delay(1000)
-      console.log('i fucked ur mother ')
       fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then(async (response) => {
-        console.log('Loaded api new')
         fetch(`${config.api.pixelicAPI}/player/daily?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
-          console.log('Loaded api old')
 
           var responseNew = await hypixel.getPlayer(uuid)
-          console.log(`Loaded hypixel reboarn api`)
-
-          console.log('Loaded all api info')
 
           if (["gen", "general", "g"].includes(mode.toLowerCase())) {
-            console.log(`Loaded general`)
             const generalData = responseNew.stats
-            console.log(`Loaded new general data`)
             const oldGeneralData = response24H.General;
-            console.log(`Loaded old general data`)
             var generalKarma =
               generalData.karma === undefined
                 ? 0
                 : generalData.karma - oldGeneralData.karma;
-            console.log(`Loaded general karma - ${generalKarma}`)
             this.send(`/gc ${player} gained ${generalKarma} karma | in the last 24 hours`)
           } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
-            console.log('Loaded bedwars')
             const bedwarsData = responseNew.stats.bedwars
-            console.log('loaded new bedwars data')
             const oldBedwarsData = response24H.Bedwars
-            console.log('loaded old bedwars data')
 
             const bedwarsLevel = (getBedwarsLevel(response.player.stats.Bedwars.Experience - oldBedwarsData.EXP)).toFixed(2);
-            console.log(`loaded bedwars level - ${bedwarsLevel}`)
-
-            console.log('loaded hypixel player')
 
             var bedwarsWins =
               bedwarsData.wins === undefined
                 ? 0
                 : bedwarsData.wins - oldBedwarsData.overall.wins
-            console.log(`loaded bedwars wins - ${bedwarsWins}`)
             var bedwarsLosses =
               bedwarsData.losses_bedwars === undefined
                 ? 0
                 : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
-            console.log(`loaded bedwars lossess - ${bedwarsLosses}`)
             var bedwarsFinalKills =
               bedwarsData.finalKills === undefined
                 ? 0
                 : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
-            console.log(`loaded bedwars final kills - ${bedwarsFinalKills}`)
             var bedwarsFinalDeaths =
               bedwarsData.finalDeaths === undefined
                 ? 0
                 : bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
-            console.log(`loaded bedwars final deaths - ${bedwarsFinalDeaths}`)
             var bedwarsBedsBroken =
               bedwarsData.beds.broken === undefined
                 ? 0
                 : bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
-            console.log(`loaded bedwars beds broken - ${bedwarsBedsBroken}`)
             var bedwarsBedsLost =
               bedwarsData.beds.lost === undefined
                 ? 0
                 : bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
-            console.log(`loaded bedwars beds lost - ${bedwarsBedsLost}`)
 
             if (bedwarsWins == "0") {
               var bedwarsWlr1 = "0";
@@ -231,19 +206,10 @@ class DailyStatsCommand extends minecraftCommand {
               var bedwarsBblr3 = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2);
             }
 
-            console.log('loaded bedwars wlr, fkdr, bblr')
-
             var bedwarsWlr = bedwarsWlr1 || bedwarsWlr2 || bedwarsWlr3;
             var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3;
             var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3;
 
-            console.log('set bedwars wlr, fkdr, bblr')
-
-            // var bedwarsLevel = 69420
-
-            console.log(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last 24 hours`)
-            await delay(1000)
-            console.log(`sending`)
             this.send(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last 24 hours`)
           } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
             const skywarsData = responseNew.stats.skywars
