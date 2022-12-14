@@ -1,8 +1,11 @@
 const { isUuid } = require("../utils/uuid.js");
 const config = require("../../config.json");
 const { parseHypixel } = require("../utils/hypixel.js");
-const axios = require("axios");
 const { getUUID } = require("../../src/contracts/API/MojangAPI.js");
+const fetch = (...args) =>
+  import("node-fetch")
+    .then(({ default: fetch }) => fetch(...args))
+    .catch((err) => console.log(err));
 
 async function getLatestProfile(uuid) {
   try {
@@ -14,34 +17,30 @@ async function getLatestProfile(uuid) {
       }
     }
 
-    const [playerRes, profileRes] = await Promise.all([
-      axios.get(
-        `https://api.hypixel.net/player?key=${config.api.hypixelAPIkey}&uuid=${uuid}`
-      ),
-      axios.get(
-        `https://api.hypixel.net/skyblock/profiles?key=${config.api.hypixelAPIkey}&uuid=${uuid}`
-      ),
-    ]);
+    fetch(`https://api.hypixel.net/player?key=${config.api.hypixelAPIkey}&uuid=${uuid}`).then((res) => res.json()).then(async (playerRes) => {
+      fetch(`https://api.hypixel.net/skyblock/profiles?key=${config.api.hypixelAPIkey}&uuid=${uuid}`).then((res) => res.json()).then(async (profileRes) => {
+        const player = parseHypixel(playerRes, uuid);
 
-    const player = parseHypixel(playerRes, uuid);
+        if (!profileRes.profiles) {
+          return {
+            status: 404,
+            reason: `Found no SkyBlock profiles for a user with a UUID of '${uuid}'.`,
+          };
+        }
 
-    if (!profileRes.data.profiles) {
-      return {
-        status: 404,
-        reason: `Found no SkyBlock profiles for a user with a UUID of '${uuid}'.`,
-      };
-    }
+        const profileData = profileRes.profiles.find((a) => a.selected);
+        const profile = profileData.members[uuid];
 
-    const profileData = profileRes.data.profiles.find((a) => a.selected);
-    const profile = profileData.members[uuid];
+        return {
+          profile: profile,
+          profileData: profileData,
+          playerRes: playerRes.data,
+          player: player,
+          uuid: uuid,
+        };
 
-    return {
-      profile: profile,
-      profileData: profileData,
-      playerRes: playerRes.data,
-      player: player,
-      uuid: uuid,
-    };
+      })
+    })
   } catch (error) {
     console.log(error);
     return { status: 404, reason: error };
