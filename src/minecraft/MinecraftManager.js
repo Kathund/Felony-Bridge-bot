@@ -36,30 +36,30 @@ class MinecraftManager extends CommunicationBridge {
 
   createBotConnection() {
     return mineflayer.createBot({
-      host: "mc.hypixel.net",
-      port: 25565,
-      auth: "microsoft",
-      version: '1.8.9',
-      viewDistance: 'tiny',
-      chatLengthLimit: 256,
+      host: config.minecraft.bot.server,
+      port: config.minecraft.bot.port,
+      auth: config.minecraft.bot.auth,
+      version: config.minecraft.bot.version,
+      viewDistance: config.minecraft.bot.viewDistance,
+      chatLengthLimit: config.minecraft.bot.chatLengthLimit,
     });
   }
 
   async onBroadcast({ channel, username, message, replyingTo }) {
     Logger.broadcastMessage(`${username}: ${message}`, "Minecraft");
     bridgeChat = channel;
-    if (!this.bot.player) return; 
+    if (!this.bot.player) return;
 
     if (channel === config.console.debugChannel) {
       return this.bot.chat(message);
     }
 
     if (channel === config.discord.guildChatChannel) {
-      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/gc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)) : this.bot.chat(`/gc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)
+      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/gc ${replyingTo ? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)) : this.bot.chat(`/gc ${replyingTo ? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)
     }
 
     if (channel === config.discord.officerChannel) {
-      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/oc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)) : this.bot.chat(`/oc ${replyingTo? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)
+      return config.discord.filterMessages ? this.bot.chat(filter.clean(`/oc ${replyingTo ? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)) : this.bot.chat(`/oc ${replyingTo ? `${username} replying to ${replyingTo} ${config.minecraft.messageSpliter}` : `${username} ${config.minecraft.messageSpliter}`} ${message}`)
     }
   }
 }
