@@ -61,22 +61,22 @@ function getBedwarsLevel(exp) {
   return level + expWithoutPrestiges / 5000;
 }
 
-function getSkywarsLevel(exp) {
-  var xps = [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000];
-  let exactLevel = 0;
-  if (exp >= 15000) {
-    exactLevel = (exp - 15000) / 10000 + 12;
-  } else {
-    for (let i = 0; i < xps.length; i++) {
-      if (exp < xps[i]) {
-        exactLevel = i + (exp - xps[i - 1]) / (xps[i] - xps[i - 1]);
-        break;
-      }
-    }
-  }
+// function getSkywarsLevel(exp) {
+//   var xps = [0, 20, 70, 150, 250, 500, 1000, 2000, 3500, 6000, 10000, 15000];
+//   let exactLevel = 0;
+//   if (exp >= 15000) {
+//     exactLevel = (exp - 15000) / 10000 + 12;
+//   } else {
+//     for (let i = 0; i < xps.length; i++) {
+//       if (exp < xps[i]) {
+//         exactLevel = i + (exp - xps[i - 1]) / (xps[i] - xps[i - 1]);
+//         break;
+//       }
+//     }
+//   }
 
-  return exactLevel;
-}
+//   return exactLevel;
+// }
 
 class DailyStatsCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -155,14 +155,17 @@ class DailyStatsCommand extends minecraftCommand {
           console.log('Loaded all api info')
 
           if (["gen", "general", "g"].includes(mode.toLowerCase())) {
+            console.log(`Loaded general`)
             const generalData = responseNew.stats
-            const oldGeneralData = response24H.data.General;
+            console.log(`Loaded new general data`)
+            const oldGeneralData = response24H.General;
+            console.log(`Loaded old general data`)
             var generalKarma =
               generalData.karma === undefined
                 ? 0
                 : generalData.karma - oldGeneralData.karma;
-
-            return `/gc ${player} gained ${generalKarma} karma | in the last 24 hours`
+            console.log(`Loaded general karma - ${generalKarma}`)
+            this.send(`/gc ${player} gained ${generalKarma} karma | in the last 24 hours`)
           } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
             console.log('Loaded bedwars')
             const bedwarsData = responseNew.stats.bedwars
@@ -244,11 +247,13 @@ class DailyStatsCommand extends minecraftCommand {
             this.send(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last 24 hours`)
           } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
             const skywarsData = responseNew.stats.skywars
-            const oldSkywarsData = response24H.data.Skywars;
+            const oldSkywarsData = response24H.Skywars;
 
-            const skywarsLevel = (
-              getSkywarsLevel(response.player.stats.Skywars.skywars_experience) - oldSkywarsData.levelRaw
-            ).toFixed(3);
+            // console.log(response.player.stats.Skywars)
+
+            // const skywarsLevel = (
+            //   getSkywarsLevel(response.player.stats.Skywars.skywars_experience) - oldSkywarsData.levelRaw
+            // ).toFixed(3);
 
             var skywarsWins =
               skywarsData.wins === undefined
@@ -285,7 +290,8 @@ class DailyStatsCommand extends minecraftCommand {
             var skywarsWlr = skywarsWlr1 || skywarsWlr2 || skywarsWlr3;
             var skywarsKdr = skywarsKdr1 || skywarsKdr2 || skywarsKdr3;
 
-            this.send(`/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`)
+            // this.send(`/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`)
+            this.send(`/gc ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`)
           } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
             const duelsData = response.data.player.stats.Duels;
             const oldDuelsData = response24H.data.Duels;
