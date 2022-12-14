@@ -1,7 +1,7 @@
+const { getUUID } = require("../../src/contracts/API/MojangAPI.js");
+const { parseHypixel } = require("../utils/hypixel.js");
 const { isUuid } = require("../utils/uuid.js");
 const config = require("../../config.json");
-const { parseHypixel } = require("../utils/hypixel.js");
-const { getUUID } = require("../../src/contracts/API/MojangAPI.js");
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -16,9 +16,10 @@ async function getLatestProfile(uuid) {
         return error.response.data;
       }
     }
+    
+    fetch(`https://api.hypixel.net/player?key=${config.api.hypixelAPIkey}&uuid=${uuid}`).then((res) => res.json()).then((playerRes) => {
+      fetch(`https://api.hypixel.net/skyblock/profiles?key=${config.api.hypixelAPIkey}&uuid=${uuid}`).then((res) => res.json()).then((profileRes) => {
 
-    fetch(`https://api.hypixel.net/player?key=${config.api.hypixelAPIkey}&uuid=${uuid}`).then((res) => res.json()).then(async (playerRes) => {
-      fetch(`https://api.hypixel.net/skyblock/profiles?key=${config.api.hypixelAPIkey}&uuid=${uuid}`).then((res) => res.json()).then(async (profileRes) => {
         const player = parseHypixel(playerRes, uuid);
 
         if (!profileRes.profiles) {
@@ -34,13 +35,12 @@ async function getLatestProfile(uuid) {
         return {
           profile: profile,
           profileData: profileData,
-          playerRes: playerRes.data,
+          playerRes: playerRes,
           player: player,
           uuid: uuid,
         };
-
-      })
-    })
+      });
+    });
   } catch (error) {
     console.log(error);
     return { status: 404, reason: error };
