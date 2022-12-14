@@ -236,7 +236,6 @@ async function getStats(player, uuid, mode, time, username) {
   console.log('i fucked ur mother ')
   fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then(async (response) => {
     console.log('Loaded api new')
-
     fetch(`${config.api.pixelicAPI}/player/${time}?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
       console.log('Loaded api old')
 
