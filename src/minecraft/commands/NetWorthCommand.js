@@ -1,9 +1,9 @@
-const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const {
+  getLatestProfile,
+} = require("../../../API/functions/getLatestProfile.js");
 const { addNotation, capitalize } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const { getNetworth, getPrices } = require("skyhelper-networth");
-
 
 let prices;
 getPrices().then((data) => {
@@ -36,8 +36,7 @@ class NetWorthCommand extends minecraftCommand {
       }
 
       const data = await getLatestProfile(username);
-      console.log(await getLatestProfile(await getUUID(username)))
-      username = await data.profileData?.game_mode ? `♲ ${username}` : username;
+      username = data.profileData?.game_mode ? `♲ ${username}` : username;
 
       const profile = await getNetworth(
         data.profile,
@@ -51,9 +50,12 @@ class NetWorthCommand extends minecraftCommand {
       }
 
       this.send(
-        `/gc ${capitalize(username)}'s Networth is ${addNotation("oneLetters", profile.networth) ?? 0
-        } | Unsoulbound Networth: ${addNotation("oneLetters", profile.unsoulboundNetworth) ?? 0
-        } | Purse: ${addNotation("oneLetters", profile.purse) || 0} | Bank: ${addNotation("oneLetters", profile.bank) ?? 0
+        `/gc ${capitalize(username)}'s Networth is ${
+          addNotation("oneLetters", profile.networth) ?? 0
+        } | Unsoulbound Networth: ${
+          addNotation("oneLetters", profile.unsoulboundNetworth) ?? 0
+        } | Purse: ${addNotation("oneLetters", profile.purse) || 0} | Bank: ${
+          addNotation("oneLetters", profile.bank) ?? 0
         }`
       );
     } catch (error) {
