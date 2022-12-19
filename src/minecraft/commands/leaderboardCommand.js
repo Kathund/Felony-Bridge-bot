@@ -107,6 +107,7 @@ class LeaderboardCommand extends minecraftCommand {
           }
           if (msg[3] == "bblr") (type = "bblr"), (typeFormatted = "BBLR");
 
+          console.log(data)
           this.send(
             `/gc ${timeframe} ${mode} ${gamemodeFormatted} ${typeFormatted} » #1 ${await getUsername(
               data[gamemode][type][0].UUID
