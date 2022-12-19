@@ -6,6 +6,7 @@ const nbt = require("prismarine-nbt");
 const util = require("util");
 const parseNbt = util.promisify(nbt.parse);
 const moment = require("moment");
+const config = require("../../../config.json");
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -283,8 +284,8 @@ const register = function (UUID,username) {
       method: "POST",
     }
   ).then((res) => res.json()).then((res) => {
+    const errorMessage = `/gc An error occured while registering ${username} in the database! Please try again in few seconds.`
     try {
-      const errorMessage = `/gc An error occured while registering ${username} in the database! Please try again in few seconds.`
       if (res.success) {
         return `/gc Successfully registered ${username} in the database!`
       } else if (res.error) {
