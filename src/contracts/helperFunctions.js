@@ -6,7 +6,7 @@ const nbt = require("prismarine-nbt");
 const util = require("util");
 const parseNbt = util.promisify(nbt.parse);
 const moment = require("moment");
-const config = require("../../../config.json");
+const config = require("../../config.json");
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
