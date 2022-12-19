@@ -48,7 +48,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
 
 
 
-      fetch(`${config.api.pixelicAPI}/guildleaderboard/${timeframe.toLowerCase()}/${mode.toLowerCase()}/limit=10?key=${config.api.pixelicKey}&uuid=${await getUUID(username)}`).then((res) => res.json()).then(async (data) => {
+      fetch(`${config.api.pixelicAPI}/guildleaderboard/${timeframe.toLowerCase()}/${mode.toLowerCase()}?key=${config.api.pixelicKey}&uuid=${await getUUID(username)}`).then((res) => res.json()).then(async (data) => {
 
         var gamemode = null;
         var gamemodeFormatted = null;

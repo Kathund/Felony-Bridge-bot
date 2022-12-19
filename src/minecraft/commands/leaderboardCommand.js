@@ -47,7 +47,7 @@ class LeaderboardCommand extends minecraftCommand {
       }
 
 
-      fetch(`${config.api.pixelicAPI}/leaderboard/${timeframe.toLowerCase()}/${mode.toLowerCase()}/limit=10?key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (data) => {
+      fetch(`${config.api.pixelicAPI}/leaderboard/${timeframe.toLowerCase()}/${mode.toLowerCase()}/10?key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (data) => {
         var gamemode = null;
         var gamemodeFormatted = null;
         var type = null;
