@@ -277,9 +277,9 @@ const getStar = function (level) {
   return star;
 };
 
-const register = function (UUID,username) {
+const register = function (uuid,username) {
   fetch(
-    `${config.api.pixelicAPI}/player/register/${UUID}?key=${config.api.pixelicKey}`,
+    `${config.api.pixelicAPI}/player/register/${uuid}?key=${config.api.pixelicKey}`,
     {
       method: "POST",
     }
