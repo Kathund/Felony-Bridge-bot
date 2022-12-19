@@ -140,7 +140,7 @@ class WeeklyStatsCommand extends minecraftCommand {
 
     try {
       fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then(async (response) => {
-        fetch(`${config.api.pixelicAPI}/player/weekly?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
+        fetch(`${config.api.pixelicAPI}/player/weekly/${uuid}?key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
 
           var responseNew = await hypixel.getPlayer(uuid)
 
