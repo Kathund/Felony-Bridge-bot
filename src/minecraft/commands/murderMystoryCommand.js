@@ -25,7 +25,7 @@ class MurderMysteryCommand extends minecraftCommand {
       this.send(
         `/gc [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${mmWLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`
       );
-      console.log(register(username, await getUUID(username)))
+      await register(await getUUID(username), username)
     } catch (error) {
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
