@@ -21,7 +21,7 @@ class GuildEXPCommand extends minecraftCommand {
       var rawGexp = guild.me.weeklyExperience;
       var gexp = addCommas(rawGexp);
       this.send(`/gc ${username}'s GEXP is ${gexp}`);
-      console.log(register(username, await getUUID(username)))
+      console.log(register(await getUUID(username)), username)
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
