@@ -269,7 +269,7 @@ const parseTimestamp = function (text) {
 };
 
 
-const getStar = function (level) {
+function getStar(level) {
   let star = "✫"
   if (level >= 0) star = "✫";
   if (level >= 1100) star = "✪";
@@ -277,7 +277,7 @@ const getStar = function (level) {
   return star;
 };
 
-const register = function (uuid,username) {
+async function register(uuid, username) {
   fetch(
     `${config.api.pixelicAPI}/player/register/${uuid}?key=${config.api.pixelicKey}`,
     {
@@ -287,19 +287,19 @@ const register = function (uuid,username) {
     const errorMessage = `An error occured while registering ${username} in the database! Please try again in few seconds.`
     try {
       if (res.success) {
-        return `Successfully registered ${username} in the database!`
+        console.log(`Successfully registered ${username} in the database!`)
       } else if (res.error) {
         if (res.error == "Player already added") {
-          return `${username} is already registered in the database!`
+          console.log(`${username} is already registered in the database!`)
         } else if (res.error == "Player's last login was more than 30d ago") {
-          return `${username}'s last login was more than 30d ago!`
+          console.log(`${username}'s last login was more than 30d ago!`)
         } else {
           return errorMessage
         }
       } else {
         return errorMessage
       }
-      } catch {
+    } catch {
       return errorMessage
     }
   });
