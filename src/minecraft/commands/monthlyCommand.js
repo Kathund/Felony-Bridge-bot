@@ -307,7 +307,7 @@ class MonthlyStatsCommand extends minecraftCommand {
           } being added to the database..`
         );
 
-        this.send(register(uuid,player))
+        this.send(`/gc ${register(uuid,player)}`)
       }
     }
   }
