@@ -1,12 +1,9 @@
-const { getStar } = require("../../contracts/helperFunctions.js");
+const { getStar, register } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
-const fetch = (...args) =>
-  import("node-fetch")
-    .then(({ default: fetch }) => fetch(...args))
-    .catch((err) => console.log(err));
-``;
+
 class DenickerCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
@@ -30,26 +27,7 @@ class DenickerCommand extends minecraftCommand {
           } | Trios » ${data.player.data.four_three_winstreak} | Fours » ${data.player.data.four_four_winstreak
           } | 4v4  » ${data.player.data.two_four_winstreak}`
         );
-        fetch(
-          `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
-          {
-            method: "POST",
-          }
-        ).then((res) => {
-          if (res.status == 201) {
-            console.log(
-              `Successfully registered ${player.nickname} in the database!`
-            );
-          } else if (res.status == 400) {
-            console.log(
-              `${player.nickname} is already registered in the database!`
-            );
-          } else {
-            console.log(
-              `An error occured while registering ${player.nickname} in the database! Please try again in few seconds.`
-            );
-          }
-        });
+        console.log(register(await getUUID(username)), username)
       });
     } catch (error) {
       console.log(error);
