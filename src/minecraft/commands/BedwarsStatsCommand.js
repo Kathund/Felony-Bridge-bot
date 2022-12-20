@@ -66,7 +66,7 @@ class BedwarsCommand extends minecraftCommand {
           }
         `);
       }
-      console.log(register(await getUUID(username)), username)
+      await register(await getUUID(username), username)
     } catch (error) {
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
