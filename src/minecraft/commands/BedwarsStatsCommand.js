@@ -18,15 +18,24 @@ class BedwarsCommand extends minecraftCommand {
     try {
       const msg = this.getArgs(message);
       let mode = null;
+      let hidden = false;
 
-      if (["solo", "doubles", "threes", "fours", "4v4", "castle", "ultimate", "rush", "armed", "lucky", "voidless"].includes(msg[0])) {
+      if (["solo", "doubles", "threes", "fours", "4v4", "castle", "ultimate", "rush", "armed", "lucky", "voidless", "overall", "all"].includes(msg[0])) {
         mode = msg[0];
-        if (msg[1] && !msg[1].includes("/")) {
+        // check if the text "hidden" is in the 2nd argument (if there is one) and if it is, set hidden to true
+        if (msg[1] && msg[1].toLowerCase().includes("hidden")) {
+          hidden = true;
+          if (msg[2] && !msg[2].includes("/")) {
+            username = msg[2];
+          }
+        } else if (msg[1] && !msg[1].includes("/")) {
           username = msg[1];
         }
+        // check if the text "hidden" is in the 3rd argument (if there is one) and if it is, set hidden to true
+        if (msg[2] && msg[2].toLowerCase().includes("hidden")) hidden = true;
       } else {
         if (msg[0] && !msg[0].includes("/")) username = msg[0];
-        if (["solo", "doubles", "threes", "fours", "4v4", "castle", "ultimate", "rush", "armed", "lucky", "voidless"].includes(msg[1])) mode = msg[1];
+        if (["solo", "doubles", "threes", "fours", "4v4", "castle", "ultimate", "rush", "armed", "lucky", "voidless", "overall", "all"].includes(msg[1])) mode = msg[1];
       }
 
       const player = await hypixel.getPlayer(username);
@@ -34,7 +43,7 @@ class BedwarsCommand extends minecraftCommand {
 
       if (!mode || ["overall", "all"].includes(mode)) {
         this.send(
-          `/gc [${player.stats.bedwars.level}${star}] ${player.nickname
+          `${hidden ? "/oc" : "/gc"} [${player.stats.bedwars.level}${star}] ${player.nickname
           } | Coins: ${addNotation("oneLetters", player.stats.bedwars.coins)
           } | FK: ${addCommas(player.stats.bedwars.finalKills)} FKDR: ${player.stats.bedwars.finalKDRatio
           } | Wins: ${addNotation("oneLetters", player.stats.bedwars.wins)} WLR: ${player.stats.bedwars.WLRatio
