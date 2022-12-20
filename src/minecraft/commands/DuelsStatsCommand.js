@@ -92,7 +92,7 @@ class DuelsStatsCommand extends minecraftCommand {
           }
         }
       });
-      console.log(register(await getUUID(username)), username)
+      await register(await getUUID(username), username)
     } catch (error) {
       console.log(error);
       this.send(
