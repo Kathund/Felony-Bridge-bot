@@ -288,11 +288,14 @@ async function register(uuid, username) {
     try {
       if (res.success) {
         console.log(`Successfully registered ${username} in the database!`)
+        return (`Successfully registered ${username} in the database!`)
       } else if (res.error) {
         if (res.error == "Player already added") {
           console.log(`${username} is already registered in the database!`)
+          return (`${username} is already registered in the database!`)
         } else if (res.error == "Player's last login was more than 30d ago") {
           console.log(`${username}'s last login was more than 30d ago!`)
+          return (`${username}'s last login was more than 30d ago!`)
         } else {
           return errorMessage
         }
