@@ -35,7 +35,7 @@ class DenickerCommand extends minecraftCommand {
           response.player?.ign
         } is nicked as ${response.player.queried_nick}`
       );
-      console.log(register(await getUUID(username), username))
+      await register(await getUUID(username), username)
     } catch (error) {
       this.send("/gc Sorry, I wasn't able to denick this person.");
     }
