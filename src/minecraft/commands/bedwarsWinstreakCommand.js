@@ -27,7 +27,7 @@ class DenickerCommand extends minecraftCommand {
           } | Trios » ${data.player.data.four_three_winstreak} | Fours » ${data.player.data.four_four_winstreak
           } | 4v4  » ${data.player.data.two_four_winstreak}`
         );
-        console.log(register(await getUUID(username)), username)
+        await register(await getUUID(username), username)
       });
     } catch (error) {
       console.log(error);
