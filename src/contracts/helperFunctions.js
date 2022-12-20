@@ -6,6 +6,11 @@ const nbt = require("prismarine-nbt");
 const util = require("util");
 const parseNbt = util.promisify(nbt.parse);
 const moment = require("moment");
+const config = require("../../config.json");
+const fetch = (...args) =>
+  import("node-fetch")
+    .then(({ default: fetch }) => fetch(...args))
+    .catch((err) => console.log(err));
 
 function replaceAllRanks(input) {
   input = input.replaceAll("[OWNER] ", "");
@@ -264,13 +269,44 @@ const parseTimestamp = function (text) {
 };
 
 
-const getStar = function (level) {
+function getStar(level) {
   let star = "✫"
   if (level >= 0) star = "✫";
   if (level >= 1100) star = "✪";
   if (level >= 2100) star = "⚝";
   return star;
 };
+
+async function register(uuid, username) {
+  fetch(
+    `${config.api.pixelicAPI}/player/register/${uuid}?key=${config.api.pixelicKey}`,
+    {
+      method: "POST",
+    }
+  ).then((res) => res.json()).then((res) => {
+    const errorMessage = `An error occured while registering ${username} in the database! Please try again in few seconds.`
+    try {
+      if (res.success) {
+        console.log(`Successfully registered ${username} in the database!`)
+        return (`Successfully registered ${username} in the database!`)
+      } else if (res.error) {
+        if (res.error == "Player already added") {
+          console.log(`${username} is already registered in the database!`)
+          return (`${username} is already registered in the database!`)
+        } else if (res.error == "Player's last login was more than 30d ago") {
+          console.log(`${username}'s last login was more than 30d ago!`)
+          return (`${username}'s last login was more than 30d ago!`)
+        } else {
+          return errorMessage
+        }
+      } else {
+        return errorMessage
+      }
+    } catch {
+      return errorMessage
+    }
+  });
+}
 
 module.exports = {
   replaceAllRanks,
@@ -286,5 +322,6 @@ module.exports = {
   numberWithCommas,
   nth,
   parseTimestamp,
-  getStar
+  getStar,
+  register
 };

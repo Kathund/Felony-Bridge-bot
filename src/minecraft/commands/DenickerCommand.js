@@ -1,11 +1,9 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { register } = require("../../contracts/helperFunctions.js");
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
 const axios = require("axios");
-const fetch = (...args) =>
-  import("node-fetch")
-    .then(({ default: fetch }) => fetch(...args))
-    .catch((err) => console.log(err));
 
 class DenickerCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -20,9 +18,6 @@ class DenickerCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      const args = this.getArgs(message);
-      let hidden = false;
-      if (args[1] == ["hidden", "hide", "h"]) hidden = true;
       username = this.getArgs(message)[0];
       const response = (
         await axios.get(
@@ -31,35 +26,16 @@ class DenickerCommand extends minecraftCommand {
       ).data;
 
       if (!response.player?.ign) {
-        return this.send(`${hidden ? "/oc" : "/gc"} Sorry, I wasn't able to denick this person`);
+        return this.send(`/gc Sorry, I wasn't able to denick this person`);
       }
 
       const player = await hypixel.getPlayer(response.player?.ign);
       this.send(
-        `${hidden ? "/oc" : "/gc"}  ${player.rank ? `[${player.rank}] ` : ``}${
+        `/gc ${player.rank ? `[${player.rank}] ` : ``}${
           response.player?.ign
         } is nicked as ${response.player.queried_nick}`
       );
-      fetch(
-        `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
-        {
-          method: "POST",
-        }
-      ).then((res) => {
-        if (res.status == 201) {
-          console.log(
-            `Successfully registered ${player.nickname} in the database!`
-          );
-        } else if (res.status == 400) {
-          console.log(
-            `${player.nickname} is already registered in the database!`
-          );
-        } else {
-          console.log(
-            `An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`
-          );
-        }
-      });
+      await register(await getUUID(username), username)
     } catch (error) {
       this.send("/gc Sorry, I wasn't able to denick this person.");
     }
