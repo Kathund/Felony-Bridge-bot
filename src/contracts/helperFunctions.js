@@ -284,15 +284,15 @@ const register = function (uuid,username) {
       method: "POST",
     }
   ).then((res) => res.json()).then((res) => {
-    const errorMessage = `/gc An error occured while registering ${username} in the database! Please try again in few seconds.`
+    const errorMessage = `An error occured while registering ${username} in the database! Please try again in few seconds.`
     try {
       if (res.success) {
-        return `/gc Successfully registered ${username} in the database!`
+        return `Successfully registered ${username} in the database!`
       } else if (res.error) {
         if (res.error == "Player already added") {
-          return `/gc ${username} is already registered in the database!`
+          return `${username} is already registered in the database!`
         } else if (res.error == "Player's last login was more than 30d ago") {
-          return `/gc ${username}'s last login was more than 30d ago!`
+          return `${username}'s last login was more than 30d ago!`
         } else {
           return errorMessage
         }
