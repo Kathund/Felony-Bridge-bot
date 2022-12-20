@@ -24,7 +24,7 @@ class FriendsCommand extends minecraftCommand {
       this.send(
         `/gc [${player.rank}] ${player.nickname} has ${friends} friends`
       );
-      console.log(register(username, await getUUID(username)))
+      await register(await getUUID(username), username)
     } catch (error) {
       console.log(error);
       this.send(`/gc Something went wrong`);
