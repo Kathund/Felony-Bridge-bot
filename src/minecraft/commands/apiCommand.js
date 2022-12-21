@@ -23,9 +23,12 @@ class APICommand extends minecraftCommand {
       const hypixelKey = await hypixel.getKeyInfo();
       const pixelicKey = await fetch(`${config.api.pixelicAPI}/key?key=${config.api.pixelicKey}`).then((res) => res.json());
       const pixelicApi = await fetch(`${config.api.pixelicAPI}/api?key=${config.api.pixelicKey}`).then((res) => res.json());
+      const msg = this.getArgs(message);
+      let hidden = false;
+      if (msg[0] == "hidden") hidden = true;
 
       this.send(
-        `/gc Hypixel API - Key Owner: ${await getUsername(hypixelKey.owner)} Total Requests: ${addNotation(
+        `${hidden ? "/oc" : "/gc"} Hypixel API - Key Owner: ${await getUsername(hypixelKey.owner)} Total Requests: ${addNotation(
           "oneLetters",
           hypixelKey.totalRequests
         )} | Pixel API - Total Requests: ${addNotation(
