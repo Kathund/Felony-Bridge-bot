@@ -20,12 +20,19 @@ class APICommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      var key = await hypixel.getKeyInfo()
-      fetch(`${config.api.pixelicAPI}/key?key=${config.api.pixelicKey}`).then(res => res.json()).then(async (keyData) => {
-        fetch(`${config.api.pixelicAPI}/api?key=${config.api.pixelicKey}`).then(res => res.json()).then(async (apiData) => {
-          this.send(`/gc Hypixel API - Key Owner: ${await getUsername(key.owner)} Total Requests: ${addNotation('oneLetters', key.totalRequests)} | Pixel API - Total Requests: ${addNotation('oneLetters', keyData.totalRequests)} Players Tracked: ${addNotation('oneLetters', apiData.playersTracked)}`)
-        })
-      })
+      const hypixelKey = await hypixel.getKeyInfo();
+      const pixelicKey = await fetch(`${config.api.pixelicAPI}/key?key=${config.api.pixelicKey}`).then((res) => res.json());
+      const pixelicApi = await fetch(`${config.api.pixelicAPI}/api?key=${config.api.pixelicKey}`).then((res) => res.json());
+
+      this.send(
+        `/gc Hypixel API - Key Owner: ${await getUsername(hypixelKey.owner)} Total Requests: ${addNotation(
+          "oneLetters",
+          hypixelKey.totalRequests
+        )} | Pixel API - Total Requests: ${addNotation(
+          "oneLetters",
+          pixelicKey.totalRequests
+        )} Players Tracked: ${addNotation("oneLetters", pixelicApi.playersTracked)}`
+      );
     } catch (error) {
       console.log(error);
       this.send("/gc Something went wrong..");
