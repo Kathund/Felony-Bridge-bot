@@ -18,11 +18,13 @@ class DenickerCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const arg = this.getArgs(message);
+      let hidden = false;
       if (arg[0]) username = arg[0];
+      if (arg[1] == "hidden") hidden = true;
       const player = await hypixel.getPlayer(username)
       fetch(`${config.api.antiSniperAPI}/winstreak?key=${config.api.antiSniperKey}&name=${username}`).then((res) => res.json()).then(async (data) => {
-        this.send(`/gc [${player.stats.bedwars.level}${getStar(player.stats.bedwars.level)}] ${player.nickname
-          }: Accurrate » ${data.player.accurate ? "Yes" : "No"} | Overall » ${data.player.data.overall_winstreak
+        this.send(`${hidden ? "/oc" : "/gc"} [${player.stats.bedwars.level}${getStar(player.stats.bedwars.level)}] ${player.nickname
+          } | Accurrate » ${data.player.accurate ? "Yes" : "No"} | Overall » ${data.player.data.overall_winstreak
           } | Solo » ${data.player.data.eight_one_winstreak} | Doubles » ${data.player.data.eight_two_winstreak
           } | Trios » ${data.player.data.four_three_winstreak} | Fours » ${data.player.data.four_four_winstreak
           } | 4v4  » ${data.player.data.two_four_winstreak}`
