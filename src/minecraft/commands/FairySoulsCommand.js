@@ -18,11 +18,13 @@ class FairySoulsCommand extends minecraftCommand {
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
+      let hidden = false;
+      if (msg[1] == "hidden") hidden = true;
 
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       this.send(
-        `/gc ${username}'s Fairy Souls: ${data.profile.fairy_souls_collected
+        `${hidden ? "/oc" : "/gc"} ${username}'s Fairy Souls: ${data.profile.fairy_souls_collected
         }/238 | Progress: ${(Math.round((data.profile.fairy_souls_collected / 238) * 100) / 100) *
         100
         }%`
