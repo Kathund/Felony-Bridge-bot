@@ -17,10 +17,12 @@ class CSGOCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const args = this.getArgs(message);
+      let hidden = false;
       if (args[0]) username = args[0];
+      if (args[1] == "hidden") hidden = true;
       const player = hypixel.getPlayer(username);
       this.send(
-        `/gc [ ${player.rank} ] ${player.nickanme}: Cops And Crims Stats | Kills: ${player.stats.copsandcrims.kills} Deaths: ${player.stats.copsandcrims.deaths} KD: ${player.stats.copsandcrims.KDRatio} | Wins ${player.stats.copsandcrims.wins}`
+        `${hidden ? "/oc" : "/gc"} [ ${player.rank} ] ${player.nickanme}: Cops And Crims Stats | Kills: ${player.stats.copsandcrims.kills} Deaths: ${player.stats.copsandcrims.deaths} KD: ${player.stats.copsandcrims.KDRatio} | Wins ${player.stats.copsandcrims.wins}`
       );
       await register(await getUUID(username), username)
     } catch (error) {
