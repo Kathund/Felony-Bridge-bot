@@ -32,17 +32,20 @@ class SkyblockCommand extends minecraftCommand {
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
+      let hidden = false;
+      if (arg[1] == "hidden") hidden = true;
+
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
 
       if (!prices) {
         return this.send(
-          `/gc ${username} Prices are still loading, please try again in a few seconds.`
+          `${hidden ? "/oc" : "/gc"} ${username} Prices are still loading, please try again in a few seconds.`
         );
       }
       if (data.status == 404) {
         return this.send(
-          "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
+          `${hidden ? "/oc" : "/gc"} There is no player with the given UUID or name or the player has no Skyblock profiles`
         );
       }
 
@@ -94,7 +97,7 @@ class SkyblockCommand extends minecraftCommand {
         }
       }
       this.send(
-        `/gc ${username}'s Senither Weight » ${Math.round(weight.weight.senither.total * 100) / 100
+        `${hidden ? "/oc" : "/gc"} ${username}'s Senither Weight » ${Math.round(weight.weight.senither.total * 100) / 100
         } | Skill Average » ${Math.round(
           ((skills.farming.level +
             skills.mining.level +

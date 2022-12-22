@@ -19,6 +19,9 @@ class StatsCommand extends minecraftCommand {
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
+      let hidden = false;
+      if (arg[1] == "hidden") hidden = true;
+      
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const profile = await getWeight(data.profile, data.uuid);
@@ -37,7 +40,7 @@ class StatsCommand extends minecraftCommand {
         } | Slayer: ${Math.round(profile.weight.senither.slayer.total * 100) / 100
         } | Dungeons: ${Math.round(profile.weight.senither.dungeons.total * 100) / 100
         }`;
-      this.send(`/gc ${username}'s ${senitherW}`);
+      this.send(`${hidden ? "/oc" : "/gc"} ${username}'s ${senitherW}`);
     } catch (error) {
       console.log(error);
       this.send(

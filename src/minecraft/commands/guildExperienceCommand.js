@@ -17,10 +17,12 @@ class GuildEXPCommand extends minecraftCommand {
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
+      let hidden = false;
+      if (arg[1] == "hidden") hidden = true;
       var guild = await hypixel.getGuild("player", username);
       var rawGexp = guild.me.weeklyExperience;
       var gexp = addCommas(rawGexp);
-      this.send(`/gc ${username}'s GEXP is ${gexp}`);
+      this.send(`${hidden ? "/oc" : "/gc"} ${username}'s GEXP is ${gexp}`);
       await register(await getUUID(username), username)
     } catch (error) {
       console.log(error);

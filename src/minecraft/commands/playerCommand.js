@@ -19,6 +19,9 @@ class PlayerCommand extends minecraftCommand {
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
+      let hidden = false;
+      if (msg[1] == "hidden") hidden = true;
+
       const player = await hypixel.getPlayer(username);
       var guild = await hypixel.getGuild("player", username);
       if (guild == null) guild = { name: "None" };
@@ -26,7 +29,7 @@ class PlayerCommand extends minecraftCommand {
       var onlineStatus = "Offline";
       if (player.isOnline == true) onlineStatus = "Online";
       this.send(
-        `/gc [${player.rank}] ${player.nickname}: Level: ${player.level
+        `${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname}: Level: ${player.level
         } | ${onlineStatus
         } | Karma ${addNotation("oneLetters", player.karma)
         } | Achievement Points ${addNotation("oneLetters", player.achievementPoints)
