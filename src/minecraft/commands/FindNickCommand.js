@@ -20,14 +20,17 @@ class FindNickCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      username = this.getArgs(message)[0];
+      const args = this.getArgs(message);
+      if (args[0]) username = args[0];
+      let hidden = false;
+      if (args[1] == "hidden") hidden = true;
       const player = hypixel.getPlayer(username);
       fetch(
         `https://api.antisniper.net/findnick?key=${config.api.antiSniperKey}&name=${player}`
       ).then((res) => {
         res.json().then((data) => {
           this.send(
-            `/gc [${player.rank}] ${player.nickname}: Nicked - ${data.player.nick}`
+            `${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname}: Nicked - ${data.player.nick}`
           );
         });
       });

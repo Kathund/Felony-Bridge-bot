@@ -18,11 +18,13 @@ class FriendsCommand extends minecraftCommand {
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
+      let hidden = false;
+      if (msg[1] == "hidden") hidden = true;
       const player = await hypixel.getPlayer(username);
       const friend = await hypixel.getFriends(username);
       const friends = friend.length + 1;
       this.send(
-        `/gc [${player.rank}] ${player.nickname} has ${friends} friends`
+        `${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname} has ${friends} friends`
       );
       await register(await getUUID(username), username)
     } catch (error) {

@@ -16,14 +16,17 @@ class MurderMysteryCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     try {
-      const msg = this.getArgs(message);
-      if (msg[0]) username = msg[0];
+      const args = this.getArgs(message);
+      if (args[0]) username = args[0];
+      let hidden = false
+      if (args[1] == "hidden") hidden = true
+
       const player = await hypixel.getPlayer(username);
       var stats = player.stats.murdermystery;
       var losses = stats.playedGames - stats.wins;
       var mmWLR = stats.wins / losses;
       this.send(
-        `/gc [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${mmWLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`
+        `${hidden ? "/oc" : "/gc"} [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${mmWLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`
       );
       await register(await getUUID(username), username)
     } catch (error) {

@@ -14,9 +14,12 @@ class FetchurCommand extends minecraftCommand {
   async onCommand(username, message) {
     try {
       const fetchur = getFetchur();
+      const args = this.getArgs(message);
+      let hidden = false;
+      if (args[0] == "hidden") hidden = true;
 
       this.send(
-        `/gc Fetchur Requests » ${fetchur.text} | Description: ${fetchur.description}`
+        `${hidden ? "/oc" : "/gc"} Fetchur Requests » ${fetchur.text} | Description: ${fetchur.description}`
       );
     } catch (error) {
       console.log(error);

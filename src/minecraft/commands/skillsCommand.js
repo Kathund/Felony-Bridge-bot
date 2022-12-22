@@ -19,11 +19,14 @@ class SkillsCommand extends minecraftCommand {
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
+      let hidden = false;
+      if (arg[1] == "hidden") hidden = true;
+
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const profile = getSkills(data.profile);
       this.send(
-        `/gc Skill Average » ${Math.round(
+        `${hidden ? "/oc" : "/gc"} Skill Average » ${Math.round(
           ((profile.farming.level +
             profile.mining.level +
             profile.combat.level +
