@@ -17,28 +17,30 @@ class CalculateDuelsCommand extends minecraftCommand {
             const msg = this.getArgs(message);
             let type = null;
             let target = null;
+            let hidden = false;
 
             // Todo add support for someones username and a gamemode 
             if (['kd', 'wlr'].includes(msg[0])) type = msg[0];
             if (msg[1]) target = msg[1];
+            if (msg[2] == 'hidden') hidden = true;
 
             var player = await hypixel.getPlayer(username);
 
             if (type == 'kd') {
-                if (target < player.stats.duels.KDRatio) { this.send(`/gc You already have a higher kd than ${target}`) }
+                if (target < player.stats.duels.KDRatio) { this.send(`${hidden ? "/oc" : "/gc"} You already have a higher kd than ${target}`) }
                 else {
                     var kills = player.stats.duels.kills
                     var deaths = player.stats.duels.deaths
                     var neededKills = (target * deaths) - kills;
-                    this.send(`/gc You need ${neededKills.toFixed(2)} kills with 0  deaths to reach ${target} kd`);
+                    this.send(`${hidden ? "/oc" : "/gc"} You need ${neededKills.toFixed(2)} kills with 0  deaths to reach ${target} kd`);
                 }
             } else if (type == 'wlr') {
-                if (target < player.stats.duels.WLRatio) { this.send(`/gc You already have a higher wlr than ${target}`) }
+                if (target < player.stats.duels.WLRatio) { this.send(`${hidden ? "/oc" : "/gc"} You already have a higher wlr than ${target}`) }
                 else {
                     var wins = player.stats.duels.wins;
                     var losses = player.stats.duels.losses;
                     var neededWins = (target * losses) - wins;
-                    this.send(`/gc You need ${neededWins.toFixed(2)} wins with 0 losses to reach ${target} wlr`);
+                    this.send(`${hidden ? "/oc" : "/gc"} You need ${neededWins.toFixed(2)} wins with 0 losses to reach ${target} wlr`);
                 }
             }
         } catch (error) {
