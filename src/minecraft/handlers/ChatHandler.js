@@ -43,11 +43,6 @@ class StateHandler extends eventHandler {
       return bot.chat("\u00a7");
     }
 
-    if (this.isUnmutedHitlastbEESSTwww(message)) {
-      await delay(420);
-      bot.chat("/g mute xStxppxd 30d");
-    }
-
     if (this.isPartyMessage(message)) {
       const username = replaceAllRanks(message.substr(54));
       await delay(69);
@@ -142,7 +137,7 @@ class StateHandler extends eventHandler {
         if (hasDuelsWins == true && hasDuelsWLR == true) {
           meetRequirements = true;
         }
-
+        
         var plusColor = player.plusColor
         var plusPlusColor = player.prefixColor
 
@@ -785,13 +780,6 @@ class StateHandler extends eventHandler {
 
   isMessageFromBot(username) {
     return bot.username === username;
-  }
-
-  isUnmutedHitlastbEESSTwww(message) {
-    return (
-      message.includes(`[MVP++] xStxppxd has unmuted [MVP++] xStxppxd`
-      ) && !message.includes(":")
-    );
   }
 
   isAlreadyBlacklistedMessage(message) {
