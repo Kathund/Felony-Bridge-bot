@@ -16,9 +16,15 @@ class PurgeCommand extends minecraftCommand {
 
     async onCommand(username, message) {
         try {
-            if (username == "hitlastBESTWW") {
-                this.send(`/gc Good bye felony`)
-                var keep = ["burekxs", "snowyhitlast", "felonybot", "festivezom", "4vl", "snowyhyenda", "snowyhyenda", "reqlity", "snowykath", "tryinhard", "xstxppxd", "hitlastbestww", "_aricow", "x710", "clevevl", "vquv", "festivemosu", "sqwif", "merryradicalad", "sweathy", "sugna_", "lighthth", "1vz_", "axth", "tryinsoft", "snowytrios", "bloood", "yunoh_", "pixelic", "yoderofgaming", "obigtiger", "firedmountain", "feelingsx", "cgtv32", "sqsm", "caitgx", "heembreezy", "merryfoamy", "shadowlm", "baienciaga", "valmah", "qseu", "zeacch", "merryastro", "burntt0ast_", "lxgg", "spookyheroo", "gothmommylaine", "scammedlmao", "snowyqitz", "bedwars4v4", "mol_o", "waeaejwalwaekdja", "lufh", "2kfk", "kelnis", "valainey", "burnzysuwukitten", "ohnoah_", "hitlastbestww", "hitlast1234", "juicewrd", "griffmas", "essam_a_jr"]
+            const check = await hypixel.getGuild(`player`, username)
+            if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
+                let amount = config.minecraft.guild.ranks.prisoners
+                let max = 125
+                const arg = this.getArgs(message);
+                if (arg[0]) amount = arg[0]
+                if (arg[1]) max = arg[1]
+                this.send(`/go Purging anyone under the ${amount} gexp with the max amount ${max}`)
+                await delay(1000)
                 const check = await hypixel.getGuild('name', config.minecraft.guild.name);
                 var members = check.members;
                 var guildMembers = [];
@@ -28,25 +34,34 @@ class PurgeCommand extends minecraftCommand {
                 var f = guildMembers.entries();
                 let num = 0
                 let kicked = 0
-                await delay(10000)
                 this.send(`/oc Checking ${guildMembers.length} members`)
                 await delay(2000)
                 for (let x of f) {
+                    if (kicked >= max) {
+                        this.send(`/oc Reached max amount of ${max} purged`)
+                        break;
+                    }
                     var i = guildMembers[num]
                     var player = await hypixel.getPlayer(i)
-                    var ignLower = player.nickname.toLowerCase()
-                    if (keep.includes(ignLower)) {
-                        this.send(`/oc ${player.nickname} is in the keep list`)
+                    var guild = await hypixel.getGuild('player', i)
+                    if (guild.me.rank == "Police" || guild.me.rank == "Wardens" || guild.me.rank == "Guild Master") {
+                        this.send(`/oc ${player.nickname} is a staff member`)
                         await delay(3000)
                     } else {
-                        kicked = kicked + 1
-                        this.minecraft.bot.chat(`/g kick ${player.nickname} Thank you for being a part of Felony but we are going private <3`)
-                        await delay(3000)
+                        const weekGEXP = guild.me.weeklyExperience
+                        if (weekGEXP <= amount) {
+                            this.send(`/g kick ${player.nickname} Inactive - If you wish to come back do /g join felony and if you have the reqs it will accept or apply in the discord - gg/felony`)
+                            kicked = kicked + 1
+                            await delay(3000)
+                        } else {
+                            this.send(`/oc ${player.nickname} has more then ${amount} gexp`)
+                            await delay(3000)
+                        }
                     }
                     num = num + 1
                     x = x + 1
                 }
-                this.send(`/go Finsihed members ${kicked}`)
+
             } else {
                 this.send(`/gc Staff only command`);
             }
