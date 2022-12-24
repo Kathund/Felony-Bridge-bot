@@ -43,17 +43,17 @@ class StateHandler extends eventHandler {
       return bot.chat("\u00a7");
     }
 
-    if (this.isPartyMessage(message)) {
-      const username = replaceAllRanks(message.substr(54));
-      await delay(69);
-      this.send(`/party accept ${username}`);
-      await delay(420);
-      this.send(
-        `/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`
-      );
-      await delay(5000);
-      this.send(`/party leave`);
-    }
+    // if (this.isPartyMessage(message)) {
+    //   const username = replaceAllRanks(message.substr(54));
+    //   await delay(69);
+    //   this.send(`/party accept ${username}`);
+    //   await delay(420);
+    //   this.send(
+    //     `/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`
+    //   );
+    //   await delay(5000);
+    //   this.send(`/party leave`);
+    // }
 
     if (this.isGuildTopMessage(message)) {
       if (!message.includes("10.")) {
