@@ -7,8 +7,8 @@ class GEXPRankCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "grank";
-        this.aliases = [];
+        this.name = "guildcheck";
+        this.aliases = ["gcheck"];
         this.description = "j";
         this.options = [];
     }
