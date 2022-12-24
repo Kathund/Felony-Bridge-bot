@@ -10,8 +10,8 @@ class GuildLeaderboardCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
 
-    this.name = "glb";
-    this.aliases = ["guildlb", "guildleaderboard"];
+    this.name = "guildleaderboard";
+    this.aliases = ["guildlb", "glb"];
     this.description = "Alows you to look up the leaderbaords for guilds";
     this.options = [];
   }
