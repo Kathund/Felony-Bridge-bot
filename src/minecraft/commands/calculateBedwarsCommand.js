@@ -20,7 +20,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
             let hidden = false;
 
             // Todo add support for someones username and a gamemode (solo, doubles, threes, fours, 4v4)
-            if (['fkdr', 'wlr', 'blr'].includes(msg[0])) type = msg[0];
+            if (['fkdr', 'wlr', 'blr', 'bblr'].includes(msg[0])) type = msg[0];
             if (msg[1]) target = msg[1];
             if (msg[2] == 'hidden') hidden = true;
 
@@ -42,7 +42,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
                     var neededWins = (target * losses) - wins;
                     this.send(`${hidden ? "/oc" : "/gc"} You need ${neededWins.toFixed(2)} wins with 0 losses to reach ${target} wlr`);
                 }
-            } else if (type == 'blr') {
+            } else if (type == 'blr' || type == "bblr") {
                 if (target < player.stats.bedwars.beds.BLRatio) { this.send(`${hidden ? "/oc" : "/gc"} You already have a higher blr than ${target}`) }
                 else {
                     var brokenBeds = player.stats.bedwars.beds.broken;
