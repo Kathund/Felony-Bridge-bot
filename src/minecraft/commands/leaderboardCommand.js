@@ -12,7 +12,7 @@ class LeaderboardCommand extends minecraftCommand {
 
     this.name = "lb";
     this.aliases = ["leaderboard"];
-    this.description = "Alows you to look up leaderboards";
+    this.description = "Allows you to look up leaderboards";
     this.options = [];
   }
 
