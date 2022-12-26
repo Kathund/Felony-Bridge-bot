@@ -91,8 +91,10 @@ class DailyStatsCommand extends minecraftCommand {
 
   async onCommand(username, message) {
     const args = this.getArgs(message);
-    let mode,
-      player = username;
+    let mode
+    let pixelicSubmode
+    let hypixelSubmode
+    let player = username
 
     if (
       [
@@ -115,6 +117,7 @@ class DailyStatsCommand extends minecraftCommand {
       mode = args[0];
       if (args[1]) player = args[1];
     }
+
     if (
       [
         "bw",
@@ -152,8 +155,27 @@ class DailyStatsCommand extends minecraftCommand {
               generalData.karma === undefined
                 ? 0
                 : generalData.karma - oldGeneralData.karma;
-            this.send(`/gc ${player} gained ${generalKarma} karma | in the last 24 hours`)
+            this.send(`/gc ${player} gained ${generalKarma} karma`)
           } else if (["bw", "bedwars", "bedwar", "bws"].includes(mode.toLowerCase())) {
+            if (["solo","solos","eight_one"].includes(args[2])) {
+              pixelicSubmode = "solo"
+              hypixelSubmode = "eight_one_"
+            } else if (["doubles","teams","eight_two"].includes(args[2])) {
+              pixelicSubmode = "doubles"
+              hypixelSubmode = "eight_two_"
+            } else if (["threes","four_three"].includes(args[2])) {
+              pixelicSubmode = "threes"
+              hypixelSubmode = "four_three_"
+            } else if (["fours","four_four"].includes(args[2])) {
+              pixelicSubmode = "fours"
+              hypixelSubmode = "four_four_"
+            } else if (["4v4","four_two"].includes(args[2])) {
+              pixelicSubmode = "four_two"
+              hypixelSubmode = "four_two_"
+            } else {
+              pixelicSubmode = "overall"
+              hypixelSubmode = ""
+            }
             const bedwarsData = responseNew.stats.bedwars
             const oldBedwarsData = response24H.Bedwars
 
@@ -162,55 +184,54 @@ class DailyStatsCommand extends minecraftCommand {
             var bedwarsWins =
               bedwarsData.wins === undefined
                 ? 0
-                : bedwarsData.wins - oldBedwarsData.overall.wins
+                : bedwarsData[hypixelSubmode + "wins_bedwars"] - oldBedwarsData[pixelicSubmode]["wins"]
             var bedwarsLosses =
               bedwarsData.losses_bedwars === undefined
                 ? 0
-                : bedwarsData.losses_bedwars - oldBedwarsData.overall.losses
+                : bedwarsData[hypixelSubmode + "losses_bedwars"] - oldBedwarsData[pixelicSubmode]["losses"]
             var bedwarsFinalKills =
               bedwarsData.finalKills === undefined
                 ? 0
-                : bedwarsData.finalKills - oldBedwarsData.overall.finalKills
+                : bedwarsData[hypixelSubmode + "final_kills_bedwars"] - oldBedwarsData[pixelicSubmode]["finalKills"]
             var bedwarsFinalDeaths =
               bedwarsData.finalDeaths === undefined
                 ? 0
-                : bedwarsData.finalDeaths - oldBedwarsData.overall.finalDeaths
+                : bedwarsData[hypixelSubmode + "final_deaths_bedwars"] - oldBedwarsData[pixelicSubmode]["finalDeaths"]
             var bedwarsBedsBroken =
               bedwarsData.beds.broken === undefined
                 ? 0
-                : bedwarsData.beds.broken - oldBedwarsData.overall.bedsBroken
+                : bedwarsData[hypixelSubmode + "beds_broken_bedwars"] - oldBedwarsData[pixelicSubmode]["bedsBroken"]
             var bedwarsBedsLost =
               bedwarsData.beds.lost === undefined
                 ? 0
-                : bedwarsData.beds.lost - oldBedwarsData.overall.bedsLost
-
+                : bedwarsData[hypixelSubmode + "beds_lost_bedwars"] - oldBedwarsData[pixelicSubmode]["bedsLost"]
+            
+            let bedwarsWlr
             if (bedwarsWins == "0") {
-              var bedwarsWlr1 = "0";
+              bedwarsWlr = "0";
             } else if (bedwarsLosses == "0") {
-              var bedwarsWlr2 = bedwarsWins;
+              bedwarsWlr = bedwarsWins;
             } else {
-              var bedwarsWlr3 = (bedwarsWins / bedwarsLosses).toFixed(2);
+              bedwarsWlr = (bedwarsWins / bedwarsLosses).toFixed(2);
             }
+            let bedwarsFkdr
             if (bedwarsFinalKills == "0") {
-              var bedwarsFkdr1 = "0";
+              bedwarsFkdr = "0";
             } else if (bedwarsFinalDeaths == "0") {
-              var bedwarsFkdr2 = bedwarsFinalKills;
+              bedwarsFkdr = bedwarsFinalKills;
             } else {
-              var bedwarsFkdr3 = (bedwarsFinalKills / bedwarsFinalDeaths).toFixed(2);
+              bedwarsFkdr = (bedwarsFinalKills / bedwarsFinalDeaths).toFixed(2);
             }
+            let bedwarsBblr
             if (bedwarsBedsBroken == "0") {
-              var bedwarsBblr1 = "0";
+              bedwarsBblr = "0";
             } else if (bedwarsBedsLost == "0") {
-              var bedwarsBblr2 = bedwarsBedsBroken;
+              bedwarsBblr = bedwarsBedsBroken;
             } else {
-              var bedwarsBblr3 = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2);
+              bedwarsBblr = (bedwarsBedsBroken / bedwarsBedsLost).toFixed(2);
             }
 
-            var bedwarsWlr = bedwarsWlr1 || bedwarsWlr2 || bedwarsWlr3;
-            var bedwarsFkdr = bedwarsFkdr1 || bedwarsFkdr2 || bedwarsFkdr3;
-            var bedwarsBblr = bedwarsBblr1 || bedwarsBblr2 || bedwarsBblr3;
-
-            this.send(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr} | in the last 24 hours`)
+            this.send(`/gc [${bedwarsLevel}✫] ${player} | FK: ${addCommas(bedwarsFinalKills)} FKDR: ${bedwarsFkdr} | Wins: ${addCommas(bedwarsWins)} WLR: ${bedwarsWlr} | BB: ${addCommas(bedwarsBedsBroken)} BLR: ${bedwarsBblr}`)
           } else if (["sw", "skywars", "skywar", "sws"].includes(mode.toLowerCase())) {
             const skywarsData = responseNew.stats.skywars
             const oldSkywarsData = response24H.Skywars;
@@ -257,7 +278,7 @@ class DailyStatsCommand extends minecraftCommand {
             var skywarsKdr = skywarsKdr1 || skywarsKdr2 || skywarsKdr3;
 
             // this.send(`/gc [${skywarsLevel}✫] ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`)
-            this.send(`/gc ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr} | in the last 24 hours`)
+            this.send(`/gc ${player} | Kills: ${addCommas(skywarsKills)} KDR: ${skywarsKdr} | Wins: ${skywarsWins} WLR: ${skywarsWlr}`)
           } else if (["duels", "duel", "d"].includes(mode.toLowerCase())) {
             const duelsData = response.data.player.stats.Duels;
             const oldDuelsData = response24H.data.Duels;
@@ -296,7 +317,7 @@ class DailyStatsCommand extends minecraftCommand {
 
             var duelsWlr = duelsWlr1 || duelsWlr2 || duelsWlr3;
             var duelsKdr = duelsKdr1 || duelsKdr2 || duelsKdr3;
-            this.send(`/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr} | in the last 24 hours`)
+            this.send(`/gc ${player} | Kills: ${addCommas(duelsKills)} KDR: ${duelsKdr} | Wins: ${addCommas(duelsWins)} WLR: ${duelsWlr}`)
           }
         })
       })
