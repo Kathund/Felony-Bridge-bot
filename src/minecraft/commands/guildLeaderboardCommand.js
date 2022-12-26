@@ -12,7 +12,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
 
     this.name = "guildleaderboard";
     this.aliases = ["guildlb", "glb"];
-    this.description = "Alows you to look up the leaderbaords for guilds";
+    this.description = "Allows you to look up guild specific leaderboards";
     this.options = [];
   }
 
