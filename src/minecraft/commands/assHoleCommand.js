@@ -7,7 +7,7 @@ class PurgeCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "purge";
+        this.name = "fuckoff";
         this.aliases = [""];
         this.description = "PURGE";
         this.options = [];
