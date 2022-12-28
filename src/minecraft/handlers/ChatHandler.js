@@ -256,7 +256,7 @@ class StateHandler extends eventHandler {
         // Check if the welcome back messge is enabled
         if (data.minecraft.guild.autoWelcomeBack) {
           // Send the welcome back message
-          this.send(`/gc Welcome back ${user} <3 have a good day`)
+          // this.send(`/gc Welcome back ${user} <3 have a good day`)
         }
         // Send the login message to the guild
         return this.minecraft.broadcastPlayerToggle({
