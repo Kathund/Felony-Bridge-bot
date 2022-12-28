@@ -40,48 +40,27 @@ class PurgeCommand extends minecraftCommand {
                         this.send(`/oc ${player.nickname} is in the keep list`)
                         await delay(3000)
                     } else {
-                        let staying = false
-
+                        let staying = false;
                         let meetRequirements = false;
-                        let hasBWStars = false;
-                        let hasBWFKDR = false;
-                        let hasDuelsWins = false;
-                        let hasDuelsWLR = false;
 
-                        const hypixelLevel = player.level;
-                        const bwStars = player.stats.bedwars.level;
-                        const bwFKDR = player.stats.bedwars.finalKDRatio;
                         const bwWins = player.stats.bedwars.wins;
                         const swWins = player.stats.skywars.wins;
                         const duelsWins = player.stats.duels.wins;
-                        const duelsWLR = player.stats.duels.WLRatio;
 
                         if (
-                            hypixelLevel > config.minecraft.guild.requirements.hypixelNetworkLevel
+                            bwWins >= config.minecraft.guild.requirements.bedwarsWins
                         ) {
                             meetRequirements = true
                         }
-                        if (bwStars > config.minecraft.guild.requirements.bedwarsStars) {
-                            hasBWStars = true;
-                        }
-                        if (bwFKDR > config.minecraft.guild.requirements.bedwarsFKDR) {
-                            hasBWFKDR = true;
-                        }
-                        if (hasBWStars == true && hasBWFKDR == true) meetRequirements = true;
-                        if (bwWins > config.minecraft.guild.requirements.bedwarsWins) {
+                        if (
+                            swWins >= config.minecraft.guild.requirements.skywarsWins
+                        ) {
                             meetRequirements = true
                         }
-                        if (swWins > config.minecraft.guild.requirements.skywarsWins) {
+                        if (
+                            duelsWins >= config.minecraft.guild.requirements.duelsWins
+                        ) {
                             meetRequirements = true
-                        }
-                        if (duelsWins > config.minecraft.guild.requirements.dulesWins) {
-                            hasDuelsWins = true;
-                        }
-                        if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) {
-                            hasDuelsWLR = true;
-                        }
-                        if (hasDuelsWins == true && hasDuelsWLR == true) {
-                            meetRequirements = true;
                         }
 
                         if (meetRequirements == true) { staying = true }
