@@ -8,14 +8,9 @@
       "joinChecker": true,
       "autoAccept": true,
       "requirements": {
-        "hypixelNetworkLevel": 150,
-        "bedwarsStars": 200,
-        "bedwarsFKDR": 2,
-        "bedwarsWins": 3500,
+        "bedwarsWins": 5000,
         "skywarsWins": 5000,
-        "duelsWins": 7000,
-        "duelsWLR": 3,
-        "weight": 500
+        "duelsWins": 8000
       },
       "kicking": false,
       "ranks": {
