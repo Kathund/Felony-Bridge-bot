@@ -10,7 +10,7 @@ class RequirementsCommand extends minecraftCommand {
 
     this.name = "requirements";
     this.aliases = ["reqs"];
-    this.description = "Alows you to check the requirements of someone";
+    this.description = "Alows you to check if they have the requirements to join the guild";
     this.options = [];
   }
 
