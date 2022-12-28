@@ -16,7 +16,7 @@ const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const eventHandler = require("../../contracts/EventHandler.js");
 const messages = require("../../../messages.json");
 const { EmbedBuilder } = require("discord.js");
-const config = require("../../../config.json");
+const config = require("../../../config.example.json");
 const Logger = require("../../Logger.js");
 const fs = require("fs");
 const { runInThisContext } = require("vm");
@@ -243,10 +243,20 @@ class StateHandler extends eventHandler {
       }
     }
 
-    if (this.isLoginMessage(message)) {
+    // Checks if message is a login message
+if (this.isLoginMessage(message)) {
+      // Loads the config file
       const data = JSON.parse(fs.readFileSync("config.json"));
+      // Checks if the config file has the joinMessage property set to true
       if (data.discord.joinMessage) {
+        // Gets the username of the user that joined
         const user = message.split(">")[1].trim().split("joined.")[0].trim();
+        // Waits 300 milliseconds
+        await delay(300)
+        // Sends a message to the guild chat
+        if (data.minecraft.guild.autoWelcomeBack)
+        this.send(`/gc Welcome back ${user} <3 have a good day`)
+        // Broadcasts a message to the guild chat
         return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
           username: user,
@@ -261,6 +271,7 @@ class StateHandler extends eventHandler {
       const data = JSON.parse(fs.readFileSync("config.json"));
       if (data.discord.joinMessage) {
         const user = message.split(">")[1].trim().split("left.")[0].trim();
+        this.send(`/gc Wlecome Back ${user}`)
         return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
           username: user,
@@ -277,7 +288,7 @@ class StateHandler extends eventHandler {
         .trim()
         .split(/ +/g)[0];
       await delay(1000);
-      if (config.minecraft.guild.welcomeMessage == true) {
+      if (config.minecraft.guild.guildJoinMessage == true) {
         return bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`);
       }
       return [
