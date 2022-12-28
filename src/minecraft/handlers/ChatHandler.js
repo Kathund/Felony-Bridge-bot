@@ -243,20 +243,22 @@ class StateHandler extends eventHandler {
       }
     }
 
-    // Checks if message is a login message
-if (this.isLoginMessage(message)) {
-      // Loads the config file
+    // Check if the message is a login message
+    if (this.isLoginMessage(message)) {
+      // Read the config file
       const data = JSON.parse(fs.readFileSync("config.json"));
-      // Checks if the config file has the joinMessage property set to true
+      // Check if the join message is enabled
       if (data.discord.joinMessage) {
-        // Gets the username of the user that joined
+        // Get the username from the message
         const user = message.split(">")[1].trim().split("joined.")[0].trim();
-        // Waits 300 milliseconds
+        // Wait 300ms
         await delay(300)
-        // Sends a message to the guild chat
-        if (data.minecraft.guild.autoWelcomeBack)
-        this.send(`/gc Welcome back ${user} <3 have a good day`)
-        // Broadcasts a message to the guild chat
+        // Check if the welcome back messge is enabled
+        if (data.minecraft.guild.autoWelcomeBack) {
+          // Send the welcome back message
+          this.send(`/gc Welcome back ${user} <3 have a good day`)
+        }
+        // Send the login message to the guild
         return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
           username: user,
