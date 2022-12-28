@@ -93,51 +93,32 @@ class StateHandler extends eventHandler {
           hypixel.getPlayer(uuid),
           getLatestProfile(uuid),
         ]);
+
         let meetRequirements = false;
-        let hasHypixelLevel = false;
-        let hasBWStars = false;
-        let hasBWFKDR = false;
         let hasBWWins = false;
         let hasSWWins = false;
         let hasDuelsWins = false;
-        let hasDuelsWLR = false;
 
-        const hypixelLevel = player.level;
-        const bwStars = player.stats.bedwars.level;
-        const bwFKDR = player.stats.bedwars.finalKDRatio;
         const bwWins = player.stats.bedwars.wins;
         const swWins = player.stats.skywars.wins;
         const duelsWins = player.stats.duels.wins;
-        const duelsWLR = player.stats.duels.WLRatio;
 
         if (
-          hypixelLevel > config.minecraft.guild.requirements.hypixelNetworkLevel
+          bwWins >= config.minecraft.guild.requirements.bedwarsWins
         ) {
-          (hasHypixelLevel = true), (meetRequirements = true);
-        }
-        if (bwStars > config.minecraft.guild.requirements.bedwarsStars) {
-          hasBWStars = true;
-        }
-        if (bwFKDR > config.minecraft.guild.requirements.bedwarsFKDR) {
-          hasBWFKDR = true;
-        }
-        if (hasBWStars == true && hasBWFKDR == true) meetRequirements = true;
-        if (bwWins > config.minecraft.guild.requirements.bedwarsWins) {
           (hasBWWins = true), (meetRequirements = true);
         }
-        if (swWins > config.minecraft.guild.requirements.skywarsWins) {
+        if (
+          swWins >= config.minecraft.guild.requirements.skywarsWins
+        ) {
           (hasSWWins = true), (meetRequirements = true);
         }
-        if (duelsWins > config.minecraft.guild.requirements.dulesWins) {
-          hasDuelsWins = true;
+        if (
+          duelsWins >= config.minecraft.guild.requirements.duelsWins
+        ) {
+          (hasDuelsWins = true), (meetRequirements = true);
         }
-        if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) {
-          hasDuelsWLR = true;
-        }
-        if (hasDuelsWins == true && hasDuelsWLR == true) {
-          meetRequirements = true;
-        }
-        
+
         var plusColor = player.plusColor
         var plusPlusColor = player.prefixColor
 
@@ -151,13 +132,13 @@ class StateHandler extends eventHandler {
         if (player.rank == "Admin") rank = config.discord.emojis.ranks.ADMIN
         if (player.rank == "Youtube") rank = config.discord.emojis.ranks.YOUTUBE
         bot.chat(
-          `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt"
+          `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt got"
           } the requirements to join ${config.minecraft.guild.name}!`
         );
         const statsEmbed = new EmbedBuilder()
           .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
           .setTitle(
-            `${rank}   ${player.nickname}: has requested to join the Guild!`
+            `${rank}  ${player.nickname}: has requested to join the Guild!`
           )
           .setDescription(
             `${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"
@@ -165,36 +146,20 @@ class StateHandler extends eventHandler {
           )
           .addFields(
             {
-              name: "General",
-              value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel
-                } ${hasHypixelLevel
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
-                }`,
-              inline: false,
-            },
-            {
-              name: "Bedwars 1",
-              value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars
-                } ${hasBWStars
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
-                }\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR
-                } ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no
-                }`,
-              inline: false,
-            },
-            {
               name: "Bedwars 2",
               value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins
-                } ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no
+                } ${hasBWWins
+                  ? config.discord.emojis.yes
+                  : config.discord.emojis.no
                 }`,
               inline: false,
             },
             {
               name: "Skywars",
               value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins
-                } ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no
+                } ${hasSWWins
+                  ? config.discord.emojis.yes
+                  : config.discord.emojis.no
                 }`,
               inline: false,
             },
@@ -202,10 +167,6 @@ class StateHandler extends eventHandler {
               name: "Duels",
               value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins
                 } ${hasDuelsWins
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
-                }\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR
-                } ${hasDuelsWLR
                   ? config.discord.emojis.yes
                   : config.discord.emojis.no
                 }`,
