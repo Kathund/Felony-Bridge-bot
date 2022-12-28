@@ -67,6 +67,7 @@ If you do need support message me on discord via [Kathund#2004](https://discord.
 - `!networth [player]` - Networth of specified user
 - `!pet [player]` - Renders active pet of specified user
 - `!render [player] [slot]` - Renders item of specified user 
+- `!requirements <player>` - Alows you to check if they have the requirements to join the guild
 - `!player [player]` - Shows stats of the specified user
 - `!purge <amount of gexp> <max kicked>` - Purges the people that are under the set gexp **ADMIN ONLY**
 - `!skills [player]` - Skills and Skill Average of specified user
