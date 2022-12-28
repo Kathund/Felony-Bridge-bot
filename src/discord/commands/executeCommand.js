@@ -20,6 +20,7 @@ module.exports = {
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.wardens)) hasPerms = true;
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.police)) hasPerms = true;
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.botDev)) hasPerms = true;
+    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.bypassrole)) hasPerms = true;
     if (hasPerms) {
       const command = interaction.options.getString("command");
       bot.chat(`/${command}`);
