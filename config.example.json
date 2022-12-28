@@ -18,7 +18,8 @@
         "thieves": 150000,
         "prisoners": 50000
       },
-      "welcomeMessage": true
+      "guildJoinMessage": true,
+      "autoWelcomeBack": true
     },
     "sb": {
       "event": {
