@@ -251,7 +251,7 @@ class StateHandler extends eventHandler {
         // Check if the welcome back messge is enabled
         if (data.minecraft.guild.autoWelcomeBack) {
           // Send the welcome back message
-          if (user == 'xStxppxd') { this.send(`/gc FUCK OFF BURGER NO ONE LIKES U :D`) }
+          if (user == 'xStxppxd') { this.send(`/gc OMG HI BURGER ILY SO MUCH PLEASE MARRY `) }
           else { this.send(`/gc Welcome back ${user} <3 have a good day`) }
         }
         // Send the login message to the guild
