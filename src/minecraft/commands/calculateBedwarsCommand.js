@@ -14,15 +14,21 @@ class CalculateBedwarsCommand extends minecraftCommand {
     async onCommand(username, message) {
         try {
             // could be cleaner but it works
-            const msg = this.getArgs(message);
+            const args = this.getArgs(message);
             let type = null;
             let target = null;
             let hidden = false;
 
-            // Todo add support for someones username and a gamemode (solo, doubles, threes, fours, 4v4)
-            if (['fkdr', 'wlr', 'blr', 'bblr'].includes(msg[0])) type = msg[0];
-            if (msg[1]) target = msg[1];
-            if (msg[2] == 'hidden') hidden = true;
+            if (!['fkdr', 'wlr', 'blr', 'bblr'].includes(args[0])) {
+                username = args[0];
+                if (["fkdr", "wlr", "blr", "bblr"].includes(args[1])) type = args[1];
+                if (args[2]) target = args[2];
+                if (args[3] == 'hidden') hidden = true;
+            } else {
+                type = args[0];
+                if (args[1]) target = args[1];
+                if (args[2] == 'hidden') hidden = true;
+            }
 
             var player = await hypixel.getPlayer(username);
 
