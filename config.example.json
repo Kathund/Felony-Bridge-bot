@@ -2,11 +2,12 @@
   "minecraft": {
     "messageSpliter": "»",
     "prefix": "!",
+    "guildExp": 0,
     "guild": {
       "name": "Felony",
       "id": "5fc50e9a8ea8c9d1008d5f86",
       "joinChecker": true,
-      "autoAccept": true,
+      "autoAccept": false,
       "requirements": {
         "bedwarsWins": 5000,
         "skywarsWins": 5000,
@@ -53,25 +54,25 @@
   },
   "discord": {
     "token": "",
-    "clientID": "1027856966527221801",
-    "serverID": "966209630906777660",
-    "guildChatChannel": "1038287823612153856",
-    "officerChannel": "1035511724536774676",
-    "loggingChannel": "1035511927524298813",
+    "clientID": "",
+    "serverID": "",
+    "guildChatChannel": "",
+    "officerChannel": "",
+    "loggingChannel": "",
     "roles": {
       "staff": {
-        "guildMaster": "966558439474077696",
-        "wardens": "966558337590247494",
-        "police": "1006971502526206003"
+        "guildMaster": "",
+        "wardens": "",
+        "police": ""
       },
-      "guards": "1006971357864657059",
-      "thieves": "1006970500758646794",
-      "prisoners": "1006969716256034897",
-      "guildRole": "966557741365739561",
-      "botDev": "1034124987705069568"
+      "guards": "",
+      "thieves": "",
+      "prisoners": "",
+      "guildRole": "",
+      "botDev": "",
+      "bypass": ""
     },
-    "messageMode": "bot",
-    "useEmojis": false,
+    "messageMode": "minecraft",
     "filterMessages": false,
     "joinMessage": true,
     "emojis": {
@@ -145,7 +146,7 @@
   "console": {
     "maxEventSize": 50,
     "debug": true,
-    "debugChannel": "1035511927524298813"
+    "debugChannel": ""
   },
   "api": {
     "hypixelAPI": "https://api.hypixel.net",
