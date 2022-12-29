@@ -251,12 +251,13 @@ class StateHandler extends eventHandler {
       if (data.discord.joinMessage) {
         // Get the username from the message
         const user = message.split(">")[1].trim().split("joined.")[0].trim();
-        // Wait 300ms
-        await delay(300)
+        // Wait 500ms
+        await delay(500)
         // Check if the welcome back messge is enabled
         if (data.minecraft.guild.autoWelcomeBack) {
           // Send the welcome back message
-          // this.send(`/gc Welcome back ${user} <3 have a good day`)
+          if (user == 'xStxppxd') { this.send(`/gc FUCK OFF BURGER NO ONE LIKES U :D`) }
+          else { this.send(`/gc Welcome back ${user} <3 have a good day`) }
         }
         // Send the login message to the guild
         return this.minecraft.broadcastPlayerToggle({
@@ -273,7 +274,7 @@ class StateHandler extends eventHandler {
       const data = JSON.parse(fs.readFileSync("config.json"));
       if (data.discord.joinMessage) {
         const user = message.split(">")[1].trim().split("left.")[0].trim();
-        this.send(`/gc Wlecome Back ${user}`)
+        // this.send(`/gc Wlecome Back ${user}`)
         return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
           username: user,
