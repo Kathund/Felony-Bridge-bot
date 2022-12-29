@@ -14,7 +14,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
     async onCommand(username, message) {
         try {
             // could be cleaner but it works
-            const args = this.get3(message);
+            const args = this.getArgs(message);
             let type = null;
             let target = null;
             let hidden = false;
