@@ -19,10 +19,16 @@ class CalculatSkywarsCommand extends minecraftCommand {
             let target = null;
             let hidden = false;
 
-            // Todo add support for someones username and a gamemode 
-            if (['kd', 'wlr'].includes(msg[0])) type = msg[0];
-            if (msg[1]) target = msg[1];
-            if (msg[2] == 'hidden') hidden = true;
+            if (!['kd', 'wlr'].includes(msg[0])) {
+                username = msg[0];
+                if (["kd", "wlr"].includes(msg[1])) type = msg[1];
+                if (msg[2]) target = msg[2];
+                if (msg[3] == 'hidden') hidden = true;
+            } else {
+                if (['kd', 'wlr'].includes(msg[0])) type = msg[0];
+                if (msg[1]) target = msg[1];
+                if (msg[2] == 'hidden') hidden = true;
+            }
 
             var player = await hypixel.getPlayer(username);
 
