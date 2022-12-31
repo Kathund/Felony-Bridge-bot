@@ -159,5 +159,8 @@
     "pixelicAPI": "https://api.pixelic.de/v1",
     "pixelicKey": "PIXELIC_API_KEY",
     "imgurAPIkey": "IMGUR_API_KEY"
+  },
+  "other": {
+    "mongoDB": ""
   }
 }
