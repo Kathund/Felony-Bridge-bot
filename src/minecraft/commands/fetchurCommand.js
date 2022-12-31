@@ -1,5 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getFetchur } = require("../../../API/functions/getFetchur.js");
+const { logError } = require("../../contracts/helperFunctions.js");
+
 
 class FetchurCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -22,6 +24,7 @@ class FetchurCommand extends minecraftCommand {
         `${hidden ? "/oc" : "/gc"} Fetchur Requests » ${fetchur.text} | Description: ${fetchur.description}`
       );
     } catch (error) {
+      await logError(error, username);
       console.log(error);
       this.send("/gc Something went wrong..");
     }

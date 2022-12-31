@@ -2,6 +2,7 @@ const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const {
   getLatestProfile,
 } = require("../../../API/functions/getLatestProfile.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const getWeight = require("../../../API/stats/weight.js");
 
 class StatsCommand extends minecraftCommand {
@@ -42,6 +43,7 @@ class StatsCommand extends minecraftCommand {
         }`;
       this.send(`${hidden ? "/oc" : "/gc"} ${username}'s ${senitherW}`);
     } catch (error) {
+      await logError(error, username);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"

@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const config = require("../../../config.json");
 const axios = require("axios");
 const { toFixed } = require("../../contracts/helperFunctions.js");
@@ -50,6 +51,8 @@ class WoolwarsCommand extends minecraftCommand {
         }`
       );
     } catch (error) {
+      await logError(error, username);
+      console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
       );

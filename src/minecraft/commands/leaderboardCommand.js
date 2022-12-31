@@ -1,5 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getUsername } = require("../../contracts/API/MojangAPI.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const config = require("../../../config.json");
 const fetch = (...args) =>
   import("node-fetch")
@@ -262,6 +263,7 @@ class LeaderboardCommand extends minecraftCommand {
         }
       });
     } catch (error) {
+      await logError(error, username);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
