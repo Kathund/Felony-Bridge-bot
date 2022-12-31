@@ -5,7 +5,7 @@ const {
 } = require("../../../API/functions/getLatestProfile.js");
 const config = require("../../../config.json");
 const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
-const { decodeData } = require("../../contracts/helperFunctions.js");
+const { decodeData, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { renderLore } = require("../../contracts/renderItem.js");
 
@@ -58,6 +58,7 @@ class EquipmentCommand extends minecraftCommand {
         : this.send(`/gc ${username}'s Equipment » ${response}`);
     } catch (error) {
       console.log(error);
+      await logError(error, username)
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
       );
