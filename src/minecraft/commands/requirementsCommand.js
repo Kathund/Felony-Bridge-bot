@@ -26,10 +26,12 @@ class RequirementsCommand extends minecraftCommand {
       let hasBwRequirements = false;
       let hasSwRequirements = false;
       let hasDuelsRequirements = false;
+      let hasNetworkLevelRequirements = false;
 
       const bwWins = player.stats.bedwars.wins;
       const swWins = player.stats.skywars.wins;
       const duelsWins = player.stats.duels.wins;
+      const networkLevel = player.level;
 
       if (
         bwWins >= config.minecraft.guild.requirements.bedwarsWins
@@ -46,8 +48,14 @@ class RequirementsCommand extends minecraftCommand {
       ) {
         (hasDuelsRequirements = true), (meetRequirements = true)
       }
+      if (
+        networkLevel >= config.minecraft.guild.requirements.networkLevel
+      ) {
+        (hasNetworkLevelRequirements = true), (meetRequirements = true)
+      }
 
-      this.send(`${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname} ${meetRequirements ? "has" : "does not have"} the requirements to join ${config.minecraft.guild.name} - Bedwars: ${hasBwRequirements ? "✔" : "✘"} - Skywars: ${hasSwRequirements ? "✔" : "✘"} - Duels: ${hasDuelsRequirements ? "✔" : "✘"}`)
+
+      this.send(`${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname} ${meetRequirements ? "has" : "does not have"} the requirements to join ${config.minecraft.guild.name} - Bedwars: ${hasBwRequirements ? "✔" : "✘"} - Skywars: ${hasSwRequirements ? "✔" : "✘"} - Duels: ${hasDuelsRequirements ? "✔" : "✘"} - Network Level: ${hasNetworkLevelRequirements}`)
       await register(getUUID(username), username)
     } catch (error) {
       console.log(error);

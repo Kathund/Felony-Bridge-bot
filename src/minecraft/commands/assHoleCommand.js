@@ -8,7 +8,7 @@ class PurgeCommand extends minecraftCommand {
         super(minecraft);
 
         this.name = "fuckoff";
-        this.aliases = [""];
+        this.aliases = [];
         this.description = "PURGE";
         this.options = [];
         this.optionsDescription = [];

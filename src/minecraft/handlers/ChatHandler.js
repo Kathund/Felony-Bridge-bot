@@ -93,10 +93,12 @@ class StateHandler extends eventHandler {
         let hasBWWins = false;
         let hasSWWins = false;
         let hasDuelsWins = false;
+        let hasNetworkLevel = false;
 
         const bwWins = player.stats.bedwars.wins;
         const swWins = player.stats.skywars.wins;
         const duelsWins = player.stats.duels.wins;
+        const networkLevel = player.level
 
         if (
           bwWins >= config.minecraft.guild.requirements.bedwarsWins
@@ -112,6 +114,11 @@ class StateHandler extends eventHandler {
           duelsWins >= config.minecraft.guild.requirements.duelsWins
         ) {
           (hasDuelsWins = true), (meetRequirements = true);
+        }
+        if (
+          networkLevel >= config.minecraft.guild.requirements.networkLevel
+        ) {
+          (hasNetworkLevel = true), (meetRequirements = true)
         }
 
         var plusColor = player.plusColor
@@ -141,7 +148,7 @@ class StateHandler extends eventHandler {
           )
           .addFields(
             {
-              name: "Bedwars 2",
+              name: "Bedwars",
               value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins
                 } ${hasBWWins
                   ? config.discord.emojis.yes
@@ -162,6 +169,15 @@ class StateHandler extends eventHandler {
               name: "Duels",
               value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins
                 } ${hasDuelsWins
+                  ? config.discord.emojis.yes
+                  : config.discord.emojis.no
+                }`,
+              inline: false,
+            },
+            {
+              name: "Level",
+              value: `Level - ${networkLevel}/${config.minecraft.guild.requirements.networkLevel
+                } ${hasNetworkLevel
                   ? config.discord.emojis.yes
                   : config.discord.emojis.no
                 }`,
