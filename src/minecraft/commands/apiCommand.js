@@ -1,5 +1,5 @@
+const { addNotation, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { addNotation } = require("../../contracts/helperFunctions.js");
 const { getUsername } = require("../../contracts/API/MojangAPI.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json");
@@ -38,6 +38,7 @@ class APICommand extends minecraftCommand {
       );
     } catch (error) {
       console.log(error);
+      await logError(error, username);
       this.send("/gc Something went wrong..");
     }
   }

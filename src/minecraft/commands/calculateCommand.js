@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 
 class CalculateCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -11,7 +12,7 @@ class CalculateCommand extends minecraftCommand {
     this.optionsDescription = ["Any kind of math equation"];
   }
 
-  onCommand(username, message) {
+  async onCommand(username, message) {
     try {
       const str = this.getArgs(message)
         .join(" ")
@@ -19,6 +20,7 @@ class CalculateCommand extends minecraftCommand {
       this.send(`/gc ${!isNaN(eval(str)) ? `${eval(str)}` : ""}`);
     } catch (error) {
       console.log(error);
+      await logError(error, username);
       this.send("/gc Invalid input!");
     }
   }

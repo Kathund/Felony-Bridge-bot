@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 
 class CalculatSkywarsCommand extends minecraftCommand {
@@ -50,6 +51,7 @@ class CalculatSkywarsCommand extends minecraftCommand {
                 }
             }
         } catch (error) {
+            await logError(error, username);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

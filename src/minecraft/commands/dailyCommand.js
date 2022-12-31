@@ -1,5 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { addCommas, register } = require("../../contracts/helperFunctions.js");
+const { addCommas, register, logError } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
@@ -576,7 +576,7 @@ class DailyStatsCommand extends minecraftCommand {
           } not in the database. ${player == username ? "You are" : `${player} is`
           } being added to the database..`
         );
-
+        await logError(error, username);
         this.send(`/gc ${register(uuid, player)}`)
       }
     }

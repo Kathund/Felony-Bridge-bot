@@ -308,6 +308,20 @@ async function register(uuid, username) {
   });
 }
 
+async function logError(error, username) {
+  fetch(config.discord.loggingWebhook, {
+    body: JSON.stringify({
+      content: `**Caused By** ${username}\n${error}`,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  })
+}
+
+
+
 module.exports = {
   replaceAllRanks,
   addNotation,
@@ -323,5 +337,6 @@ module.exports = {
   nth,
   parseTimestamp,
   getStar,
-  register
+  register,
+  logError
 };

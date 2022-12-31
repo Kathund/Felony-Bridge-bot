@@ -1,9 +1,8 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const { logError } = require("../../contracts/helperFunctions.js");
 const getTalismans = require("../../../API/stats/talismans.js");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
 
 class AccessoriesCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -26,7 +25,7 @@ class AccessoriesCommand extends minecraftCommand {
           "/gc There is no player with the given UUID or name or the player has no Skyblock profiles."
         );
       }
-      
+
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const talismans = await getTalismans(data.profile);
       const common = talismans?.common?.length,
@@ -77,7 +76,8 @@ class AccessoriesCommand extends minecraftCommand {
       );
     } catch (error) {
       console.log(error);
-      this.send(`/gc [ERROR] ${error}`);
+      await logError(error, username);
+      this.send(`/gc something went wrong...`);
     }
   }
 }

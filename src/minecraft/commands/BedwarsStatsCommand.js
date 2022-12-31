@@ -1,13 +1,7 @@
-const { addNotation, capitalize, addCommas, getStar, register } = require("../../contracts/helperFunctions.js");
+const { addNotation, capitalize, addCommas, getStar, register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
-const config = require("../../../config.json");
-const fetch = (...args) =>
-    import("node-fetch")
-        .then(({ default: fetch }) => fetch(...args))
-        .catch((err) => console.log(err));
-
 
 class BedwarsCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -84,15 +78,7 @@ class BedwarsCommand extends minecraftCommand {
       }
       await register(await getUUID(username), username)
     } catch (error) {
-      fetch(config.discord.loggingWebhook, {
-        body: JSON.stringify({
-          content: `${error}`,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      })
+      await logError(error, username);
       this.send("There is no player with the given UUID or name or player has never joined Hypixel.");
       console.log(error);
     }
