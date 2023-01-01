@@ -1,4 +1,6 @@
 // eslint-disable-next-line
+const { logError} = require("../../contracts/helperFunctions.js")
+const config = require("../../../config.json")
 const Logger = require("../.././Logger");
 
 module.exports = {
@@ -17,6 +19,7 @@ module.exports = {
 
         await command.execute(interaction, interaction.client);
       } catch (error) {
+        await logError(config.minecraft.bot.name, error)
         console.log(error);
         
         await interaction.reply({
