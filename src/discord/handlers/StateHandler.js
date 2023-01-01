@@ -1,6 +1,7 @@
 /*eslint-disable */
 const { ActivityType } = require("discord.js");
 const config = require("../../../config.json");
+const { logError } = require("../../contracts/helperFunctions");
 const Logger = require("../../Logger.js");
 /*eslint-enable */
 
@@ -23,11 +24,12 @@ class StateHandler {
     channel.send({
       embeds: [
         {
-          author: { name: `${config.discord.emojis.online} Chat Bridge is Online` },
+          author: { name: `${config.other.emojis.discord.online} Chat Bridge is Online` },
           color: 2067276,
         },
       ],
-    });
+    })
+    await logError(config.minecraft.bot.name, "bot has gone online")
   }
 
   async onClose() {
@@ -36,11 +38,13 @@ class StateHandler {
     channel.send({
       embeds: [
         {
-          author: { name: `${config.discord.emojis.offline} Chat Bridge is Offline` },
+          author: { name: `${config.other.emojis.discord.online} Chat Bridge is Offline` },
           color: 15548997,
         }
       ]
-    }).then(() => { process.exit(); });
+    })
+    await logError(config.minecraft.bot.name, "bot has gone offline - @everyone")
+    process.exit();
   }
 }
 

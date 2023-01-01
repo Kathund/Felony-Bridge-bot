@@ -1,6 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { register } = require("../../contracts/helperFunctions.js");
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
 const axios = require("axios");
@@ -41,6 +41,7 @@ class DenickerCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
+      await logError(error, username)
       this.send("/gc Sorry, I wasn't able to denick this person.");
     }
   }

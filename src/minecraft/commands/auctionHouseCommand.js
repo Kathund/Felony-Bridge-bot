@@ -2,7 +2,7 @@ const config = require("../../../config.json");
 // eslint-disable-next-line
 const { ImgurClient } = require("imgur");
 const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
-const { addCommas, timeSince } = require("../../contracts/helperFunctions.js");
+const { addCommas, timeSince, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { decodeData } = require("../../contracts/helperFunctions.js");
 const { renderLore } = require("../../contracts/renderItem.js");
@@ -107,6 +107,7 @@ class AuctionHouseCommand extends minecraftCommand {
         this.send("/gc This player does not have any auctions active.");
       }
     } catch (error) {
+      await logError(error, username);
       console.log(error);
       this.send(`/gc [ERROR] ${error}`);
     }

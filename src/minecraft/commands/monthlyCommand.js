@@ -1,5 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { addCommas, register } = require("../../contracts/helperFunctions.js");
+const { addCommas, register, logError } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
@@ -300,6 +300,8 @@ class MonthlyStatsCommand extends minecraftCommand {
         })
       })
     } catch (error) {
+      await logError(error, username);
+      console.log(error)
       if (error.response?.data?.error == "Player not in database") {
         this.send(
           `/gc ${player == username ? "You are" : `${player} is`

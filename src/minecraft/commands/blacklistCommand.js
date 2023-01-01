@@ -1,6 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 
 class BlacklistCommand extends minecraftCommand {
     constructor(minecraft) {
@@ -43,6 +44,7 @@ class BlacklistCommand extends minecraftCommand {
                 this.send(`/gc This is a staff only command`)
             }
         } catch (error) {
+            await logError(error, username);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

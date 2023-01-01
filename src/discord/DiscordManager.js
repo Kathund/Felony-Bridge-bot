@@ -3,7 +3,6 @@ const { Client, Collection, AttachmentBuilder, GatewayIntentBits } = require("di
 const CommunicationBridge = require("../contracts/CommunicationBridge.js");
 const messageToImage = require("../contracts/messageToImage.js");
 const MessageHandler = require("./handlers/MessageHandler.js");
-const hypixel = require("../contracts/API/HypixelRebornAPI");
 const StateHandler = require("./handlers/StateHandler.js");
 const CommandHandler = require("./CommandHandler.js");
 const config = require("../../config.json");

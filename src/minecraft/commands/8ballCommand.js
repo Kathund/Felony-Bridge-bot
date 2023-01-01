@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const axios = require("axios");
 
 class EightBallCommand extends minecraftCommand {
@@ -18,6 +19,7 @@ class EightBallCommand extends minecraftCommand {
       this.send(`/gc ${(await axios.get(`https://8ball.delegator.com/magic/JSON/${message.replace('!8ball ', '').replaceAll(' ', '%20').replaceAll('/', '')}`)).data.magic.answer}`);
     } catch (error) {
       console.log(error);
+      await logError(error, username);
       this.send("/gc Something went wrong..");
     }
   }

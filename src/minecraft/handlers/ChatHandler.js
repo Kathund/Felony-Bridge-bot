@@ -1,21 +1,20 @@
 
-const { replaceAllRanks } = require("../../contracts/helperFunctions.js");
 const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { replaceAllRanks, logError } = require("../../contracts/helperFunctions.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-let guildInfo = [],
-  guildRanks = [],
-  members = [],
-  guildTop = [];
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const eventHandler = require("../../contracts/EventHandler.js");
 const messages = require("../../../messages.json");
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line
 const { EmbedBuilder } = require("discord.js");
 const config = require("../../../config.json");
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const Logger = require("../../Logger.js");
+const logger = require("../../logger.js");
 const fs = require("fs");
+let guildInfo = [],
+  guildRanks = [],
+  members = [],
+  guildTop = [];
 
 class StateHandler extends eventHandler {
   constructor(minecraft, command, discord) {
@@ -35,6 +34,7 @@ class StateHandler extends eventHandler {
     const colouredMessage = event.toMotd();
 
     if (this.isLobbyJoinMessage(message)) {
+      await logError(this.bot.username, `Client Send to limbo, logged in as ${this.bot.username}`)
       return bot.chat("\u00a7");
     }
 
@@ -470,19 +470,13 @@ class StateHandler extends eventHandler {
         message: `${messages.alreadyBlacklistedMessage}`,
         title: `Blacklist`,
         color: 2067276,
-        channel: "Guild",
+        channel: "Logger",
       });
     }
 
     if (this.isBlacklistMessage(message)) {
       const user = message.split(" ")[1];
       return [
-        this.minecraft.broadcastHeadedEmbed({
-          message: `${user}${messages.blacklistMessage}`,
-          title: `Blacklist`,
-          color: 2067276,
-          channel: "Guild",
-        }),
         this.minecraft.broadcastHeadedEmbed({
           message: `${user}${messages.blacklistMessage}`,
           title: `Blacklist`,
@@ -495,12 +489,6 @@ class StateHandler extends eventHandler {
     if (this.isBlacklistRemovedMessage(message)) {
       const user = message.split(" ")[1];
       return [
-        this.minecraft.broadcastHeadedEmbed({
-          message: `${user}${messages.blacklistRemoveMessage}`,
-          title: `Blacklist`,
-          color: 2067276,
-          channel: "Guild",
-        }),
         this.minecraft.broadcastHeadedEmbed({
           message: `${user}${messages.blacklistRemoveMessage}`,
           title: `Blacklist`,
@@ -700,7 +688,7 @@ class StateHandler extends eventHandler {
     }
 
     if (this.isTooFast(message)) {
-      return Logger.warnMessage(message);
+      return logger.warnMessage(message);
     }
 
     if (this.isPlayerNotFound(message)) {

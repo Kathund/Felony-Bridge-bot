@@ -2,6 +2,7 @@ const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const {
   getLatestProfile,
 } = require("../../../API/functions/getLatestProfile.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const getSkills = require("../../../API/stats/skills.js");
 
 class SkillsCommand extends minecraftCommand {
@@ -51,6 +52,8 @@ class SkillsCommand extends minecraftCommand {
         || 0}`
       );
     } catch (error) {
+      await logError(error, username);
+      console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
       );

@@ -1,4 +1,4 @@
-const { addNotation, capitalize, addCommas, getStar, register } = require("../../contracts/helperFunctions.js");
+const { addNotation, capitalize, addCommas, getStar, register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
@@ -78,9 +78,8 @@ class BedwarsCommand extends minecraftCommand {
       }
       await register(await getUUID(username), username)
     } catch (error) {
-      this.send(
-        "There is no player with the given UUID or name or player has never joined Hypixel."
-      );
+      await logError(error, username);
+      this.send("There is no player with the given UUID or name or player has never joined Hypixel.");
       console.log(error);
     }
   }

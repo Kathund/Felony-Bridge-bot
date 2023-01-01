@@ -1,4 +1,5 @@
 const eventHandler = require("../../contracts/EventHandler.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 // eslint-disable-next-line
 const Logger = require("../.././Logger.js");
 
@@ -15,13 +16,12 @@ class StateHandler extends eventHandler {
     this.bot.on("error", (...args) => this.onError(...args));
   }
 
-  onError(error) {
+  async onError(error) {
     if (this.isConnectionResetError(error)) return;
 
     if (this.isConnectionRefusedError(error)) {
-      return Logger.errorMessage(
-        "Connection refused while attempting to login via the Minecraft client"
-      );
+      await logError(this.bot.username, "Connection refused while attempting to login via the Minecraft client")
+      return Logger.errorMessage("Connection refused while attempting to login via the Minecraft client");
     }
 
     Logger.warnMessage(error);
