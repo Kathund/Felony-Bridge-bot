@@ -6,9 +6,10 @@ const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const eventHandler = require("../../contracts/EventHandler.js");
 const messages = require("../../../messages.json");
+// eslint-disable-next-line
 const { EmbedBuilder } = require("discord.js");
 const config = require("../../../config.json");
-const Logger = require("../../Logger.js");
+const logger = require("../../logger.js");
 const fs = require("fs");
 let guildInfo = [],
   guildRanks = [],
@@ -687,7 +688,7 @@ class StateHandler extends eventHandler {
     }
 
     if (this.isTooFast(message)) {
-      return Logger.warnMessage(message);
+      return logger.warnMessage(message);
     }
 
     if (this.isPlayerNotFound(message)) {
