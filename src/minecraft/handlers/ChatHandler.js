@@ -35,6 +35,7 @@ class StateHandler extends eventHandler {
     const colouredMessage = event.toMotd();
 
     if (this.isLobbyJoinMessage(message)) {
+      await logError(this.bot.username, `Client Send to limbo, logged in as ${this.bot.username}`)
       return bot.chat("\u00a7");
     }
 
@@ -470,19 +471,13 @@ class StateHandler extends eventHandler {
         message: `${messages.alreadyBlacklistedMessage}`,
         title: `Blacklist`,
         color: 2067276,
-        channel: "Guild",
+        channel: "Logger",
       });
     }
 
     if (this.isBlacklistMessage(message)) {
       const user = message.split(" ")[1];
       return [
-        this.minecraft.broadcastHeadedEmbed({
-          message: `${user}${messages.blacklistMessage}`,
-          title: `Blacklist`,
-          color: 2067276,
-          channel: "Guild",
-        }),
         this.minecraft.broadcastHeadedEmbed({
           message: `${user}${messages.blacklistMessage}`,
           title: `Blacklist`,
@@ -495,12 +490,6 @@ class StateHandler extends eventHandler {
     if (this.isBlacklistRemovedMessage(message)) {
       const user = message.split(" ")[1];
       return [
-        this.minecraft.broadcastHeadedEmbed({
-          message: `${user}${messages.blacklistRemoveMessage}`,
-          title: `Blacklist`,
-          color: 2067276,
-          channel: "Guild",
-        }),
         this.minecraft.broadcastHeadedEmbed({
           message: `${user}${messages.blacklistRemoveMessage}`,
           title: `Blacklist`,
