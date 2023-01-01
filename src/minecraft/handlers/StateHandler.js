@@ -1,3 +1,4 @@
+const { logError } = require("../../contracts/helperFunctions.js");
 const eventHandler = require("../../contracts/EventHandler.js");
 // eslint-disable-next-line
 const Logger = require("../../Logger.js");
@@ -19,30 +20,32 @@ class StateHandler extends eventHandler {
     this.bot.on("kicked", (...args) => this.onKicked(...args));
   }
 
-  onLogin() {
+  async onLogin() {
     Logger.minecraftMessage("Client ready, logged in as " + this.bot.username);
 
     this.loginAttempts = 0;
     this.exactDelay = 0;
+    await logError(this.bot.username, "Client ready, logged in as " + this.bot.username)
   }
 
-  onEnd() {
+  async onEnd() {
     const loginDelay =
       this.exactDelay > 60000 ? 60000 : (this.loginAttempts + 1) * 5000;
 
     Logger.warnMessage(
-      `Minecraft bot has disconnected! Attempting reconnect in ${
-        loginDelay / 1000
+      `Minecraft bot has disconnected! Attempting reconnect in ${loginDelay / 1000
       } seconds`
     );
+    await logError(this.bot.username, `Minecraft bot has disconnected! Attempting reconnect in ${loginDelay / 1000} seconds`)
 
     setTimeout(() => this.minecraft.connect(), loginDelay);
   }
 
-  onKicked(reason) {
+  async onKicked(reason) {
     Logger.warnMessage(
       `Minecraft bot has been kicked from the server for "${reason}"`
     );
+    await logError(this.bot.username, `Minecraft bot has been kicked from the server for "${reason}"`)
 
     this.loginAttempts++;
   }
