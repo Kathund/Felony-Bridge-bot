@@ -126,14 +126,14 @@ class StateHandler extends eventHandler {
         var plusPlusColor = player.prefixColor
 
         var rank = player.rank;
-        if (player.rank == "VIP") rank = config.discord.emojis.ranks.VIP
-        if (player.rank == "VIP+") rank = config.discord.emojis.ranks.VIP_PLUS
-        if (player.rank == "MVP") rank = config.discord.emojis.ranks.MVP
-        if (player.rank == "MVP+") rank = config.discord.emojis.ranks.MVP_PLUS[plusColor.color]
-        if (player.rank == "MVP++") rank = config.discord.emojis.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
-        if (player.rank == "Game Master") rank = config.discord.emojis.ranks.GAME_MASTER
-        if (player.rank == "Admin") rank = config.discord.emojis.ranks.ADMIN
-        if (player.rank == "Youtube") rank = config.discord.emojis.ranks.YOUTUBE
+        if (player.rank == "VIP") rank = config.other.emojis.discord.ranks.VIP
+        if (player.rank == "VIP+") rank = config.other.emojis.discord.ranks.VIP_PLUS
+        if (player.rank == "MVP") rank = config.other.emojis.discord.ranks.MVP
+        if (player.rank == "MVP+") rank = config.other.emojis.discord.ranks.MVP_PLUS[plusColor.color]
+        if (player.rank == "MVP++") rank = config.other.emojis.discord.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
+        if (player.rank == "Game Master") rank = config.other.emojis.discord.ranks.GAME_MASTER
+        if (player.rank == "Admin") rank = config.other.emojis.discord.ranks.ADMIN
+        if (player.rank == "Youtube") rank = config.other.emojis.discord.ranks.YOUTUBE
         bot.chat(
           `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt got"
           } the requirements to join ${config.minecraft.guild.name}!`
@@ -152,8 +152,8 @@ class StateHandler extends eventHandler {
               name: "Bedwars",
               value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins
                 } ${hasBWWins
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             },
@@ -161,8 +161,8 @@ class StateHandler extends eventHandler {
               name: "Skywars",
               value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins
                 } ${hasSWWins
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             },
@@ -170,8 +170,8 @@ class StateHandler extends eventHandler {
               name: "Duels",
               value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins
                 } ${hasDuelsWins
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             },
