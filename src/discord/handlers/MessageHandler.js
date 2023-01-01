@@ -1,6 +1,6 @@
-const config = require("../../../config.json");
+const { generateID, logError} = require("../../contracts/helperFunctions.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const { generateID } = require("../../contracts/helperFunctions.js");
+const config = require("../../../config.json");
 
 class MessageHandler {
   constructor(discord, command) {
@@ -51,6 +51,7 @@ class MessageHandler {
         ? reference.member.displayName
         : reference.author.username;
     } catch (error) {
+      await logError(config.minecraft.bot.name, error)
       return null;
     }
   }
