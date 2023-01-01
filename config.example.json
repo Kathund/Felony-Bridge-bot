@@ -45,6 +45,7 @@
     "messageRepeatBypass": true,
     "messageRepeatBypassLength": 20,
     "bot": {
+      "name": "",
       "server": "mc.hypixel.net",
       "port": "25565",
       "auth": "microsoft",
