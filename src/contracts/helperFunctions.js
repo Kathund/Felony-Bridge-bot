@@ -311,7 +311,18 @@ async function register(uuid, username) {
 async function logError(username, error) {
   fetch(config.discord.loggingWebhook, {
     body: JSON.stringify({
-      content: `**Caused By** - ${username}\n**Error** - ${error}`,
+      "embeds": [
+        {
+          "author": {
+            "name": `Caused by ${username}`,
+          },
+          "description": `${error}`,
+          "color": 14248966,
+          "thumbnail": {
+            "url": `https://visage.surgeplay.com/full/${await getUUID(username)}`
+          }
+        }
+      ]
     }),
     headers: {
       "Content-Type": "application/json",
