@@ -1,4 +1,5 @@
-const { writeAt } = require("../../contracts/helperFunctions.js");
+const { writeAt, logError } = require("../../contracts/helperFunctions.js");
+const config = require("../../../config.json");
 // eslint-disable-next-line
 const Rss = require('rss-parser');
 const fs = require('fs');
@@ -24,6 +25,7 @@ async function checkForIncidents() {
             }
         }
     } catch (error) {
+        await logError(config.minecraft.bot.name, error);
         console.log(error);
     }
 }
@@ -40,6 +42,7 @@ async function checkForSkyblockUpdates() {
             }
         }
      } catch (error) {
+        await logError(config.minecraft.bot.name, error);
         console.log(error);
     }
 }
