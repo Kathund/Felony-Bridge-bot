@@ -1,9 +1,8 @@
+const { logError, toFixed } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { logError } = require("../../contracts/helperFunctions.js");
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
 const axios = require("axios");
-const { toFixed } = require("../../contracts/helperFunctions.js");
-const { getUUID } = require("../../contracts/API/MojangAPI.js");
 
 function getWoolWarsStar(exp) {
   const minimalExp = [0, 1e3, 3e3, 6e3, 1e4, 15e3];
@@ -51,7 +50,7 @@ class WoolwarsCommand extends minecraftCommand {
         }`
       );
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
