@@ -320,7 +320,7 @@ async function logError(username, error) {
           "description": `${error}`,
           "color": 14248966,
           "thumbnail": {
-            "url": `https://visage.surgeplay.com/full/${await getUUID(username)}`
+            "url": `https://visage.surgeplay.com/bust/${await getUUID(username)}`
           }
         }
       ]
@@ -331,8 +331,6 @@ async function logError(username, error) {
     method: "POST",
   })
 }
-
-
 
 module.exports = {
   replaceAllRanks,
