@@ -1,6 +1,6 @@
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { register, logError } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 
 class DuelsStatsCommand extends minecraftCommand {
@@ -94,8 +94,8 @@ class DuelsStatsCommand extends minecraftCommand {
       });
       await register(await getUUID(username), username)
     } catch (error) {
+      await logError(username, error);
       console.log(error);
-      await logError(error, username)
       this.send(
         "/gc There is no player with the given name or this duel does not exist."
       );
