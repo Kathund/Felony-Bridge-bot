@@ -1,6 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { logError } = require("../../contracts/helperFunctions.js")
 const config = require("../../../config.json")
 
 class PurgeCommand extends minecraftCommand {
@@ -90,6 +91,7 @@ class PurgeCommand extends minecraftCommand {
                 this.send(`/gc Staff only command`);
             }
         } catch (error) {
+            await logError(username, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }
