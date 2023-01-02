@@ -67,7 +67,7 @@ class PurgeCommand extends minecraftCommand {
                 this.send(`/gc Staff only command`);
             }
         } catch (error) {
-            await logError(error, username);
+            await logError(username, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }
