@@ -29,7 +29,7 @@ class StateHandler {
         },
       ],
     })
-    await logError(config.minecraft.bot.name, "bot has gone online")
+    await logError("bot has gone online", config.minecraft.bot.name )
   }
 
   async onClose() {
