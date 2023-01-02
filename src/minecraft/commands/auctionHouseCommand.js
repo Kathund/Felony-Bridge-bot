@@ -1,10 +1,9 @@
 const config = require("../../../config.json");
+const { decodeData, addCommas, timeSince, logError } = require("../../contracts/helperFunctions.js");
 // eslint-disable-next-line
 const { ImgurClient } = require("imgur");
 const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
-const { addCommas, timeSince, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { decodeData } = require("../../contracts/helperFunctions.js");
 const { renderLore } = require("../../contracts/renderItem.js");
 const getRank = require("../../../API/stats/rank.js");
 const axios = require("axios");
@@ -107,9 +106,9 @@ class AuctionHouseCommand extends minecraftCommand {
         this.send("/gc This player does not have any auctions active.");
       }
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error);
-      this.send(`/gc [ERROR] ${error}`);
+      this.send(`/gc Something went wrong, try again.`);
     }
   }
 }
