@@ -308,10 +308,10 @@ async function register(uuid, username) {
   });
 }
 
-async function logError(error, username) {
+async function logError(username, error) {
   fetch(config.discord.loggingWebhook, {
     body: JSON.stringify({
-      content: `**Caused By** - ${username}\n${error}`,
+      content: `**Caused By** - ${username}\n**Error** - ${error}`,
     }),
     headers: {
       "Content-Type": "application/json",
