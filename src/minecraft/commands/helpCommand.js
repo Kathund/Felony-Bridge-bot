@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 
 class HelpCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -11,11 +12,12 @@ class HelpCommand extends minecraftCommand {
     this.optionsDescription = [];
   }
 
-  onCommand(username, message) {
+  async onCommand(username, message) {
     try {
       // TODO update ss
       this.send(`/gc https://imgur.com/4LoDwPs.png`);
     } catch (error) {
+      await logError(username, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
