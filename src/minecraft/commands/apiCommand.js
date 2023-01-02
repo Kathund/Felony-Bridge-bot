@@ -37,8 +37,8 @@ class APICommand extends minecraftCommand {
         )} Players Tracked: ${addNotation("oneLetters", pixelicApi.playersTracked)}`
       );
     } catch (error) {
+      await logError(username, error);
       console.log(error);
-      await logError(error, username);
       this.send("/gc Something went wrong..");
     }
   }
