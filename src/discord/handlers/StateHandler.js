@@ -14,7 +14,7 @@ class StateHandler {
     logger.discordMessage("Client ready, logged in as " + this.discord.client.user.tag);
     this.discord.client.user.setPresence({
       activities: [
-        { name: `/help | by Kathund#2004`, type: ActivityType.Playing },
+        { name: `Felony Guild Chat`, type: ActivityType.Watching },
       ],
     });
     const channel = await getChannel("Guild");
