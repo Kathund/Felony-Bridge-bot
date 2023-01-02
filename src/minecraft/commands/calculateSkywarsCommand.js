@@ -51,7 +51,7 @@ class CalculatSkywarsCommand extends minecraftCommand {
                 }
             }
         } catch (error) {
-            await logError(error, username);
+            await logError(username, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }
