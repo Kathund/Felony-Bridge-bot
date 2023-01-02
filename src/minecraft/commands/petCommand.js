@@ -1,12 +1,12 @@
-const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
-// eslint-disable-next-line
-const { ImgurClient } = require("imgur");
-const config = require("../../../config.json");
-const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
 const { getRarityColor, logError } = require("../../contracts/helperFunctions.js");
+const config = require("../../../config.json");
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { ImgurClient } = require("imgur");
+const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { renderLore } = require("../../contracts/renderItem.js");
 const getPets = require("../../../API/stats/pets.js");
+// eslint-disable-next-line
 
 class RenderCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -65,7 +65,7 @@ class RenderCommand extends minecraftCommand {
       }
       this.send(`/gc ${username} does not have pet equiped.`);
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
