@@ -51,8 +51,8 @@ class CalculateDuelsCommand extends minecraftCommand {
                 }
             }
         } catch (error) {
+            await logError(username, error);
             console.log(error);
-            await logError(error, username);
             this.send("/gc Something went wrong..");
         }
     }
