@@ -1,6 +1,6 @@
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { register, logError } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
 
@@ -58,7 +58,7 @@ class RequirementsCommand extends minecraftCommand {
       this.send(`${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname} ${meetRequirements ? "has" : "does not have"} the requirements to join ${config.minecraft.guild.name} - Bedwars: ${hasBwRequirements ? "✔" : "✘"} - Skywars: ${hasSwRequirements ? "✔" : "✘"} - Duels: ${hasDuelsRequirements ? "✔" : "✘"} - Network Level: ${hasNetworkLevelRequirements}`)
       await register(getUUID(username), username)
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
