@@ -1,9 +1,9 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { decodeData, logError } = require("../../contracts/helperFunctions.js");
+const config = require("../../../config.json");
 // eslint-disable-next-line
 const { ImgurClient } = require("imgur");
-const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
-const config = require("../../../config.json");
 const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
-const { decodeData, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { renderLore } = require("../../contracts/renderItem.js");
 
@@ -70,7 +70,7 @@ class RenderCommand extends minecraftCommand {
         }`
       );
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
