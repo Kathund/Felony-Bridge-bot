@@ -1,6 +1,6 @@
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { register, logError } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 
 class FriendsCommand extends minecraftCommand {
@@ -28,7 +28,7 @@ class FriendsCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error);
       this.send(`/gc Something went wrong`);
     }
