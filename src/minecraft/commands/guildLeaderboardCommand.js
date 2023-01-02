@@ -262,12 +262,12 @@ class GuildLeaderboardCommand extends minecraftCommand {
           );
         }
       });
-  } catch(error) {
-    await logError(error, username);
-    console.log(error);
-    this.send("/gc Something went wrong..");
+    } catch (error) {
+      await logError(username, error);
+      console.log(error);
+      this.send("/gc Something went wrong..");
+    }
   }
-}
 }
 
 module.exports = GuildLeaderboardCommand;
