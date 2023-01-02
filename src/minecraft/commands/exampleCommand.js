@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 
 class ExampleCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -17,6 +18,7 @@ class ExampleCommand extends minecraftCommand {
       console.log(`use this.send to send a message as the bot`)
       this.send(`/gc Check the console`)
     } catch (error) {
+      await logError(username, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
