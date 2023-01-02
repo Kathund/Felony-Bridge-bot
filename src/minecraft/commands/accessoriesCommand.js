@@ -76,7 +76,7 @@ class AccessoriesCommand extends minecraftCommand {
       );
     } catch (error) {
       console.log(error);
-      await logError(error, username);
+      await logError(username, error);
       this.send(`/gc something went wrong...`);
     }
   }
