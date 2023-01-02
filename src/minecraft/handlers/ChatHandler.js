@@ -1,6 +1,6 @@
 
-const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const { replaceAllRanks, logError } = require("../../contracts/helperFunctions.js");
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
@@ -34,7 +34,7 @@ class StateHandler extends eventHandler {
     const colouredMessage = event.toMotd();
 
     if (this.isLobbyJoinMessage(message)) {
-      await logError(this.bot.username, `Client Send to limbo, logged in as ${this.bot.username}`)
+      await logError(config.minecraft.bot.name, `Client Send to limbo, logged in as ${config.minecraft.bot.name}`);
       return bot.chat("\u00a7");
     }
 
