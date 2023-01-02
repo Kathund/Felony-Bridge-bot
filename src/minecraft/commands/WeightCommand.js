@@ -1,7 +1,5 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
 const { logError } = require("../../contracts/helperFunctions.js");
 const getWeight = require("../../../API/stats/weight.js");
 
@@ -22,7 +20,7 @@ class StatsCommand extends minecraftCommand {
       if (arg[0]) username = arg[0];
       let hidden = false;
       if (arg[1] == "hidden") hidden = true;
-      
+
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const profile = await getWeight(data.profile, data.uuid);
