@@ -1,5 +1,5 @@
-const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { addCommas, register, logError } = require("../../contracts/helperFunctions.js");
+const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
@@ -82,7 +82,7 @@ class MonthlyStatsCommand extends minecraftCommand {
     super(minecraft);
 
     this.name = "monthly";
-    this.aliases = [""];
+    this.aliases = [];
     this.description = "Get your monthly stats";
     this.options = ["name", "gamemode"];
     this.optionsDescription = ["Minecraft Username", "Hypixel Gamemode"];
@@ -300,7 +300,7 @@ class MonthlyStatsCommand extends minecraftCommand {
         })
       })
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error)
       if (error.response?.data?.error == "Player not in database") {
         this.send(
