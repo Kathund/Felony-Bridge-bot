@@ -1,3 +1,4 @@
+const { getUUID } = require("./API/MojangAPI.js")
 const fs = require("fs-promise");
 const { set } = require("lodash");
 const mkdirp = require("mkdirp");
