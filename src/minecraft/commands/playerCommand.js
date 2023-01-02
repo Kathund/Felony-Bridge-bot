@@ -38,7 +38,7 @@ class PlayerCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
