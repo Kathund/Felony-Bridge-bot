@@ -36,7 +36,7 @@ class DenickerCommand extends minecraftCommand {
         await register(await getUUID(username), username)
       });
     } catch (error) {
-      await logError(error, username);
+      await logError(username, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
