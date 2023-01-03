@@ -13,6 +13,7 @@ class GuildInformationCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const args = this.getArgs(message);
       const guildName = args.map((arg) => capitalize(arg)).join(" ");
@@ -30,7 +31,7 @@ class GuildInformationCommand extends minecraftCommand {
         )} | Owner: ${owner}`
       );
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
