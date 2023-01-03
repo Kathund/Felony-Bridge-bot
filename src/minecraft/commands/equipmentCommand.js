@@ -19,6 +19,7 @@ class EquipmentCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       if (this.getArgs(message)[0]) username = this.getArgs(message)[0];
 
@@ -55,7 +56,7 @@ class EquipmentCommand extends minecraftCommand {
         ? this.send(`/gc ${username} has no equipment equiped.`)
         : this.send(`/gc ${username}'s Equipment » ${response}`);
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
