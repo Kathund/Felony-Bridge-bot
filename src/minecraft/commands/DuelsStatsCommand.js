@@ -15,7 +15,7 @@ class DuelsStatsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const duelTypes = [
         "blitz",
