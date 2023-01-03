@@ -13,6 +13,7 @@ class CalculatSkywarsCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
+        var playerIGN = username
         try {
             // could be cleaner but it works
             const args = this.getArgs(message);
@@ -51,7 +52,7 @@ class CalculatSkywarsCommand extends minecraftCommand {
                 }
             }
         } catch (error) {
-            await logError(error, username);
+            await logError(playerIGN, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

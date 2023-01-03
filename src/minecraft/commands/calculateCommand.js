@@ -13,14 +13,15 @@ class CalculateCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const str = this.getArgs(message)
         .join(" ")
         .replace(/[^-()\d/*+.]/g, "");
       this.send(`/gc ${!isNaN(eval(str)) ? `${eval(str)}` : ""}`);
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
-      await logError(error, username);
       this.send("/gc Invalid input!");
     }
   }

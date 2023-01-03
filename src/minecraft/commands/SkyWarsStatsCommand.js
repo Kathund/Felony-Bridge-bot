@@ -1,6 +1,6 @@
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { register, logError } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 
 class SkywarsCommand extends minecraftCommand {
@@ -15,6 +15,7 @@ class SkywarsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
@@ -31,7 +32,7 @@ class SkywarsCommand extends minecraftCommand {
 
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."

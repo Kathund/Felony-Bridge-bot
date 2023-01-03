@@ -29,6 +29,7 @@ class SkyblockCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -131,7 +132,7 @@ class SkyblockCommand extends minecraftCommand {
         } | Recombobulated » ${recombobulated} | Enriched » ${enrichment}`
       );
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"

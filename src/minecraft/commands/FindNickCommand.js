@@ -1,8 +1,8 @@
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const config = require("../../../config.json");
-const { register, logError } = require("../../contracts/helperFunctions.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
+const config = require("../../../config.json");
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -19,6 +19,7 @@ class FindNickCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const args = this.getArgs(message);
       if (args[0]) username = args[0];
@@ -36,7 +37,8 @@ class FindNickCommand extends minecraftCommand {
       });
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
+      console.log(error)
       this.send("/gc Something went wrong");
     }
   }

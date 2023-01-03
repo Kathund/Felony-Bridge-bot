@@ -16,6 +16,7 @@ class AccessoriesCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -75,8 +76,8 @@ class AccessoriesCommand extends minecraftCommand {
         `/gc ${username}'s Accessories » Common - ${common} | Uncommon - ${uncommon} | Rare - ${rare} | Epic - ${epic} |  Legendary - ${legendary} | Special - ${special} | Very Special - ${verySpecial}`
       );
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
-      await logError(error, username);
       this.send(`/gc something went wrong...`);
     }
   }

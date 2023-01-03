@@ -1,7 +1,6 @@
+const { getLatestProfile, logError, numberWithCommas } = require("../../../API/functions/getLatestProfile.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const getDungeons = require("../../../API/stats/dungeons.js");
-const { numberWithCommas } = require("../../contracts/helperFunctions.js");
-const { getLatestProfile, logError } = require("../../../API/functions/getLatestProfile.js");
 
 class CatacombsCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -15,6 +14,7 @@ class CatacombsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -34,7 +34,7 @@ class CatacombsCommand extends minecraftCommand {
         }  A-${dungeons.classes.archer.level}  T-${dungeons.classes.tank.level}`
       );
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"

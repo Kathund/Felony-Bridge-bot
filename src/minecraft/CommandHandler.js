@@ -1,6 +1,6 @@
 /*eslint-disable */
 const { Collection } = require("discord.js");
-const Logger = require("../Logger");
+const logger = require("../Logger");
 /*eslint-enable */
 const config = require("../../config.json");
 const fs = require("fs");
@@ -31,7 +31,7 @@ class CommandHandler {
 
     if (!command) return false;
 
-    Logger.minecraftMessage(`${player} - [${command.name}] ${message}`);
+    logger.minecraftMessage(`${player} - [${command.name}] ${message}`);
     command.onCommand(player, message);
 
     return true;

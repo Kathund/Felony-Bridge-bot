@@ -1,8 +1,8 @@
 /*eslint-disable */
+const { logError } = require("../../contracts/helperFunctions.js");
 const { ActivityType } = require("discord.js");
 const config = require("../../../config.json");
-const { logError } = require("../../contracts/helperFunctions");
-const Logger = require("../../Logger.js");
+const logger = require("../../Logger.js");
 /*eslint-enable */
 
 class StateHandler {
@@ -11,10 +11,10 @@ class StateHandler {
   }
 
   async onReady() {
-    Logger.discordMessage("Client ready, logged in as " + this.discord.client.user.tag);
+    logger.discordMessage("Client ready, logged in as " + this.discord.client.user.tag);
     this.discord.client.user.setPresence({
       activities: [
-        { name: `/help | by Kathund#2004`, type: ActivityType.Playing },
+        { name: `Felony Guild Chat`, type: ActivityType.Watching },
       ],
     });
     const channel = await getChannel("Guild");
@@ -33,6 +33,7 @@ class StateHandler {
   }
 
   async onClose() {
+    await logError(config.minecraft.bot.name, "bot has gone offline - @everyone")
     const channel = await getChannel("Guild");
     global.bridgeChat = config.discord.guildChatChannel;
     channel.send({
@@ -43,7 +44,6 @@ class StateHandler {
         }
       ]
     })
-    await logError(config.minecraft.bot.name, "bot has gone offline - @everyone")
     process.exit();
   }
 }

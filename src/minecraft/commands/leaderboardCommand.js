@@ -18,6 +18,7 @@ class LeaderboardCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const msg = this.getArgs(message);
       //check mode
@@ -263,7 +264,7 @@ class LeaderboardCommand extends minecraftCommand {
         }
       });
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }

@@ -1,6 +1,6 @@
 
-const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const { replaceAllRanks, logError } = require("../../contracts/helperFunctions.js");
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
@@ -34,7 +34,7 @@ class StateHandler extends eventHandler {
     const colouredMessage = event.toMotd();
 
     if (this.isLobbyJoinMessage(message)) {
-      await logError(this.bot.username, `Client Send to limbo, logged in as ${this.bot.username}`)
+      await logError(config.minecraft.bot.name, `Client Send to limbo, logged in as ${config.minecraft.bot.name}`);
       return bot.chat("\u00a7");
     }
 
@@ -178,8 +178,8 @@ class StateHandler extends eventHandler {
               name: "Level",
               value: `Level - ${networkLevel}/${config.minecraft.guild.requirements.networkLevel
                 } ${hasNetworkLevel
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             }
@@ -263,12 +263,12 @@ class StateHandler extends eventHandler {
         // Get the username from the message
         const user = message.split(">")[1].trim().split("joined.")[0].trim();
         // Wait 500ms
-        await delay(500)
+        await delay(1000)
         // Check if the welcome back messge is enabled
         if (data.minecraft.guild.autoWelcomeBack) {
           // Send the welcome back message
           if (user == 'xStxppxd') { this.send(`/gc OMG HI BURGER ILY SO MUCH PLEASE MARRY `) }
-          else { this.send(`/gc Welcome back ${user} <3 have a good day`) }
+          else { this.send(`/gc ${messages.userLoginMessageFirst} ${user} ${messages.userLoginMessageSecond}`) }
         }
         // Send the login message to the guild
         return this.minecraft.broadcastPlayerToggle({
@@ -285,7 +285,6 @@ class StateHandler extends eventHandler {
       const data = JSON.parse(fs.readFileSync("config.json"));
       if (data.discord.joinMessage) {
         const user = message.split(">")[1].trim().split("left.")[0].trim();
-        // this.send(`/gc Wlecome Back ${user}`)
         return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
           username: user,
@@ -302,9 +301,7 @@ class StateHandler extends eventHandler {
         .trim()
         .split(/ +/g)[0];
       await delay(1000);
-      if (config.minecraft.guild.guildJoinMessage == true) {
-        return bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`);
-      }
+      if (config.minecraft.guild.guildJoinMessage == true) bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`);
       return [
         this.minecraft.broadcastHeadedEmbed({
           message: `${user} ${messages.joinMessage}`,

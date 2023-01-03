@@ -13,6 +13,7 @@ class CalculateDuelsCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
+        var playerIGN = username
         try {
             // could be cleaner but it works
             const args = this.getArgs(message);
@@ -51,8 +52,8 @@ class CalculateDuelsCommand extends minecraftCommand {
                 }
             }
         } catch (error) {
+            await logError(playerIGN, error);
             console.log(error);
-            await logError(error, username);
             this.send("/gc Something went wrong..");
         }
     }

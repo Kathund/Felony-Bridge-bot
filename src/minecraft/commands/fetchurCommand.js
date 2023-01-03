@@ -14,6 +14,7 @@ class FetchurCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const fetchur = getFetchur();
       const args = this.getArgs(message);
@@ -24,7 +25,7 @@ class FetchurCommand extends minecraftCommand {
         `${hidden ? "/oc" : "/gc"} Fetchur Requests » ${fetchur.text} | Description: ${fetchur.description}`
       );
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }

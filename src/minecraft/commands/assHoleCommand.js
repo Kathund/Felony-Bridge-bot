@@ -1,6 +1,7 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const { logError } = require("../../contracts/helperFunctions.js")
 const config = require("../../../config.json")
 
 class PurgeCommand extends minecraftCommand {
@@ -15,6 +16,7 @@ class PurgeCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
+        var playerIGN = username
         try {
             const check = await hypixel.getGuild(`player`, username)
             if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
@@ -90,6 +92,7 @@ class PurgeCommand extends minecraftCommand {
                 this.send(`/gc Staff only command`);
             }
         } catch (error) {
+            await logError(playerIGN, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

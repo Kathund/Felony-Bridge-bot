@@ -16,6 +16,7 @@ class PurgeCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
+        var playerIGN = username
         try {
             const check = await hypixel.getGuild(`player`, username)
             if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
@@ -67,7 +68,7 @@ class PurgeCommand extends minecraftCommand {
                 this.send(`/gc Staff only command`);
             }
         } catch (error) {
-            await logError(error, username);
+            await logError(playerIGN, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

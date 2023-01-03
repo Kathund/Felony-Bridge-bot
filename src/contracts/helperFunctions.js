@@ -1,3 +1,4 @@
+const { getUUID } = require("./API/MojangAPI.js")
 const fs = require("fs-promise");
 const { set } = require("lodash");
 const mkdirp = require("mkdirp");
@@ -308,10 +309,21 @@ async function register(uuid, username) {
   });
 }
 
-async function logError(error, username) {
+async function logError(username, error) {
   fetch(config.discord.loggingWebhook, {
     body: JSON.stringify({
-      content: `**Caused By** ${username}\n${error}`,
+      "embeds": [
+        {
+          "author": {
+            "name": `Caused by ${username}`,
+          },
+          "description": `${error}`,
+          "color": 14248966,
+          "thumbnail": {
+            "url": `https://visage.surgeplay.com/bust/${await getUUID(username)}`
+          }
+        }
+      ]
     }),
     headers: {
       "Content-Type": "application/json",
@@ -319,8 +331,6 @@ async function logError(error, username) {
     method: "POST",
   })
 }
-
-
 
 module.exports = {
   replaceAllRanks,

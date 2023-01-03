@@ -1,14 +1,11 @@
+const config = require("../../../config.json");
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { decodeData, logError } = require("../../contracts/helperFunctions.js");
 // eslint-disable-next-line
 const { ImgurClient } = require("imgur");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
-const config = require("../../../config.json");
 const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
-const { decodeData } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { renderLore } = require("../../contracts/renderItem.js");
-const { logError } = require("../../contracts/helperFunctions.js");
 
 class ArmorCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -22,6 +19,7 @@ class ArmorCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       if (this.getArgs(message)[0]) username = this.getArgs(message)[0];
 
@@ -59,7 +57,7 @@ class ArmorCommand extends minecraftCommand {
         ? this.send(`/gc ${username} has no armor equiped.`)
         : this.send(`/gc ${username}'s armor » ${response}`);
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
