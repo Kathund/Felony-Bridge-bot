@@ -15,6 +15,7 @@ class FriendsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
@@ -28,7 +29,7 @@ class FriendsCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(`/gc Something went wrong`);
     }
