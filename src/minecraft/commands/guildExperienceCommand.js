@@ -14,6 +14,7 @@ class GuildEXPCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -25,7 +26,7 @@ class GuildEXPCommand extends minecraftCommand {
       this.send(`${hidden ? "/oc" : "/gc"} ${username}'s GEXP is ${gexp}`);
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
