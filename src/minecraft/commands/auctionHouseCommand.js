@@ -20,6 +20,7 @@ class AuctionHouseCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const arg = this.getArgs(message);
       let string = "";
@@ -106,7 +107,7 @@ class AuctionHouseCommand extends minecraftCommand {
         this.send("/gc This player does not have any auctions active.");
       }
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(`/gc Something went wrong, try again.`);
     }
