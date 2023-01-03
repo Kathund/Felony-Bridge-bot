@@ -12,7 +12,7 @@ class ExampleCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       console.log(`the username var represents the username of the person running the command - ${username}`)
       console.log(`the message var represents the full message from the user - ${message}`)
