@@ -19,6 +19,7 @@ class APICommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const hypixelKey = await hypixel.getKeyInfo();
       const pixelicKey = await fetch(`${config.api.pixelicAPI}/key?key=${config.api.pixelicKey}`).then((res) => res.json());
@@ -37,7 +38,7 @@ class APICommand extends minecraftCommand {
         )} Players Tracked: ${addNotation("oneLetters", pixelicApi.playersTracked)}`
       );
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
