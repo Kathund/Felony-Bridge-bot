@@ -18,6 +18,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const msg = this.getArgs(message);
       //check mode
@@ -263,7 +264,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
         }
       });
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
