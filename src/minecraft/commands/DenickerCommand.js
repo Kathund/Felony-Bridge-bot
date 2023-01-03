@@ -17,6 +17,7 @@ class DenickerCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const args = this.getArgs(message)
       let hidden = false
@@ -41,7 +42,7 @@ class DenickerCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error)
       this.send("/gc Sorry, I wasn't able to denick this person.");
     }
