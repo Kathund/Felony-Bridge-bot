@@ -15,6 +15,7 @@ class StatsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -41,7 +42,7 @@ class StatsCommand extends minecraftCommand {
         }`;
       this.send(`${hidden ? "/oc" : "/gc"} ${username}'s ${senitherW}`);
     } catch (error) {
-      await logError(error, username);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
