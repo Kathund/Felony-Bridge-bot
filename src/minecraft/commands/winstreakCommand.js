@@ -20,7 +20,7 @@ class DenickerCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const arg = this.getArgs(message);
       let hidden = false;
