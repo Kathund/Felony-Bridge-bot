@@ -13,7 +13,7 @@ class HelpCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       // TODO update ss
       this.send(`/gc https://imgur.com/4LoDwPs.png`);
