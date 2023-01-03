@@ -89,6 +89,7 @@ class WeeklyStatsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     const args = this.getArgs(message);
     let mode,
       player = username;
@@ -300,7 +301,7 @@ class WeeklyStatsCommand extends minecraftCommand {
         })
       })
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error)
       if (error.response?.data?.error == "Player not in database") {
         this.send(
@@ -309,7 +310,7 @@ class WeeklyStatsCommand extends minecraftCommand {
           } being added to the database..`
         );
 
-        this.send(`/gc ${register(uuid,player)}`)
+        this.send(`/gc ${register(uuid, player)}`)
       }
     }
   }
