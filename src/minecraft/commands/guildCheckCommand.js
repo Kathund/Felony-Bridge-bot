@@ -15,6 +15,7 @@ class GEXPRankCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
+        let playerIGN = username
         try {
             const check = await hypixel.getGuild(`player`, username)
             const arg = this.getArgs(message);
@@ -57,7 +58,7 @@ class GEXPRankCommand extends minecraftCommand {
                 this.send(`/gc This is a staff only command`)
             }
         } catch (error) {
-            await logError(username, error);
+            await logError(playerIGN, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }
