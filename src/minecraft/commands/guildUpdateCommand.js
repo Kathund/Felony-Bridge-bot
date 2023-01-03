@@ -15,6 +15,7 @@ class GCheckCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const check = await hypixel.getGuild(`player`, username)
       if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
@@ -68,7 +69,7 @@ class GCheckCommand extends minecraftCommand {
         this.send(`/gc This is a staff only command`)
       }
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
