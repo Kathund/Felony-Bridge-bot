@@ -89,7 +89,7 @@ class WeeklyStatsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     const args = this.getArgs(message);
     let mode,
       player = username;
