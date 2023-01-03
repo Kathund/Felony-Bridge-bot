@@ -19,6 +19,7 @@ class RenderCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       let itemNumber = 0;
       const arg = this.getArgs(message);
@@ -70,7 +71,7 @@ class RenderCommand extends minecraftCommand {
         }`
       );
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
