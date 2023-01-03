@@ -15,7 +15,7 @@ class EightBallCommand extends minecraftCommand {
 
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       this.send(`/gc ${(await axios.get(`https://8ball.delegator.com/magic/JSON/${message.replace('!8ball ', '').replaceAll(' ', '%20').replaceAll('/', '')}`)).data.magic.answer}`);
     } catch (error) {
