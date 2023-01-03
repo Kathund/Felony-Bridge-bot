@@ -15,6 +15,7 @@ class BedwarsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const msg = this.getArgs(message);
       let mode = null;
@@ -78,7 +79,7 @@ class BedwarsCommand extends minecraftCommand {
       }
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       this.send("There is no player with the given UUID or name or player has never joined Hypixel.");
       console.log(error);
     }
