@@ -18,7 +18,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const msg = this.getArgs(message);
       //check mode
