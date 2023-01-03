@@ -15,6 +15,7 @@ class MurderMysteryCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const args = this.getArgs(message);
       if (args[0]) username = args[0];
@@ -30,7 +31,7 @@ class MurderMysteryCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
