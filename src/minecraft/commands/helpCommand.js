@@ -13,11 +13,12 @@ class HelpCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       // TODO update ss
       this.send(`/gc https://imgur.com/4LoDwPs.png`);
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
