@@ -19,7 +19,7 @@ class RenderCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       let itemNumber = 0;
       const arg = this.getArgs(message);
