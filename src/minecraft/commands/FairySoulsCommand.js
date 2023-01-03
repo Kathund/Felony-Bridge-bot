@@ -14,7 +14,7 @@ class FairySoulsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const msg = this.getArgs(message);
       if (msg[0]) username = msg[0];
