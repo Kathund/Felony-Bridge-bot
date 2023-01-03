@@ -19,7 +19,7 @@ class APICommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const hypixelKey = await hypixel.getKeyInfo();
       const pixelicKey = await fetch(`${config.api.pixelicAPI}/key?key=${config.api.pixelicKey}`).then((res) => res.json());
