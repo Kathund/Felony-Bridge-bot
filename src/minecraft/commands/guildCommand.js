@@ -13,7 +13,7 @@ class GuildInformationCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const args = this.getArgs(message);
       const guildName = args.map((arg) => capitalize(arg)).join(" ");
