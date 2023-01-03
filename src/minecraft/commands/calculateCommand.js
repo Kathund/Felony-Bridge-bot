@@ -13,7 +13,7 @@ class CalculateCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const str = this.getArgs(message)
         .join(" ")
