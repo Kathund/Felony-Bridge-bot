@@ -16,7 +16,7 @@ class PurgeCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
-        let playerIGN = username
+        var playerIGN = username
         try {
             const check = await hypixel.getGuild(`player`, username)
             if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
