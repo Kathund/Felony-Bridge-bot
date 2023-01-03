@@ -14,6 +14,7 @@ class CatacombsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -33,7 +34,7 @@ class CatacombsCommand extends minecraftCommand {
         }  A-${dungeons.classes.archer.level}  T-${dungeons.classes.tank.level}`
       );
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
