@@ -91,6 +91,7 @@ class SlayersCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       let type;
       const msg = this.getArgs(message);
@@ -136,7 +137,7 @@ class SlayersCommand extends minecraftCommand {
 
       this.send(`/gc ${await getSlayerData(username, type)}`);
     } catch (error) {
-      await logError(username, error);
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
