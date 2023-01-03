@@ -14,6 +14,7 @@ class FetchurCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    let playerIGN = username
     try {
       const fetchur = getFetchur();
       const args = this.getArgs(message);
