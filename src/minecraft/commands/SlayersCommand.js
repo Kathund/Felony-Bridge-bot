@@ -91,7 +91,7 @@ class SlayersCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       let type;
       const msg = this.getArgs(message);
