@@ -56,7 +56,7 @@ class RequirementsCommand extends minecraftCommand {
       }
 
 
-      this.send(`${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname} ${meetRequirements ? "has" : "does not have"} the requirements to join ${config.minecraft.guild.name} - Bedwars: ${hasBwRequirements ? "✔" : "✘"} - Skywars: ${hasSwRequirements ? "✔" : "✘"} - Duels: ${hasDuelsRequirements ? "✔" : "✘"} - Network Level: ${hasNetworkLevelRequirements}`)
+      this.send(`${hidden ? "/oc" : "/gc"} [${player.rank}] ${player.nickname} ${meetRequirements ? "has" : "does not have"} the requirements to join ${config.minecraft.guild.name} - Bedwars: ${hasBwRequirements ? config.other.emojis.minecraft.yes : config.other.emojis.minecraft.no} - Skywars: ${hasSwRequirements ? config.other.emojis.minecraft.yes : config.other.emojis.minecraft.no} - Duels: ${hasDuelsRequirements ? config.other.emojis.minecraft.yes : config.other.emojis.minecraft.no} - Network Level: ${hasNetworkLevelRequirements}`)
       await register(getUUID(username), username)
     } catch (error) {
       await logError(playerIGN, error);
