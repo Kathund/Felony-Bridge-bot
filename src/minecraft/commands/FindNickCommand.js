@@ -19,7 +19,7 @@ class FindNickCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       const args = this.getArgs(message);
       if (args[0]) username = args[0];
