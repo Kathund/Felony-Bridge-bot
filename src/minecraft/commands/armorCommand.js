@@ -19,7 +19,7 @@ class ArmorCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
-    let playerIGN = username
+    var playerIGN = username
     try {
       if (this.getArgs(message)[0]) username = this.getArgs(message)[0];
 
