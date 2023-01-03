@@ -13,7 +13,7 @@ class CalculateBedwarsCommand extends minecraftCommand {
     }
 
     async onCommand(username, message) {
-        let playerIGN = username
+        var playerIGN = username
         try {
             // could be cleaner but it works
             const args = this.getArgs(message);
