@@ -1,9 +1,7 @@
 
-const { replaceAllRanks, logError } = require("../../contracts/helperFunctions.js");
-const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { replaceAllRanks, logError, hypixelRankColor } = require("../../contracts/helperFunctions.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const eventHandler = require("../../contracts/EventHandler.js");
 const messages = require("../../../messages.json");
 // eslint-disable-next-line
