@@ -82,12 +82,8 @@ class StateHandler extends eventHandler {
             ""
           )
       );
-      const uuid = await getUUID(username);
       if (config.minecraft.guild.joinChecker) {
-        const [player] = await Promise.all([
-          hypixel.getPlayer(uuid),
-          getLatestProfile(uuid),
-        ]);
+        const player = await hypixel.getPlayer(username)
 
         let meetRequirements = false;
         let hasBWWins = false;
