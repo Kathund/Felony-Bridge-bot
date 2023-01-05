@@ -127,6 +127,8 @@ class StateHandler extends eventHandler {
         if (player.rank == "Game Master") rank = config.other.emojis.discord.ranks.GAME_MASTER
         if (player.rank == "Admin") rank = config.other.emojis.discord.ranks.ADMIN
         if (player.rank == "Youtube") rank = config.other.emojis.discord.ranks.YOUTUBE
+        const rank = hypixelRankColor(username);
+
         bot.chat(
           `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt got"
           } the requirements to join ${config.minecraft.guild.name}!`
