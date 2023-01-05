@@ -8,6 +8,7 @@ const util = require("util");
 const parseNbt = util.promisify(nbt.parse);
 const moment = require("moment");
 const config = require("../../config.json");
+const hypixel = require("./API/HypixelRebornAPI.js");
 const fetch = (...args) =>
   import("node-fetch")
     .then(({ default: fetch }) => fetch(...args))
@@ -332,6 +333,24 @@ async function logError(username, error) {
   })
 }
 
+async function hypixelRankColor(username) {
+  var player = await hypixel.getPlayer(username);
+  var plusColor = player.plusColor
+  var plusPlusColor = player.prefixColor
+
+  var rank = player.rank;
+  if (player.rank == "VIP") rank = config.other.emojis.discord.ranks.VIP
+  if (player.rank == "VIP+") rank = config.other.emojis.discord.ranks.VIP_PLUS
+  if (player.rank == "MVP") rank = config.other.emojis.discord.ranks.MVP
+  if (player.rank == "MVP+") rank = config.other.emojis.discord.ranks.MVP_PLUS[plusColor.color]
+  if (player.rank == "MVP++") rank = config.other.emojis.discord.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
+  if (player.rank == "Game Master") rank = config.other.emojis.discord.ranks.GAME_MASTER
+  if (player.rank == "Admin") rank = config.other.emojis.discord.ranks.ADMIN
+  if (player.rank == "Youtube") rank = config.other.emojis.discord.ranks.YOUTUBE
+
+  return rank
+}
+
 module.exports = {
   replaceAllRanks,
   addNotation,
@@ -348,5 +367,6 @@ module.exports = {
   parseTimestamp,
   getStar,
   register,
-  logError
+  logError,
+  hypixelRankColor
 };
