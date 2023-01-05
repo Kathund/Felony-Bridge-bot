@@ -32,7 +32,7 @@ class APICommand extends minecraftCommand {
         `${hidden ? "/oc" : "/gc"} Hypixel API - Key Owner: ${await getUsername(hypixelKey.owner)} Total Requests: ${addNotation(
           "oneLetters",
           hypixelKey.totalRequests
-        )} | Pixel API - Total Requests: ${addNotation(
+        )} | Pixelic API - Total Requests: ${addNotation(
           "oneLetters",
           pixelicKey.totalRequests
         )} Players Tracked: ${addNotation("oneLetters", pixelicApi.playersTracked)}`
