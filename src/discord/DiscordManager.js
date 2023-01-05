@@ -7,7 +7,6 @@ const StateHandler = require("./handlers/StateHandler.js");
 const CommandHandler = require("./CommandHandler.js");
 const config = require("../../config.json");
 const logger = require(".././Logger.js");
-const { kill } = require("node:process");
 const path = require("node:path");
 const fs = require("fs");
 let channel;
@@ -38,7 +37,7 @@ class DiscordManager extends CommunicationBridge {
     this.client.on("ready", () => this.stateHandler.onReady());
     this.client.on("messageCreate", (message) => this.messageHandler.onMessage(message));
 
-    this.client.login(config.discord.token).catch((error) => {logger.errorMessage(error)});
+    this.client.login(config.discord.token).catch((error) => { logger.errorMessage(error) });
 
     client.commands = new Collection();
     const commandFiles = fs
@@ -65,8 +64,7 @@ class DiscordManager extends CommunicationBridge {
 
     process.on("SIGINT", () => {
       this.stateHandler.onClose().then(() => {
-        client.destroy()
-        kill(process.pid);
+        process.exit(0);
       });
     });
   }
@@ -109,7 +107,7 @@ class DiscordManager extends CommunicationBridge {
   async onBroadcast({ fullMessage, username, message, guildRank, chat }) {
     if (message == "debug_temp_message_ignore" && config.discord.messageMode != "minecraft") return;
     if (chat != "debugChannel") {
-      logger.broadcastMessage(`${username} [${guildRank}]: ${message}`,`Discord`);
+      logger.broadcastMessage(`${username} [${guildRank}]: ${message}`, `Discord`);
     }
     channel = await this.getChannel(chat);
     var color = 3447003
