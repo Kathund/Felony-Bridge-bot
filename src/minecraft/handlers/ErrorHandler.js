@@ -20,7 +20,7 @@ class StateHandler extends eventHandler {
     if (this.isConnectionResetError(error)) return;
 
     if (this.isConnectionRefusedError(error)) {
-      await logError(config.minecraft.bot.name, "Connection refused while attempting to login via the Minecraft client")
+      await logError(config.minecraft.bot.name, 'Connection refused while attempting to login via the Minecraft client', this.name, 'Connection refused while attempting to login via the Minecraft client');
       return logger.errorMessage("Connection refused while attempting to login via the Minecraft client");
     }
 

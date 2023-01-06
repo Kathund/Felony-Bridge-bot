@@ -51,7 +51,7 @@ class MessageHandler {
         ? reference.member.displayName
         : reference.author.username;
     } catch (error) {
-      await logError(config.minecraft.bot.name, error)
+      await logError(config.minecraft.bot.namee, error, this.name, message);
       return null;
     }
   }

@@ -20,7 +20,7 @@ class CalculateCommand extends minecraftCommand {
         .replace(/[^-()\d/*+.]/g, "");
       this.send(`/gc ${!isNaN(eval(str)) ? `${eval(str)}` : ""}`);
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error);
       this.send("/gc Invalid input!");
     }

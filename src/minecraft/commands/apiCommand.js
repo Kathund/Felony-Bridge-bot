@@ -32,13 +32,13 @@ class APICommand extends minecraftCommand {
         `${hidden ? "/oc" : "/gc"} Hypixel API - Key Owner: ${await getUsername(hypixelKey.owner)} Total Requests: ${addNotation(
           "oneLetters",
           hypixelKey.totalRequests
-        )} | Pixelic API - Total Requests: ${addNotation(
+        )} | Pixel API - Total Requests: ${addNotation(
           "oneLetters",
           pixelicKey.totalRequests
         )} Players Tracked: ${addNotation("oneLetters", pixelicApi.playersTracked)}`
       );
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error);
       this.send("/gc Something went wrong..");
     }

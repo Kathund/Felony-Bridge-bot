@@ -32,7 +32,7 @@ class StateHandler extends eventHandler {
     const colouredMessage = event.toMotd();
 
     if (this.isLobbyJoinMessage(message)) {
-      await logError(config.minecraft.bot.name, `Client Send to limbo, logged in as ${config.minecraft.bot.name}`);
+      await logError(config.minecraft.bot.name, `Client sent to limbo, logged in as ${config.minecraft.bot.name}`, this.name, message);
       return bot.chat("\u00a7");
     }
 
@@ -44,7 +44,7 @@ class StateHandler extends eventHandler {
     //   this.send(
     //     `/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`
     //   );
-    //   await delay(5000);
+    //   awwait delay(5000);
     //   this.send(`/party leave`);
     // }
 
@@ -115,21 +115,15 @@ class StateHandler extends eventHandler {
           (hasNetworkLevel = true), (meetRequirements = true)
         }
 
-        const rank = hypixelRankColor(username);
-
         bot.chat(
           `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt got"
           } the requirements to join ${config.minecraft.guild.name}!`
         );
+
         const statsEmbed = new EmbedBuilder()
           .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
-          .setTitle(
-            `${rank}  ${player.nickname}: has requested to join the Guild!`
-          )
-          .setDescription(
-            `${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"
-            } the requirements to join the Guild!`
-          )
+          .setTitle(`${await hypixelRankColor(username)}  ${player.nickname}: has requested to join the Guild!`)
+          .setDescription(`${player.nickname} ${meetRequirements ? "**has**" : "**has not got**"} the requirements to join the ${config.minecraft.guild.name}!`)
           .addFields(
             {
               name: "Bedwars",

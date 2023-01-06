@@ -1,7 +1,8 @@
-const config = require("../../../config.json");
+const { hypixelRankColor } = require("../../contracts/helperFunctions.js");
+const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 // eslint-disable-next-line
 const { EmbedBuilder } = require("discord.js");
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const config = require("../../../config.json");
 
 module.exports = {
   name: "requirements",
@@ -16,8 +17,8 @@ module.exports = {
   ],
 
   execute: async (interaction, client) => {
-    const name = interaction.options.getString("name");
-    var player = await hypixel.getPlayer(name);
+    const username = interaction.options.getString("name");
+    var player = await hypixel.getPlayer(username);
 
 
     let meetRequirements = false;
@@ -52,28 +53,9 @@ module.exports = {
       (hasNetworkLevel = true), (meetRequirements = true)
     }
 
-    var plusColor = player.plusColor
-    var plusPlusColor = player.prefixColor
-
-    var rank = player.rank;
-    if (player.rank == "VIP") rank = config.other.emojis.discord.ranks.VIP
-    if (player.rank == "VIP+") rank = config.other.emojis.discord.ranks.VIP_PLUS
-    if (player.rank == "MVP") rank = config.other.emojis.discord.ranks.MVP
-    if (player.rank == "MVP+") rank = config.other.emojis.discord.ranks.MVP_PLUS[plusColor.color]
-    if (player.rank == "MVP++") rank = config.other.emojis.discord.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
-    if (player.rank == "Game Master") rank = config.other.emojis.discord.ranks.GAME_MASTER
-    if (player.rank == "Admin") rank = config.other.emojis.discord.ranks.ADMIN
-    if (player.rank == "Youtube") rank = config.other.emojis.discord.ranks.YOUTUBE
-
     const statsEmbed = new EmbedBuilder()
       .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
-      .setTitle(
-        `${rank}  ${player.nickname}: has requested to join the Guild!`
-      )
-      .setDescription(
-        `${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"
-        } the requirements to join the Guild!`
-      )
+      .setTitle(`${await hypixelRankColor(username)}  ${player.nickname} ${meetRequirements ? "**has**" : "**has not got**"} the requirements to join the ${config.minecraft.guild.name}!`)
       .addFields(
         {
           name: "Bedwars",

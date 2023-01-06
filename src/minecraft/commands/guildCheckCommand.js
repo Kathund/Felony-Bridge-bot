@@ -58,7 +58,7 @@ class GEXPRankCommand extends minecraftCommand {
                 this.send(`/gc This is a staff only command`)
             }
         } catch (error) {
-            await logError(playerIGN, error);
+            await logError(playerIGN, error, this.name, message);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

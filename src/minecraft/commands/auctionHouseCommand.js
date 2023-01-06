@@ -107,7 +107,7 @@ class AuctionHouseCommand extends minecraftCommand {
         this.send("/gc This player does not have any auctions active.");
       }
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error);
       this.send(`/gc Something went wrong, try again.`);
     }

@@ -301,7 +301,7 @@ class MonthlyStatsCommand extends minecraftCommand {
         })
       })
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error)
       if (error.response?.data?.error == "Player not in database") {
         this.send(

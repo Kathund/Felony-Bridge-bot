@@ -42,7 +42,7 @@ class DenickerCommand extends minecraftCommand {
       );
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error)
       this.send("/gc Sorry, I wasn't able to denick this person.");
     }
