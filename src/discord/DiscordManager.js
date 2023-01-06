@@ -3,16 +3,14 @@ const { Client, Collection, AttachmentBuilder, GatewayIntentBits } = require("di
 const CommunicationBridge = require("../contracts/CommunicationBridge.js");
 const messageToImage = require("../contracts/messageToImage.js");
 const MessageHandler = require("./handlers/MessageHandler.js");
-const hypixel = require("../contracts/API/HypixelRebornAPI");
 const StateHandler = require("./handlers/StateHandler.js");
 const CommandHandler = require("./CommandHandler.js");
 const config = require("../../config.json");
-const Logger = require(".././Logger.js");
-/*eslint-enable */
+const logger = require(".././Logger.js");
 const path = require("node:path");
 const fs = require("fs");
-const { kill } = require("node:process");
 let channel;
+/*eslint-enable */
 
 class DiscordManager extends CommunicationBridge {
   constructor(app) {
@@ -39,7 +37,7 @@ class DiscordManager extends CommunicationBridge {
     this.client.on("ready", () => this.stateHandler.onReady());
     this.client.on("messageCreate", (message) => this.messageHandler.onMessage(message));
 
-    this.client.login(config.discord.token).catch((error) => {Logger.errorMessage(error)});
+    this.client.login(config.discord.token).catch((error) => { logger.errorMessage(error) });
 
     client.commands = new Collection();
     const commandFiles = fs
@@ -66,8 +64,7 @@ class DiscordManager extends CommunicationBridge {
 
     process.on("SIGINT", () => {
       this.stateHandler.onClose().then(() => {
-        client.destroy()
-        kill(process.pid);
+        process.exit(0);
       });
     });
   }
@@ -110,7 +107,7 @@ class DiscordManager extends CommunicationBridge {
   async onBroadcast({ fullMessage, username, message, guildRank, chat }) {
     if (message == "debug_temp_message_ignore" && config.discord.messageMode != "minecraft") return;
     if (chat != "debugChannel") {
-      Logger.broadcastMessage(`${username} [${guildRank}]: ${message}`,`Discord`);
+      logger.broadcastMessage(`${username} [${guildRank}]: ${message}`, `Discord`);
     }
     channel = await this.getChannel(chat);
     var color = 3447003
@@ -175,7 +172,7 @@ class DiscordManager extends CommunicationBridge {
 
   async onBroadcastCleanEmbed({ message, color, channel }) {
     if (message.length < config.console.maxEventSize) {
-      Logger.broadcastMessage(message, "Event");
+      logger.broadcastMessage(message, "Event");
     }
 
     channel = await this.getChannel(channel);
@@ -191,7 +188,7 @@ class DiscordManager extends CommunicationBridge {
 
   async onBroadcastHeadedEmbed({ message, title, icon, color, channel }) {
     if (message && message.length < config.console.maxEventSize) {
-      Logger.broadcastMessage(message, "Event");
+      logger.broadcastMessage(message, "Event");
     }
     channel = await this.getChannel(channel);
     channel.send({
@@ -209,7 +206,7 @@ class DiscordManager extends CommunicationBridge {
   }
 
   async onPlayerToggle({ fullMessage, username, message, color, channel }) {
-    Logger.broadcastMessage(username + " " + message, "Event");
+    logger.broadcastMessage(username + " " + message, "Event");
     channel = await this.getChannel(channel);
     switch (config.discord.messageMode.toLowerCase()) {
       case "bot":

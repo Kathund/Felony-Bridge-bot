@@ -1,5 +1,5 @@
+const { addCommas, register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const { addCommas } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const { getUUID } = require("../../contracts/API/MojangAPI.js");
 const config = require("../../../config.json");
@@ -82,7 +82,7 @@ class DailyStatsCommand extends minecraftCommand {
     super(minecraft);
 
     this.name = "daily";
-    this.aliases = [""];
+    this.aliases = [];
     this.description = "Get your daily stats";
     this.options = ["name", "gamemode"];
     this.optionsDescription = ["Minecraft Username", "Hypixel Gamemode"];
@@ -90,6 +90,7 @@ class DailyStatsCommand extends minecraftCommand {
 
 
   async onCommand(username, message) {
+    var playerIGN = username
     const args = this.getArgs(message);
     let mode,
       player = username;
@@ -141,7 +142,7 @@ class DailyStatsCommand extends minecraftCommand {
 
     try {
       fetch(`${config.api.hypixelAPI}/player?uuid=${uuid}&key=${config.api.hypixelAPIkey}`).then((res) => res.json()).then(async (response) => {
-        fetch(`${config.api.pixelicAPI}/player/daily?uuid=${uuid}&key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
+        fetch(`${config.api.pixelicAPI}/player/daily/${uuid}?key=${config.api.pixelicKey}`).then((res) => res.json()).then(async (response24H) => {
 
           var responseNew = await hypixel.getPlayer(uuid)
 
@@ -301,6 +302,8 @@ class DailyStatsCommand extends minecraftCommand {
         })
       })
     } catch (error) {
+      await logError(playerIGN, error);
+      console.log(error)
       if (error.response?.data?.error == "Player not in database") {
         this.send(
           `/gc ${player == username ? "You are" : `${player} is`
@@ -308,22 +311,7 @@ class DailyStatsCommand extends minecraftCommand {
           } being added to the database..`
         );
 
-        fetch(
-          `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${uuid}`,
-          {
-            method: "POST",
-          }
-        ).then((res) => {
-          if (res.status == 201) {
-            this.send(`/gc Successfully registered ${player} in the database!`);
-          } else if (res.status == 400) {
-            this.send(`/gc ${player} is already registered in the database!`);
-          } else {
-            this.send(
-              `/gc An error occured while registering ${player} in the database! Please try again in few seconds.`
-            );
-          }
-        });
+        this.send(`/gc ${register(uuid, player)}`)
       }
     }
   }

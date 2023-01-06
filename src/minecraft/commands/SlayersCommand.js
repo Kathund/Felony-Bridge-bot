@@ -1,9 +1,7 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { addCommas, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
 const getSlayer = require("../../../API/stats/slayer.js");
-const { addCommas } = require("../../contracts/helperFunctions.js");
 
 async function getSlayerData(username, input) {
   try {
@@ -26,61 +24,43 @@ async function getSlayerData(username, input) {
         if (input == "zombie") {
           return `${username}'s Zombie Slayer Experience: ${addCommas(
             profile?.[Object.keys(profile)[0]].xp
-          )} | Level: ${profile?.[Object.keys(profile)[0]].level} | T5 - ${
-            profile?.[Object.keys(profile)[0]].kills?.[5]
-          } | T4 - ${profile?.[Object.keys(profile)[0]].kills?.[4]} | T3 - ${
-            profile?.[Object.keys(profile)[0]].kills?.[3]
-          } | T2 - ${profile?.[Object.keys(profile)[0]].kills?.[2]} | T1 - ${
-            profile?.[Object.keys(profile)[0]].kills?.[1]
-          }`;
+          )} | Level: ${profile?.[Object.keys(profile)[0]].level} | T5 - ${profile?.[Object.keys(profile)[0]].kills?.[5]
+            } | T4 - ${profile?.[Object.keys(profile)[0]].kills?.[4]} | T3 - ${profile?.[Object.keys(profile)[0]].kills?.[3]
+            } | T2 - ${profile?.[Object.keys(profile)[0]].kills?.[2]} | T1 - ${profile?.[Object.keys(profile)[0]].kills?.[1]
+            }`;
         } else if (input == "spider") {
           return `${username}'s Spider Slayer Experience: ${addCommas(
             profile?.[Object.keys(profile)[1]].xp
-          )} | Level: ${profile?.[Object.keys(profile)[1]].level} | T5 - ${
-            profile?.[Object.keys(profile)[1]].kills?.[5]
-          } | T4 - ${profile?.[Object.keys(profile)[1]].kills?.[4]} | T3 - ${
-            profile?.[Object.keys(profile)[1]].kills?.[3]
-          } | T2 - ${profile?.[Object.keys(profile)[1]].kills?.[2]} | T1 - ${
-            profile?.[Object.keys(profile)[1]].kills?.[1]
-          }`;
+          )} | Level: ${profile?.[Object.keys(profile)[1]].level} | T5 - ${profile?.[Object.keys(profile)[1]].kills?.[5]
+            } | T4 - ${profile?.[Object.keys(profile)[1]].kills?.[4]} | T3 - ${profile?.[Object.keys(profile)[1]].kills?.[3]
+            } | T2 - ${profile?.[Object.keys(profile)[1]].kills?.[2]} | T1 - ${profile?.[Object.keys(profile)[1]].kills?.[1]
+            }`;
         } else if (input == "wolf") {
           return `${username}'s Wolf Slayer Experience: ${addCommas(
             profile?.[Object.keys(profile)[2]].xp
-          )} | Level: ${profile?.[Object.keys(profile)[2]].level} | T5 - ${
-            profile?.[Object.keys(profile)[2]].kills?.[5]
-          } | T4 - ${profile?.[Object.keys(profile)[2]].kills?.[4]} | T3 - ${
-            profile?.[Object.keys(profile)[2]].kills?.[3]
-          } | T2 - ${profile?.[Object.keys(profile)[2]].kills?.[2]} | T1 - ${
-            profile?.[Object.keys(profile)[2]].kills?.[1]
-          }`;
+          )} | Level: ${profile?.[Object.keys(profile)[2]].level} | T5 - ${profile?.[Object.keys(profile)[2]].kills?.[5]
+            } | T4 - ${profile?.[Object.keys(profile)[2]].kills?.[4]} | T3 - ${profile?.[Object.keys(profile)[2]].kills?.[3]
+            } | T2 - ${profile?.[Object.keys(profile)[2]].kills?.[2]} | T1 - ${profile?.[Object.keys(profile)[2]].kills?.[1]
+            }`;
         } else if (input == "enderman") {
           return `${username}'s Enderman Slayer Experience: ${addCommas(
             profile?.[Object.keys(profile)[3]].xp
-          )} | Level: ${profile?.[Object.keys(profile)[3]].level} | T5 - ${
-            profile?.[Object.keys(profile)[3]].kills?.[5]
-          } | T4 - ${profile?.[Object.keys(profile)[3]].kills?.[4]} | T3 - ${
-            profile?.[Object.keys(profile)[3]].kills?.[3]
-          } | T2 - ${profile?.[Object.keys(profile)[3]].kills?.[2]} | T1 - ${
-            profile?.[Object.keys(profile)[3]].kills?.[1]
-          }`;
+          )} | Level: ${profile?.[Object.keys(profile)[3]].level} | T5 - ${profile?.[Object.keys(profile)[3]].kills?.[5]
+            } | T4 - ${profile?.[Object.keys(profile)[3]].kills?.[4]} | T3 - ${profile?.[Object.keys(profile)[3]].kills?.[3]
+            } | T2 - ${profile?.[Object.keys(profile)[3]].kills?.[2]} | T1 - ${profile?.[Object.keys(profile)[3]].kills?.[1]
+            }`;
         } else if (input == "blaze") {
           return `${username}'s Blaze Slayer Experience: ${addCommas(
             profile?.[Object.keys(profile)[4]].xp
-          )} | Level: ${profile?.[Object.keys(profile)[4]].level} | T5 - ${
-            profile?.[Object.keys(profile)[4]].kills?.[5]
-          } | T4 - ${profile?.[Object.keys(profile)[4]].kills?.[4]} | T3 - ${
-            profile?.[Object.keys(profile)[4]].kills?.[3]
-          } | T2 - ${profile?.[Object.keys(profile)[4]].kills?.[2]} | T1 - ${
-            profile?.[Object.keys(profile)[4]].kills?.[1]
-          }`;
+          )} | Level: ${profile?.[Object.keys(profile)[4]].level} | T5 - ${profile?.[Object.keys(profile)[4]].kills?.[5]
+            } | T4 - ${profile?.[Object.keys(profile)[4]].kills?.[4]} | T3 - ${profile?.[Object.keys(profile)[4]].kills?.[3]
+            } | T2 - ${profile?.[Object.keys(profile)[4]].kills?.[2]} | T1 - ${profile?.[Object.keys(profile)[4]].kills?.[1]
+            }`;
         } else {
-          return `${username}'s Slayer Experience - ${addCommas(total)} | ${
-            profile?.[Object.keys(profile)[0]].level
-          } ${profile?.[Object.keys(profile)[1]].level} ${
-            profile?.[Object.keys(profile)[2]].level
-          } ${profile?.[Object.keys(profile)[3]].level} ${
-            profile?.[Object.keys(profile)[4]].level
-          }`;
+          return `${username}'s Slayer Experience - ${addCommas(total)} | ${profile?.[Object.keys(profile)[0]].level
+            } ${profile?.[Object.keys(profile)[1]].level} ${profile?.[Object.keys(profile)[2]].level
+            } ${profile?.[Object.keys(profile)[3]].level} ${profile?.[Object.keys(profile)[4]].level
+            }`;
         }
       }
     }
@@ -111,6 +91,7 @@ class SlayersCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       let type;
       const msg = this.getArgs(message);
@@ -156,6 +137,7 @@ class SlayersCommand extends minecraftCommand {
 
       this.send(`/gc ${await getSlayerData(username, type)}`);
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"

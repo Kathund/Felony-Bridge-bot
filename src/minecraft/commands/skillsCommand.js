@@ -1,7 +1,6 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const getSkills = require("../../../API/stats/skills.js");
 
 class SkillsCommand extends minecraftCommand {
@@ -16,14 +15,18 @@ class SkillsCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
+      let hidden = false;
+      if (arg[1] == "hidden") hidden = true;
+
       const data = await getLatestProfile(username);
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const profile = getSkills(data.profile);
       this.send(
-        `/gc Skill Average » ${Math.round(
+        `${hidden ? "/oc" : "/gc"} Skill Average » ${Math.round(
           ((profile.farming.level +
             profile.mining.level +
             profile.combat.level +
@@ -48,6 +51,8 @@ class SkillsCommand extends minecraftCommand {
         || 0}`
       );
     } catch (error) {
+      await logError(playerIGN, error);
+      console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"
       );

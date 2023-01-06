@@ -1,4 +1,5 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
+const { logError } = require("../../contracts/helperFunctions.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json")
@@ -7,13 +8,14 @@ class GEXPRankCommand extends minecraftCommand {
     constructor(minecraft) {
         super(minecraft);
 
-        this.name = "grank";
-        this.aliases = [];
+        this.name = "guildcheck";
+        this.aliases = ["gcheck"];
         this.description = "j";
         this.options = [];
     }
 
     async onCommand(username, message) {
+        var playerIGN = username
         try {
             const check = await hypixel.getGuild(`player`, username)
             const arg = this.getArgs(message);
@@ -56,6 +58,7 @@ class GEXPRankCommand extends minecraftCommand {
                 this.send(`/gc This is a staff only command`)
             }
         } catch (error) {
+            await logError(playerIGN, error);
             console.log(error);
             this.send("/gc Something went wrong..");
         }

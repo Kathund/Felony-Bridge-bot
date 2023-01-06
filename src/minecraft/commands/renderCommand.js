@@ -1,11 +1,9 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
+const { decodeData, logError } = require("../../contracts/helperFunctions.js");
+const config = require("../../../config.json");
 // eslint-disable-next-line
 const { ImgurClient } = require("imgur");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
-const config = require("../../../config.json");
 const imgurClient = new ImgurClient({ clientId: config.api.imgurAPIkey });
-const { decodeData } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { renderLore } = require("../../contracts/renderItem.js");
 
@@ -13,14 +11,15 @@ class RenderCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
 
-    this.name = "inventory";
-    this.aliases = ["inv", "i", "render", "i"];
+    this.name = "render";
+    this.aliases = ["inv", "i", "inventory", "i"];
     this.description = "Renders item of specified user.";
     this.options = ["name", "slot"];
     this.optionsDescription = ["Minecraft Username", "Number between 1 and 36"];
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       let itemNumber = 0;
       const arg = this.getArgs(message);
@@ -72,6 +71,7 @@ class RenderCommand extends minecraftCommand {
         }`
       );
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
       this.send(
         "/gc There is no player with the given UUID or name or the player has no Skyblock profiles"

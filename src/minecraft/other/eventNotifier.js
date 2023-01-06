@@ -1,8 +1,8 @@
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const { getSkyblockCalendar } = require('../../../API/functions/getCalendar.js');
 const { timeSince, toFixed } = require('../../contracts/helperFunctions.js');
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const config = require('../../../config.json');
 const axios = require('axios');
-const { getSkyblockCalendar } = require('../../../API/functions/getCalendar.js');
 
 if (config.minecraft.sb.event.enabled) {
     setInterval(async () => {

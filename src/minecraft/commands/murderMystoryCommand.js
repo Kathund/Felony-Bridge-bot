@@ -1,10 +1,7 @@
+const { register, logError } = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const config = require("../../../config.json");
-const fetch = (...args) =>
-  import("node-fetch")
-    .then(({ default: fetch }) => fetch(...args))
-    .catch((err) => console.log(err));
+const { getUUID } = require("../../contracts/API/MojangAPI.js");
 
 class MurderMysteryCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -18,37 +15,24 @@ class MurderMysteryCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
-      const msg = this.getArgs(message);
-      if (msg[0]) username = msg[0];
+      const args = this.getArgs(message);
+      if (args[0]) username = args[0];
+      let hidden = false
+      if (args[1] == "hidden") hidden = true
+
       const player = await hypixel.getPlayer(username);
       var stats = player.stats.murdermystery;
       var losses = stats.playedGames - stats.wins;
       var mmWLR = stats.wins / losses;
       this.send(
-        `/gc [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${mmWLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`
+        `${hidden ? "/oc" : "/gc"} [${player.rank} ${player.nickname}]: Wins: ${stats.wins} Losses: ${losses} WLR ${mmWLR} Played Games: ${stats.playedGames} | Kills: ${stats.zombieKills} Deaths: ${stats.deaths} KD ${stats.KDRatio}`
       );
-      fetch(
-        `${config.api.pixelicAPI}/player/register?key=${config.api.pixelicKey}&uuid=${player.uuid}`,
-        {
-          method: "POST",
-        }
-      ).then((res) => {
-        if (res.status == 201) {
-          console.log(
-            `Successfully registered ${player.nickname} in the database!`
-          );
-        } else if (res.status == 400) {
-          console.log(
-            `${player.nickname} is already registered in the database!`
-          );
-        } else {
-          console.log(
-            `An error occured while registering ${player.nickanem} in the database! Please try again in few seconds.`
-          );
-        }
-      });
+      await register(await getUUID(username), username)
     } catch (error) {
+      await logError(playerIGN, error);
+      console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
       );

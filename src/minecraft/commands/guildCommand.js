@@ -1,7 +1,4 @@
-const {
-  addNotation,
-  capitalize,
-} = require("../../contracts/helperFunctions.js");
+const { addNotation, capitalize, logError} = require("../../contracts/helperFunctions.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const { getUsername } = require("../../contracts/API/MojangAPI.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
@@ -16,6 +13,7 @@ class GuildInformationCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const args = this.getArgs(message);
       const guildName = args.map((arg) => capitalize(arg)).join(" ");
@@ -26,14 +24,14 @@ class GuildInformationCommand extends minecraftCommand {
       const owner = await getUsername(guild.guildMaster.uuid);
 
       this.send(
-        `/gc Guild ${guildName} | Tag: ${guild.tag} | Members: ${
-          guild.members.length
+        `/gc Guild ${guildName} | Tag: ${guild.tag} | Members: ${guild.members.length
         } | Level: ${guild.level} | Weekly GEXP: ${addNotation(
           "oneLetters",
           guild.totalWeeklyGexp
         )} | Owner: ${owner}`
       );
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }

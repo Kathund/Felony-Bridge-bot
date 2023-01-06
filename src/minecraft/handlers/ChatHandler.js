@@ -1,26 +1,18 @@
-/*eslint-disable */
-const {
-  replaceAllRanks,
-  addCommas,
-} = require("../../contracts/helperFunctions.js");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
+
+const { replaceAllRanks, logError, hypixelRankColor } = require("../../contracts/helperFunctions.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
+const eventHandler = require("../../contracts/EventHandler.js");
+const messages = require("../../../messages.json");
+// eslint-disable-next-line
+const { EmbedBuilder } = require("discord.js");
+const config = require("../../../config.json");
+const logger = require("../../logger.js");
+const fs = require("fs");
 let guildInfo = [],
   guildRanks = [],
   members = [],
   guildTop = [];
-const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
-const { getUUID } = require("../../contracts/API/MojangAPI.js");
-const eventHandler = require("../../contracts/EventHandler.js");
-const messages = require("../../../messages.json");
-const { EmbedBuilder } = require("discord.js");
-const config = require("../../../config.json");
-const Logger = require("../../Logger.js");
-const fs = require("fs");
-const { runInThisContext } = require("vm");
-/*eslint-enable */
 
 class StateHandler extends eventHandler {
   constructor(minecraft, command, discord) {
@@ -40,20 +32,21 @@ class StateHandler extends eventHandler {
     const colouredMessage = event.toMotd();
 
     if (this.isLobbyJoinMessage(message)) {
+      await logError(config.minecraft.bot.name, `Client Send to limbo, logged in as ${config.minecraft.bot.name}`);
       return bot.chat("\u00a7");
     }
 
-    if (this.isPartyMessage(message)) {
-      const username = replaceAllRanks(message.substr(54));
-      await delay(69);
-      this.send(`/party accept ${username}`);
-      await delay(420);
-      this.send(
-        `/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`
-      );
-      await delay(5000);
-      this.send(`/party leave`);
-    }
+    // if (this.isPartyMessage(message)) {
+    //   const username = replaceAllRanks(message.substr(54));
+    //   await delay(69);
+    //   this.send(`/party accept ${username}`);
+    //   await delay(420);
+    //   this.send(
+    //     `/pc Look you found the ${config.minecraft.guild.name}'s frag bot! This bot will leave in 5 seconds! Have fun - Made by Kathund#2004`
+    //   );
+    //   await delay(5000);
+    //   this.send(`/party leave`);
+    // }
 
     if (this.isGuildTopMessage(message)) {
       if (!message.includes("10.")) {
@@ -87,77 +80,63 @@ class StateHandler extends eventHandler {
             ""
           )
       );
-      const uuid = await getUUID(username);
       if (config.minecraft.guild.joinChecker) {
-        const [player] = await Promise.all([
-          hypixel.getPlayer(uuid),
-          getLatestProfile(uuid),
-        ]);
+        const player = await hypixel.getPlayer(username)
+
         let meetRequirements = false;
-        let hasHypixelLevel = false;
-        let hasBWStars = false;
-        let hasBWFKDR = false;
         let hasBWWins = false;
         let hasSWWins = false;
         let hasDuelsWins = false;
-        let hasDuelsWLR = false;
+        let hasNetworkLevel = false;
 
-        const hypixelLevel = player.level;
-        const bwStars = player.stats.bedwars.level;
-        const bwFKDR = player.stats.bedwars.finalKDRatio;
         const bwWins = player.stats.bedwars.wins;
         const swWins = player.stats.skywars.wins;
         const duelsWins = player.stats.duels.wins;
-        const duelsWLR = player.stats.duels.WLRatio;
+        const networkLevel = player.level
 
         if (
-          hypixelLevel > config.minecraft.guild.requirements.hypixelNetworkLevel
+          bwWins >= config.minecraft.guild.requirements.bedwarsWins
         ) {
-          (hasHypixelLevel = true), (meetRequirements = true);
-        }
-        if (bwStars > config.minecraft.guild.requirements.bedwarsStars) {
-          hasBWStars = true;
-        }
-        if (bwFKDR > config.minecraft.guild.requirements.bedwarsFKDR) {
-          hasBWFKDR = true;
-        }
-        if (hasBWStars == true && hasBWFKDR == true) meetRequirements = true;
-        if (bwWins > config.minecraft.guild.requirements.bedwarsWins) {
           (hasBWWins = true), (meetRequirements = true);
         }
-        if (swWins > config.minecraft.guild.requirements.skywarsWins) {
+        if (
+          swWins >= config.minecraft.guild.requirements.skywarsWins
+        ) {
           (hasSWWins = true), (meetRequirements = true);
         }
-        if (duelsWins > config.minecraft.guild.requirements.dulesWins) {
-          hasDuelsWins = true;
+        if (
+          duelsWins >= config.minecraft.guild.requirements.duelsWins
+        ) {
+          (hasDuelsWins = true), (meetRequirements = true);
         }
-        if (duelsWLR > config.minecraft.guild.requirements.duelsWLR) {
-          hasDuelsWLR = true;
+        if (
+          networkLevel >= config.minecraft.guild.requirements.networkLevel
+        ) {
+          (hasNetworkLevel = true), (meetRequirements = true)
         }
-        if (hasDuelsWins == true && hasDuelsWLR == true) {
-          meetRequirements = true;
-        }
-        
+
         var plusColor = player.plusColor
         var plusPlusColor = player.prefixColor
 
         var rank = player.rank;
-        if (player.rank == "VIP") rank = config.discord.emojis.ranks.VIP
-        if (player.rank == "VIP+") rank = config.discord.emojis.ranks.VIP_PLUS
-        if (player.rank == "MVP") rank = config.discord.emojis.ranks.MVP
-        if (player.rank == "MVP+") rank = config.discord.emojis.ranks.MVP_PLUS[plusColor.color]
-        if (player.rank == "MVP++") rank = config.discord.emojis.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
-        if (player.rank == "Game Master") rank = config.discord.emojis.ranks.GAME_MASTER
-        if (player.rank == "Admin") rank = config.discord.emojis.ranks.ADMIN
-        if (player.rank == "Youtube") rank = config.discord.emojis.ranks.YOUTUBE
+        if (player.rank == "VIP") rank = config.other.emojis.discord.ranks.VIP
+        if (player.rank == "VIP+") rank = config.other.emojis.discord.ranks.VIP_PLUS
+        if (player.rank == "MVP") rank = config.other.emojis.discord.ranks.MVP
+        if (player.rank == "MVP+") rank = config.other.emojis.discord.ranks.MVP_PLUS[plusColor.color]
+        if (player.rank == "MVP++") rank = config.other.emojis.discord.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
+        if (player.rank == "Game Master") rank = config.other.emojis.discord.ranks.GAME_MASTER
+        if (player.rank == "Admin") rank = config.other.emojis.discord.ranks.ADMIN
+        if (player.rank == "Youtube") rank = config.other.emojis.discord.ranks.YOUTUBE
+        const rank = hypixelRankColor(username);
+
         bot.chat(
-          `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt"
+          `/oc [${player.rank}] ${player.nickname}: ${meetRequirements ? "has" : "hasnt got"
           } the requirements to join ${config.minecraft.guild.name}!`
         );
         const statsEmbed = new EmbedBuilder()
           .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
           .setTitle(
-            `${rank}   ${player.nickname}: has requested to join the Guild!`
+            `${rank}  ${player.nickname}: has requested to join the Guild!`
           )
           .setDescription(
             `${player.nickname} ${meetRequirements ? "**has**" : "**dose not**"
@@ -165,36 +144,20 @@ class StateHandler extends eventHandler {
           )
           .addFields(
             {
-              name: "General",
-              value: `Level - ${hypixelLevel}/${config.minecraft.guild.requirements.hypixelNetworkLevel
-                } ${hasHypixelLevel
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
-                }`,
-              inline: false,
-            },
-            {
-              name: "Bedwars 1",
-              value: `Stars - ${bwStars}/${config.minecraft.guild.requirements.bedwarsStars
-                } ${hasBWStars
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
-                }\nFKDR - ${bwFKDR}/${config.minecraft.guild.requirements.bedwarsFKDR
-                } ${hasBWFKDR ? config.discord.emojis.yes : config.discord.emojis.no
-                }`,
-              inline: false,
-            },
-            {
-              name: "Bedwars 2",
+              name: "Bedwars",
               value: `Wins - ${bwWins}/${config.minecraft.guild.requirements.bedwarsWins
-                } ${hasBWWins ? config.discord.emojis.yes : config.discord.emojis.no
+                } ${hasBWWins
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             },
             {
               name: "Skywars",
               value: `Wins - ${swWins}/${config.minecraft.guild.requirements.skywarsWins
-                } ${hasSWWins ? config.discord.emojis.yes : config.discord.emojis.no
+                } ${hasSWWins
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             },
@@ -202,12 +165,17 @@ class StateHandler extends eventHandler {
               name: "Duels",
               value: `Wins - ${duelsWins}/${config.minecraft.guild.requirements.duelsWins
                 } ${hasDuelsWins
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
-                }\nWLR - ${duelsWLR}/${config.minecraft.guild.requirements.duelsWLR
-                } ${hasDuelsWLR
-                  ? config.discord.emojis.yes
-                  : config.discord.emojis.no
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
+                }`,
+              inline: false,
+            },
+            {
+              name: "Level",
+              value: `Level - ${networkLevel}/${config.minecraft.guild.requirements.networkLevel
+                } ${hasNetworkLevel
+                  ? config.other.emojis.discord.yes
+                  : config.other.emojis.discord.no
                 }`,
               inline: false,
             }
@@ -282,10 +250,23 @@ class StateHandler extends eventHandler {
       }
     }
 
+    // Check if the message is a login message
     if (this.isLoginMessage(message)) {
+      // Read the config file
       const data = JSON.parse(fs.readFileSync("config.json"));
+      // Check if the join message is enabled
       if (data.discord.joinMessage) {
+        // Get the username from the message
         const user = message.split(">")[1].trim().split("joined.")[0].trim();
+        // Wait 500ms
+        await delay(1000)
+        // Check if the welcome back messge is enabled
+        if (data.minecraft.guild.autoWelcomeBack) {
+          // Send the welcome back message
+          if (user == 'xStxppxd') { this.send(`/gc OMG HI BURGER ILY SO MUCH PLEASE MARRY `) }
+          else { this.send(`/gc ${messages.userLoginMessageFirst} ${user} ${messages.userLoginMessageSecond}`) }
+        }
+        // Send the login message to the guild
         return this.minecraft.broadcastPlayerToggle({
           fullMessage: colouredMessage,
           username: user,
@@ -316,9 +297,7 @@ class StateHandler extends eventHandler {
         .trim()
         .split(/ +/g)[0];
       await delay(1000);
-      if (config.minecraft.guild.welcomeMessage == true) {
-        return bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`);
-      }
+      if (config.minecraft.guild.guildJoinMessage == true) bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`);
       return [
         this.minecraft.broadcastHeadedEmbed({
           message: `${user} ${messages.joinMessage}`,
@@ -484,19 +463,13 @@ class StateHandler extends eventHandler {
         message: `${messages.alreadyBlacklistedMessage}`,
         title: `Blacklist`,
         color: 2067276,
-        channel: "Guild",
+        channel: "Logger",
       });
     }
 
     if (this.isBlacklistMessage(message)) {
       const user = message.split(" ")[1];
       return [
-        this.minecraft.broadcastHeadedEmbed({
-          message: `${user}${messages.blacklistMessage}`,
-          title: `Blacklist`,
-          color: 2067276,
-          channel: "Guild",
-        }),
         this.minecraft.broadcastHeadedEmbed({
           message: `${user}${messages.blacklistMessage}`,
           title: `Blacklist`,
@@ -509,12 +482,6 @@ class StateHandler extends eventHandler {
     if (this.isBlacklistRemovedMessage(message)) {
       const user = message.split(" ")[1];
       return [
-        this.minecraft.broadcastHeadedEmbed({
-          message: `${user}${messages.blacklistRemoveMessage}`,
-          title: `Blacklist`,
-          color: 2067276,
-          channel: "Guild",
-        }),
         this.minecraft.broadcastHeadedEmbed({
           message: `${user}${messages.blacklistRemoveMessage}`,
           title: `Blacklist`,
@@ -714,7 +681,7 @@ class StateHandler extends eventHandler {
     }
 
     if (this.isTooFast(message)) {
-      return Logger.warnMessage(message);
+      return logger.warnMessage(message);
     }
 
     if (this.isPlayerNotFound(message)) {

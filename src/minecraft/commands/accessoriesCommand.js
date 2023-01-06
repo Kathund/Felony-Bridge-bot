@@ -1,9 +1,8 @@
+const { getLatestProfile } = require("../../../API/functions/getLatestProfile.js");
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const { logError } = require("../../contracts/helperFunctions.js");
 const getTalismans = require("../../../API/stats/talismans.js");
-const {
-  getLatestProfile,
-} = require("../../../API/functions/getLatestProfile.js");
 
 class AccessoriesCommand extends minecraftCommand {
   constructor(minecraft) {
@@ -17,6 +16,7 @@ class AccessoriesCommand extends minecraftCommand {
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const arg = this.getArgs(message);
       if (arg[0]) username = arg[0];
@@ -26,7 +26,7 @@ class AccessoriesCommand extends minecraftCommand {
           "/gc There is no player with the given UUID or name or the player has no Skyblock profiles."
         );
       }
-      
+
       username = data.profileData?.game_mode ? `♲ ${username}` : username;
       const talismans = await getTalismans(data.profile);
       const common = talismans?.common?.length,
@@ -76,8 +76,9 @@ class AccessoriesCommand extends minecraftCommand {
         `/gc ${username}'s Accessories » Common - ${common} | Uncommon - ${uncommon} | Rare - ${rare} | Epic - ${epic} |  Legendary - ${legendary} | Special - ${special} | Very Special - ${verySpecial}`
       );
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
-      this.send(`/gc [ERROR] ${error}`);
+      this.send(`/gc something went wrong...`);
     }
   }
 }

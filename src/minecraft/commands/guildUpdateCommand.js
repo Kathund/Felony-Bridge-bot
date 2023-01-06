@@ -1,5 +1,6 @@
 const minecraftCommand = require("../../contracts/minecraftCommand.js");
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const { logError } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const config = require("../../../config.json")
 
@@ -7,16 +8,17 @@ class GCheckCommand extends minecraftCommand {
   constructor(minecraft) {
     super(minecraft);
 
-    this.name = "gcheck";
-    this.aliases = [];
+    this.name = "guildupdate";
+    this.aliases = ["gupdate"];
     this.description = "no";
     this.options = [];
   }
 
   async onCommand(username, message) {
+    var playerIGN = username
     try {
       const check = await hypixel.getGuild(`player`, username)
-      if (check.me.rank == "Police" || check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
+      if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
         const check = await hypixel.getGuild('name', config.minecraft.guild.name);
         var members = check.members;
         var guildMembers = [];
@@ -67,6 +69,7 @@ class GCheckCommand extends minecraftCommand {
         this.send(`/gc This is a staff only command`)
       }
     } catch (error) {
+      await logError(playerIGN, error);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
