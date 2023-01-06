@@ -17,15 +17,15 @@ async function checkForIncidents() {
             for (let i = 0; i < content.length; i++) {
                 const incident = content[i];
                 if (i % 2 === 0) continue;
-                if (!currentStatus.includes(`${data.title} | ${incident} | ${content[i-1]}`)) {
-                    currentStatus.push(`${data.title} | ${incident} | ${content[i-1]}`);
+                if (!currentStatus.includes(`${data.title} | ${incident} | ${content[i - 1]}`)) {
+                    currentStatus.push(`${data.title} | ${incident} | ${content[i - 1]}`);
                     await writeAt('data/skyblockNotifer.json', 'skyblockStatus', currentStatus);
                     bot.chat(`/gc [SKYBLOCK STATUS] ${data.title} - ${incident.split(' - ')[1]} | ${data.link}`);
                 }
             }
         }
     } catch (error) {
-        await logError(config.minecraft.bot.name, error);
+        await logError(config.minecraft.bot.namee, error, this.name, message);
         console.log(error);
     }
 }
@@ -41,8 +41,8 @@ async function checkForSkyblockUpdates() {
                 bot.chat(`/gc [SKYBLOCK UPDATE] ${data.title} ${data.link}`);
             }
         }
-     } catch (error) {
-        await logError(config.minecraft.bot.name, error);
+    } catch (error) {
+        await logError(config.minecraft.bot.namee, error, this.name, message);
         console.log(error);
     }
 }
