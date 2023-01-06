@@ -264,7 +264,7 @@ class GuildLeaderboardCommand extends minecraftCommand {
         }
       });
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error);
       this.send("/gc Something went wrong..");
     }
