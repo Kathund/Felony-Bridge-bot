@@ -115,18 +115,6 @@ class StateHandler extends eventHandler {
           (hasNetworkLevel = true), (meetRequirements = true)
         }
 
-        var plusColor = player.plusColor
-        var plusPlusColor = player.prefixColor
-
-        var rank = player.rank;
-        if (player.rank == "VIP") rank = config.other.emojis.discord.ranks.VIP
-        if (player.rank == "VIP+") rank = config.other.emojis.discord.ranks.VIP_PLUS
-        if (player.rank == "MVP") rank = config.other.emojis.discord.ranks.MVP
-        if (player.rank == "MVP+") rank = config.other.emojis.discord.ranks.MVP_PLUS[plusColor.color]
-        if (player.rank == "MVP++") rank = config.other.emojis.discord.ranks.MVP_PLUS_PLUS[plusPlusColor.color][plusColor.color]
-        if (player.rank == "Game Master") rank = config.other.emojis.discord.ranks.GAME_MASTER
-        if (player.rank == "Admin") rank = config.other.emojis.discord.ranks.ADMIN
-        if (player.rank == "Youtube") rank = config.other.emojis.discord.ranks.YOUTUBE
         const rank = hypixelRankColor(username);
 
         bot.chat(
