@@ -18,8 +18,13 @@ class PlayerCommand extends minecraftCommand {
     var playerIGN = username
     try {
       const msg = this.getArgs(message);
-      if (msg[0]) username = msg[0];
       let hidden = false;
+      if (msg[0] == "hidden") {
+        hidden = true
+        username = msg[1]
+      } else {
+        username = msg[0]
+      }
       if (msg[1] == "hidden") hidden = true;
 
       const player = await hypixel.getPlayer(username);
