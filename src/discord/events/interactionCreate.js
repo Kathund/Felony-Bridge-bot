@@ -18,7 +18,7 @@ module.exports = {
 
         await command.execute(interaction, interaction.client);
       } catch (error) {
-        await logError(config.minecraft.bot.name, error)
+        await logError(config.minecraft.bot.name, error, this.name, message);
         console.log(error);
 
         await interaction.reply({
