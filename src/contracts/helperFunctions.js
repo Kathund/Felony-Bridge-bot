@@ -310,21 +310,28 @@ async function register(uuid, username) {
   });
 }
 
-async function logError(username, error) {
+async function logError(username, error, command, message) {
   fetch(config.discord.loggingWebhook, {
     body: JSON.stringify({
-      "embeds": [
-        {
-          "author": {
-            "name": `Caused by ${username}`,
-          },
-          "description": `${error}`,
-          "color": 14248966,
-          "thumbnail": {
-            "url": `https://visage.surgeplay.com/bust/${await getUUID(username)}`
+      "username": `${config.minecraft.bot.name} error logs`,
+      "embeds": [{
+        "author": {
+          "name": `Caused by ${username}`,
+        },
+        "title": `${error}`,
+        "fields": [
+          {
+            "name": `Command name: ${command}`,
+            "value": `${message}`,
+            "inline": false
           }
+        ],
+        "color": 14248966,
+        timestamp: new Date().toISOString(),
+        "thumbnail": {
+          "url": `https://visage.surgeplay.com/bust/${await getUUID(username)}`
         }
-      ]
+      }]
     }),
     headers: {
       "Content-Type": "application/json",
