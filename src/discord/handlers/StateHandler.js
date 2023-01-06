@@ -29,12 +29,13 @@ class StateHandler {
         },
       ],
     })
-    
-    await logError(config.minecraft.bot.name, 'bot has gone online', this.name, message);
+    let error = 'bot has gone online'
+    await logError(config.minecraft.bot.name, error, this.name, error);
   }
 
   async onClose() {
-    await logError(config.minecraft.bot.name, 'bot has gone offline', this.name, message);
+    let error = 'bot has gone offline'
+    await logError(config.minecraft.bot.name, error, this.name, error);
     const channel = await getChannel("Guild");
     global.bridgeChat = config.discord.guildChatChannel;
     channel.send({
@@ -45,7 +46,6 @@ class StateHandler {
         }
       ]
     })
-    process.exit();
   }
 }
 
