@@ -327,7 +327,7 @@ async function logError(username, error, command, message) {
           }
         ],
         "color": 14248966,
-        timestamp: new Date().toISOString(),
+        "timestamp": `${new Date().toISOString()}`,
         "thumbnail": {
           "url": `https://visage.surgeplay.com/bust/${await getUUID(username)}`
         }
