@@ -25,7 +25,8 @@ class StateHandler extends eventHandler {
 
     this.loginAttempts = 0;
     this.exactDelay = 0;
-    await logError(config.minecraft.bot.name, "Client ready, logged in as " + config.minecraft.bot.name)
+    let error = `Client ready, logged in as ${config.minecraft.bot.name}`
+    await logError(config.minecraft.bot.name, error, this.name, error);
   }
 
   async onEnd() {
@@ -36,8 +37,7 @@ class StateHandler extends eventHandler {
       `Minecraft bot has disconnected! Attempting reconnect in ${loginDelay / 1000
       } seconds`
     );
-    await logError(config.minecraft.bot.name, `Minecraft bot has disconnected! Attempting reconnect in ${loginDelay / 1000} seconds`)
-
+    await logError(config.minecraft.bot.name, `Minecraft bot has disconnected! Attempting to reconnect in ${loginDelay / 1000} seconds`, this.name, message);
     setTimeout(() => this.minecraft.connect(), loginDelay);
   }
 
@@ -45,7 +45,7 @@ class StateHandler extends eventHandler {
     logger.warnMessage(
       `Minecraft bot has been kicked from the server for "${reason}"`
     );
-    await logError(config.minecraft.bot.name, `Minecraft bot has been kicked from the server for "${reason}"`)
+    await logError(config.minecraft.bot.name, `Minecraft bot has been kicked from the server for **"${reason}"**`, this.name, message);
 
     this.loginAttempts++;
   }
