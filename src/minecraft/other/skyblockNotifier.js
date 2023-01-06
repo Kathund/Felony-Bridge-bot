@@ -25,7 +25,7 @@ async function checkForIncidents() {
             }
         }
     } catch (error) {
-        await logError(config.minecraft.bot.namee, error, this.name, message);
+        await logError(config.minecraft.bot.namee, error, this.name, error);
         console.log(error);
     }
 }
@@ -42,7 +42,7 @@ async function checkForSkyblockUpdates() {
             }
         }
     } catch (error) {
-        await logError(config.minecraft.bot.namee, error, this.name, message);
+        await logError(config.minecraft.bot.namee, error, this.name, error);
         console.log(error);
     }
 }
