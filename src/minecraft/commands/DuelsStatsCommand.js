@@ -95,7 +95,7 @@ class DuelsStatsCommand extends minecraftCommand {
       });
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error);
       this.send(
         "/gc There is no player with the given name or this duel does not exist."
