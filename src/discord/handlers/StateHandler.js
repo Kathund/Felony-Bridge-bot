@@ -39,12 +39,10 @@ class StateHandler {
     const channel = await getChannel("Guild");
     global.bridgeChat = config.discord.guildChatChannel;
     channel.send({
-      embeds: [
-        {
-          author: { name: `${config.other.emojis.discord.online} Chat Bridge is Offline` },
-          color: 15548997,
-        }
-      ]
+      embeds: [{
+        author: { name: `${config.other.emojis.discord.online} Chat Bridge is Offline` },
+        color: 15548997,
+      }]
     })
   }
 }
