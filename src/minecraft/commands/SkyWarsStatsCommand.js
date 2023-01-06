@@ -32,7 +32,7 @@ class SkywarsCommand extends minecraftCommand {
 
       await register(await getUUID(username), username)
     } catch (error) {
-      await logError(playerIGN, error);
+      await logError(playerIGN, error, this.name, message);
       console.log(error)
       this.send(
         "There is no player with the given UUID or name or player has never joined Hypixel."
