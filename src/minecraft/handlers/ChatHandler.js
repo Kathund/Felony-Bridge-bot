@@ -224,6 +224,13 @@ class StateHandler extends eventHandler {
           title: guildInfoSplit[2],
           icon: `https://hypixel.paniek.de/guild/${config.minecraft.guild.id}/banner.png`,
           color: 2067276,
+          channel: "Officer",
+        });
+        this.minecraft.broadcastHeadedEmbed({
+          message: `${description}`,
+          title: guildInfoSplit[2],
+          icon: `https://hypixel.paniek.de/guild/${config.minecraft.guild.id}/banner.png`,
+          color: 2067276,
           channel: "Guild",
         });
         guildInfo = [];
