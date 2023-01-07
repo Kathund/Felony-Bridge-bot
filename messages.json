@@ -14,7 +14,14 @@
   "offlineInvite": "was offline invited to the guild!",
   "guildMuteMessage": "Guild Chat has been muted for",
   "guildUnmuteMessage": "Guild Chat has been unmuted!",
-  "guildJoinMessage": "Welcome to Felony | join the discord via /g discord | Have a good day/night!",
+  "guildJoinMessage": {
+    "1": "Welcome to Felony | Join the discord via /g discord | Have a good day/night!",
+    "2": "Welcome to Felony | Have a good day/night! | Join the discord via /g discord",
+    "3": "Welcome to Felony the #1 4v4 guild | Join the discord via /g discord | Have a good day/night!",
+    "4": "Welcome to Felony | Join the discord via /g discord | Have a good week!",
+    "5": "Welcome to Felony | Have a good week | Join the discord via /g discord",
+    "6": "Welcome to Felony the #1 4v4 guild | Join the discord via /g discord | Have a good week"
+  },
   "userMuteMessage": "has been muted for",
   "userUnmuteMessage": "has been unmuted!",
   "setrankFailMessage": "Rank not found.",
