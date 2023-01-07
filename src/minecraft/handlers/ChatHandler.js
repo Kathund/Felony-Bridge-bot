@@ -279,7 +279,9 @@ class StateHandler extends eventHandler {
         .trim()
         .split(/ +/g)[0];
       await delay(1000);
-      if (config.minecraft.guild.guildJoinMessage == true) bot.chat(`/gc ${messages.guildJoinMessage} | By Kathund#2004`);
+      const num = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+      console.log(messages.guildJoinMessage[num])
+      if (config.minecraft.guild.guildJoinMessage == true) bot.chat(`/gc ${messages.guildJoinMessage[num]} | By Kathund#2004`);
       return [
         this.minecraft.broadcastHeadedEmbed({
           message: `${user} ${messages.joinMessage}`,
