@@ -19,8 +19,8 @@ class GCheckCommand extends minecraftCommand {
     try {
       const check = await hypixel.getGuild(`player`, username)
       if (check.me.rank == "Wardens" || check.me.rank == "Guild Master") {
-        const check = await hypixel.getGuild('name', config.minecraft.guild.name);
-        var members = check.members;
+        const guild = await hypixel.getGuild('name', config.minecraft.guild.name);
+        var members = guild.members;
         var guildMembers = [];
         for (const member in members) {
           guildMembers.push(members[member].uuid)
@@ -32,11 +32,11 @@ class GCheckCommand extends minecraftCommand {
         for (let x of f) {
           var i = guildMembers[num]
           var player = await hypixel.getPlayer(i)
-          var guild = await hypixel.getGuild('player', i)
-          if (guild.me.rank == "Police" || guild.me.rank == "Wardens" || guild.me.rank == "Guild Master") {
+          var playerGuild = await hypixel.getGuild('player', i)
+          if (playerGuild.me.rank == "Police" || playerGuild.me.rank == "Wardens" || playerGuild.me.rank == "Guild Master") {
             this.send(`/oc ${player.nickname} is a staff member`)
           } else {
-            const weekGEXP = guild.me.weeklyExperience
+            const weekGEXP = playerGuild.me.weeklyExperience
             if (weekGEXP > config.minecraft.guild.ranks.guards) {
               this.send(`/go ${player.nickname} is now Guards`)
               await delay(3000)
