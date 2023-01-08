@@ -1,4 +1,4 @@
-const { hypixelRankColor } = require("../../contracts/helperFunctions.js");
+const { hypixelRankEmoji } = require("../../contracts/helperFunctions.js");
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 // eslint-disable-next-line
 const { EmbedBuilder } = require("discord.js");
@@ -19,7 +19,6 @@ module.exports = {
   execute: async (interaction, client) => {
     const username = interaction.options.getString("name");
     var player = await hypixel.getPlayer(username);
-
 
     let meetRequirements = false;
     let hasBWWins = false;
@@ -54,8 +53,8 @@ module.exports = {
     }
 
     const statsEmbed = new EmbedBuilder()
-      .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
-      .setTitle(`${await hypixelRankColor(username)}  ${player.nickname} ${meetRequirements ? "**has**" : "**has not got**"} the requirements to join the ${config.minecraft.guild.name}!`)
+      .setColor(`${meetRequirements ? config.discord.embedColors.lime : config.discord.embedColors.red}`)
+      .setTitle(`${await hypixelRankEmoji(username)}  ${player.nickname} ${meetRequirements ? "**has**" : "**has not got**"} the requirements to join the ${config.minecraft.guild.name}!`)
       .addFields(
         {
           name: "Bedwars",
