@@ -19,13 +19,13 @@ module.exports = {
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.guildMaster)) hasPerms = true;
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.wardens)) hasPerms = true;
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.staff.police)) hasPerms = true;
-    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.botDev)) hasPerms = true;
     if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.bypassrole)) hasPerms = true;
+    if ((await interaction.guild.members.fetch(interaction.user)).roles.cache.has(config.discord.roles.botDev)) hasPerms = true;
     if (hasPerms) {
       const command = interaction.options.getString("command");
       bot.chat(`/${command}`);
       const commandMessage = new EmbedBuilder()
-        .setColor(2067276)
+        .setColor(config.discord.embedColors.green)
         .setTitle("Command has been executed successfully")
         .setDescription(`\`/${command}\`\n`)
         .setFooter({
