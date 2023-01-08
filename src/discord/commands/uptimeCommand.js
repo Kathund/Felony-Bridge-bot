@@ -1,6 +1,7 @@
 const { toFixed } = require("../../contracts/helperFunctions.js");
 // eslint-disable-next-line
 const { EmbedBuilder } = require("discord.js");
+const config = require('../../../config.json')
 
 module.exports = {
   name: "uptime",
@@ -8,7 +9,7 @@ module.exports = {
 
   execute: async (interaction, client) => {
     const uptimeEmbed = new EmbedBuilder()
-      .setColor(0x0099ff)
+      .setColor(config.discord.embedColors.dodgerBlue)
       .setTitle("🕐 Uptime!")
       .setDescription(`Online since <t:${toFixed(uptime / 1000, 0)}:R>`)
       .setFooter({
