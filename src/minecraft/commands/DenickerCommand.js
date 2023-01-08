@@ -10,7 +10,7 @@ class DenickerCommand extends minecraftCommand {
     super(minecraft);
 
     this.name = "denick";
-    this.aliases = [];
+    this.aliases = ["unnick"];
     this.description = "Denick username of specified user.";
     this.options = ["nick"];
     this.optionsDescription = ["Minecraft Username"];
