@@ -1,5 +1,5 @@
 
-const { replaceAllRanks, logError, hypixelRankColor } = require("../../contracts/helperFunctions.js");
+const { replaceAllRanks, logError, hypixelRankEmoji } = require("../../contracts/helperFunctions.js");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const hypixel = require("../../contracts/API/HypixelRebornAPI.js");
 const eventHandler = require("../../contracts/EventHandler.js");
@@ -121,8 +121,8 @@ class StateHandler extends eventHandler {
         );
 
         const statsEmbed = new EmbedBuilder()
-          .setColor(`${meetRequirements ? "0x1FFF4C" : "0xf92121"}`)
-          .setTitle(`${await hypixelRankColor(username)}  ${player.nickname}: has requested to join the Guild!`)
+          .setColor(`${meetRequirements ? config.discord.embedColors.lime : config.discord.embedColors.red}`)
+          .setTitle(`${await hypixelRankEmoji(username)}  ${player.nickname}: has requested to join the Guild!`)
           .setDescription(`${player.nickname} ${meetRequirements ? "**has**" : "**has not got**"} the requirements to join the ${config.minecraft.guild.name}!`)
           .addFields(
             {
@@ -286,8 +286,10 @@ class StateHandler extends eventHandler {
         .trim()
         .split(/ +/g)[0];
       await delay(1000);
-      const num = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
-      if (config.minecraft.guild.guildJoinMessage == true) bot.chat(`/gc ${messages.guildJoinMessage[num]} | By Kathund#2004`);
+      if (config.minecraft.guild.guildJoinMessage == true) {
+        const num = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+        bot.chat(`/gc ${messages.guildJoinMessage[num]} | By Kathund#2004`);
+      }
       return [
         this.minecraft.broadcastHeadedEmbed({
           message: `${user} ${messages.joinMessage}`,
