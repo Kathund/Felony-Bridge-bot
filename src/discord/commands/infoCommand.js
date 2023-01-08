@@ -47,7 +47,7 @@ module.exports = {
     }
 
     const infoEmbed = new EmbedBuilder()
-      .setColor(0x0099ff)
+      .setColor(config.discord.embedColors.dodgerBlue)
       .setTitle("Hypixel Bridge Bot Commands")
       .addFields(
         {
