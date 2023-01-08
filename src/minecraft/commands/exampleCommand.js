@@ -7,7 +7,7 @@ class ExampleCommand extends minecraftCommand {
 
     this.name = "example";
     this.aliases = [];
-    this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    this.description = "Test example command";
     this.options = [];
   }
 
