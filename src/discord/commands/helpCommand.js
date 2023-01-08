@@ -54,7 +54,7 @@ module.exports = {
         }
       }
       const helpMenu = new EmbedBuilder()
-        .setColor(0x0099ff)
+        .setColor(config.discord.embedColors.dodgerBlue)
         .setTitle("Hypixel Bridge Bot Commands")
         .setDescription("() = required argument, [] = optional argument")
         .addFields(
@@ -84,7 +84,7 @@ module.exports = {
           found = true;
           if (!command.options) {
             const commandData = new EmbedBuilder()
-              .setColor(0x0099ff)
+              .setColor(config.discord.embedColors.dodgerBlue)
               .setTitle(`**${config.minecraft.prefix}${command.name}**`)
               .setDescription(description + "\n")
               .setFooter({
@@ -108,7 +108,7 @@ module.exports = {
             }
 
             const commandData = new EmbedBuilder()
-              .setColor(0x0099ff)
+              .setColor(config.discord.embedColors.dodgerBlue)
               .setTitle(`**${config.minecraft.prefix}${command.name}**`)
               .setDescription(description + "\n")
               .addFields({
@@ -136,7 +136,7 @@ module.exports = {
             minecraftCommandList[i].options == []
           ) {
             const commandData = new EmbedBuilder()
-              .setColor(0x0099ff)
+              .setColor(config.discord.embedColors.dodgerBlue)
               .setTitle(
                 `**${config.minecraft.prefix}${minecraftCommandList[i].name}**`
               )
@@ -161,7 +161,7 @@ module.exports = {
             }
           }
           const commandData = new EmbedBuilder()
-            .setColor(0x0099ff)
+            .setColor(config.discord.embedColors.dodgerBlue)
             .setTitle(
               `**${config.minecraft.prefix}${minecraftCommandList[i].name}**`
             )
