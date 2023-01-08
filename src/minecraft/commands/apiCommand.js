@@ -14,7 +14,7 @@ class APICommand extends minecraftCommand {
 
     this.name = "api";
     this.aliases = [];
-    this.description = "api command go brrr";
+    this.description = "Shows information about the apis used by the bot";
     this.options = [];
   }
 
