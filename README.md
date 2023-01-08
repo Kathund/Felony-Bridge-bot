@@ -20,6 +20,7 @@ If you do need support message me on discord via [Kathund#2004](https://discord.
 
 `Discord`
 
+- `/accept <player>` - Accepts the given user into the guild if they have a pending join request
 - `/blacklist [player]` - Blacklists specified user from using bot.
 - `/demote [player]` - Demotes the given user by one guild rank.
 - `/guildtop [integer]` - Top 10 members with the most guild experience.
@@ -45,10 +46,10 @@ If you do need support message me on discord via [Kathund#2004](https://discord.
 - `!auction [player]` - Active Auctions of specified user
 - `!bedwars [player]` - BedWars stats of specified user
 - `!blacklist <add/remove> <player>` - Blacklists specified user from using bot **STAFF ONLY**
-- `!calcbw <fkdr/wlr/bblr> <target number>` - Calculates the amount of x needed to reach a target number
+- `!calcbw <fkdr/wlr/bblr> <target number>` - Alows you to calc how close you are to the next fkdr/wlr/blr
 - `!calculate <calculation>` - Calculate any kind of math problem
-- `!calcduels <wlr/kd> <target number>` - Calculates the amount of x needed to reach a target number
-- `!calcsw <wlr/kb> <target number>` - Calculates the amount of x needed to reach a target number
+- `!calcduels <wlr/kd> <target number>` - Alows you to calc how close you are to the next wlr/kd
+- `!calcsw <wlr/kb> <target number>` - Alows you to calc how close you are to the next wlr/kd
 - `!catacombs [player]` - Skyblock Dungeons Stats of specified user
 - `!daily <mode> [player]` - Daily stats of specified user for a specified mode
 - `!denick [player]` - Denick username of specified user
