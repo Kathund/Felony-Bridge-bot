@@ -9,7 +9,7 @@ class FriendsCommand extends minecraftCommand {
 
     this.name = "friends";
     this.aliases = [];
-    this.description = "friends info of specified user.";
+    this.description = "Friends info of specified user.";
     this.options = ["name"];
     this.optionsDescription = ["Minecraft Username"];
   }
