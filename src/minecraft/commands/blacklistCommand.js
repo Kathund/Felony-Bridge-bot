@@ -9,7 +9,7 @@ class BlacklistCommand extends minecraftCommand {
 
         this.name = "blacklist";
         this.aliases = [];
-        this.description = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        this.description = "Blacklists specif1ied user from using bot **STAFF ONLY**a";
         this.options = [];
     }
 
