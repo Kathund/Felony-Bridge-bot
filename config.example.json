@@ -76,7 +76,13 @@
     },
     "messageMode": "minecraft",
     "filterMessages": false,
-    "joinMessage": true
+    "joinMessage": true,
+    "embedColors": {
+      "lime": "0x1FFF4C",
+      "red": "0xf92121",
+      "green": "0x07B053",
+      "dodgerBlue": "0x0099ff"
+    }
   },
   "console": {
     "maxEventSize": 50,
