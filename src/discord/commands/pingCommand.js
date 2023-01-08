@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 const { EmbedBuilder } = require("discord.js");
+const config = require('../../../config.json')
 
 module.exports = {
   name: "ping",
@@ -7,7 +8,7 @@ module.exports = {
 
   execute: async (interaction, client) => {
     const embed = new EmbedBuilder()
-      .setColor(0x0099ff)
+      .setColor(config.discord.embedColors.dodgerBlue)
       .setTitle("🏓 Pong!")
       .setDescription(`Latency: ${client.ws.ping}ms`)
       .setFooter({
