@@ -340,7 +340,7 @@ async function logError(username, error, command, message) {
   })
 }
 
-async function hypixelRankColor(username) {
+async function hypixelRankEmoji(username) {
   var player = await hypixel.getPlayer(username);
   var plusColor = player.plusColor
   var plusPlusColor = player.prefixColor
@@ -375,5 +375,5 @@ module.exports = {
   getStar,
   register,
   logError,
-  hypixelRankColor
+  hypixelRankEmoji
 };
