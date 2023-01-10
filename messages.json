@@ -50,5 +50,6 @@
   "alreadyBlacklistedMessage": "Player is already blacklisted.",
   "cannotMuteMoreThanOneMonthMessage": "You cannot mute someone for more than one month",
   "userLoginMessageFirst": "Welcome back",
-  "userLoginMessageSecond": "<3 have a good day"
+  "userLoginMessageSecond": "<3 have a good day",
+  "defaultKickMessage": "You have been kicked from felony | discord.gg/felony and open a support ticket for more information"
 }
