@@ -25,28 +25,20 @@ module.exports = {
         if (hasPerms) {
             const username = interaction.options.getString("name");
             var player = await hypixel.getPlayer(username);
-            var guildStats = await hypixel.getGuild("player", username)
+            var guildInfo = await hypixel.getGuild("player", username)
 
             let meetRequirements = false
             let gexpRank = "kick"
-            let gexpReq = false
 
             if (player.stats.bedwars.wins >= config.minecraft.guild.requirements.bedwarsWins) meetRequirements = true
             if (player.stats.skywars.wins >= config.minecraft.guild.requirements.skywarsWins) meetRequirements = true
             if (player.stats.duels.wins >= config.minecraft.guild.requirements.duelsWins) meetRequirements = true
             if (player.level >= config.minecraft.guild.requirements.networkLevel) meetRequirements = true
 
-            var weekGEXP = playerGuild.me.weeklyExperience
-            if (weekGEXP > config.minecraft.guild.ranks.guards) {
-                gexpRank = guards
-                gexpReq = true
-            } else if (weekGEXP > config.minecraft.guild.ranks.thieves) {
-                gexpRank = thieves
-                gexpReq = true
-            } else if (weekGEXP > config.minecraft.guild.ranks.prisoners) {
-                gexpRank = prisoners
-                gexpReq = true
-            }
+            var weekGEXP = guildInfo.me.weeklyExperience
+            if (weekGEXP >= config.minecraft.guild.ranks.guards) gexpRank = guards
+            if (weekGEXP >= config.minecraft.guild.ranks.thieves) gexpRank = thieves
+            if (weekGEXP >= config.minecraft.guild.ranks.prisoners) gexpRank = prisoners
 
             const playerEmbed = new EmbedBuilder()
                 .setColor(config.discord.embedColors.dodgerBlue)
@@ -54,10 +46,31 @@ module.exports = {
                 .addFields(
                     {
                         name: "Guild Join date",
-                        value: `${(guild.me.joinedAtTimestamp / 1000).toFixed(0)}`,
-                        inline: false,
+                        value: `<:t:${(guildInfo.me.joinedAtTimestamp / 1000).toFixed(0)}:f>`,
+                        inline: true,
+                    },
+                    {
+                        name: "Guild Rank",
+                        value: `Guild Rank: ${guildInfo.me.rank}\nGuild Rank Based of gexp: ${gexpRank}`,
+                        inline: true,
+                    },
+                    {
+                        name: "Guild Experience",
+                        value: `This week: ${guildInfo.me.weeklyExperience}\n7d adv: ${(guildInfo.me.weeklyExperience / 7).toFixed(0)}`,
+                        inline: true,
+                    },
+                    {
+                        name: "Meet Requirements",
+                        value: `${meetRequirements ? config.other.emojis.discord.yes : config.other.emojis.discord.no}`,
+                        iniine: true,
                     }
                 )
+                .setThumbnail(`https://www.mc-heads.net/avatar/${player.nickname}`)
+                .setTimestamp()
+                .setFooter({
+                    text: `by Kathund#2004 | /help [command] for more information`,
+                });
+            await interaction.followUp({ embeds: [playerEmbed] });
         } else {
             await interaction.followUp({
                 content: "You do not have permission to run this command.",
